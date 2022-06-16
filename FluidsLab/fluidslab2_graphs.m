@@ -1,3 +1,9 @@
+% Slade Brooks
+% brooksl@mail.uc.edu
+% Fluids Lab 2
+% Graphical Code
+% enjoy the pretty pics
+% and don't ask about the -1's...
 
 % comp. coeffs
 Cxu = -1.*[-1, -0.36, -0.19, -0.11, -0.06, -0.03, 0.00, 0.02, 0.04, 0.05, 0.06, 0.08, 0.08, 0.09, 0.10, 0.11, 0.11, 0.12, 0];
@@ -75,6 +81,25 @@ Ulo_12 = Ulo_12.*Cxl;
 Ulo_14 = [0.021410579, 0.644612476, 0.353943218, 0.207939509, 0.090334807, 0.00754717, -0.044164038, -0.094065657, -0.111111111, -0.154040404, -0.18147448, -0.208832808, -0.230429293, -0.255359395, -0.282471627, -0.309343434, -0.338587642, -0.355387524, 0];
 Vlo_14 = Ulo_14.*Cyl;
 Ulo_14 = Ulo_14.*Cxl;
+
+% making pos bottom vectors end at airfoil
+pos = [0, 0];
+xposc = Xlo;
+yposc = Ylo;
+for i = length(Vlo_12)
+    if Vlo_12(i) > 0
+        pos(i) = i;
+    else
+        % do nothing
+    end
+end
+for k = length(pos)
+    var = pos(k);
+    xposnew = Xlo(var) - Ulo(var);
+    yposnew = Ylo(var) - Vlo(var);
+    xposc(var) = xposnew;
+    yposc(var) = yposnew;
+end
 
 % chordwise and chordnormal graph calcs
 Uup_0_cw = Cwx.*Uup_0c;
