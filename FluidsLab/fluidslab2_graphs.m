@@ -222,7 +222,7 @@ axis equal
 quiver(Xup, Yup, Uup_0_cn, Vup_0_cn, "color", "black", "LineWidth", 1);
 quiver(Xlo, Ylo, Ulo_0_cn, Vlo_0_cn, "color", "black", "LineWidth", 1);
 plot(Xup, Yup, "color", "black", "LineWidth", 1);
-plot(Xlo, yposc0, "color", "black", "LineWidth", 1);
+plot(Xlo, Ylo, "color", "black", "LineWidth", 1);
 title("0 deg Aoa Cp Chord Normal")
 hold off
 % 8 deg aoa cp cw vectors
