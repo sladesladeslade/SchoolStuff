@@ -149,13 +149,7 @@ for i = 1:length(Vlo_12)
         pos(i) = i;
     end
 end
-for k = 1:length(pos)
-    if pos(k) ~= 0
-        var = pos(k);
-        yposnew = Ylo(var) - (31.3*Vlo_12(var));
-        yposc12(var) = yposnew;
-    end
-end
+for k = 
 
 % chordwise and chordnormal graph calcs
 Uup_0_cw = Cwx.*Uup_0c;
@@ -280,7 +274,7 @@ figure(9);
 hold on
 axis equal
 quiver(Xup, Yup, Uup_12_cn, Vup_12_cn, "color", "black", "LineWidth", 1);
-quiver(Xlo, yposc12, Ulo_12_cn, Vlo_12_cn, "color", "black", "LineWidth", 1);
+quiver(Xlo, Ylo, Ulo_12_cn, Vlo_12_cn, "color", "black", "LineWidth", 1);
 plot(Xup, Yup, "color", "black", "LineWidth", 1);
 plot(Xlo, Ylo, "color", "black", "LineWidth", 1);
 title("12 deg AoA Cp Chord Normal")
