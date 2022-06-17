@@ -96,8 +96,8 @@ end
 for k = 1:length(pos)
     if pos(k) ~= 0
         var = pos(k);
-        xposnew = Xlo(var) - (31.3*Ulo_10(var));
-        yposnew = Ylo(var) - (31.3*Vlo_10(var));
+        xposnew = Xlo(var) - (34*Ulo_10(var));
+        yposnew = Ylo(var) - (34*Vlo_10(var));
         xposc10(var) = xposnew;
         yposc10(var) = yposnew;
     end
@@ -116,7 +116,7 @@ end
 for k = 1:length(pos)
     if pos(k) ~= 0
         var = pos(k);
-        yposnew = Ylo(var) - (31.3*Vlo_8(var));
+        yposnew = Ylo(var) - (37*Vlo_8(var));
         yposc8(var) = yposnew;
     end
 end
@@ -134,7 +134,7 @@ end
 for k = 1:length(pos)
     if pos(k) ~= 0
         var = pos(k);
-        yposnew = Ylo(var) - (31.3*Vlo_10(var));
+        yposnew = Ylo(var) - (34*Vlo_10(var));
         yposc102(var) = yposnew;
     end
 end
@@ -152,7 +152,7 @@ end
 for k = 1:length(pos)
     if pos(k) ~= 0
         var = pos(k);
-        yposnew = Ylo(var) - (31.3*Vlo_12(var));
+        yposnew = Ylo(var) - (37*Vlo_12(var));
         yposc12(var) = yposnew;
     end
 end
