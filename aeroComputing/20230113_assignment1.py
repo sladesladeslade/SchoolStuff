@@ -72,19 +72,28 @@ def plot(inputs):
                 xs[i] = np.linspace(xmin, xmax, num=100)
                 ys[i] = np.linspace(ymin, ymax, num=100)
 
+            # rotate ys to be columns
+            ys = np.rot90(ys, 3)
+
             # calculate f values
-            for k, j in range(xs.size[0],xs.shape[1]):
-                fs[k, j] = inputs[0]*np.sin(inputs[2]*np.pi*xs[k, j] + inputs[4]) + inputs[1]*np.sin(inputs[3]*np.pi*ys[k, j] + inputs[5])
+            for k in range(xs.shape[0]):
+                for j in range(xs.shape[1]):
+                    fs[k, j] = inputs[0]*np.sin(inputs[2]*np.pi*xs[k, j] + inputs[4])
+                    + inputs[1]*np.sin(inputs[3]*np.pi*ys[k, j] + inputs[5])
 
             # plot contour
             plt.contourf(xs, ys, fs, 20, cmap="RdGy")
-            plt.colorbar()
+
             # set plot range
-            plt.axis([xmin, xmax, ymin, ymax])
+            plt.axis([0,1,0,1])
+
+            # add plot formatting
+            plt.colorbar()
             plt.title("Contour Plot")
             plt.xlabel("X Axis")
             plt.ylabel("Y Axis")
 
+            # display plot
             plt.show()
 
         # if ans=2, generate line plot
