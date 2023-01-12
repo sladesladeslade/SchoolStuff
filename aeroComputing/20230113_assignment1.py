@@ -52,40 +52,31 @@ def plot(inputs):
     while stop == False:
         
         # ask for type of plot or to end
-        ans = input("Would you like a contour plot (1), a line plot (2), or to end (3)?")
+        ans = input("Would you like a contour plot (1), a line plot (2), or to end (3)? ")
 
         # if ans=1, generate contour plot
         if ans == "1":
             # ask for x and y ranges
-            xmin = float(input("Input the minimum x val: "))
-            xmax = float(input("Input the maximum x val: "))
-            ymin = float(input("Input the minimum y val: "))
-            ymax = float(input("Input the maximum y val: "))
+            vmin = float(input("Input the minimum val of the range: "))
+            vmax = float(input("Input the maximum val of the range: "))
 
-            # initialize arrays
-            xs = np.empty([100, 100])
-            ys = np.empty([100, 100])
-            fs = np.empty([100, 100])
-
-            # find x and y values
-            for i in range(100):
-                xs[i] = np.linspace(xmin, xmax, num=100)
-                ys[i] = np.linspace(ymin, ymax, num=100)
-
-            # rotate ys to be columns
-            ys = np.rot90(ys, 3)
+            # create list of points between min and max vals
+            xs = np.arange(vmin, vmax, 0.1)
+            ys = np.arange(vmin, vmax, 0.1)
+            fs = np.zeros((ys.size,xs.size))
+            
+            # create a grid of x and y values
+            [X, Y] = np.meshgrid(xs, ys)
 
             # calculate f values
-            for k in range(xs.shape[0]):
-                for j in range(xs.shape[1]):
-                    fs[k, j] = inputs[0]*np.sin(inputs[2]*np.pi*xs[k, j] + inputs[4])
-                    + inputs[1]*np.sin(inputs[3]*np.pi*ys[k, j] + inputs[5])
+            fs = inputs[0]*np.sin(inputs[2]*np.pi*X + inputs[4])
+            + inputs[1]*np.sin(inputs[3]*np.pi*Y + inputs[5])
 
             # plot contour
-            plt.contourf(xs, ys, fs, 20, cmap="RdGy")
+            plt.contourf(X, Y, fs, 20, cmap="RdGy")
 
             # set plot range
-            plt.axis([0,1,0,1])
+            plt.axis([vmin, vmax, vmin, vmax])
 
             # add plot formatting
             plt.colorbar()
@@ -97,6 +88,23 @@ def plot(inputs):
             plt.show()
 
         # if ans=2, generate line plot
+        if ans == "2":
+            # ask which direction line plot
+            ans = input("Would you like a vertical (V) or horizontal (H) line plot? ")
+
+            # if V, do this
+            if ans == "V":
+                # 
+                fixedv = float(input("Input the value of x: "))
+                vmin = float(input("Input the minimum value of y: "))
+                vmax = float(input("Input the maximum value of y: "))
+
+            # if H, do this
+            if ans == "H":
+                #
+                fixedv = float(input("Input the value of y: "))
+                vmin = float(input("Input the minimum value of x: "))
+                vmax = float(input("Input the maximum value of x: "))
 
         # if ans=3, end loop and output filenames of plots
         stop = True
@@ -105,5 +113,5 @@ def plot(inputs):
 # testing
 if __name__ == "__main__":
 
-    testinputs = inputs(1, 3, 1, 0.5, (np.pi)/4, (-np.pi)/3)
+    testinputs = inputs(1, 3, 1, 0.5, (np.pi)/4, -(np.pi)/3)
     testplot = plot(testinputs)
