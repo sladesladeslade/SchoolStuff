@@ -109,3 +109,27 @@ def LUsolve(a,b,seq):
         x[k] = (x[k] - np.dot(a[k,k+1:n],x[k+1:n]))/a[k,k]
 
     return x
+
+
+def cramer(a,b):
+    """
+    Like seinfeld lol
+    """
+    # get num of iterations
+    n = len(a)
+
+    # initialize x array
+    x = np.zeros(n, n)
+
+    # loop through
+    for i in range(n):
+        # reset ai to a
+        ai = a
+
+        # replace i column of A with b
+        ai[:, i] = b[:, 0]
+
+        # calculate xi
+        x[i, 0] = np.linalg.det(ai)/np.linalg.det(a)
+
+    return x
