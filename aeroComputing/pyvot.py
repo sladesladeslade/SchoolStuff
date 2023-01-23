@@ -113,23 +113,40 @@ def LUsolve(a,b,seq):
 
 def cramer(a,b):
     """
+    Solves [a]{x}=[b] using the cramer method.
+
     Like seinfeld lol
+
+    :type a: np.array
+    :type b: np.array
+    :returns: x
+    :rtype: np.array
     """
     # get num of iterations
-    n = len(a)
+    num_rows, num_cols = a.shape
 
     # initialize x array
-    x = np.zeros(n, n)
+    x = np.zeros([num_rows, 1])
+    ai = a
+    print(ai)
 
     # loop through
-    for i in range(n):
+    for i in range(num_cols):
         # reset ai to a
         ai = a
 
         # replace i column of A with b
         ai[:, i] = b[:, 0]
+        print(ai)
 
         # calculate xi
-        x[i, 0] = np.linalg.det(ai)/np.linalg.det(a)
+        x[i, 0] = (np.linalg.det(ai))/(np.linalg.det(a))
 
     return x
+
+
+# testing
+if __name__ == "__main__":
+
+    test = cramer(np.array([[4., 2., -2.],[2., 4., 2.],[-2., 3., 1.]]), np.array([[2.],[16.],[7.]]))
+    print(test)
