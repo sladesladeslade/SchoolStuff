@@ -128,16 +128,14 @@ def cramer(a,b):
     # initialize x array
     x = np.zeros([num_rows, 1])
     ai = a
-    print(ai)
 
     # loop through
     for i in range(num_cols):
         # reset ai to a
-        ai = a
+        ai = np.array(a)
 
         # replace i column of A with b
         ai[:, i] = b[:, 0]
-        print(ai)
 
         # calculate xi
         x[i, 0] = (np.linalg.det(ai))/(np.linalg.det(a))
