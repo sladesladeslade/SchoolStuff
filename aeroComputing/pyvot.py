@@ -113,7 +113,7 @@ def LUsolve(a,b,seq):
 
 def cramer(a,b):
     """
-    Solves [a]{x}=[b] using the cramer method.
+    Solves [a]{x}={b} using the cramer method.
 
     Like seinfeld lol
 
