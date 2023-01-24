@@ -8,8 +8,47 @@
 
 
 import numpy as np
-import swap
-import error
+import sys
+
+
+def err(string):
+    ''' err(string).
+    Prints 'string' and terminates program.
+    '''
+    print(string)
+    input('Press return to exit')
+    sys.exit()
+
+
+def swapRows(v,i,j):
+    ''' swapRows(v,i,j).
+    Swaps rows i and j of a vector or matrix [v].
+    '''
+    if len(v.shape) == 1:
+        v[i],v[j] = v[j],v[i]
+    else:
+        v[[i,j],:] = v[[j,i],:]
+    return
+
+
+def swapCols(v,i,j):
+    """
+    swapCols(v,i,j).
+    Swaps columns of matrix [v].
+    """
+    v[:,[i,j]] = v[:,[j,i]]
+    return
+
+
+def swapCramer(a, b, i):
+    """
+    swapCramer(a, b, i).
+    Swaps i-th column of matrix [a] with array [b].
+    """
+    import numpy as np
+    ai = a.copy()
+    ai[:, i] = np.transpose(b)
+    return ai
 
 
 def gaussPivot(a,b,tol=1.0e-12):
@@ -29,11 +68,11 @@ def gaussPivot(a,b,tol=1.0e-12):
 
     # Row interchange, if needed
         p = np.argmax(np.abs(a[k:n,k])/s[k:n]) + k
-        if abs(a[p,k]) < tol: error.err("Matrix is singular")
+        if abs(a[p,k]) < tol: err("Matrix is singular")
         if p != k:
-            swap.swapRows(b,k,p)
-            swap.swapRows(s,k,p)
-            swap.swapRows(a,k,p)
+            swapRows(b,k,p)
+            swapRows(s,k,p)
+            swapRows(a,k,p)
 
     # Elimination
         for i in range(k+1,n):
@@ -41,7 +80,7 @@ def gaussPivot(a,b,tol=1.0e-12):
                 lam = a[i,k]/a[k,k]
                 a[i,k+1:n] = a[i,k+1:n] - lam*a[k,k+1:n]
                 b[i] = b[i] - lam*b[k]
-    if abs(a[n-1,n-1]) < tol: error.err("Matrix is singular")
+    if abs(a[n-1,n-1]) < tol: err("Matrix is singular")
 
     # Back substitution
     b[n-1] = b[n-1]/a[n-1,n-1]
@@ -72,11 +111,11 @@ def LUdecomp(a, tol=1.0e-9):
 
         # Row interchange, if needed
         p = np.argmax(np.abs(a[k:n, k])/s[k:n]) + k
-        if abs(a[p,k]) < tol: error.err("Matrix is singular")
+        if abs(a[p,k]) < tol: err("Matrix is singular")
         if p != k:
-            swap.swapRows(s, k, p)
-            swap.swapRows(a, k, p)
-            swap.swapRows(seq, k, p)
+            swapRows(s, k, p)
+            swapRows(a, k, p)
+            swapRows(seq, k, p)
 
         # Elimination
         for i in range(k + 1, n):
