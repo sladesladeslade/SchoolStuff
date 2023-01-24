@@ -78,12 +78,12 @@ def LUdecomp(a,tol=1.0e-9):
             swap.swapRows(a,k,p)
             swap.swapRows(seq,k,p)
 
-    # Elimination
-    for i in range(k+1,n):
-        if a[i,k] != 0.0:
-            lam = a[i,k]/a[k,k]
-            a[i,k+1:n] = a[i,k+1:n] - lam*a[k,k+1:n]
-            a[i,k] = lam
+        # Elimination
+        for i in range(k+1,n):
+            if a[i,k] != 0.0:
+                lam = a[i,k]/a[k,k]
+                a[i,k+1:n] = a[i,k+1:n] - lam*a[k,k+1:n]
+                a[i,k] = lam
 
     return a,seq
 
