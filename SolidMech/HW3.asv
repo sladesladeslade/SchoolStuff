@@ -1,0 +1,9 @@
+clear all; clc()
+
+theta = (0*pi/180):(1*pi/180):(360*pi/180);
+
+sigman = (22.5)/(.015*.01)*(cos(theta)).^2;
+plot(theta, sigman, linewidth=2)
+
+taun =
+plot(theta, norm(
