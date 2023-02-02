@@ -1,9 +1,16 @@
 clear all; clc()
 
-theta = (0*pi/180):(1*pi/180):(360*pi/180);
+theta = 0:1:360;
 
-sigman = (22.5)/(.015*.01)*(cos(theta)).^2;
+sigman = (22.5)/(.015*.01)*(cos(theta*pi/180)).^2;
+
+taun = [];
+
+hold on
 plot(theta, sigman, linewidth=2)
-
-taun =
-plot(theta, norm(
+plot(theta, norm(taun), linewidth=2)
+title("Normal and Shear Stress")
+xlabel("Theta (degrees)")
+ylabel("Stress (kPa)")
+xlimits(0, 360)
+hold off

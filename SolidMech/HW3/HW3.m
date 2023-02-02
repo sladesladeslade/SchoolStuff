@@ -6,5 +6,12 @@ sigman = (22.5)/(.015*.01)*(cos(theta*pi/180)).^2;
 
 taun = [];
 
+hold on
 plot(theta, sigman, linewidth=2)
-%plot(theta, norm(taun), linewidth=2)
+plot(theta, norm(taun), linewidth=2)
+title("Normal and Shear Stress")
+xlabel("Theta (degrees)")
+ylabel("Stress (kPa)")
+xlim([0 360])
+legend("Normal", "Shear")
+hold off
