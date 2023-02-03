@@ -14909,10 +14909,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The largest compressive stress is found at $\sigma_{3}$ since negative normal stress is compressive. $\sigma_{3}$ represents a plane parallel to the xy plane in our coordinate system. Therefore, the orthogonal unit vector is the same as the unit vector for the z axis, therefore:
-$$
-\fbox{$\begin{bmatrix} 0 &amp; 0 &amp; 1 \end{bmatrix}$}
-$$</p>
+<p>The largest compressive stress is found at $\sigma_{3}$ since negative normal stress is compressive. Using Matlab's eig() function on the stress tensor $\sigma$ we can determine the corresponding eigenvector for $\sigma_{3}=-120.834$:</p>
 
 </div>
 </div>
@@ -14924,11 +14921,34 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The largest tensile stress is found at $\sigma_{1}$ since positive normal stress is tensile. $\sigma_{1}$ represents a plane parallel to the yz plane in our coordinate system. Therefore, the orthogonal unit vector is the same as the unit vector for the z axis, therefore:
 $$
-\fbox{$\begin{bmatrix} 1 &amp; 0 &amp; 0 \end{bmatrix}$}
-$$</p>
+\fbox{$\begin{bmatrix} -0.0410 \\ -0.9965 \\ 0.0731 \end{bmatrix}$}
+$$
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The largest tensile stress is found at $\sigma_{1}$ since positive normal stress is tensile. Using Matlab's eig() function on the stress tensor $\sigma$ we can determine the corresponding eigenvector for $\sigma_{1}=55.5037$:</p>
 
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+$$
+\fbox{$\begin{bmatrix} -0.9721 \\ 0.0229 \\ -0.2335 \end{bmatrix}$}
+$$
 </div>
 </div>
 </div>
