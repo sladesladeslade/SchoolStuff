@@ -6,12 +6,14 @@
 
 
 import math
+import numpy as np
 
 
 class streamFunc():
     """
     Collection of functions to calculate
     """
+
     def sourcesinkPsi(self, x1, y1, x2, y2, A):
         """
         Calculates the stream function (psi) of a source/sink
@@ -25,7 +27,7 @@ class streamFunc():
         """
 
         # calculate angle
-        theta = math.atan2((y2 - y1),(x2 - x1))
+        theta = np.arctan2((y2 - y1),(x2 - x1))
 
         # calculate strength
         V = (A/(2*(math.pi)))*theta
