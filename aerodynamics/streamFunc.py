@@ -25,7 +25,7 @@ class streamFunc():
         """
 
         # calculate angle
-        theta = math.atan((y2 - y1)/(x2 - x1))
+        theta = math.atan2((y2 - y1),(x2 - x1))
 
         # calculate strength
         V = (A/(2*(math.pi)))*theta
