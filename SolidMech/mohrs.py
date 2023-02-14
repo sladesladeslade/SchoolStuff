@@ -53,8 +53,6 @@ def mohrsCirc(point1, point2, point3, type:str):
             
     plt.axis("scaled")
     plt.legend(loc="upper left")
-    
-    return fig
 
 
 if __name__ == "__main__":
