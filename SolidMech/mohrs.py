@@ -10,6 +10,7 @@ import numpy as np
 
 
 def mohrsCirc(point1, point2, point3, type:str):
+    fig = plt.figure()
     y=0
     theta = np.linspace(0, 360, 10000)
 
@@ -53,7 +54,7 @@ def mohrsCirc(point1, point2, point3, type:str):
     plt.axis("scaled")
     plt.legend(loc="upper left")
     
-    return plt
+    return fig
 
 
 if __name__ == "__main__":
