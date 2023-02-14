@@ -52,10 +52,11 @@ def mohrsCirc(point1, point2, point3, type:str):
             
     plt.axis("scaled")
     plt.legend(loc="upper left")
-    plt.show()
+    
+    return plt
 
 
 if __name__ == "__main__":
 
     #mohrs(-.0004794, .0001345, .0006449, "strain")
-    plot = mohrs(-120.834, -6.6697, 53.5037, "stress")
+    plot = mohrsCirc(-120.834, -6.6697, 53.5037, "stress")
