@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def mohrs(point1, point2, point3, type:str):
+def mohrsCirc(point1, point2, point3, type:str):
     y=0
     theta = np.linspace(0, 360, 10000)
 
@@ -56,5 +56,6 @@ def mohrs(point1, point2, point3, type:str):
 
 
 if __name__ == "__main__":
-    mohrs(-.0004794, .0001345, .0006449, "strain")
-    mohrs(-120.834, -6.6697, 53.5037, "stress")
+
+    #mohrs(-.0004794, .0001345, .0006449, "strain")
+    plot = mohrs(-120.834, -6.6697, 53.5037, "stress")
