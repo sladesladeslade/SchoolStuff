@@ -65,5 +65,29 @@ def vortex(x1, y1, x2, y2, gamma):
     return V
 
 
+def doublet(x1, y1, x2, y2, kappa):
+    """
+    Calculates the stream function (psi) of a doublet
+    
+    :param x1: x pos of source
+    :param y1: y pos of source
+    :param x2: x pos of point
+    :param y2: y pos of point
+    :param kappa: constant of doublet
+    :returns: strength of V @ pt (x2, y2)
+    """
+
+    # calculate radius
+    r = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+    # calculate angle
+    theta = np.arctan2((y2 - y1),(x2 - x1))
+
+    # calculate V
+    V = (-kappa/(2*math.pi))*(np.sin(theta)/r)
+
+    return V
+
+
 if __name__ == "__main__":
     print("test")
