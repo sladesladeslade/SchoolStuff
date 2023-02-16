@@ -89,5 +89,33 @@ def doublet(x1, y1, x2, y2, kappa):
     return V
 
 
+def gamma(Vinf, R):
+    """
+    Calculates gamma for vortex for stagnation pt @ -90deg on lifting cylinder
+
+    :param Vinf: free stream velocity
+    :param R: desired radius of cylinder
+    :returns: gamma for the vortex
+    """
+
+    gamma = 4*math.pi*Vinf*R
+
+    return gamma
+
+
+def kappa(Vinf, R):
+    """
+    Calculates kappa for doublet for lifting cylinder
+
+    :param Vinf: free stream velocity
+    :param R: desired radius of cylinder
+    :returns: kappa for the vortex
+    """
+
+    kappa = 2*math.pi*Vinf*(R**2)
+
+    return kappa
+
+
 if __name__ == "__main__":
     print("test")
