@@ -398,7 +398,7 @@ def stdDev(c, xData, yData):
 
 # plotPoly
 
-def plotPoly(xData, yData, coeff, xlab="x", ylab="y", leg="Prediction"):
+def plotPoly(xData, yData, coeff, xlab="x", ylab="y"):
     """
     Plots data points and the fitting
     polynomial defined by its coefficient
@@ -413,9 +413,8 @@ def plotPoly(xData, yData, coeff, xlab="x", ylab="y", leg="Prediction"):
     y = np.zeros((len(x)))*1.0
     for i in range(m):
         y = y + coeff[i]*x**i
-    plt.plot(xData, yData, "o", x, y, "-", label=leg)
+    plt.plot(xData, yData, "o", x, y, "-")
     plt.xlabel(xlab); plt.ylabel(ylab)
-    plt.legend()
     plt.grid (True)
     plt.show()
 
