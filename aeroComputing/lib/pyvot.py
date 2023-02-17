@@ -229,6 +229,34 @@ def conjGrad(Av, x, b, tol=1.0e-9):
             s = r + beta*s
     return x, i
 
+# LUdecomp3 for use in cubicspline
+
+def LUdecomp3(c, d, e):
+    """
+    LU decomposition of tridiagonal matrix [c\d\e]. On output
+    {c},{d} and {e} are the diagonals of the decomposed matrix.
+    """
+    n = len(d)
+    for k in range(1, n):
+        lam = c[k-1]/d[k-1]
+        d[k] = d[k] - lam*e[k-1]
+        c[k-1] = lam
+    return c, d, e
+
+
+def LUsolve3(c, d, e, b):
+    """
+    Solves [c\d\e]{x} = {b}, where {c}, {d} and {e} are the
+    vectors returned from LUdecomp3.
+    """
+    n = len(d)
+    for k in range(1, n):
+        b[k] = b[k] - c[k-1]*b[k-1]
+    b[n-1] = b[n-1]/d[n-1]
+    for k in range(n-2, -1, -1):
+        b[k] = (b[k] - e[k]*b[k+1])/d[k]
+    return b
+
 # newtonPoly
 
 def evalPoly(a, xData, x):
@@ -294,8 +322,8 @@ def curvatures(xData, yData):
                 /(xData[0:n-1] - xData[1:n]) \
                 -6.0*(yData[1:n] - yData[2:n+1]) \
                 /(xData[1:n] - xData[2:n+1])
-    LUdecomp(c, d, e)
-    LUsolve(c, d, e, k)
+    LUdecomp3(c, d, e)
+    LUsolve3(c, d, e, k)
     return k
 
 
