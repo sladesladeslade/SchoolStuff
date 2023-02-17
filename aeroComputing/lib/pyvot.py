@@ -353,7 +353,7 @@ def evalSpline(xData, yData, k, x):
 def polyFit(xData, yData, m):
     """
     Returns coefficients of the polynomial
-    p(x) = c[0] + c[1]x + c[2]xˆ2 +...+ c[m]xˆm
+    p(x) = c[0] + c[1]x + c[2]x^2 +...+ c[m]x^m
     that fits the specified data in the least
     squares sense.
     """
@@ -398,7 +398,7 @@ def stdDev(c, xData, yData):
 
 # plotPoly
 
-def plotPoly(xData, yData, coeff, xlab="x", ylab="y"):
+def plotPoly(xData, yData, coeff, xlab="x", ylab="y", leg="Prediction"):
     """
     Plots data points and the fitting
     polynomial defined by its coefficient
@@ -413,8 +413,9 @@ def plotPoly(xData, yData, coeff, xlab="x", ylab="y"):
     y = np.zeros((len(x)))*1.0
     for i in range(m):
         y = y + coeff[i]*x**i
-    plt.plot(xData, yData, "o", x, y, "-")
+    plt.plot(xData, yData, "o", x, y, "-", label=leg)
     plt.xlabel(xlab); plt.ylabel(ylab)
+    plt.legend()
     plt.grid (True)
     plt.show()
 
