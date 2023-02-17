@@ -266,7 +266,7 @@ def rational(xData, yData, x):
     rOld = np.zeros(m)
     for k in range(m-1):
         for i in range(m-k-1):
-            if abs(x - xData[i+k+1]) < 1.0e-9:
+            if abs(x - (xData[i+k+1])) < 1.0e-9:
                 return yData[i+k+1]
             else:
                 c1 = r[i+1] - r[i]
