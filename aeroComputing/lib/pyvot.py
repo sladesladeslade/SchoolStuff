@@ -8,6 +8,7 @@
 
 
 import numpy as np
+from numpy import sign
 import sys
 import math
 import matplotlib.pyplot as plt
@@ -41,6 +42,7 @@ def swapCols(v,i,j):
     v[:,[i,j]] = v[:,[j,i]]
     return
 
+# cramer
 
 def swapCramer(a, b, i):
     """
@@ -52,6 +54,7 @@ def swapCramer(a, b, i):
     ai[:, i] = np.transpose(b)
     return ai
 
+# guassPivot
 
 def gaussPivot(a,b,tol=1.0e-12):
     """ 
@@ -91,6 +94,7 @@ def gaussPivot(a,b,tol=1.0e-12):
     
     return b
 
+# LUdecomp
 
 def LUdecomp(a, tol=1.0e-9):
     """
@@ -151,6 +155,7 @@ def LUsolve(a, b, seq):
 
     return x
 
+# cramer
 
 def cramer(a,b):
     """
@@ -183,6 +188,7 @@ def cramer(a,b):
 
     return x
 
+# gaussSeidel
 
 def gaussSeidel(iterEqs, x, tol=1.0e-9):
     """
@@ -207,6 +213,7 @@ def gaussSeidel(iterEqs, x, tol=1.0e-9):
                 - (dx2/dx1)**(1.0/p)))
     print("Gauss-Seidel failed to converge")
 
+# conjGrad
 
 def conjGrad(Av, x, b, tol=1.0e-9):
     """
@@ -418,9 +425,112 @@ def plotPoly(xData, yData, coeff, xlab="x", ylab="y"):
     plt.grid (True)
     plt.show()
 
+# rootsearch
+
+def rootsearch(f, a, b, dx):
+    """
+    Searches the interval (a,b) in increments dx for
+    the bounds (x1,x2) of the smallest root of f(x).
+    Returns x1 = x2 = None if no roots were detected.
+    """
+    x1 = a; f1= f(a)
+    x2 = a + dx; f2 = f(x2)
+    while sign(f1) == sign(f2):
+        if x1 >= b: return None, None
+        x1 = x2; f1 = f2
+        x2 = x1 + dx; f2 = f(x2)
+    else:
+        return x1, x2
+    
+# bisection
+
+def bisection(f, x1, x2, switch=1, tol=1.0e-9):
+    """
+    Finds a root of f(x) = 0 by bisection.
+    The root must be bracketed in (x1,x2).
+    Setting switch = 1 returns root = None if
+    f(x) increases upon bisection.
+    """
+    f1 = f(x1)
+    if f1 == 0.0: return x1
+    f2 = f(x2)
+    if f2 == 0.0: return x2
+    if sign(f1) == sign(f2):
+        err("Root is not bracketed")
+    n = int(math.ceil(math.log(abs(x2 - x1)/tol)/math.log(2.0)))
+
+    for i in range(n):
+        x3 = 0.5*(x1 + x2); f3 = f(x3)
+        if (switch == 1) and (abs(f3) > abs(f1)) \
+                        and (abs(f3) > abs(f2)):
+            return None
+        if f3 == 0.0: return x3
+        if sign(f2) != sign(f3): x1 = x3; f1 = f3
+        else: x2 = x3; f2 = f3
+    return (x1 + x2)/2.0
+
+# newtonRahpson
+
+def newtonRaphson(f, df, a, b, tol=1.0e-9):
+    """
+    Finds a root of f(x) = 0 by combining the Newton-Raphson
+    method with bisection. The root must be bracketed in (a,b).
+    Calls user-supplied functions f(x) and its derivative df(x).
+    """
+    fa = f(a)
+    if fa == 0.0: return a
+    fb = f(b)
+    if fb == 0.0: return b
+    if sign(fa) == sign(fb): err("Root is not bracketed")
+    x = 0.5*(a+b)
+    for i in range(30):
+        fx = f(x)
+        if fx == 0.0: return x
+        if sign(fa) != sign(fx): b=x
+        else: a=x
+        dfx = df(x)
+        try: dx = -fx/dfx
+        except ZeroDivisionError: dx = b - a
+        x = x + dx
+        if (b-x)*(x-a) < 0.0:
+            dx = 0.5*(b-a)
+            x = a + dx
+        if abs(dx) < tol*max(abs(b), 1.0): return x
+    print("Too many iterations in Newton-Raphson")
+
+# newtonraphson 2
+
+def newtonRaphson2(f, x, tol=1.0e-9):
+    """
+    Solves the simultaneous equations f(x) = 0 by
+    the Newton-Raphson method using {x} as the initial
+    guess. Note that {f} and {x} are vectors.
+    """
+    def jacobian(f, x):
+        h = 1.0e-4
+        n = len(x)
+        jac = np.zeros((n, n))
+        f0 = f(x)
+        for i in range(n):
+            temp = x[i]
+            x[i] = temp + h
+            f1 = f(x)
+            x[i] = temp
+            jac[:,i] = (f1 - f0)/h
+        return jac, f0
+
+    for i in range(30):
+        jac, f0 = jacobian(f, x)
+        if math.sqrt(np.dot(f0,f0)/len(x)) < tol: return x
+        dx = gaussPivot(jac, -f0)
+        x = x + dx
+        if math.sqrt(np.dot(dx, dx)) < tol*max(max(abs(x)), 1.0):
+            return x
+    print("Too many iterations")
+
 
 # testing
 if __name__ == "__main__":
 
     test = cramer(np.array([[4., 2., -2.],[2., 4., 2.],[-2., 3., 1.]]), np.array([[2.],[16.],[7.]]))
-    print(test)
+    # print(test)
