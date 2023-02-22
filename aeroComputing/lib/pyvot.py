@@ -19,7 +19,7 @@ def err(string):
     Prints 'string' and terminates program.
     '''
     print(string)
-    input('Press return to exit')
+    #input('Press return to exit')
     sys.exit()
 
 
