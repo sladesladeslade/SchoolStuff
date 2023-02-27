@@ -22,6 +22,7 @@ clc; clear all
 [t, y] = ode45(@xdot_prob, [0, 10], [1, 0]);
 figure(2)
 plot(t, y)
+title("ODE45");
 xlabel("Time (s)"); ylabel("y"); legend("$\dot{x_{1}}$", "$\dot{x_{2}}$", "interpreter", "latex")
 
 % function for ODE
