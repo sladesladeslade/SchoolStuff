@@ -1,0 +1,19 @@
+clc; clear all
+
+% call ode45
+[t, y] = ode45(@xdot_prob, [0, 10], [1, 0]);
+figure(2)
+plot(t, y)
+title("ODE45");
+xlabel("Time (s)"); ylabel("y"); legend("$\dot{x_{1}}$", "$\dot{x_{2}}$", "interpreter", "latex")
+
+% function for ODE
+function vdot = HW63(t, v)
+    I = 1.1;
+    m = 50;
+    R = 0.3;
+    T = 500;
+    ct = 0.2;
+    g = 9.81;
+    vdot = (T*R - m*g*R^2 - ct*v)/(I + m*R^2);
+end
