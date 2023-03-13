@@ -2,11 +2,17 @@ clc; clear all
 %% 
 % call ode45
 [t, y] = ode45(@HW63, [0, 300], 0);
-plot(t, y)
-title("ODE45 - HW6.3");
+figure(1);plot(t, y)
+title("ODE45 - HW6.3 - Response of V");
 xlabel("Time (s)"); ylabel("V (m/s)");
-
-% function for ODE
+%%
+% call ODE
+x0 = [0.1;0;0;0];   % initial conditions
+[t,x] = ode45(@HW65, [0,0.1], x0);
+figure(2);plot(t,x(:,1));grid on;ylabel('x_1');xlabel('Time (s)');
+title("ODE45 - HW6.5 - Response of x_1");
+%%
+% function for ODE number 3
 function vdot = HW63(t, v)
     I = 1.1;
     m = 50;
@@ -16,5 +22,13 @@ function vdot = HW63(t, v)
     g = 9.81;
     vdot = (T*R - m*g*R^2 - ct*v)/(I + m*R^2);
 end
-
-%%
+% function for ODE number 5
+function [xdot] = HW65(t, x)
+    m1 = 1;
+    m2 = 3;
+    k1 = 16000;
+    k2 = 16000;
+    k3 = 16000;
+    A = [0,0,1,0; 0,0,0,1; -(k1+k2)/m1, k2/m1,0,0; k2/m2, -(k2+k3)/m2,0,0];
+    xdot = A*x;
+end
