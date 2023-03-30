@@ -25,7 +25,7 @@ A = [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
     0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0;
     a 0 0 0 0 0 0 0 0 -b 0 0 0 0 0 0 0 0;
     0 (a^3)/6 (a^3)/2 0 0 0 0 -(a^3)/6 -(b*(a^2))/2 0 -(b^2)*a -(b^3) 0 0 0 0 0 0;
-    (a*cos(theta))/(E*sigma) ((a^3)*sin(theta))/(6*E*I) ((a^3)*sin(theta))/(2*E*I) 0 0 0 0 0 0 0 0 0 0 -(L3^3)/(Ep*sigmap) 0 0 0 0;
+    (a*cos(theta))/(E*sigma) ((a^3)*sin(theta))/(6*E*I) ((a^3)*sin(theta))/(2*E*I) 0 0 0 0 0 0 0 0 0 -(L3)/(Ep*sigmap) 0 0 0 0 0;
     (a*sin(theta))/(E*sigma) ((a^3)*cos(theta))/(6*E*I) ((a^3)*cos(theta))/(2*E*I) 0 0 0 0 0 0 0 0 0 0 0 0 0 -(L3^3)/(Ep*Ip) 0;
     0 (a^2)/2 a^2 0 0 0 0 -(a^2)/2 -b*a 0 -(b^2) 0 0 0 0 0 0 0;
     -cos(theta) sin(theta) 0 0 0 0 0 -sin(theta) 0 0 0 0 -1 0 0 0 0 0;
