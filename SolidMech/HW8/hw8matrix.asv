@@ -36,15 +36,14 @@ B = [0; 0; 0; 0; 0; 0; 0; 0; -q*L; (q*L^2)/(2*b); 0; 0; -(q*(a^4)*sin(theta))/(2
 % yikes
 Cs = A\B;
 
-La = 0:0.001:a;
-Lb = a:0.001:L;
-Lt = 0:0.001:L3;
+La = 0:0.01:a;
+Lb = a:0.01:L;
+Lt = 0:0.01:L3;
 %% Shear
 V1 = q*La + Cs(2);
 V2 = q*Lb + Cs(8);
-plot(La, V1, Lb, V2);
+figure(1); plot(La, V1, Lb, V2);
 
 %% Moment
-M1 = .5*q*La.^2+Cs(2)*La+Cs(3)*a;
-M2 = .5*q*Lb.^2+Cs(8)*Lb+Cs(9)*b;
-plot(La, M1, Lb, M2);
+M1 = .5*q*La^2+Cs(2)*x+Cs(3)*a;
+M2 = .5*q
