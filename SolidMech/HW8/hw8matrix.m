@@ -48,3 +48,10 @@ plot(La, V1, Lb, V2);
 M1 = .5*q*La.^2+Cs(2)*La+Cs(3)*a;
 M2 = .5*q*Lb.^2+Cs(8)*Lb+Cs(9)*b;
 plot(La, M1, Lb, M2);
+
+%% Rotation
+p1 = (1/(E*I))*((1/6)*q*La.^3 + 0.5*Cs(2)*La.^2 + Cs(3)*a*La + Cs(5)*a^2);
+p2 = (1/(E*I))*((1/6)*q*Lb.^3 + 0.5*Cs(8)*Lb.^2 + Cs(9)*b*Lb + Cs(11)*b^2);
+figure(1);plot(La, p1, Lb, p2);
+p3 = (1/(Ep*Ip))*(0.5*Cs(14)*Lt.^2 + Cs(15)*L3*Lt + Cs(17)*L3^2);
+%figure(2);plot(Lt, p3);
