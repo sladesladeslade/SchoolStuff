@@ -3,12 +3,15 @@
 Created on Fri Mar 24 01:23:34 2023
 
 @author: cycon
+stolen by slade :)
 """
+import sys
 import numpy as np
 import scipy.integrate as spint 
 import matplotlib.pyplot as plt
-import MatrixManipulator as MM
-import time
+
+sys.path.append("C:\\Users\\spbro\\SchoolStuff\\aeroComputing\\lib\\")
+import pyvot as MM
 
 
 def TAFT(NACA, c=1):
@@ -88,8 +91,8 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     # Get the coefficient vector
     An = MM.gaussPivot(A.copy(), sol.copy())
    
-    # Get error in case it is needed
-    res = MM.accuracy(A, An, sol)
+    # # Get error in case it is needed
+    # res = MM.accuracy(A, An, sol)
     
     # Calculate Gamma
     for i, th in enumerate(theta_p):
@@ -100,16 +103,7 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     
     if S != None:
         # Calculate Lift Coefficient
-        CL = 2*np.sum(Gamma)/(Vinf*S)
-        
-        # # Calculate induced angle of attack?
-        # a_i = np.empty(N)
-        # for j in range(0, N):
-        #     integral = 0
-        #     for i in range(0,N-1):
-        #         integral += ((Gamma[i+1] - Gamma[i])/(y[i+1] - y[i]))/(y[j]-y[i])
-        #     a_i[j] = integral/(4*np.pi*Vinf)
-        # print(a_i)
+        CL = 2*np.trapz(Gamma, dx=np.pi/N_p)/(Vinf*S)
         
     return [theta_p, Gamma] if S == None else [theta_p, Gamma, CL]
 
@@ -146,34 +140,18 @@ def plotPlaniform(b,c_func):
     plt.ylim([-c_max,c_max])
     # plt.xlim([-3*b/4,3*b])
     plt.grid()
-    
-    
+
+
 if __name__ == '__main__':
     
-    Airfoil = '0012'
+    Airfoil = '8412'
     # Set up some standard constants
-    a = 4   # deg - angle of attack of interest
+    a = 2   # deg - angle of attack of interest
     a0 = TAFT(Airfoil)[0]  # deg - zero lift angle of attack
-    b = 10  # m - span length
+    b = 8  # m - span length
     c = 1   # m - chord length 
-    Vinf = 50 # m/s - freestream velocity
+    Vinf = 1.56 # m/s - freestream velocity
     S = b*c # m^2 - Ref Area (different if chord varies)
-    
-    # chord = chord_Lin_func_maker(1,0.25,5)
-    # chord_th, chord_y = chord_Lin_func_maker(1,1,b)
-    
-    # plotPlaniform(b,chord_th)
-    
-    # # --- Chord Testing ----
-    # if False:
-    #     print(chord(np.arange(-5,6,1)))
-        
-    #     chord = chord_Lin_func_maker(1,0.5,5)
-    #     theta = np.linspace(0,np.pi,10,endpoint=True)
-    #     print(chord(theta))
-        
-    #     plt.plot(theta, chord(theta))
-    #     plt.ylim(0,2)
     
     t, g, Cl = LiftDistribution(a, a0, b, c, Vinf,S)
 
@@ -187,6 +165,7 @@ if __name__ == '__main__':
         plt.xlabel('Theta (rad)')
         plt.ylabel('Gamma')
         plt.grid()
+        plt.show()
     
     if False:
         for n in range(5,50):
