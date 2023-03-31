@@ -102,7 +102,13 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     # Calculate Lift Coefficient
     CL = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
 
-    return [theta_p, Gamma, CL, bs]
+    # Calculate drag coefficient
+    dgam = np.gradient(Gamma, bs)
+    dgam = dgam/bs
+    aiy = (1/(4*np.pi*Vinf))*np.trapz(dgam, bs)
+    Cdi = (2/(Vinf*S))*np.trapz(dgam*aiy, bs)
+
+    return [theta_p, Gamma, CL, bs, Cdi]
 
 
 if __name__ == '__main__':
@@ -118,13 +124,13 @@ if __name__ == '__main__':
     Vinf = 1.56 # m/s - freestream velocity
     S = b*c # m^2 - Ref Area (different if chord varies)
     
-    t, g, Cl, bs = LiftDistribution(a, a0, b, c, Vinf,S)
+    t, g, Cl, bs, Cdi = LiftDistribution(a, a0, b, c, Vinf,S)
 
     # Plotting
     plt.figure()
     plt.plot(bs, g)
     # plt.yticks(np.arange(0,15,2.5))
-    plt.title('NACA{}\n b = {}, c = {}, $C_L$ = {}'.format(Airfoil, b, c, Cl))
+    plt.title('NACA{0}\n b = {1:.1f}, c = {2:.1f}, $C_L$ = {3:.4f}, $CD_i$ = {4:.4f}'.format(Airfoil, b, c, Cl, Cdi))
     plt.xlabel('y')
     plt.ylabel('Gamma')
     plt.grid()
