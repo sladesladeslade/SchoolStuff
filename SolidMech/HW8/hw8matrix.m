@@ -55,3 +55,8 @@ p2 = (1/(E*I))*((1/6)*q*Lb.^3 + 0.5*Cs(8)*Lb.^2 + Cs(9)*b*Lb + Cs(11)*b^2);
 figure(1);plot(La, p1, Lb, p2);
 p3 = (1/(Ep*Ip))*(0.5*Cs(14)*Lt.^2 + Cs(15)*L3*Lt + Cs(17)*L3^2);
 %figure(2);plot(Lt, p3);
+
+%% spar vertical displacement
+w1 = (1/(E*I))*((1/24)*q*La.^4 + (1/6)*Cs(2)*La.^3 + 0.5*Cs(3)*a*La.^2 + Cs(5)*a^2*La + Cs(6)*a^3);
+w2 = (1/(E*I))*((1/24)*q*Lb.^4 + (1/6)*Cs(8)*Lb.^3 + 0.5*Cs(9)*b*Lb.^2 + Cs(11)*b^2*Lb + Cs(12)*b^3);
+plot(La, w1, Lb, w2);
