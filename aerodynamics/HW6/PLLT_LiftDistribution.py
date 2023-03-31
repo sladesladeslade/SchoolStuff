@@ -82,7 +82,7 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     # Calculate the matrix to find the coefficients An
     for i, th in enumerate(theta):
         for n in range(1,N+1):
-            A[i, n-1] = 2*b /(np.pi*c(y[i])) * np.sin(n*th)
+            A[i, n-1] = 2*b/(np.pi*c(y[i])) * np.sin(n*th)
             if np.sin(th) != 0:
                 A[i, n-1] += n*np.sin(n*th)/np.sin(th)
             else: 
@@ -90,9 +90,6 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
 
     # Get the coefficient vector
     An = MM.gaussPivot(A.copy(), sol.copy())
-   
-    # # Get error in case it is needed
-    # res = MM.accuracy(A, An, sol)
     
     # Calculate Gamma
     for i, th in enumerate(theta_p):
@@ -104,83 +101,33 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     if S != None:
         # Calculate Lift Coefficient
         CL = 2*np.trapz(Gamma, dx=np.pi/N_p)/(Vinf*S)
-        
-    return [theta_p, Gamma] if S == None else [theta_p, Gamma, CL]
 
-def chord_Lin_func_maker(max_c, min_c, b):
-    # will work according to 
-    
-    def chord_funct_y(y):
-        c = abs(y)*(-min_c/(2*b)) + max_c
-        return c
-    
-    def chord_funct_theta(th):
-        c = (max_c-min_c)*np.sin(th) + min_c
-        return c
-    
-    return chord_funct_theta, chord_funct_y
+    bs = np.linspace(-b/2, b/2, N_p)
 
-
-def plotPlaniform(b,c_func):
-    # Assuming c is callable for now
-    # Works on theta:
-    th = np.linspace(0,np.pi,100,endpoint=True)
-    # y = -b*np.cos(th)/2
-    y = np.linspace(-b/2, b/2, 100, endpoint=True)
-    c = c_func(y) # Chord lengths
-    
-    upperC = c/2
-    lowerC = -c/2
-    leftTip = np.array([[y[0], upperC[0]],[y[0], lowerC[0]]])
-    rightTip = np.array([[y[-1], upperC[-1]],[y[-1], lowerC[-1]]])
-    
-    plt.figure()
-    plt.plot(y,upperC, y, lowerC, leftTip[:,0], leftTip[:,1], rightTip[:,0], rightTip[:,1])
-    c_max = np.max(c)
-    plt.ylim([-c_max,c_max])
-    # plt.xlim([-3*b/4,3*b])
-    plt.grid()
+    return [theta_p, Gamma, CL, bs]
 
 
 if __name__ == '__main__':
     
-    Airfoil = '8412'
+    Airfoil = '0016'
     # Set up some standard constants
-    a = 2   # deg - angle of attack of interest
-    a0 = TAFT(Airfoil)[0]  # deg - zero lift angle of attack
-    b = 8  # m - span length
+    a = 4   # deg - angle of attack of interest
+    a0 = np.degrees(TAFT(Airfoil)[0])  # deg - zero lift angle of attack
+    # print(a0)
+    # print(TAFT(Airfoil)[1](0.0873))
+    b = 5  # m - span length
     c = 1   # m - chord length 
     Vinf = 1.56 # m/s - freestream velocity
     S = b*c # m^2 - Ref Area (different if chord varies)
     
-    t, g, Cl = LiftDistribution(a, a0, b, c, Vinf,S)
+    t, g, Cl, bs = LiftDistribution(a, a0, b, c, Vinf,S)
 
-    # ---- Plotting Gamma -----
-    if True:
-        # Plotting
-        plt.figure()
-        plt.plot(t, g)
-        # plt.yticks(np.arange(0,15,2.5))
-        plt.title('NACA{}\n b = {}, c = {}, $C_L$ = {}'.format(Airfoil, b, c, Cl))
-        plt.xlabel('Theta (rad)')
-        plt.ylabel('Gamma')
-        plt.grid()
-        plt.show()
-    
-    if False:
-        for n in range(5,50):
-            t, g, Cl = LiftDistribution(a, a0, b, 1, Vinf,S,n, 100)
-        
-            # ---- Plotting Gamma -----
-            if True:
-                # Plotting
-                plt.plot(t, g)
-                # plt.yticks(np.arange(0,15,2.5))
-                plt.xlabel('Theta (rad)')
-                plt.ylabel('Gamma')
-                plt.title('$C_L$ = {}\nN={}'.format(Cl, n))
-                plt.grid()
-                plt.pause(0.5)
-                plt.clf()
-        
-        
+    # Plotting
+    plt.figure()
+    plt.plot(bs, g)
+    # plt.yticks(np.arange(0,15,2.5))
+    plt.title('NACA{}\n b = {}, c = {}, $C_L$ = {}'.format(Airfoil, b, c, Cl))
+    plt.xlabel('y')
+    plt.ylabel('Gamma')
+    plt.grid()
+    plt.show()
