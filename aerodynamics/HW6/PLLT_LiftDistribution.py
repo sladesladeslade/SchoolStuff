@@ -72,6 +72,7 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     theta_p = np.linspace(0,np.pi,N_p)
     
     y = np.linspace(-b/2, b/2, N)
+    bs = np.linspace(-b/2, b/2, N_p)
     
     # Initialize arrays/Matrices
     Gamma = np.zeros(N_p)
@@ -82,7 +83,7 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     # Calculate the matrix to find the coefficients An
     for i, th in enumerate(theta):
         for n in range(1,N+1):
-            A[i, n-1] = 2*b/(np.pi*c(y[i])) * np.sin(n*th)
+            A[i, n-1] = 2*b /(np.pi*c(y[i])) * np.sin(n*th)
             if np.sin(th) != 0:
                 A[i, n-1] += n*np.sin(n*th)/np.sin(th)
             else: 
@@ -94,28 +95,26 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     # Calculate Gamma
     for i, th in enumerate(theta_p):
         sig=0
-        for n in range(1,N+1):
+        for n in range(1, N+1):
             sig += An[n-1]*np.sin(n*th)
         Gamma[i] = 2*b*Vinf*sig
     
     if S != None:
         # Calculate Lift Coefficient
-        CL = 2*np.trapz(Gamma, dx=np.pi/N_p)/(Vinf*S)
-
-    bs = np.linspace(-b/2, b/2, N_p)
+        CL = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
 
     return [theta_p, Gamma, CL, bs]
 
 
 if __name__ == '__main__':
     
-    Airfoil = '0016'
+    Airfoil = '8412'
     # Set up some standard constants
-    a = 4   # deg - angle of attack of interest
+    a = 2   # deg - angle of attack of interest
     a0 = np.degrees(TAFT(Airfoil)[0])  # deg - zero lift angle of attack
     # print(a0)
     # print(TAFT(Airfoil)[1](0.0873))
-    b = 5  # m - span length
+    b = 8  # m - span length
     c = 1   # m - chord length 
     Vinf = 1.56 # m/s - freestream velocity
     S = b*c # m^2 - Ref Area (different if chord varies)
