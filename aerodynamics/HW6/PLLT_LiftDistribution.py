@@ -98,10 +98,9 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
         for n in range(1, N+1):
             sig += An[n-1]*np.sin(n*th)
         Gamma[i] = 2*b*Vinf*sig
-    
-    if S != None:
-        # Calculate Lift Coefficient
-        CL = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
+
+    # Calculate Lift Coefficient
+    CL = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
 
     return [theta_p, Gamma, CL, bs]
 
