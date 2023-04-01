@@ -103,10 +103,10 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     CL = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
 
     # Calculate drag coefficient
-    dgam = np.gradient(Gamma, bs)
-    dgam = dgam/bs
-    aiy = (1/(4*np.pi*Vinf))*np.trapz(dgam, bs)
-    Cdi = (2/(Vinf*S))*np.trapz(dgam*aiy, bs)
+    sumAs = 0
+    for k in range(1, N):
+        sumAs += k*(An[k]/An[0])**2
+    Cdi = (np.pi*(b**2)/S)*(An[0]**2)*(1 + sumAs)
 
     return [theta_p, Gamma, CL, bs, Cdi]
 
@@ -119,12 +119,12 @@ if __name__ == '__main__':
     a0 = np.degrees(TAFT(Airfoil)[0])  # deg - zero lift angle of attack
     # print(a0)
     # print(TAFT(Airfoil)[1](0.0873))
-    b = 8  # m - span length
+    b = 1  # m - span length
     c = 1   # m - chord length 
     Vinf = 1.56 # m/s - freestream velocity
     S = b*c # m^2 - Ref Area (different if chord varies)
     
-    t, g, Cl, bs, Cdi = LiftDistribution(a, a0, b, c, Vinf,S)
+    t, g, Cl, bs, Cdi = LiftDistribution(a, a0, b, c, Vinf, S)
 
     # Plotting
     plt.figure()
