@@ -113,15 +113,15 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
 
 if __name__ == '__main__':
     
-    Airfoil = '8412'
+    Airfoil = '4412'
     # Set up some standard constants
-    a = 2   # deg - angle of attack of interest
+    a = 5   # deg - angle of attack of interest
     a0 = np.degrees(TAFT(Airfoil)[0])  # deg - zero lift angle of attack
     # print(a0)
     # print(TAFT(Airfoil)[1](0.0873))
     b = 1  # m - span length
     c = 1   # m - chord length 
-    Vinf = 1.56 # m/s - freestream velocity
+    Vinf = 10 # m/s - freestream velocity
     S = b*c # m^2 - Ref Area (different if chord varies)
     
     t, g, Cl, bs, Cdi = LiftDistribution(a, a0, b, c, Vinf, S)
