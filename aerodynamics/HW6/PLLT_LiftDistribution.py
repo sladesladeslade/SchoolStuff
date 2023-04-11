@@ -1,25 +1,21 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 24 01:23:34 2023
+# aero PLLT code
+# adapted from Brice <3
 
-@author: cycon
-stolen by slade :)
-"""
 import sys
 import numpy as np
 import scipy.integrate as spint 
 import matplotlib.pyplot as plt
 
 sys.path.append("C:\\Users\\spbro\\SchoolStuff\\aeroComputing\\lib\\")
-import pyvot as MM
+import pyvot as pyv
 
 
 def TAFT(NACA, c=1):
-    # Cant check NACA for correcft input yet
-    # Set up parameters 
+    # airfoil info from name
     m = int(NACA[0])*0.01
     p = int(NACA[1])*0.1
     h = int(NACA[2:])*0.01
+
     # Define Piece wise functions
     def dz_dx_Cl(theta):
         if theta <= np.arccos(1-2*p/c):
@@ -39,48 +35,46 @@ def TAFT(NACA, c=1):
         else:
             return ((2*p*m - m*c +m*c*np.cos(theta))/(1-p)**2)*np.cos(2*theta)
 
-    # Compute Integrals
+    # Compute integrals/coeffs
     a_L0 = - spint.quad(dz_dx_Cl,0,np.pi)[0]/np.pi
     A_1 = (2/np.pi)*spint.quad(dz_dx_A1,0,np.pi)[0]
     A_2 = (2/np.pi)*spint.quad(dz_dx_A2,0,np.pi)[0]
 
-    # Compute Coefficients
+    # solve TAFT and make fxns
     def CL(alpha):
         return 2*np.pi*(alpha - a_L0)
-
     def CM_LE(alpha): 
         return - (CL(alpha)/4 + np.pi*(A_1-A_2)/4)
     
     return a_L0, CL, CM_LE
 
 
-# Function assuming a constant airfoil acros cross section, sym about midpoint
 def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100): 
-    # If c is passed as a scalar, covnert to a function
-    if not callable(c):
-        chord_length = c;
-        def def_c(theta):
-            return chord_length
-        c = def_c
+    # make chord a function
+    chord_length = c
+    def def_c(theta):
+        return chord_length
+    c = def_c
     
-    # Convert to radians for calculations
+    # Convert for calcs
     a_rad = np.radians(a)
     a0_rad = np.radians(a0)
     
-    # Set up our thetas
+    # Set theta
     theta = np.linspace(0,np.pi,N)
     theta_p = np.linspace(0,np.pi,N_p)
-    
+
+    # set up span stuff
     y = np.linspace(-b/2, b/2, N)
     bs = np.linspace(-b/2, b/2, N_p)
     
-    # Initialize arrays/Matrices
+    # make vars
     Gamma = np.zeros(N_p)
     A = np.zeros((N,N),dtype=float)
     sol = np.empty(N)
     sol = np.full(N, a_rad - a0_rad)
     
-    # Calculate the matrix to find the coefficients An
+    # get coeffs matrix
     for i, th in enumerate(theta):
         for n in range(1,N+1):
             A[i, n-1] = 2*b /(np.pi*c(y[i])) * np.sin(n*th)
@@ -89,47 +83,43 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
             else: 
                 A[i, n-1] += n*n*np.cos(n*th)/np.cos(th)
 
-    # Get the coefficient vector
-    An = MM.gaussPivot(A.copy(), sol.copy())
+    # PLLT coeffs vector
+    An = pyv.gaussPivot(A.copy(), sol.copy())
     
-    # Calculate Gamma
+    # get gamma
     for i, th in enumerate(theta_p):
         sig=0
         for n in range(1, N+1):
             sig += An[n-1]*np.sin(n*th)
         Gamma[i] = 2*b*Vinf*sig
 
-    # Calculate Lift Coefficient
-    CL = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
+    # get CL
+    Cl = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
 
-    # Calculate drag coefficient
+    # get CDi
     sumAs = 0
     for k in range(1, N):
         sumAs += k*(An[k]/An[0])**2
     Cdi = (np.pi*(b**2)/S)*(An[0]**2)*(1 + sumAs)
 
-    return [theta_p, Gamma, CL, bs, Cdi]
+    return [theta_p, Gamma, Cl, bs, Cdi]
 
 
 if __name__ == '__main__':
     
     Airfoil = '4412'
-    # Set up some standard constants
-    a = 5   # deg - angle of attack of interest
-    a0 = np.degrees(TAFT(Airfoil)[0])  # deg - zero lift angle of attack
-    # print(a0)
-    # print(TAFT(Airfoil)[1](0.0873))
-    b = 1  # m - span length
-    c = 1   # m - chord length 
-    Vinf = 10 # m/s - freestream velocity
-    S = b*c # m^2 - Ref Area (different if chord varies)
+    a = 5   # test aoa
+    a0 = np.degrees(TAFT(Airfoil)[0])  # 0 lift aoa from TAFT
+    b = 1 
+    c = 1
+    Vinf = 10
+    S = b*c
     
     t, g, Cl, bs, Cdi = LiftDistribution(a, a0, b, c, Vinf, S)
 
     # Plotting
     plt.figure()
     plt.plot(bs, g)
-    # plt.yticks(np.arange(0,15,2.5))
     plt.title('NACA{0}\n b = {1:.1f}, c = {2:.1f}, $C_L$ = {3:.4f}, $CD_i$ = {4:.4f}'.format(Airfoil, b, c, Cl, Cdi))
     plt.xlabel('y')
     plt.ylabel('Gamma')
