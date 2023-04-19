@@ -95,6 +95,9 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
 
     # get CL
     Cl = An[0]*np.pi*(b**2)/S
+    # Cl2 = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
+    Cl2 = spint.quad(Gamma, -b/2, b/2)
+    Cl = (Cl2+Cl)/2
 
     # get CDi
     sumAs = 0
