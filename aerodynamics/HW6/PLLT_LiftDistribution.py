@@ -112,8 +112,8 @@ if __name__ == '__main__':
     Airfoil = '4412'
     a = 5   # test aoa
     a0 = np.degrees(TAFT(Airfoil)[0])  # 0 lift aoa from TAFT
-    b = 5
-    c = 1
+    b = 10.74
+    c = 1.544
     Vinf = 10
     S = b*c
     
