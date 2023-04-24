@@ -94,7 +94,9 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
         Gamma[i] = 2*b*Vinf*sig
 
     # get CL
-    Cl = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
+    Cl = An[0]*np.pi*(b**2)/S
+    Cl2 = 2*np.trapz(Gamma, x=bs)/(Vinf*S)
+    Cl = (Cl2+Cl)/2
 
     # get CDi
     sumAs = 0
@@ -110,8 +112,8 @@ if __name__ == '__main__':
     Airfoil = '4412'
     a = 5   # test aoa
     a0 = np.degrees(TAFT(Airfoil)[0])  # 0 lift aoa from TAFT
-    b = 1 
-    c = 1
+    b = 10.74
+    c = 1.544
     Vinf = 10
     S = b*c
     
