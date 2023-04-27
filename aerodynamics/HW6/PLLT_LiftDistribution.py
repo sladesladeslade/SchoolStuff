@@ -65,7 +65,7 @@ def LiftDistribution(a, a0, b, c, Vinf, S=None, N=50, N_p=100):
     theta_p = np.linspace(0,np.pi,N_p)
 
     # set up span stuff
-    y = np.linspace(-b/2, b/2, N)
+    y = np.array([-b/2*np.cos(t) for t in theta])
     bs = np.linspace(-b/2, b/2, N_p)
     
     # make vars
