@@ -1,6 +1,7 @@
-
 import sys
-sys.path.append('.')# one directory up
+import os
+cwd = os.getcwd()
+sys.path.append(cwd + "/Fall 2023/flightmech/examples/") # one directory up
 import numpy as np
 from math import cos, sin, tan
 import scipy.linalg as linalg
