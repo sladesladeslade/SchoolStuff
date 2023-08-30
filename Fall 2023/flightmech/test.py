@@ -2,6 +2,7 @@ import numpy as np
 from animation import animation
 from sliders import sliders
 import simparams as SIM
+import keyboard
 
 
 # make cube
@@ -24,7 +25,7 @@ def obj(v):
 faces = ['g', 'r', 'r', 'r', 'r','r']
 
 state = np.array([[0], [0], [-1], [0], [0], [0], [0], [0], [0], [0], [0], [0]])
-cube = animation()
+cube = animation(limits=10)
 slider = sliders()
 
 # initialize the simulation time
@@ -39,7 +40,6 @@ phi=state[6,0]
 theta=state[7,0]
 psi=state[8,0]
 
-# loop and sim
 while sim_time < SIM.end_time:
     # reading from sliders
     phi = slider.roll_slider.val
@@ -51,3 +51,7 @@ while sim_time < SIM.end_time:
     
     # -------increment time-------------
     sim_time += SIM.ts_simulation
+    
+    # stop on q
+    if keyboard.is_pressed("q"):
+        break
