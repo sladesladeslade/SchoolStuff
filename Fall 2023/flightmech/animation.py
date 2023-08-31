@@ -26,7 +26,6 @@ class animation():
         self.ax.set_xlim([-limits, limits])
         self.ax.set_ylim([-limits, limits])
         self.ax.set_zlim([-limits, limits])
-        self.ax.set_title('3D Animation')
         self.ax.set_xlabel('East (m)')
         self.ax.set_ylabel('North (m)')
         self.ax.set_zlabel('Height (m)')
