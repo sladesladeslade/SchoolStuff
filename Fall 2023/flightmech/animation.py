@@ -17,6 +17,10 @@ class animation():
     -------
     rotmove(verts, n, e, d, phi, theta, psi)
         Rotates and translates object of given vertices to specified location and euler angles.
+    update(verts, obj, n, e, d, phi, theta, psi, facecolors)
+        Updates position and rotation of object and draws it.
+    drawObj(verts, obj, n, e, d, phi, theta, psi, facecolors)
+        Draws the object to 3D plot.
     """
     
     def __init__(self, limits=10): 

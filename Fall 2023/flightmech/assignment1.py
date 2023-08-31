@@ -19,7 +19,7 @@ faces = ["g"]
 plane = animation()
 
 # ICs
-state = np.array([[0], [0], [-1], [0], [0], [0], [0], [0], [0], [0], [0], [0]])
+state = np.array([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
 # init sliders
 slider = sliders()
@@ -29,12 +29,12 @@ sim_time = SIM.start_time
 
 # main simulation loop
 print("Press Q to exit...")
-n=state[0,0]
-e=state[1,0]
-d=state[2,0]
-phi=state[6,0]
-theta=state[7,0]
-psi=state[8,0]
+n = state[0]
+e = state[1]
+d = state[2]
+phi = state[6]
+theta = state[7]
+psi = state[8]
 
 while sim_time < SIM.end_time:
     # reading from sliders
