@@ -9,18 +9,18 @@ from animation import animation
 from sliders import sliders
 import simparams as SIM
 import keyboard
-from hangar import SampleUAV_verts, SampleUAV_obj, vj_verts, vj_obj, vj_faces
+from hangar import SampleUAV_verts, SampleUAV_obj, visionJet_verts, visionJet_obj
 
 
 # create vehicle
-verts = SampleUAV_verts
-obj = SampleUAV_obj
-# verts = vj_faces
-# obj = vj_obj
+# verts = SampleUAV_verts
+# obj = SampleUAV_obj
+verts = visionJet_verts
+obj = visionJet_obj
 faces = ["b"]
 
 # init animation class
-plane = animation()
+plane = animation(limits=250)
 
 # ICs
 state = np.array([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -53,5 +53,4 @@ while sim_time < SIM.end_time:
     sim_time += SIM.ts_simulation
     
     # stop on q
-    if keyboard.is_pressed("q"):
-        break
+    if keyboard.is_pressed("q"): break

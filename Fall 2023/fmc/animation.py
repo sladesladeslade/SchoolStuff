@@ -140,9 +140,18 @@ class animation():
         facecolors : list
             Optional list of face colors.
         """
-        # update position and get faces
-        objverts = self.rotmove(verts, n, e, d, phi, theta, psi)
-        faces = obj(objverts)
+        # check for type of input
+        if np.shape(verts) == (np.shape(verts)[0], 3, 3):
+            # reshape to just vertices
+            verts = np.reshape(verts.copy(), (-1, 3))
+            # update positions
+            objverts = self.rotmove(verts, n, e, d, phi, theta, psi)
+            # get back to faces
+            faces = np.reshape(objverts, (-1, 3, 3))
+        else:
+            # update position and get faces
+            objverts = self.rotmove(verts, n, e, d, phi, theta, psi)
+            faces = obj(objverts)
         
         # collect polys if first time
         if self.flag_init is True:
