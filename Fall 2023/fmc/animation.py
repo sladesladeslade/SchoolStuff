@@ -23,7 +23,7 @@ class animation():
         Draws the object to 3D plot.
     """
     
-    def __init__(self, limits=10): 
+    def __init__(self, limits=10, alpha=0.6): 
         # start plot
         fig = plt.figure(1)
         self.ax = fig.add_subplot(projection="3d")
@@ -33,6 +33,7 @@ class animation():
         self.ax.set_xlabel('East (m)')
         self.ax.set_ylabel('North (m)')
         self.ax.set_zlabel('Height (m)')
+        self.alpha = alpha
         
         # set init flag
         self.flag_init = True
@@ -155,7 +156,7 @@ class animation():
         
         # collect polys if first time
         if self.flag_init is True:
-            poly = Poly3DCollection(faces, facecolors=facecolors, alpha=.6)
+            poly = Poly3DCollection(faces, facecolors=facecolors, alpha=self.alpha)
             self.obj = self.ax.add_collection3d(poly)
             plt.pause(0.001)
         # otherwise update vert location

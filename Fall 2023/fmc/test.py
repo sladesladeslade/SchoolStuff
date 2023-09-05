@@ -1,31 +1,33 @@
+# AEEM4012 Flight Mechanics Assignment #1
+# Slade Brooks
+# brooksl@mail.uc.edu
+
+import sys
+sys.path.append("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\")
 import numpy as np
 from animation import animation
 from sliders import sliders
 import simparams as SIM
 import keyboard
+from hangar import sampleUAV_verts, sampleUAV_obj
 
 
-# make cube
-w = 5
-verts = np.array([[w/2, -w/2, -w/2],
-        [-w/2, -w/2, -w/2],
-        [-w/2, w/2, -w/2],
-        [w/2, w/2, -w/2],
-        [w/2, -w/2, w/2],
-        [-w/2, -w/2, w/2],
-        [-w/2, w/2, w/2],
-        [w/2, w/2, w/2]])
-def obj(v):
-    return np.array([[v[0], v[1], v[2], v[3]],
-                     [v[4], v[5], v[6], v[7]],
-                     [v[2], v[3], v[7], v[6]],
-                     [v[1], v[0], v[4], v[5]],
-                     [v[0], v[3], v[7], v[4]],
-                     [v[2], v[6], v[5], v[1]]])
-faces = ['g', 'r', 'r', 'r', 'r','r']
+# create vehicle
+verts = sampleUAV_verts
+verts2 = sampleUAV_verts
+obj = sampleUAV_obj
+obj2 = sampleUAV_obj
+faces = ["b"]
+faces2 = ["g"]
 
-state = np.array([[0], [0], [-1], [0], [0], [0], [0], [0], [0], [0], [0], [0]])
-cube = animation(limits=10)
+# init animation class
+plane = animation(limits=10, alpha=0.5)
+
+# ICs
+state = np.array([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+state2 = np.array([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+# init sliders
 slider = sliders()
 
 # initialize the simulation time
@@ -33,12 +35,11 @@ sim_time = SIM.start_time
 
 # main simulation loop
 print("Press Q to exit...")
-n=state[0,0]
-e=state[1,0]
-d=state[2,0]
-phi=state[6,0]
-theta=state[7,0]
-psi=state[8,0]
+n = state[0]
+d = state[2]
+phi = state[6]
+theta = state[7]
+psi = state[8]
 
 while sim_time < SIM.end_time:
     # reading from sliders
@@ -47,11 +48,11 @@ while sim_time < SIM.end_time:
     psi = slider.yaw_slider.val
     
     # updating from those vals
-    cube.update(verts, obj, n, e, d, phi, theta, psi, facecolors=faces)
+    plane.update(verts, n, -5, d, phi, theta, psi, obj, facecolors=faces)
+    plane.update(verts2, n, 5, d, phi, theta, psi, obj2, facecolors=faces2)
     
-    # -------increment time-------------
+    # increment time
     sim_time += SIM.ts_simulation
     
     # stop on q
-    if keyboard.is_pressed("q"):
-        break
+    if keyboard.is_pressed("q"): break

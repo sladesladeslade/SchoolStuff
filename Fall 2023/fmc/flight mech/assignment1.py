@@ -21,7 +21,7 @@ obj = None
 faces = ["b"]
 
 # init animation class
-plane = animation(limits=10)
+plane = animation(limits=10, alpha=0.25)
 
 # ICs
 state = np.array([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -41,9 +41,6 @@ phi = state[6]
 theta = state[7]
 psi = state[8]
 
-# define signal
-sig = signalGenerator(np.deg2rad(20), 1)
-
 while sim_time < SIM.end_time:
     # reading from sliders
     phi = slider.roll_slider.val
@@ -51,7 +48,6 @@ while sim_time < SIM.end_time:
     psi = slider.yaw_slider.val
     
     # updating from those vals
-    theta = sig.sin(sim_time)
     plane.update(verts, n, e, d, phi, theta, psi, obj, facecolors=faces)
     
     # increment time
