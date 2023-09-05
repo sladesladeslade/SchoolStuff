@@ -115,7 +115,7 @@ class animation():
             self.flag_init = False
         
         
-    def drawObj(self, verts, obj, n, e, d, phi, theta, psi, facecolors=[]):
+    def drawObj(self, verts, n, e, d, phi, theta, psi, obj=None, facecolors=[]):
         """
         Draws object and its faces.
         
@@ -123,8 +123,6 @@ class animation():
         ----------
         verts : np.ndarray
             Array of vertices of object to animate.
-        obj : func
-            Function that defines faces based on input vertices.
         n : float
             North position.
         e : float
@@ -137,11 +135,13 @@ class animation():
             Roll euler angle.
         psi : float
             Yaw euler angle.
+        obj : func
+            Function that defines faces based on input vertices.
         facecolors : list
             Optional list of face colors.
         """
         # check for type of input
-        if np.shape(verts) == (np.shape(verts)[0], 3, 3):
+        if obj == None:
             # reshape to just vertices
             verts = np.reshape(verts.copy(), (-1, 3))
             # update positions

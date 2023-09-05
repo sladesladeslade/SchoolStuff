@@ -9,7 +9,7 @@ from animation import animation
 from sliders import sliders
 import simparams as SIM
 import keyboard
-from hangar import sampleUAV_verts, sampleUAV_obj, visionJet_verts, visionJet_obj
+from hangar import sampleUAV_verts, sampleUAV_obj, visionJet_verts
 from signalGenerator import signalGenerator
 
 
@@ -17,7 +17,7 @@ from signalGenerator import signalGenerator
 verts = sampleUAV_verts
 obj = sampleUAV_obj
 # verts = visionJet_verts
-# obj = visionJet_obj
+# obj = None
 faces = ["b"]
 
 # init animation class
@@ -52,7 +52,7 @@ while sim_time < SIM.end_time:
     
     # updating from those vals
     theta = sig.sin(sim_time)
-    plane.update(verts, obj, n, e, d, phi, theta, psi, facecolors=faces)
+    plane.update(verts, n, e, d, phi, theta, psi, obj, facecolors=faces)
     
     # increment time
     sim_time += SIM.ts_simulation
