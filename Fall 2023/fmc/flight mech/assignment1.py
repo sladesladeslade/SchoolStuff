@@ -42,7 +42,7 @@ theta = state[7]
 psi = state[8]
 
 # define signal
-sig = signalGenerator(np.deg2rad(20), 0.1)
+sig = signalGenerator(np.deg2rad(20), 1)
 
 while sim_time < SIM.end_time:
     # reading from sliders
