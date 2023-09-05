@@ -9,19 +9,19 @@ from animation import animation
 from sliders import sliders
 import simparams as SIM
 import keyboard
-from hangar import sampleUAV_verts, sampleUAV_obj, visionJet_verts
+from hangar import sampleUAV_verts, sampleUAV_obj, visionJet_verts, x59_verts
 from signalGenerator import signalGenerator
 
 
 # create vehicle
 # verts = sampleUAV_verts
 # obj = sampleUAV_obj
-verts = visionJet_verts
+verts = x59_verts
 obj = None
 faces = ["b"]
 
 # init animation class
-plane = animation(limits=6)
+plane = animation(limits=10)
 
 # ICs
 state = np.array([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
