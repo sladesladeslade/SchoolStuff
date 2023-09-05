@@ -63,5 +63,4 @@ def sampleUAV_obj(v):
 
 # Vision Jet
 visionJet_mesh = mesh.Mesh.from_file("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\stls\\visionjet.stl")
-visionJet_verts = visionJet_mesh.vectors*np.array([-1, 1, -1])
-def visionJet_obj(): return
+visionJet_verts = visionJet_mesh.vectors*np.array([-1, 1, -1])/12/3.281
