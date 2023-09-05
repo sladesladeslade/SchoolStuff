@@ -9,13 +9,13 @@ from animation import animation
 from sliders import sliders
 import simparams as SIM
 import keyboard
-from hangar import SampleUAV_verts, SampleUAV_obj, visionJet_verts, visionJet_obj
+from hangar import sampleUAV_verts, sampleUAV_obj, visionJet_verts, visionJet_obj
 from signalGenerator import signalGenerator
 
 
 # create vehicle
-verts = SampleUAV_verts
-obj = SampleUAV_obj
+verts = sampleUAV_verts
+obj = sampleUAV_obj
 # verts = visionJet_verts
 # obj = visionJet_obj
 faces = ["b"]

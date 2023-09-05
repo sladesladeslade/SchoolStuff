@@ -27,7 +27,7 @@ vtail_h = 1.5
 vtail_l = 1
 htail_l = 0.75
 htail_w = 3.3
-SampleUAV_verts = np.array([[fuse_l1, 0, 0],
+sampleUAV_verts = np.array([[fuse_l1, 0, 0],
                             [fuse_l2, fuse_w/2, fuse_h/2],
                             [fuse_l2, -fuse_w/2, fuse_h/2],
                             [fuse_l2, -fuse_w/2, -fuse_h/2],
@@ -44,7 +44,7 @@ SampleUAV_verts = np.array([[fuse_l1, 0, 0],
                             [-(fuse_l3 - vtail_l), 0, 0],
                             [-fuse_l3, 0, vtail_h]
                             ])*[1, 1, -1]
-def SampleUAV_obj(v):
+def sampleUAV_obj(v):
     return np.array([[v[0], v[1], v[2]],
                      [v[0], v[1], v[4]],
                      [v[0], v[2], v[3]],
