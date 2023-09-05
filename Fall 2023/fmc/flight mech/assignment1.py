@@ -10,17 +10,18 @@ from sliders import sliders
 import simparams as SIM
 import keyboard
 from hangar import SampleUAV_verts, SampleUAV_obj, visionJet_verts, visionJet_obj
+from signalGenerator import signalGenerator
 
 
 # create vehicle
-# verts = SampleUAV_verts
-# obj = SampleUAV_obj
-verts = visionJet_verts
-obj = visionJet_obj
+verts = SampleUAV_verts
+obj = SampleUAV_obj
+# verts = visionJet_verts
+# obj = visionJet_obj
 faces = ["b"]
 
 # init animation class
-plane = animation(limits=250)
+plane = animation(limits=5)
 
 # ICs
 state = np.array([0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -40,6 +41,9 @@ phi = state[6]
 theta = state[7]
 psi = state[8]
 
+# define signal
+sig = signalGenerator(np.deg2rad(90), 0.1)
+
 while sim_time < SIM.end_time:
     # reading from sliders
     phi = slider.roll_slider.val
@@ -47,9 +51,10 @@ while sim_time < SIM.end_time:
     psi = slider.yaw_slider.val
     
     # updating from those vals
+    theta = sig.sin(sim_time)
     plane.update(verts, obj, n, e, d, phi, theta, psi, facecolors=faces)
     
-    # -------increment time-------------
+    # increment time
     sim_time += SIM.ts_simulation
     
     # stop on q
