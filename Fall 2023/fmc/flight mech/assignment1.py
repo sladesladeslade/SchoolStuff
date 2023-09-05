@@ -2,18 +2,22 @@
 # Slade Brooks
 # brooksl@mail.uc.edu
 
+import sys
+sys.path.append("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\")
 import numpy as np
 from animation import animation
 from sliders import sliders
 import simparams as SIM
 import keyboard
-from hangar import SampleUAV_verts, SampleUAV_obj
+from hangar import SampleUAV_verts, SampleUAV_obj, vj_verts, vj_obj, vj_faces
 
 
 # create vehicle
 verts = SampleUAV_verts
 obj = SampleUAV_obj
-faces = ["g"]
+# verts = vj_faces
+# obj = vj_obj
+faces = ["b"]
 
 # init animation class
 plane = animation()

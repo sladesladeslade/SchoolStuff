@@ -25,7 +25,7 @@ class animation():
     
     def __init__(self, limits=10): 
         # start plot
-        fig = plt.figure()
+        fig = plt.figure(1)
         self.ax = fig.add_subplot(projection="3d")
         self.ax.set_xlim([-limits, limits])
         self.ax.set_ylim([-limits, limits])

@@ -4,11 +4,15 @@
 # definitely gonna spend too much time on this
 
 import numpy as np
+from stl import mesh
+from mpl_toolkits import mplot3d
+import matplotlib.pyplot as plt
 
 """
 Vehicle List:
 -------------
 - sample UAV
+- vision jet (Cirrus SF50)
 """
 
 # sample UAV
@@ -55,3 +59,24 @@ def SampleUAV_obj(v):
                      [v[10], v[12], v[13]],
                      [v[5], v[14], v[15]]
                      ])
+
+
+# Vision Jet
+vj_mesh = mesh.Mesh.from_file("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\stls\\visionjet.stl")
+vj_verts = np.concatenate((vj_mesh.v0, vj_mesh.v1, vj_mesh.v2))
+def vj_obj(v): return v
+vj_faces = vj_mesh.vectors
+figure = plt.figure()
+# axes = mplot3d.Axes3D(figure)
+axes = figure.add_subplot(projection="3d")
+print(vj_mesh.vectors)
+axes.add_collection3d(mplot3d.art3d.Poly3DCollection(vj_mesh.vectors))
+
+scale = vj_mesh.points.flatten("C")
+axes.auto_scale_xyz(scale, scale, scale)
+
+# plt.show()
+
+
+# check vectors for which ones match up with whihc indeces of vertices
+# write function that matches them up and creates the faces (obj) function based on that
