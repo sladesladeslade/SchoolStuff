@@ -1,7 +1,6 @@
 m1 = 5.         # mass of mass (kg)
 k = 3.          # spring constant (N/m)
 b = 0.5         # damping coefficient (Ns/m)
-g = 9.8         # gravity (m/s^2)
 
 z0 = 0.         # initial z position (m)
 zdot0 = 0.      # initial zdot (m/s)

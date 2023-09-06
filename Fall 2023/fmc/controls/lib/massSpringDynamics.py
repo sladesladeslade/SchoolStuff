@@ -4,7 +4,7 @@
 # bruh
 
 import numpy as np
-import simparams as P
+import mssimparams as P
 
 
 class massSpringDynamics():
@@ -22,7 +22,6 @@ class massSpringDynamics():
         self.m1 = P.m1                              # mass of mass
         self.k = P.k                                # spring coef
         self.b = P.b                                # damp coef
-        self.g = P.g                                # gravity
         self.force_limit = P.F_max                  # max force
 
     

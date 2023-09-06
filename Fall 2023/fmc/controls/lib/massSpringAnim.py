@@ -5,8 +5,7 @@
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpat
-import numpy as np
-import simparams as P
+import mssimparams as P
 
 
 class massSpringAnim():
@@ -24,7 +23,7 @@ class massSpringAnim():
             self.ax = self.fig.add_subplot(1, 1, 1)
         self.ax.set_xlim(left=-limits, right=limits)
         # draw ground
-        plt.plot([-limits, limits], [0, 0], "k-")
+        plt.plot([-limits, limits], [0, 0], "k-", linewidth=3)
             
         # for list of objects
         self.handle = []
@@ -51,7 +50,7 @@ class massSpringAnim():
         # plot fromatting
         self.ax.set_aspect("equal")
         self.ax.set_xlim(left=-self.limits, right=self.limits)
-        self.ax.set_ylim(bottom=-0.01, top=self.limits)
+        self.ax.set_ylim(bottom=-0.005, top=self.limits)
         self.ax.set_xlabel("z (m)")
         
         # check for first time runthrough
