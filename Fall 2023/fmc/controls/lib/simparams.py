@@ -12,3 +12,5 @@ Ts = 0.01       # sim sample time
 t_plot = 0.1    # plot/anim update rate
 
 F_max = 5.      # max force (N)
+
+w = 0.5         # width of block (m)
