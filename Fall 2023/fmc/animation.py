@@ -23,10 +23,13 @@ class animation():
         Draws the object to 3D plot.
     """
     
-    def __init__(self, limits=10, alpha=0.6): 
+    def __init__(self, limits=10, alpha=0.6, flag=False): 
         # start plot
-        fig = plt.figure(1)
-        self.ax = fig.add_subplot(projection="3d")
+        self.fig = plt.figure(1)
+        if flag == True:
+            self.ax = self.fig.add_subplot(1, 2, 1, projection="3d")
+        else:
+            self.ax = self.fig.add_subplot(projection="3d")
         self.ax.set_xlim([-limits, limits])
         self.ax.set_ylim([-limits, limits])
         self.ax.set_zlim([-limits, limits])

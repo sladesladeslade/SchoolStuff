@@ -44,7 +44,7 @@ sampleUAV_verts = np.array([[fuse_l1, 0, 0],
                             [-(fuse_l3 - htail_l), -htail_w/2, 0],
                             [-(fuse_l3 - vtail_l), 0, 0],
                             [-fuse_l3, 0, vtail_h]
-                            ])*[1, 1, -1]
+                            ])*np.array([1, 1, -1])
 def sampleUAV_obj(v):
     return np.array([[v[0], v[1], v[2]],
                      [v[0], v[1], v[4]],
