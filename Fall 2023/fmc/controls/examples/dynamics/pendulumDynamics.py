@@ -73,7 +73,7 @@ class pendulumDynamics:
         F3 = self.f(self.state + self.Ts / 2 * F2, u)
         F4 = self.f(self.state + self.Ts * F3, u)
         self.state += self.Ts / 6 * (F1 + 2 * F2 + 2 * F3 + F4)
-
+    
         
 def saturate(u, limit):
     if abs(u) > limit:

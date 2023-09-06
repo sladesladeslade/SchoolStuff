@@ -5,12 +5,12 @@
 import sys
 sys.path.append("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\")
 import numpy as np
-from animation import animation
-from sliders import sliders
-import simparams as SIM
+from lib.animation import animation
+from lib.sliders import sliders
+import lib.simparams as SIM
 import keyboard
-from hangar import sampleUAV_verts, sampleUAV_obj, visionJet_verts, x59_verts
-from signalGenerator import signalGenerator
+from lib.hangar import sampleUAV_verts, sampleUAV_obj, visionJet_verts, x59_verts
+from lib.signalGenerator import signalGenerator
 
 
 # create vehicle
