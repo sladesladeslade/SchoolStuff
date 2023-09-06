@@ -14,22 +14,19 @@ class massSpringAnim():
     # TODO
     """
     
-    def __init__(self, limits, flag=False):
-        # init flag
-        self.flag_init = True
+    def __init__(self, limits):
         
         # set up plot
-        self.fig = plt.figure(1)
-        if flag == True:
-            self.ax = self.fig.add_subplot(1, 2, 1)
-        else:
-            self.ax = self.fig.add_subplot()
-        self.ax.set_xlim(right=limits)
+        self.fig, self.ax = plt.subplots()
+        plt.axis([-limits, limits, -0.1, 2])
         # draw ground
-        self.ax.plot([0, limits], [0, 0], "k-")
+        plt.plot([-limits, limits], [0, 0], "k-")
             
         # for list of objects
         self.handle = []
+        
+        # init flag
+        self.flag_init = True
         
     
     def update(self, state):
@@ -42,12 +39,13 @@ class massSpringAnim():
         
         # draw elements
         self.draw_mass(z)
-        self.draw_springdamp(z)
+        # self.draw_springdamp(z)
+        self.ax.axis("equal")
         
         # check for first time runthrough
         if self.flag_init == True:
             self.flag_init = False
-            
+
     
     def draw_mass(self, z):
         """
@@ -55,11 +53,11 @@ class massSpringAnim():
         """
         # corner of rectangle
         x = z - P.w/2
-        corner = (x, 0)
+        corner = (x, 0.01)
         
         # draw square
         if self.flag_init == True:
-            self.handle.append(mpat.Rectangle(corner, P.w, P.w, fc="black", ec="black"))
+            self.handle.append(mpat.Rectangle(corner, P.w, P.w, fc="blue", ec="black"))
             self.ax.add_patch(self.handle[0])
         else:
             self.handle[0].set_xy(corner)

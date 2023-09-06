@@ -22,13 +22,13 @@ while t < P.t_end:  # main simulation loop
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
         r = reference.square(t)
-        u = 0*force.sin(t)
+        u = 0.5*force.sin(t)
         y = pendulum.update(u)  # Propagate the dynamics
         t = t + P.Ts  # advance time by Ts
     # update animation and data plots at rate t_plot
     animation.update(pendulum.state)
     dataPlot.update(t, r, pendulum.state, u)
-    plt.pause(0.0001)  # allows time for animation to draw
+    plt.pause(0.001)  # allows time for animation to draw
 
 # Keeps the program from closing until the user presses a button.
 print('Press key to close')
