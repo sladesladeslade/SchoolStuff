@@ -3,7 +3,7 @@
 # brooksl@mail.uc.edu
 
 import sys
-sys.path.append("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\")
+sys.path.append("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\flight mech\\lib\\")
 import numpy as np
 from lib.animation import animation
 from lib.sliders import sliders
