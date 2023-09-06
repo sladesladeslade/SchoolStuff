@@ -69,7 +69,7 @@ class massSpringDynamics():
         F = u
         
         # get zddot from EOM
-        zddot = (-self.b/self.m1)*zdot - (k/self.m1)*z + F/self.m1
+        zddot = (-self.b/self.m1)*zdot - (self.k/self.m1)*z + F/self.m1
         
         # build xdot
         xdot = np.array([[zdot], [zddot]])
