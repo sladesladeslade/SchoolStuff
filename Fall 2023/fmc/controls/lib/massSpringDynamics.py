@@ -17,7 +17,7 @@ class massSpringDynamics():
     """
     
     def __init__(self):
-        self.state = np.array([P.z0, P.zdot0])      # initial states
+        self.state = np.array([[P.z0], [P.zdot0]])      # initial states
         self.Ts = P.Ts                              # sim time step
         self.m1 = P.m1                              # mass of mass
         self.k = P.k                                # spring coef
@@ -64,8 +64,8 @@ class massSpringDynamics():
             State space xdot.
         """
         # get states
-        z = state[0]
-        zdot = state[1]
+        z = state[0][0]
+        zdot = state[1][0]
         F = u
         
         # get zddot from EOM
@@ -86,7 +86,7 @@ class massSpringDynamics():
         y : np.ndarray
             State space output array.
         """
-        z = self.state[0]
+        z = self.state[0][0]
         y = np.array([z])
         return y
     

@@ -7,7 +7,7 @@ z0 = 0.         # initial z position (m)
 zdot0 = 0.      # initial zdot (m/s)
 
 t_start = 0.    # sim start time
-t_end = 0.      # sim end time
+t_end = 50.     # sim end time
 Ts = 0.01       # sim sample time
 t_plot = 0.1    # plot/anim update rate
 

@@ -14,11 +14,15 @@ class massSpringAnim():
     # TODO
     """
     
-    def __init__(self, limits):
+    def __init__(self, limits, flag=False):
         
         # set up plot
-        self.fig, self.ax = plt.subplots()
-        plt.axis([-limits, limits, -0.1, 2])
+        self.fig = plt.figure(1)
+        if flag == True:
+            self.ax = self.fig.add_subplot(1, 2, 1)
+        else:
+            self.ax = self.fig.add_subplot(1, 1, 1)
+        self.ax.set_xlim(left=-limits, right=limits)
         # draw ground
         plt.plot([-limits, limits], [0, 0], "k-")
             
@@ -28,6 +32,9 @@ class massSpringAnim():
         # init flag
         self.flag_init = True
         
+        # uh
+        self.limits = limits
+        
     
     def update(self, state):
         """
@@ -35,12 +42,17 @@ class massSpringAnim():
         TODO
         """
         # update state
-        z = state[0]
+        z = state[0][0]
         
         # draw elements
         self.draw_mass(z)
         # self.draw_springdamp(z)
-        self.ax.axis("equal")
+        
+        # plot fromatting
+        self.ax.set_aspect("equal")
+        self.ax.set_xlim(left=-self.limits, right=self.limits)
+        self.ax.set_ylim(bottom=-0.01, top=self.limits)
+        self.ax.set_xlabel("z (m)")
         
         # check for first time runthrough
         if self.flag_init == True:
