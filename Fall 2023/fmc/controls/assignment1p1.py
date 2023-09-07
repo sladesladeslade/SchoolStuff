@@ -1,4 +1,4 @@
-# AEEM4042 Controls Assignment #1
+# AEEM4042 Controls Assignment #1 Part 1
 # Slade Brooks
 # brooksl@mail.uc.edu
 

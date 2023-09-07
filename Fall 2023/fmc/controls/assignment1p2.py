@@ -13,7 +13,7 @@ import keyboard
 
 # define system
 vtol = dynamics.VTOLDynamics()
-anim = animation.VTOLAnim(limits=1, flag=False)
+anim = animation.VTOLAnim(limits=10, flag=False)
 
 # sim loop
 t = P.t_start
@@ -21,14 +21,14 @@ while t < P.t_end:
     # dod ynamics
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
-        fr = 1.5*9.81
-        fl = 1.5*9.81
+        fr = 1.5*9.81/2
+        fl = 1.5*9.81/2
         y = vtol.update(fr, fl)
         t += P.Ts
         
     # update anim
     anim.update(vtol.state)
-    plt.pause(0.001)
+    plt.pause(0.1)
     
     if keyboard.is_pressed("q"): break
 

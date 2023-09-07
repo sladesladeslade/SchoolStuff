@@ -43,13 +43,15 @@ class VTOLAnim():
         # update state
         z = state[0][0]
         h = state[1][0]
-        theta = state[2][0]
+        theta = np.rad2deg(state[2][0])
         
         # draw elements
         self.draw_vtol(z, h, theta)
         
         # plot formatting
         self.ax.set_aspect("equal")
+        self.ax.set_ylim(top=self.limits)
+        self.ax.set_xlim(left=-self.limits, right=self.limits)
         
         # check for first time
         if self.flag_init == True:
@@ -66,11 +68,11 @@ class VTOLAnim():
         corner = (x, y)
         
         # location of rotors
-        xr = z + np.cos(theta)
-        yr = h + np.sin(theta)
+        xr = z + (P.w/2 + P.d*np.cos(-theta))
+        yr = h - P.d*np.sin(-theta)
         rr = (xr, yr)
-        xl = z - np.cos(theta)
-        yl = h - np.sin(theta)
+        xl = z - (P.w/2 + P.d*np.cos(-theta))
+        yl = h + P.d*np.sin(-theta)
         lr = (xl, yl)
         
         # draw body
@@ -79,6 +81,8 @@ class VTOLAnim():
             self.handle.append(mpat.CirclePolygon(rr, 0.1, resolution=15, fc="black", ec="black"))
             self.handle.append(mpat.CirclePolygon(lr, 0.1, resolution=15, fc="black", ec="black"))
             self.ax.add_patch(self.handle[0])
+            self.ax.add_patch(self.handle[1])
+            self.ax.add_patch(self.handle[2])
         else:
             self.handle[0].set_xy(corner)
             self.handle[1].xy = rr

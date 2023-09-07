@@ -47,8 +47,8 @@ class VTOLDynamics():
         
         # do eoms
         zddot = (-1*(fr + fl)*np.sin(theta) - self.u*zdot)/(self.mc + 2*self.mr)
-        hddot = ((fr + fl)*np.cos(theta) - (self.mc + 2*self.mr)*self.g)/(self.mc + 2*self.mr)
-        thetaddot = (self.d*(fr + fl))/(self.Jc + 2*self.mr*self.d**2)
+        hddot = ((fr + fl)*np.cos(theta))/(self.mc + 2*self.mr) - self.g
+        thetaddot = (self.d*(fr - fl))/(self.Jc + 2*self.mr*self.d**2)
         
         # build xdot
         xdot = np.array([[zdot], [hdot], [thetadot], [zddot], [hddot], [thetaddot]])
