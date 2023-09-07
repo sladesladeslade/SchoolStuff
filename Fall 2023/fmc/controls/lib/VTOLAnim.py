@@ -43,7 +43,7 @@ class VTOLAnim():
         # update state
         z = state[0][0]
         h = state[1][0]
-        theta = np.rad2deg(state[2][0])
+        theta = state[2][0]
         
         # draw elements
         self.draw_vtol(z, h, theta)

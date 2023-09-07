@@ -15,14 +15,41 @@ import keyboard
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=False)
 
+# weight
+w = 1.5*9.81/2
+
 # sim loop
 t = P.t_start
 while t < P.t_end:
     # dod ynamics
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
-        fr = 1.5*9.81/2
-        fl = 1.5*9.81/2
+        print(f"{t:.2f}")
+        if t < 4:
+            fr = w*1.05
+            fl = fr
+        elif t < 4.1:
+            fr = 0
+            fl = fr
+        elif t < 10:
+            fr = w*0.98
+            fl = fr
+        elif t < 10.25:
+            fr = w*1.05
+            fl = fr/1.05
+        elif t < 10.55:
+            fr = w/1.05
+            fl = fr*1.05
+        elif t < 17:
+            fr = w*1.01
+            fl = fr
+        elif t < 17.25:
+            fr = w*1.05
+            fl = w/1.05
+        else:
+            fr = w
+            fl = fr
+            
         y = vtol.update(fr, fl)
         t += P.Ts
         
