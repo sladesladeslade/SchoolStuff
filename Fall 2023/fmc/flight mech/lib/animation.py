@@ -17,9 +17,9 @@ class animation():
     -------
     rotmove(verts, n, e, d, phi, theta, psi)
         Rotates and translates object of given vertices to specified location and euler angles.
-    update(verts, obj, n, e, d, phi, theta, psi, facecolors)
+    update(verts, n, e, d, phi, theta, psi, obj, facecolors)
         Updates position and rotation of object and draws it.
-    drawObj(verts, obj, n, e, d, phi, theta, psi, facecolors)
+    drawObj(verts, n, e, d, phi, theta, psi, obj, facecolors)
         Draws the object to 3D plot.
     """
     
