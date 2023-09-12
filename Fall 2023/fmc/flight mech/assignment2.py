@@ -27,14 +27,14 @@ sim_time = SIM.start_time
 # main simulation loop
 print("Press Q to exit...")
 while sim_time < SIM.end_time:
-    fx = 0
-    fy = 0
-    fz = 0
-    l = 0
-    m = 0
-    n = 0
+    fx = 0.
+    fy = 0.
+    fz = 0.
+    l = 0.
+    m = 0.
+    n = 0.
     y = uav.update(fx, fy, fz, l, m, n)
-    anim.update(verts, obj, y[0][0], y[1][0], y[2][0], y[6][0], y[7][0], y[8][0], faces)
+    anim.update(verts, y[0], y[1], y[2], y[6], y[7], y[8], obj, faces)
     plt.pause(0.01)
     
     if keyboard.is_pressed("q"): break

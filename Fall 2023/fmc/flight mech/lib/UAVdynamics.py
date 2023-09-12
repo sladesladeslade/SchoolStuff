@@ -65,20 +65,20 @@ class UAVdynamics():
                          [c(theta)*s(psi), s(phi)*s(theta)*s(psi) + c(phi)*c(psi), c(phi)*s(theta)*s(psi) - s(phi)*c(psi)],
                          [-s(theta), s(phi)*s(theta), c(phi)*c(theta)]])
         eom1x = np.array([[u], [v], [w]])
-        eom1s = eom1 @ eom1x
-        udot, vdot, wdot = np.array([[r*v - q*w], [p*w - r*u], [q*u - p*v]]) + (1/self.mass)*np.array([[fx], [fy], [fz]])
+        eom1s = np.dot(eom1, eom1x)
+        eom2s = np.array([[r*v - q*w], [p*w - r*u], [q*u - p*v]]) + (1/self.mass)*np.array([[fx], [fy], [fz]])
         eom3 = np.array([[1, s(phi)*t(theta), c(phi)*t(theta)],
                          [0, c(phi), -s(phi)],
                          [0, s(phi)/c(theta), c(phi)/c(theta)]])
         eom3x = np.array([[p], [q], [r]])
-        eom3s = eom3 @ eom3x
-        pdot, qdot, rdot = np.array([[self.gam1*p*q - self.gam2*q*r], [self.gam5*p*r - self.gam6*(p**2 - r**2)],
+        eom3s = np.dot(eom3, eom3x)
+        eom4s = np.array([[self.gam1*p*q - self.gam2*q*r], [self.gam5*p*r - self.gam6*(p**2 - r**2)],
             [self.gam7*p*q - self.gam1*q*r]]) + np.array([[self.gam3*l + self.gam4*n], [m/self.jy],
             [self.gam4*l + self.gam8*n]])
             
         # build and return output
-        xdot = np.array([[eom1s[0][0]], [eom1s[1][0]], [eom1s[2][0]], [udot], [vdot], [wdot], [eom3s[0][0]],
-                         [eom3s[1][0]], [eom3s[2][0]], [pdot], [qdot], [rdot]])
+        xdot = np.array([[eom1s[0][0]], [eom1s[1][0]], [eom1s[2][0]], [eom2s[0][0]], [eom2s[1][0]], [eom2s[2][0]],
+                         [eom3s[0][0]], [eom3s[1][0]], [eom3s[2][0]], [eom4s[0][0]], [eom4s[1][0]], [eom4s[2][0]]])
         return xdot
     
     

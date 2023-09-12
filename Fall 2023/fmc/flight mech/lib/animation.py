@@ -86,7 +86,7 @@ class animation():
         return newverts
     
     
-    def update(self, verts, obj, n, e, d, phi, theta, psi, facecolors=[]):
+    def update(self, verts, n, e, d, phi, theta, psi, obj=None, facecolors=[]):
         """
         Updates position and rotation of object and draws it.
         
@@ -112,7 +112,7 @@ class animation():
             Optional list of face colors.
         """
         # draw obj
-        self.drawObj(verts, obj, n, e, d, phi, theta, psi, facecolors=facecolors)
+        self.drawObj(verts, n, e, d, phi, theta, psi, obj=obj, facecolors=facecolors)
         
         # set init flag
         if self.flag_init == True:
