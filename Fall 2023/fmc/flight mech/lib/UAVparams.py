@@ -8,6 +8,8 @@ jxz= 0.120
 g=9.806650
 mass=13.5
 
+Ts = 0.01       # sim sample time
+
 # ICs
 states0=np.array([[0], #pn
                   [0], #pe
