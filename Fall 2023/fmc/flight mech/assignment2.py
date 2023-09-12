@@ -34,7 +34,7 @@ while sim_time < SIM.end_time:
     m = 0.
     n = 0.
     y = uav.update(fx, fy, fz, l, m, n)
-    anim.update(verts, y[0], y[1], y[2], y[6], y[7], y[8], obj, faces)
+    anim.update(verts, y[0][0], y[1][0], y[2][0], y[6][0], y[7][0], y[8][0], obj, faces)
     plt.pause(0.01)
     
     if keyboard.is_pressed("q"): break

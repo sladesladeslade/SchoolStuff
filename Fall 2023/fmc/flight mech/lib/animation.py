@@ -75,6 +75,7 @@ class animation():
         # rotation matrix and rotate then translate verts
         R = Euler2Rotation(phi, theta, psi)
         vertsRot = np.matmul(R, verts.T).T
+
         vertsTrans = vertsRot + posm
         
         # rotation matrix for plotting and rotate
@@ -151,7 +152,7 @@ class animation():
             # update positions
             objverts = self.rotmove(verts, n, e, d, phi, theta, psi)
             # get back to faces
-            faces = np.reshape(objverts, (-1, 3, 3))
+            faces = np.reshape(objverts.copy(), (-1, 3, 3))
         else:
             # update position and get faces
             objverts = self.rotmove(verts, n, e, d, phi, theta, psi)
