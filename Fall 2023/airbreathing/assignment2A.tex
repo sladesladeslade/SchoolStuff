@@ -11,13 +11,13 @@
 \maketitle
 
 \section*{Problem 2.1}
-$\eta_c = 0.85$, $r=4.0$, $\gamma=1.4$ \\
+$\eta_c = 0.85$, $r=4.0$, $\gamma=1.4$ \\\\
 $\eta_c = \frac{(r)^{(\gamma-1)/\gamma}-1}{(r)^{(\gamma-1)/\gamma\eta_{\infty c}}-1}$ \\
 $\eta_c*((r)^{(\gamma-1)/\gamma\eta_{\infty c}}-1)=(r)^{(\gamma-1)/\gamma}-1$ \\
 $(r)^{(\gamma-1)/\gamma\eta_{\infty c}}-1=((r)^{(\gamma-1)/\gamma}-1)/\eta_c$ \\
 $(r)^{(\gamma-1)/\gamma\eta_{\infty c}}=((r)^{(\gamma-1)/\gamma}-1)/\eta_c+1$ \\
 $(\gamma-1)/\gamma\eta_{\infty c}\log(r)=\log(((r)^{(\gamma-1)/\gamma}-1)/\eta_c+1)$ \\
-$\eta_{\infty c}=\frac{(\gamma-1)/\gamma\log(r)}{\log(((r)^{(\gamma-1)/\gamma}-1)/\eta_c+1)}$ \\
+$\eta_{\infty c}=\frac{(\gamma-1)/\gamma\log(r)}{\log(((r)^{(\gamma-1)/\gamma}-1)/\eta_c+1)}$ \\\\
 plug in $\eta_c$, $r$, and $\gamma$ and solve:
 $\fbox{$\eta_{\infty c}=0.876$}$ \\
 \begin{center}
@@ -25,6 +25,34 @@ $\fbox{$\eta_{\infty c}=0.876$}$ \\
 \end{center}
 
 \section*{Problem 2.2}
+$r=11$, $\eta_c=0.82$, combustion pressure loss $=0.4$ bar, $\eta_{comb}=0.99$,
+TIT$=T_{03}=1150$ K, $\eta_{tg}=0.87$, $\eta_{tp}=0.89$, $\eta_{m}=0.98$, $P_a=1$ bar,
+$T_a=288$ K, $\dot{W}_{pt}=20$ MW, $c_{pc}=1.005$, $c_{pg}=1.148$, $\gamma_c=1.4$,
+$\gamma_t=1.333$ \\\\
+$T_{02} - T_{01}=\frac{T_{01}}{\eta_c}(r^{(\frac{\gamma-1}{\gamma})}-1)$ \\
+$T_{01}=T_a=288$ K (stationary inlet) \\
+$T_{02} - T_{01}=\frac{288}{0.82}(11^{0.4/1.4}-1)=345.6$ K \\\\
+$W_{tg}=\frac{c_{pc}}{\eta_m}(T_{02} - T_{01})=\frac{1.005}{0.99}(345.6)=354.42$ kJ/kg \\\\
+$T_{03} - T_{04}=\frac{W_{tg}}{c_{pg}}=\frac{354.43}{1.148}=308.74$ K \\
+$P_{03} = P_{02} - P_{loss}$, $P_{02}=r*P_{01}=11*1=11$ bar, $P_{03}=10.6$ bar \\\\
+$T_{03} - T_{04}=\eta_{tg}T_{03}(1 - (\frac{1}{P_{03}/P_{04}})^\frac{\gamma-1}{\gamma})$ \\
+$308.75=(0.87)(1150)(1-\frac{1}{P_{03}/P_{04}}^{\frac{0.4}{1.4}})$, $P_{03}/P_{04}=4.375$,
+$P_{04}=2.43$ bar \\\\
+$T_{04} - T_{05}=\eta_{tp}T_{04}(1 - (\frac{1}{P_{04}/P_{05}})^\frac{\gamma-1}{\gamma})$ \\
+turbine perfectly expands: $P_{05}=1$ bar \\
+$T_{04} = T_{03}-1150 = 841.26$ K \\
+$T_{04} - T_{05}=(0.89)(841.26)(1 - (\frac{1}{2.43/1})^{0.333/1.333})=148.94$ K \\\\
+$W_{tp}=c_{pg}(T_{04} - T_{05})(\eta_{m})=(1.148)(148.94)(0.98)=167.56$ kWs/kg \\\\
+$\dot{m}=\frac{W_{pt}}{W_{tp}}=\frac{20(1000)}{167.56}=119.4$ kg/s\\
+$\fbox{$\dot{m}=119.4$ kg/s}$ \\\\
+$T_{02}=633.6$ K, $T_{03}-T_{02}=1150-633.6=516.4$ K \\
+from fig 2.17: $f=0.0142$ \\
+$f_a = f/\eta_{comb} = 0.0142/0.99=0.01434$ \\
+$SFC = \frac{f_a(3600)}{W_{tp}}=\frac{(0.01434)(3600)}{167.56}=0.3081$ kg/kWh \\
+$\fbox{$SFC=0.308$ kg/kWh}$
+\begin{center}
+    \includegraphics[angle=90, scale=0.1]{a2af2}  
+\end{center}
 
 \section*{Problem 2.4}
 \subsection*{Part A}
