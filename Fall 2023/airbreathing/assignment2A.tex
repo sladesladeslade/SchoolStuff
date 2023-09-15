@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4063 - Assignment 2A}
+\author{Slade Brooks}
+\date{09.14.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 2.1}
+$\eta_c = 0.85$, $r=4.0$, $\gamma=1.4$ \\\\
+$\eta_c = \frac{(r)^{(\gamma-1)/\gamma}-1}{(r)^{(\gamma-1)/\gamma\eta_{\infty c}}-1}$ \\
+$\eta_c*((r)^{(\gamma-1)/\gamma\eta_{\infty c}}-1)=(r)^{(\gamma-1)/\gamma}-1$ \\
+$(r)^{(\gamma-1)/\gamma\eta_{\infty c}}-1=((r)^{(\gamma-1)/\gamma}-1)/\eta_c$ \\
+$(r)^{(\gamma-1)/\gamma\eta_{\infty c}}=((r)^{(\gamma-1)/\gamma}-1)/\eta_c+1$ \\
+$(\gamma-1)/\gamma\eta_{\infty c}\log(r)=\log(((r)^{(\gamma-1)/\gamma}-1)/\eta_c+1)$ \\
+$\eta_{\infty c}=\frac{(\gamma-1)/\gamma\log(r)}{\log(((r)^{(\gamma-1)/\gamma}-1)/\eta_c+1)}$ \\\\
+plug in $\eta_c$, $r$, and $\gamma$ and solve:
+$\fbox{$\eta_{\infty c}=0.876$}$ \\
+\begin{center}
+    \includegraphics[scale=0.5]{a2af1}  
+\end{center}
+
+\section*{Problem 2.2}
+$r=11$, $\eta_c=0.82$, combustion pressure loss $=0.4$ bar, $\eta_{comb}=0.99$,
+TIT$=T_{03}=1150$ K, $\eta_{tg}=0.87$, $\eta_{tp}=0.89$, $\eta_{m}=0.98$, $P_a=1$ bar,
+$T_a=288$ K, $\dot{W}_{pt}=20$ MW, $c_{pc}=1.005$, $c_{pg}=1.148$, $\gamma_c=1.4$,
+$\gamma_t=1.333$ \\\\
+$T_{02} - T_{01}=\frac{T_{01}}{\eta_c}(r^{(\frac{\gamma-1}{\gamma})}-1)$ \\
+$T_{01}=T_a=288$ K (stationary inlet) \\
+$T_{02} - T_{01}=\frac{288}{0.82}(11^{0.4/1.4}-1)=345.6$ K \\\\
+$W_{tg}=\frac{c_{pc}}{\eta_m}(T_{02} - T_{01})=\frac{1.005}{0.99}(345.6)=354.42$ kJ/kg \\\\
+$T_{03} - T_{04}=\frac{W_{tg}}{c_{pg}}=\frac{354.43}{1.148}=308.74$ K \\
+$P_{03} = P_{02} - P_{loss}$, $P_{02}=r*P_{01}=11*1=11$ bar, $P_{03}=10.6$ bar \\\\
+$T_{03} - T_{04}=\eta_{tg}T_{03}(1 - (\frac{1}{P_{03}/P_{04}})^\frac{\gamma-1}{\gamma})$ \\
+$308.75=(0.87)(1150)(1-\frac{1}{P_{03}/P_{04}}^{\frac{0.4}{1.4}})$, $P_{03}/P_{04}=4.375$,
+$P_{04}=2.43$ bar \\\\
+$T_{04} - T_{05}=\eta_{tp}T_{04}(1 - (\frac{1}{P_{04}/P_{05}})^\frac{\gamma-1}{\gamma})$ \\
+turbine perfectly expands: $P_{05}=1$ bar \\
+$T_{04} = T_{03}-1150 = 841.26$ K \\
+$T_{04} - T_{05}=(0.89)(841.26)(1 - (\frac{1}{2.43/1})^{0.333/1.333})=148.94$ K \\\\
+$W_{tp}=c_{pg}(T_{04} - T_{05})(\eta_{m})=(1.148)(148.94)(0.98)=167.56$ kWs/kg \\\\
+$\dot{m}=\frac{W_{pt}}{W_{tp}}=\frac{20(1000)}{167.56}=119.4$ kg/s\\
+$\fbox{$\dot{m}=119.4$ kg/s}$ \\\\
+$T_{02}=633.6$ K, $T_{03}-T_{02}=1150-633.6=516.4$ K \\
+from fig 2.17: $f=0.0142$ \\
+$f_a = f/\eta_{comb} = 0.0142/0.99=0.01434$ \\
+$SFC = \frac{f_a(3600)}{W_{tp}}=\frac{(0.01434)(3600)}{167.56}=0.3081$ kg/kWh \\
+$\fbox{$SFC=0.308$ kg/kWh}$
+\begin{center}
+    \includegraphics[angle=90, scale=0.1]{a2af2}  
+\end{center}
+
+\section*{Problem 2.4}
+\begin{tabular}{cccc}
+    & A & B & C \\
+    $\eta_{\infty c}$ & 0.87 & 0.88 & 0.89 \\
+    $\eta_{\infty t}$ & 0.89 & 0.88 & 0.88 \\
+    $r$ & 9 & 12 & 16 \\
+    $\Delta P_b/P_{02}$ (\%) & 5 & 5 & 5 \\
+    $T_{03}$ (K) & 1150 & 1400 & 1600 \\
+    cooling bleed (\%) & $-$ & 2.5 & 5 \\
+    $\dot{m}$ (kg/s) & 75 & 80 & 85
+\end{tabular} \\\\\\
+$c_{pc}=1.005$, $c_{pg}=1.148$, $\gamma_c=1.4$, $\gamma_t=1.333$, $\eta_m=0.99$,
+$\eta_b=0.99$
+
+\subsection*{Part A}
+\subsubsection*{Version A}
+$\frac{n-1}{n}=\frac{\gamma_c-1}{\gamma_c \eta_{\infty c}}=\frac{0.4}{1.4(0.87)}=
+0.3284$ \\
+$\frac{m-1}{m}=\frac{\eta_{\infty t}(\gamma_t-1)}{\gamma_t}=\frac{0.89*0.333}{1.333}=
+0.2223$ \\\\
+$T_{02}/T_{01}=(r)^{\frac{n-1}{n}}=(9)^{0.3284}=2.058$ \\
+assume standard day conditions: $T_{01}=288.15$ K $\rightarrow$ $T_{02}=593.01$ K\\\\
+because of losses: $P_{03}=P_{02}(1-\frac{\Delta P_b}{P_{02}})=9(0.95)=8.55$ bar \\
+assuming turbine fully expands to ambient: $P_{04}=1$ bar, $P_{03}/P_{04}=
+\frac{8.55}{1}=8.55$ \\
+$T_{03}/T_{04}=(P_{03}/P_{04})^{\frac{m-1}{m}}=(8.55)^{0.2223}=1.611$ \\
+$T_{04}=713.84$ K \\\\
+$W_{c}=\frac{c_{pc}}{\eta_m}(T_{02}-T_{01})=\frac{1.005}{0.99}(593.01-288.15)=
+309.48$ kJ/kg \\
+$W_{t}=c_{pg}(T_{03}-T_{04})=1.148(1150-713.84)=500.7$ kJ/kg \\
+$W_{net}=W_{t}-W_{c}=500.7-309.48=191.22$ kJ/kg \\\\
+$P=W_{net}*\dot{m}=191.22*75=14341.5$ \\
+$\fbox{$P=14341.5$ kW}$ \\\\
+$\Delta T_b=1150-593.01=556.99$ K, from fig 2.17: $f=0.015$ \\
+$f_a=f/\eta_b=0.015/0.99=0.0152$ \\
+$SFC=f/W_{net}=0.0152/191.22*3600=0.2862$ kg/kWh \\
+$\fbox{$SFC=0.2862$ kg/kWh}$
+
+\subsubsection*{Version B}
+same process as Version A: \\
+$\frac{n-1}{n}=\frac{0.4}{1.4(0.88)}=0.3247$ \\
+$\frac{m-1}{m}=\frac{0.88(0.333)}{1.333}=0.22$ \\\\
+$T_{02}/T_{01}=12^{0.3247}=2.241$ \\
+$T_{01}=288.15$ K, $T_{02}=645.74$ K \\\\
+$P_{03}=12(0.95)=11.4$ bar \\
+$P_{04}=1$ bar, $P_{03}/P_{04}=11.4$ \\
+$T_{03}/T_{04}=11.4^{0.22}=1.708$ \\
+$T_{04}=819.67$ K \\\\
+$W_c=\frac{1.005}{0.99}(645.74-288.15)=363$ kJ/kg \\
+$W_t=c_{pg}(T_{03}-T_{04})(1-\textrm{bleed \%})=(1.148)(1400-819.67)(1-0.025)=
+649.56$ kJ/kg \\
+$W_{net}=649.56-363=286.56$ kJ/kg \\\\
+$P=286.56*80=22924.8$ kW \\
+$\fbox{$P=22924.8$ kW}$ \\\\
+$\Delta T_b=1400-645.74=754.26$ K, $f=0.021$ \\
+$f_a=0.021/0.99=0.0212$ \\
+$SFC=0.0212/286.56*3600=0.2663$ kg/kWh \\
+$\fbox{$SFC=0.2663$ kg/kWh}$
+
+\subsubsection*{Version C}
+same process again: \\
+$\frac{n-1}{n}=\frac{0.4}{1.4(0.89)}=0.321$ \\
+$\frac{m-1}{m}=\frac{0.88(0.333)}{1.333}=0.22$ \\\\
+$T_{02}/T_{01}=16^{0.321}=2.435$ \\
+$T_{01}=288.15$ K, $T_{02}=701.65$ K \\\\
+$P_{03}=16(0.95)=15.2$ bar \\
+$P_{04}=1$ bar, $P_{03}/P_{04}=15.2$ \\
+$T_{03}/T_{04}=15.2^{0.22}=1.82$ \\
+$T_{04}=879.12$ K \\\\
+$W_c=\frac{1.005}{0.99}(701.65-288.15)=419.765$ kJ/kg \\
+$W_t=(1.148)(1600-879.12)(1-0.05)=786.19$ kJ/kg \\
+$W_{net}=786.19-419.765=366.425$ kJ/kg \\\\
+$P=366.425*85=31146.125$ kW \\
+$\fbox{$P=31146.125$ kW}$ \\\\
+$\Delta T_b=1600-701.65=898.35$ K, $f=0.0265$ \\
+$f_a=0.0265/0.99=0.0268$ \\
+$SFC=0.0268/366.425*3600=0.2633$ kg/kWh \\
+$\fbox{$SFC=0.2633$ kg/kWh}$
+
+\subsection*{Part B}
+\begin{tabular}{|c|c|c|}
+    \hline
+    & A $\rightarrow$ B & A $\rightarrow$ C \\
+    \hline
+    $P$ & $\frac{22924.8}{14341.5}(100)=\fbox{$159.85$ \%}$ &
+    $\frac{31146.125}{14341.5}(100)=\fbox{$217.175$ \%}$ \\
+    \hline
+    $SFC$ & $(1-\frac{0.2663}{0.2862})(100)=\fbox{$6.95$ \%}$ &
+    $(1-\frac{0.2633}{0.2862})(100)=\fbox{$8.0$ \%}$ \\
+    \hline
+\end{tabular}
+
+\end{document}
