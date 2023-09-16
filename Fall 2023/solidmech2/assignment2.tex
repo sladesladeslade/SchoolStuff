@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./images/hw2/}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4058 - Homework 2}
+\author{Slade Brooks}
+\date{09.15.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Question 1}
+Consider a cantilever beam of uniform cross-section, as shown in Figure 2. The beam is
+clamped at the left-end and is of length $l=1$ m and with a square section area of $A=0.003$ m$^2$.
+It is subjected to a uniform body force $F_y$ in the vertical y-direction and a concentrated force
+$F_s$ at the right end in the y-direction. The young’s modulus of the material is $E=2*10^{10}$
+N/m$^2$. Using analytical (exact) method, obtain the distribution and the maximum value of
+the deflection (the displacement in the y-direction for the beam), moment, shear force and
+normal stresses, for the following cases.
+\begin{center}
+    \includegraphics{fig1}
+\end{center}
+
+\subsection*{Part 1}
+$F_y=0$, $F_s=1000$ N \\
+$I_z=\frac{b^4}{12}=\frac{\sqrt{A}^4}{12}=7.5*10^{-7}$ m$^4$ \\
+$EI_z\frac{\partial^4V}{\partial x^4}=F_y=0$ \\
+general solution: $V(x)=C_0+C_1x+C_2x^2+C_3x^3$ \\\\
+$\theta(x)=\frac{\partial V}{\partial x}=C_1+C_2x^2+C_3x^3$ \\
+$M(x)=EI_z\frac{\partial^2V}{\partial x^2}=EI_z(2C_2+6C_3x)$ \\
+$Q(x)=-EI_z\frac{\partial^3V}{\partial x^3}=-EI_z(6C_3)$ \\\\
+boundary conditions: $V(0)=\theta(0)=M(l)=0$, $Q(l)=-F_s=-1000$ \\
+apply boundary conditions: \\
+$C_0=V(0)=0$, $C_1=\theta(0)=0$ \\
+$M(l)=0=EI_z(2C_2+6C_3l)\rightarrow C_2=-3C_3l=-3C_3$ \\
+$Q(l)=-1000=-EI_z(6C_3)\rightarrow C_3=-\frac{1000}{6EI_z}=-0.011$ 1/m$^2$, $C_2=0.033$ 1/m \\\\
+$\fbox{$V(x)=0.033x^2-0.011x^3$ m}$ \\
+$\fbox{$V_{max}=V(1)=0.022$ m}$ \\\\
+$\fbox{$M(x)=(2*10^{10}*7.5*10^{-7})(0.066-0.066x)$ Nm}$ \\
+$\fbox{$M_{max}=M(0)=1000$ Nm}$ \\\\
+$\fbox{$Q(x)=1000$ N}$ \\
+$\fbox{$Q_{max}=1000$ N}$ \\\\
+$\sigma_{xx}=-M_zy/I_z=\frac{-1000(0.0274)}{7.5*10^{-7}}$ \\
+$\fbox{$\sigma_{xx}=36.51$ MPa}$
+
+\subsection*{Part 2}
+$F_y=1000$ N/m, $F_s=1000$ N \\
+$EI_z\frac{\partial^4V}{\partial x^4}=F_y=0\rightarrow \frac{\partial^4V}{\partial x^4}=-0.067$
+1/m$^3$ \\
+$V(x)=0.0028x^4+C_3x^3+C_2x^2+C_1x+C_0$ \\\\
+$\theta(x)=\frac{\partial V}{\partial x}=0.011x^3+3C_3x^2+2C_2x+C_1$ \\
+$M(x)=EI_z\frac{\partial^2V}{\partial x^2}=EI_z(0.033x^2+6C_3x+2C_2)$ \\
+$Q(x)=-EI_z\frac{\partial^3V}{\partial x^3}=-EI_z(0.067x+6C_3)$ \\\\
+boundary conditions: $V(0)=\theta(0)=M(l)=0$, $Q(l)=-2000$ \\
+apply boundary conditions: \\
+$C_0=V(0)=0$, $C_1=\theta(0)=0$ \\
+$M(l)=0=EI_z(0.033+6C_3+2C_2)\rightarrow C_2=-3C_3-0.017$ \\
+$Q(l)=-2000=-EI_z(0.067+6C_3)\rightarrow C_3=0.011\rightarrow C_2=-0.05$ \\
+$\fbox{$V(x)=0.0028x^4+0.011x^3-0.05x^2$ m}$ \\
+$\fbox{$V_{max}=V(1)=-0.036$ m}$ \\\\
+$\fbox{$M(x)=15000(0.033x^2+0.066x-0.1)$ Nm}$ \\
+$\fbox{$M_{max}=M(0)=-1500$ Nm}$ \\\\
+$\fbox{$Q(x)=-15000(0.067x+0.066)$ N}$ \\
+$\fbox{$Q_{max}=Q(1)=2000$ N}$ \\\\
+$\sigma_{xx}=-M_zy/I_z=\frac{-1500(0.0274)}{7.5*10^{-7}}$ \\
+$\fbox{$\sigma_{xx}=54.8$ MPa}$
+
+\subsection*{Part 3}
+If Fy was a function of F there would be another order in all of the equations since
+Fy would be related to x. The order increased between parts 1 and 2 by adding the distributed load
+along x, so varying it with respect to x would add another order. This would change the shapes
+of the load distributions as well.
+
+\end{document}
