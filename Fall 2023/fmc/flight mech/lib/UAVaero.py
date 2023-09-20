@@ -57,6 +57,8 @@ class UAVaero():
         self.k_motor = P.k_motor
         self.m = P.mass
         self.g = P.g
+        self.k_t_p = 0
+        self.k_omega = 0
         
     
     def sigma(self, alpha):
@@ -107,3 +109,19 @@ class UAVaero():
         prop = 0.5*self.rho*self.S_prop*self.C_prop*np.array([[(self.k_motor*deltat)**2 - Va**2], [0], [0]])
         forces = grav + aero + prop
         return forces
+    
+    
+    def moments(self, states, alpha, beta, deltaa, deltae, deltar, deltat, Va):
+        """
+        """
+        pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = states.flatten()
+        moments = 0.5*self.rho*(Va**2)*self.S*np.array([[self.b*(self.C_ell_0 + self.C_ell_beta*beta +\
+                                                    self.C_ell_p*(self.b/(2*Va))*p + self.C_ell_r*(self.b/(2*Va))*r +\
+                                                    self.C_ell_delta_a*deltaa + self.C_ell_delta_r*deltar)],
+                                                        [self.c*(self.C_m_0 + self.C_m_alpha*alpha +\
+                                                    self.C_m_q*(self.c/(2*Va))*q + self.C_m_delta_e*deltae)],
+                                                        [self.b*(self.C_n_0 + self.C_n_beta*beta +\
+                                                    self.C_n_p*(self.b/(2*Va))*p + self.C_n_r*(self.b/(2*Va))*r +\
+                                                    self.C_n_delta_a*deltaa + self.C_n_delta_r*deltar)]]) +\
+                                            np.array([[-self.k_t_p*(self.k_omega*deltat)**2],[0],[0]])
+        return moments
