@@ -33,6 +33,7 @@ class animation():
         self.ax.set_xlim([-limits, limits])
         self.ax.set_ylim([-limits, limits])
         self.ax.set_zlim([-limits, limits])
+        self.lim = limits
         self.ax.set_xlabel('East (m)')
         self.ax.set_ylabel('North (m)')
         self.ax.set_zlabel('Height (m)')
@@ -163,7 +164,13 @@ class animation():
             poly = Poly3DCollection(faces, facecolors=facecolors, alpha=self.alpha)
             self.obj = self.ax.add_collection3d(poly)
             plt.pause(0.001)
+            self.ax.set_xlim([e-self.lim, e+self.lim])
+            self.ax.set_ylim([n-self.lim, n+self.lim])
+            self.ax.set_zlim([-d-self.lim, -d+self.lim])
         # otherwise update vert location
         else:
             self.obj.set_verts(faces)
             plt.pause(0.001)
+            self.ax.set_xlim([e-self.lim, e+self.lim])
+            self.ax.set_ylim([n-self.lim, n+self.lim])
+            self.ax.set_zlim([-d-self.lim, -d+self.lim])
