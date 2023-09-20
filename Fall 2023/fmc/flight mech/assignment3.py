@@ -44,8 +44,8 @@ sim_time = SIM.start_time
 print("Press Q to exit...")
 while sim_time < SIM.end_time:
     # keyboard inputs
-    if keyboard.is_pressed("down arrow"): deltae -= np.deg2rad(0.5)
-    if keyboard.is_pressed("up arrow"): deltae += np.deg2rad(0.5)
+    if keyboard.is_pressed("down arrow"): deltae -= np.deg2rad(1)
+    if keyboard.is_pressed("up arrow"): deltae += np.deg2rad(1)
     if keyboard.is_pressed("right arrow"): deltaa += np.deg2rad(0.5)
     if keyboard.is_pressed("left arrow"): deltaa -= np.deg2rad(0.5)
     
