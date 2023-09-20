@@ -12,21 +12,25 @@ class wind():
     TODO
     """
     
-    def __init__(self, Vs, Vgust):
+    def __init__(self, Vs):
         self.Vs = Vs
-        self.Vgust = Vgust
         
     
-    def gust(self):
-        uwg = rng.random()*self.Vgust[0][0]
-        vwg = rng.random()*self.Vgust[1][0]
-        wwg = rng.random()*self.Vgust[2][0]
+    def drydenGust(self, Va):
+        s = rng.random()
+        Lu = Lv = 200
+        Lw = 50
+        ou = ov = 1.06
+        ow = 0.7
+        uwg = ou*np.sqrt(2*Va/Lu)*(1/(s + Va/Lu))
+        vwg = ov*np.sqrt(3*Va/Lv)*((s + Va/(np.sqrt(3)*Lv))/((s + Va/Lv)**2))
+        wwg = ow*np.sqrt(3*Va/Lw)*((s + Va/(np.sqrt(3)*Lw))/((s + Va/Lw)**2))
         return np.array([[uwg],[vwg],[wwg]])
         
     
-    def windout(self, states):
+    def windout(self, states, Va):
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = states.flatten()
-        gusts = self.gust()
+        gusts = self.drydenGust(Va)
         windtot = Rvb(phi, theta, psi)*self.Vs + gusts
         Var = np.array([[u - windtot[0][0]],
                         [v - windtot[1][0]],
