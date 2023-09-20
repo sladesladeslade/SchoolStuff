@@ -5,6 +5,7 @@
 import numpy as np
 from rotations import Rvb
 rng = np.random.default_rng()
+vals = [-1, 1]
 
 
 class wind():
@@ -17,14 +18,16 @@ class wind():
         
     
     def drydenGust(self, Va):
-        s = rng.random()
+        su = rng.random()
+        sv = rng.random()
+        sw = rng.random()
         Lu = Lv = 200
         Lw = 50
         ou = ov = 1.06
         ow = 0.7
-        uwg = ou*np.sqrt(2*Va/Lu)*(1/(s + Va/Lu))
-        vwg = ov*np.sqrt(3*Va/Lv)*((s + Va/(np.sqrt(3)*Lv))/((s + Va/Lv)**2))
-        wwg = ow*np.sqrt(3*Va/Lw)*((s + Va/(np.sqrt(3)*Lw))/((s + Va/Lw)**2))
+        uwg = ou*np.sqrt(2*Va/Lu)*(1/(su + Va/Lu))*np.random.choice(vals)
+        vwg = ov*np.sqrt(3*Va/Lv)*((sv + Va/(np.sqrt(3)*Lv))/((sv + Va/Lv)**2))*np.random.choice(vals)
+        wwg = ow*np.sqrt(3*Va/Lw)*((sw + Va/(np.sqrt(3)*Lw))/((sw + Va/Lw)**2))*np.random.choice(vals)
         return np.array([[uwg],[vwg],[wwg]])
         
     

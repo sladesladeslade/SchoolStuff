@@ -20,8 +20,7 @@ import numpy as np
 uav = dynamics.UAVdynamics()
 anim = animation.animation(limits=10, alpha=0.5, flag=False)
 aero = aero.UAVaero()
-Vs = np.array([[0],[0],[0]])        # steady wind m/s
-Vg = np.array([[0],[0],[0]])        # max gust m/s
+Vs = np.array([[5],[2],[0]])        # steady wind m/s
 wind = wind.wind(Vs)
 
 # create vehicle
@@ -46,8 +45,9 @@ while sim_time < SIM.end_time:
     # keyboard inputs
     if keyboard.is_pressed("down arrow"): deltae -= np.deg2rad(1)
     if keyboard.is_pressed("up arrow"): deltae += np.deg2rad(1)
-    if keyboard.is_pressed("right arrow"): deltaa += np.deg2rad(0.5)
-    if keyboard.is_pressed("left arrow"): deltaa -= np.deg2rad(0.5)
+    if keyboard.is_pressed("right arrow"): deltaa += np.deg2rad(0.5); deltar -= np.deg2rad(0.25)
+    if keyboard.is_pressed("left arrow"): deltaa -= np.deg2rad(0.5); deltar += np.deg2rad(0.25)
+    if keyboard.is_pressed("space"): deltae = 0; deltaa = 0; deltar = 0
     
     # update everything
     Va, alpha, beta = wind.windout(state, Va)
