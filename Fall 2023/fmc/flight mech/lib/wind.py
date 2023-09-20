@@ -4,6 +4,7 @@
 
 import numpy as np
 from rotations import Rvb
+rng = np.random.default_rng()
 
 
 class wind():
@@ -17,9 +18,9 @@ class wind():
         
     
     def gust(self):
-        uwg = np.random()*self.Vgust[0][0]
-        vwg = np.random()*self.Vgust[1][0]
-        wwg = np.random()*self.Vgust[2][0]
+        uwg = rng.random()*self.Vgust[0][0]
+        vwg = rng.random()*self.Vgust[1][0]
+        wwg = rng.random()*self.Vgust[2][0]
         return np.array([[uwg],[vwg],[wwg]])
         
     
