@@ -12,7 +12,7 @@ class UAVaero():
     """
     
     def __init__(self):
-        self.S = P.S_wing
+        self.S = P.S
         self.b = P.b
         self.c = P.c
         self.S_prop = P.S_prop
@@ -55,10 +55,10 @@ class UAVaero():
         self.C_n_delta_r = P.C_n_delta_r
         self.C_prop = P.C_prop
         self.k_motor = P.k_motor
-        self.m = P.mass
+        self.m = P.m
         self.g = P.g
-        self.k_t_p = 0
-        self.k_omega = 0
+        self.k_t_p = P.k_t_p
+        self.k_omega = P.k_omega
         
     
     def sigma(self, alpha):
