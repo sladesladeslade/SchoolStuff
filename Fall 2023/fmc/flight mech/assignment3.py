@@ -10,6 +10,7 @@ import lib.animation as animation
 import lib.UAVdynamics as dynamics
 import lib.UAVaero as aero
 import lib.wind as wind
+import lib.UAVparams as P
 import keyboard
 from lib.hangar import sampleUAV_verts, sampleUAV_obj
 from lib.signalGenerator import signalGenerator
@@ -29,7 +30,7 @@ obj = sampleUAV_obj
 faces = ["b"]
 
 # initial state
-state = np.array([[0.],[0.],[-10.],[10.],[0.],[0.],[0.],[0.],[0.],[0.],[0.],[0.]])
+state = P.states0
 deltaa = 0
 deltae = 0
 deltar = 0
@@ -48,6 +49,10 @@ while sim_time < SIM.end_time:
     if keyboard.is_pressed("right arrow"): deltaa += np.deg2rad(0.5); deltar -= np.deg2rad(0.25)
     if keyboard.is_pressed("left arrow"): deltaa -= np.deg2rad(0.5); deltar += np.deg2rad(0.25)
     if keyboard.is_pressed("space"): deltae = 0; deltaa = 0; deltar = 0
+    if keyboard.is_pressed("shift"):
+        if deltat < 1: deltat += 0.1
+    if keyboard.is_pressed("left control"):
+        if deltat > 0: deltat -= 0.1
     
     # update everything
     Va, alpha, beta = wind.windout(state, Va)

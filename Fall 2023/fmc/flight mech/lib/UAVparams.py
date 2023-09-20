@@ -13,8 +13,8 @@ Ts = 0.01       # sim sample time
 # ICs
 states0=np.array([[0.], #pn
                   [0.], #pe
-                  [-1.], # pd
-                  [0.], # u
+                  [-100.], # pd
+                  [10.], # u
                   [0.], # v
                   [0.], # w
                   [0.], # phi
