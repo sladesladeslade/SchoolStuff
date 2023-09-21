@@ -4,8 +4,8 @@
 
 import numpy as np
 from rotations import Rvb
-rng = np.random.default_rng()
-vals = [-1, 1]
+import control.matlab as mat
+import simparams as SIM
 
 
 class wind():
@@ -18,17 +18,35 @@ class wind():
         
     
     def drydenGust(self, Va):
-        su = rng.random()
-        sv = rng.random()
-        sw = rng.random()
+        # get white noise vals
+        su = np.random.normal(0, 1, 1)[0]
+        sv = np.random.normal(0, 1, 1)[0]
+        sw = np.random.normal(0, 1, 1)[0]
+        
+        # set dryden gust model params
         Lu = Lv = 200
         Lw = 50
         ou = ov = 1.06
         ow = 0.7
-        uwg = ou*np.sqrt(2*Va/Lu)*(1/(su + Va/Lu))*np.random.choice(vals)
-        vwg = ov*np.sqrt(3*Va/Lv)*((sv + Va/(np.sqrt(3)*Lv))/((sv + Va/Lv)**2))*np.random.choice(vals)
-        wwg = ow*np.sqrt(3*Va/Lw)*((sw + Va/(np.sqrt(3)*Lw))/((sw + Va/Lw)**2))*np.random.choice(vals)
-        return np.array([[uwg],[vwg],[wwg]])
+        # Lu = Lv = Lw = 533
+        # ou = ov = ow = 1.5
+        
+        # make coeffs for tfs
+        C1 = ou*np.sqrt(2*Va/Lu)
+        C2 = ov*np.sqrt(3*Va/Lv)
+        C3 = ow*np.sqrt(3*Va/Lw)
+        
+        # set up tfs
+        Hu = mat.tf([C1],[1, Va/Lu])
+        Hv = mat.tf([C2, C2*Va/(np.sqrt(3)*Lv)],[1, 2*Va/Lv, (Va/Lv)**2])
+        Hw = mat.tf([C3, C3*Va/(np.sqrt(3)*Lw)],[1, 2*Va/Lw, (Va/Lw)**2])
+        
+        # calc gusts from tfs
+        T = [0, 1000]
+        uwg, _, _ = mat.lsim(Hu, su, T)
+        vwg, _, _ = mat.lsim(Hv, sv, T)
+        wwg, _, _ = mat.lsim(Hw, sw, T)
+        return np.array([[uwg[1]],[vwg[1]],[wwg[1]]])
         
     
     def windout(self, states, Va):
