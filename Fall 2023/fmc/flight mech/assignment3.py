@@ -38,12 +38,17 @@ deltar = 0
 deltat = 1
 Va = np.sqrt(state[3][0]**2 + state[4][0]**2 + state[5][0]**2)
 
+# add subplots
+throttle = plt.figure(1).add_subplot(1, 10, 1)
+
 # initialize the simulation time
 sim_time = SIM.start_time
+t_next_plot = sim_time + SIM.ts_plotting
 
 # main simulation loop
 print("Press Q to exit...")
 while sim_time < SIM.end_time:
+    
     # keyboard inputs
     if keyboard.is_pressed("down arrow"): deltae -= np.deg2rad(1)
     if keyboard.is_pressed("up arrow"): deltae += np.deg2rad(1)
@@ -51,9 +56,9 @@ while sim_time < SIM.end_time:
     if keyboard.is_pressed("left arrow"): deltaa -= np.deg2rad(0.5); deltar += np.deg2rad(0.25)
     if keyboard.is_pressed("space"): deltae = 0; deltaa = 0; deltar = 0
     if keyboard.is_pressed("shift"):
-        if deltat < 1: deltat += 0.1
+        if deltat < 1: deltat += 0.05
     if keyboard.is_pressed("left control"):
-        if deltat > 0: deltat -= 0.1
+        if deltat > 0: deltat -= 0.05
     
     # update everything
     Va, alpha, beta = wind.windout(state, Va)
@@ -63,9 +68,14 @@ while sim_time < SIM.end_time:
     pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = state.flatten()
     anim.update(verts, pn, pe, pd, phi, theta, psi, obj, faces)
     
+    # plotting
+    if sim_time > t_next_plot:
+        throttle.clear(); throttle.bar(0, deltat); throttle.set_ylim(0, 1); throttle.set_xticklabels(""); throttle.set_xticks([])
+        t_next_plot = sim_time + SIM.ts_plotting
+    
     # kill you
     if pd >= 0:
-        plt.figure(1).text(x=0.2, y=0.5, s="You Crashed", fontsize=50)
+        plt.figure(1).text(x=0.25, y=0.5, s="You Crashed", fontsize=100)
         plt.pause(0.01)
         sim_time = SIM.end_time
     
