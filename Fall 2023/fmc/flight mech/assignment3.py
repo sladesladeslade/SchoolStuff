@@ -40,7 +40,35 @@ deltat = 1
 Va = np.sqrt(state[3][0]**2 + state[4][0]**2 + state[5][0]**2)
 
 # add subplots
-throttle = plt.figure(1).add_subplot(1, 10, 1)
+throttle = plt.figure(1).add_subplot(1, 20, 1); tpp = throttle.get_position(); tpp.x0-=0.1; tpp.x1-=0.1
+throttle.set_position(tpp)
+deflections = anim.fig.add_subplot(331)
+dpp = deflections.get_position(); dpp.x0 -= 0.015; dpp.x1 -= 0.05; deflections.set_position(dpp)
+force = anim.fig.add_subplot(334)
+fpp = force.get_position(); fpp.x0 -= 0.015; fpp.x1 -= 0.05; force.set_position(fpp)
+moment = anim.fig.add_subplot(337)
+mpp = moment.get_position(); mpp.x0 -= 0.015; mpp.x1 -= 0.05; moment.set_position(mpp)
+posp = anim.fig.add_subplot(433)
+ppp = posp.get_position(); ppp.x0 += 0.125; ppp.x1 += 0.09; posp.set_position(ppp)
+velp = anim.fig.add_subplot(436)
+vpp = velp.get_position(); vpp.x0 += 0.125; vpp.x1 += 0.09; velp.set_position(vpp)
+angp = anim.fig.add_subplot(439)
+app = angp.get_position(); app.x0 += 0.125; app.x1 += 0.09; angp.set_position(app)
+ratep = anim.fig.add_subplot(4, 3, 12)
+rpp = ratep.get_position(); rpp.x0 += 0.125; rpp.x1 += 0.09; ratep.set_position(rpp)
+
+# set up data arrays
+buffer = int(1/SIM.ts_plotting)
+simtimes = np.zeros(buffer)
+defsa = np.zeros(buffer)
+defse = np.zeros(buffer)
+defsr = np.zeros(buffer)
+forces0 = np.zeros(buffer); forces1 = np.zeros(buffer); forces2 = np.zeros(buffer)
+moments0 = np.zeros(buffer); moments1 = np.zeros(buffer); moments2 = np.zeros(buffer)
+poss0 = np.zeros(buffer); poss1 = np.zeros(buffer); poss2 = np.zeros(buffer)
+vels0 = np.zeros(buffer); vels1 = np.zeros(buffer); vels2 = np.zeros(buffer)
+angs0 = np.zeros(buffer); angs1 = np.zeros(buffer); angs2 = np.zeros(buffer)
+rates0 = np.zeros(buffer); rates1 = np.zeros(buffer); rates2 = np.zeros(buffer)
 
 # initialize the simulation time
 sim_time = SIM.start_time
@@ -71,7 +99,51 @@ while sim_time < SIM.end_time:
     
     # plotting
     if sim_time > t_next_plot:
-        throttle.clear(); throttle.bar(0, deltat); throttle.set_ylim(0, 1); throttle.set_xticklabels(""); throttle.set_xticks([])
+        # write data
+        simtimes = np.concatenate((simtimes[1:], [sim_time]))
+        defsa = np.concatenate((defsa[1:], [np.degrees(deltaa)]))
+        defse = np.concatenate((defse[1:], [np.degrees(deltae)]))
+        defsr = np.concatenate((defsr[1:], [np.degrees(deltar)]))
+        forces0 = np.concatenate((forces0[1:], [fx]))
+        forces1 = np.concatenate((forces1[1:], [fy]))
+        forces2 = np.concatenate((forces2[1:], [fz]))
+        moments0 = np.concatenate((moments0[1:], [l]))
+        moments1 = np.concatenate((moments1[1:], [m]))
+        moments2 = np.concatenate((moments2[1:], [n]))
+        poss0 = np.concatenate((poss0[1:], [pn]))
+        poss1 = np.concatenate((poss1[1:], [pe]))
+        poss2 = np.concatenate((poss2[1:], [-pd]))
+        vels0 = np.concatenate((vels0[1:], [u]))
+        vels1 = np.concatenate((vels1[1:], [v]))
+        vels2 = np.concatenate((vels2[1:], [w]))
+        angs0 = np.concatenate((angs0[1:], [np.degrees(phi)]))
+        angs1 = np.concatenate((angs1[1:], [np.degrees(theta)]))
+        angs2 = np.concatenate((angs2[1:], [np.degrees(psi)]))
+        rates0 = np.concatenate((rates0[1:], [np.degrees(p)]))
+        rates1 = np.concatenate((rates1[1:], [np.degrees(q)]))
+        rates2 = np.concatenate((rates2[1:], [np.degrees(r)]))
+        
+        # plot plots
+        throttle.clear(); throttle.bar(0, deltat); throttle.set_ylim(0, 1); throttle.set_xticklabels("")
+        throttle.set_xticks([]); throttle.set_title("Throttle")
+        deflections.clear(); deflections.plot(simtimes, defsa, label="a"); deflections.plot(simtimes, defse, label="e")
+        deflections.plot(simtimes, defsr, label="r"); deflections.set_ylabel("Deflection (deg)")
+        deflections.legend(loc="upper right"); deflections.grid()
+        force.clear(); force.plot(simtimes, forces0, label="fx"); force.plot(simtimes, forces1, label="fy")
+        force.plot(simtimes, forces2, label="fz"); force.set_ylabel("Force (N)"); force.legend(loc="upper right"); force.grid()
+        moment.clear(); moment.plot(simtimes, moments0, label="fx"); moment.plot(simtimes, moments1, label="fy")
+        moment.plot(simtimes, moments2, label="fz"); moment.set_ylabel("Moment (Nm)"); moment.legend(loc="upper right")
+        moment.grid()
+        posp.clear(); posp.plot(simtimes, poss0, label="n"); posp.plot(simtimes, poss1, label="e")
+        posp.plot(simtimes, poss2, label="h"); posp.set_ylabel("Position (m)"); posp.legend(loc="upper right"); posp.grid()
+        velp.clear(); velp.plot(simtimes, vels0, label="u"); velp.plot(simtimes, vels1, label="v")
+        velp.plot(simtimes, vels2, label="w"); velp.set_ylabel("Velocity (m/s)"); velp.legend(loc="upper right"); velp.grid()
+        angp.clear(); angp.plot(simtimes, angs0, label="$\phi$"); angp.plot(simtimes, angs1, label="$\\theta$")
+        angp.plot(simtimes, angs2, label="$\psi$"); angp.set_ylabel("Angle (deg)"); angp.legend(loc="upper right"); angp.grid()
+        ratep.clear(); ratep.plot(simtimes, rates0, label="p"); ratep.plot(simtimes, rates1, label="q")
+        ratep.plot(simtimes, rates2, label="r"); ratep.set_ylabel("Rates (deg/s)"); ratep.legend(loc="upper right"); ratep.grid()
+        
+        # get new plot time
         t_next_plot = sim_time + SIM.ts_plotting
     
     # kill you
