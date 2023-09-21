@@ -17,7 +17,7 @@ class wind():
         self.Vs = Vs
         
     
-    def drydenGust(self, Va):
+    def drydenGust(self, Va, t):
         # get white noise vals
         su = np.random.normal(0, 1, 1)[0]
         sv = np.random.normal(0, 1, 1)[0]
@@ -42,16 +42,16 @@ class wind():
         Hw = mat.tf([C3, C3*Va/(np.sqrt(3)*Lw)],[1, 2*Va/Lw, (Va/Lw)**2])
         
         # calc gusts from tfs
-        T = [0, 1000]
+        T = [0, t]
         uwg, _, _ = mat.lsim(Hu, su, T)
         vwg, _, _ = mat.lsim(Hv, sv, T)
         wwg, _, _ = mat.lsim(Hw, sw, T)
         return np.array([[uwg[1]],[vwg[1]],[wwg[1]]])
         
     
-    def windout(self, states, Va):
+    def windout(self, states, Va, simtime):
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = states.flatten()
-        gusts = self.drydenGust(Va)
+        gusts = self.drydenGust(Va, simtime)
         windtot = Rvb(phi, theta, psi)*self.Vs + gusts
         Var = np.array([[u - windtot[0][0]],
                         [v - windtot[1][0]],

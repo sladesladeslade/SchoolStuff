@@ -14,6 +14,7 @@ import lib.UAVparams as P
 import keyboard
 from lib.hangar import sampleUAV_verts, sampleUAV_obj, f18_verts
 import numpy as np
+import warnings; warnings.filterwarnings("ignore", category=UserWarning, module="control")
 
 
 # define stuff
@@ -61,7 +62,7 @@ while sim_time < SIM.end_time:
         if deltat > 0: deltat -= 0.05
     
     # update everything
-    Va, alpha, beta = wind.windout(state, Va)
+    Va, alpha, beta = wind.windout(state, Va, sim_time)
     fx, fy, fz = aero.forces(state, alpha, beta, deltaa, deltae, deltar, deltat, Va).flatten()
     l, m, n = aero.moments(state, alpha, beta, deltaa, deltae, deltar, deltat, Va).flatten()
     state = uav.update(fx, fy, fz, l, m, n)
