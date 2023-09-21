@@ -12,21 +12,22 @@ import lib.UAVaero as aero
 import lib.wind as wind
 import lib.UAVparams as P
 import keyboard
-from lib.hangar import sampleUAV_verts, sampleUAV_obj
-from lib.signalGenerator import signalGenerator
+from lib.hangar import sampleUAV_verts, sampleUAV_obj, f18_verts
 import numpy as np
 
 
 # define stuff
 uav = dynamics.UAVdynamics()
-anim = animation.animation(limits=10, alpha=0.5, flag=False)
+anim = animation.animation(limits=10, alpha=0.35, flag=False)
 aero = aero.UAVaero()
 Vs = np.array([[5],[2],[0]])        # steady wind m/s
 wind = wind.wind(Vs)
 
 # create vehicle
 verts = sampleUAV_verts
+verts = f18_verts
 obj = sampleUAV_obj
+obj = None
 faces = ["b"]
 
 # initial state
@@ -62,9 +63,15 @@ while sim_time < SIM.end_time:
     pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = state.flatten()
     anim.update(verts, pn, pe, pd, phi, theta, psi, obj, faces)
     
+    # kill you
+    if pd >= 0:
+        plt.figure(1).text(x=0.2, y=0.5, s="You Crashed", fontsize=50)
+        plt.pause(0.01)
+        sim_time = SIM.end_time
+    
     # increment time
     sim_time += SIM.ts_simulation
-    
+
     if keyboard.is_pressed("q"): break
     
 # wait to close
