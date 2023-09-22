@@ -14,6 +14,7 @@ Vehicle List:
 - sample UAV
 - vision jet (Cirrus SF50)
 - NASA X-59 QueSST
+- F18
 """
 
 # sample UAV
@@ -70,3 +71,8 @@ visionJet_verts = visionJet_mesh.vectors*np.array([-1, 1, -1])/12/3.281
 # X-59
 x59_mesh = mesh.Mesh.from_file("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\stls\\x59.stl")
 x59_verts = x59_mesh.vectors*np.array([-1, 1, -1])/3.281
+
+
+# F-18
+f18_mesh = mesh.Mesh.from_file("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\stls\\f18.stl")
+f18_verts = f18_mesh.vectors*np.array([-1, 1, -1])

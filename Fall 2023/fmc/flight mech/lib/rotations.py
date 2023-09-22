@@ -29,3 +29,16 @@ def Euler2Rotation(phi, theta, psi):
     R = R_yaw @ R_pitch @ R_roll
 
     return R
+
+
+def Rvb(phi, theta, psi):
+    cphi = np.cos(phi)
+    sphi = np.sin(phi)
+    ct = np.cos(theta)
+    st = np.sin(theta)
+    cpsi = np.cos(psi)
+    spsi = np.sin(psi)
+    rvb = np.array([[ct*cpsi, ct*spsi, -st],
+                    [sphi*st*cpsi - cphi*spsi, sphi*st*spsi + cphi*cpsi, sphi*ct],
+                    [cphi*st*cpsi + sphi*spsi, cphi*st*spsi - sphi*cpsi, cphi*ct]])
+    return rvb
