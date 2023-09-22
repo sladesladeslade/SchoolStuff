@@ -28,16 +28,14 @@ class wind():
         Lw = 50
         ou = ov = 1.06
         ow = 0.7
-        # Lu = Lv = Lw = 533
-        # ou = ov = ow = 1.5
-        
+
         # make coeffs for tfs
         C1 = ou*np.sqrt(2*Va/Lu)
         C2 = ov*np.sqrt(3*Va/Lv)
         C3 = ow*np.sqrt(3*Va/Lw)
         
         # set up tfs
-        Hu = mat.tf([C1],[1, Va/Lu])
+        Hu = mat.tf([0, C1],[1, Va/Lu])
         Hv = mat.tf([C2, C2*Va/(np.sqrt(3)*Lv)],[1, 2*Va/Lv, (Va/Lv)**2])
         Hw = mat.tf([C3, C3*Va/(np.sqrt(3)*Lw)],[1, 2*Va/Lw, (Va/Lw)**2])
         
@@ -52,7 +50,7 @@ class wind():
     def windout(self, states, Va, simtime):
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = states.flatten()
         gusts = self.drydenGust(Va, simtime)
-        windtot = Rvb(phi, theta, psi)*self.Vs + gusts
+        windtot = np.matmul(Rvb(phi, theta, psi), self.Vs) + gusts
         Var = np.array([[u - windtot[0][0]],
                         [v - windtot[1][0]],
                         [w - windtot[2][0]]])

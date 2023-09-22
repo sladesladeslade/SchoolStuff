@@ -4,6 +4,8 @@
 
 import sys
 sys.path.append("C:\\Users\\spbro\\SchoolStuff\\Fall 2023\\fmc\\flight mech\\lib\\")
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import lib.simparams as SIM
 import lib.animation as animation
@@ -21,7 +23,7 @@ import warnings; warnings.filterwarnings("ignore", category=UserWarning, module=
 uav = dynamics.UAVdynamics()
 anim = animation.animation(limits=10, alpha=0.35, flag=False)
 aero = aero.UAVaero()
-Vs = np.array([[5],[2],[0]])        # steady wind m/s
+Vs = np.array([[5],[3],[2]])        # steady wind m/s
 wind = wind.wind(Vs)
 
 # create vehicle
@@ -124,24 +126,31 @@ while sim_time < SIM.end_time:
         rates2 = np.concatenate((rates2[1:], [np.degrees(r)]))
         
         # plot plots
+        x0 = simtimes[0]
+        x1 = simtimes[-1]
         throttle.clear(); throttle.bar(0, deltat); throttle.set_ylim(0, 1); throttle.set_xticklabels("")
         throttle.set_xticks([]); throttle.set_title("Throttle")
         deflections.clear(); deflections.plot(simtimes, defsa, label="a"); deflections.plot(simtimes, defse, label="e")
         deflections.plot(simtimes, defsr, label="r"); deflections.set_ylabel("Deflection (deg)")
-        deflections.legend(loc="upper right"); deflections.grid()
+        deflections.legend(loc="upper right"); deflections.grid(); deflections.set_xlim((x0, x1)); deflections.set_ylim((-100, 100))
         force.clear(); force.plot(simtimes, forces0, label="fx"); force.plot(simtimes, forces1, label="fy")
         force.plot(simtimes, forces2, label="fz"); force.set_ylabel("Force (N)"); force.legend(loc="upper right"); force.grid()
-        moment.clear(); moment.plot(simtimes, moments0, label="fx"); moment.plot(simtimes, moments1, label="fy")
-        moment.plot(simtimes, moments2, label="fz"); moment.set_ylabel("Moment (Nm)"); moment.legend(loc="upper right")
-        moment.grid()
+        force.set_xlim((x0, x1)); force.set_ylim((-1000, 1000))
+        moment.clear(); moment.plot(simtimes, moments0, label="l"); moment.plot(simtimes, moments1, label="m")
+        moment.plot(simtimes, moments2, label="n"); moment.set_ylabel("Moment (Nm)"); moment.legend(loc="upper right")
+        moment.grid(); moment.set_xlim((x0, x1)); moment.set_ylim((-40, 40))
         posp.clear(); posp.plot(simtimes, poss0, label="n"); posp.plot(simtimes, poss1, label="e")
         posp.plot(simtimes, poss2, label="h"); posp.set_ylabel("Position (m)"); posp.legend(loc="upper right"); posp.grid()
+        posp.set_xlim((x0, x1))
         velp.clear(); velp.plot(simtimes, vels0, label="u"); velp.plot(simtimes, vels1, label="v")
         velp.plot(simtimes, vels2, label="w"); velp.set_ylabel("Velocity (m/s)"); velp.legend(loc="upper right"); velp.grid()
+        velp.set_xlim((x0, x1)); velp.set_ylim((-25, 100))
         angp.clear(); angp.plot(simtimes, angs0, label="$\phi$"); angp.plot(simtimes, angs1, label="$\\theta$")
         angp.plot(simtimes, angs2, label="$\psi$"); angp.set_ylabel("Angle (deg)"); angp.legend(loc="upper right"); angp.grid()
+        angp.set_xlim((x0, x1)); angp.set_ylim((-100, 100))
         ratep.clear(); ratep.plot(simtimes, rates0, label="p"); ratep.plot(simtimes, rates1, label="q")
         ratep.plot(simtimes, rates2, label="r"); ratep.set_ylabel("Rates (deg/s)"); ratep.legend(loc="upper right"); ratep.grid()
+        ratep.set_xlim((x0, x1)); ratep.set_ylim((-360, 360))
         
         # get new plot time
         t_next_plot = sim_time + SIM.ts_plotting
