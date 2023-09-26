@@ -31,8 +31,13 @@ $\Pi_t=\frac{1}{2}k_1D_1^2 + \frac{1}{2}k_2(D_2-D_1)^2-D_1f_1 - D_2f_2$ \\
 $\delta\Pi_t=0=\delta[\frac{1}{2}k_1D_1^2 + \frac{1}{2}k_2(D_2-D_1)^2-D_1f_1 - D_2f_2]=
 \delta[\frac{1}{2}k_1D_1^2 + \frac{1}{2}k_2(D_2^2-2D_1D_2+D_1^2)-D_1f_1 - D_2f_2]=
 \delta[\frac{1}{2}k_1D_1^2 + \frac{1}{2}k_2D_2^2 -k_2D_1D_2 + \frac{1}{2}k_2D_1^2 -D_1f_1 - D_2f_2]$ \\\\
-vary $D_1$: $\delta D_1[k_1D_1-k_2D_2+k_2D_1-f_1]=0 \rightarrow \fbox{$D_1=\frac{f_1+k_2D_2}{k_1+k_2}$}$ \\\\
-vary $D_2$: $\delta D_2[k_2D_2-k_2D_1-f_2]=0 \rightarrow \fbox{$D_2=\frac{f_2+k_2D_1}{k_2}$}$
+vary $D_1$: $\delta D_1[k_1D_1-k_2D_2+k_2D_1-f_1]=0 \rightarrow D_1=\frac{f_1+k_2D_2}{k_1+k_2}$ \\\\
+vary $D_2$: $\delta D_2[k_2D_2-k_2D_1-f_2]=0 \rightarrow D_2=\frac{f_2+k_2D_1}{k_2}$ \\\\
+$k_1D_1-k_2D_2+k_2D_1-f_1=0=k_1D_1-k_2(\frac{f_2+k_2D_1}{k_2})+k_2D_1-f_1=k_1D_1-(f_2+k_2D_1)+k_2D_1-f_1=0$ \\
+$k_1D_1=f_1+f_2$ \\
+$\fbox{$D_1=\frac{f_1+f_2}{k_1}$}$ \\\\
+$D_2=\frac{f_2+k_2D_1}{k_2}=\frac{f_2+k_2(\frac{f_1+f_2}{k_1})}{k_2}=\frac{f_2}{k_2}+\frac{f_1+f_2}{k_1}$ \\
+$\fbox{$D_2=\frac{f_2}{k_2}+\frac{f_1+f_2}{k_1}$}$
 
 \section*{Problem 2}
 Consider again the simplest problem of a continuum 1D bar of uniform cross-section studied in Q1-HW1.
@@ -60,12 +65,31 @@ $\fbox{$u(x)=\frac{F}{EA}x$}$
 $f_x=$ constant and $F_s=$ constant \\\\
 $\Pi=\frac{E}{2}A\int_{0}^{l}\varepsilon^2 dx$ \\\\
 assume $u(x)=C_0+C_1x+C_2x^2 \rightarrow \varepsilon=\frac{du}{dx}=C_1+2C_2x$ \\\\
-$\Pi=\frac{EA}{2}\int_{0}^{l}(C_1+2C_2x)^2 dx=\frac{EA}{2}\int_{0}^{l}(4C_2x^2+4C_1C_2x+C_1^2)dx
+$\Pi=\frac{EA}{2}\int_{0}^{l}(C_1+2C_2x)^2 dx=\frac{EA}{2}\int_{0}^{l}(4C_2^2x^2+4C_1C_2x+C_1^2)dx
 =\frac{EA}{2}(\frac{4C_2}{3}l^3+2C_1C_2l^2+C_1^2l)$\\
 enforce boundary condition: $u(0)=0=C_0$ \\
-$W_f=u(l)F+\int_{V}u^Tf_bdV=(C_1l+C_2l^2)F_s+\int_{0}^{l}(C_1x+C_2x^2)f_xdx=(C_1l+C_2l^2)F_s+
-(\frac{C_1}{2}l^2+\frac{C_2}{3}l^3)f_x$ \\\\
-$\Pi_t=\Pi-W_f=\frac{EA}{2}(\frac{4C_2}{3}l^3+2C_1C_2l^2+C_1^2l)-(C_1l+C_2l^2)F_s-
-(\frac{C_1}{2}l^2+\frac{C_2}{3}l^3)f_x$
+$W_f=u(l)F+\int_{V}u^Tf_bdV=(C_1l+C_2l^2)F_s+A\int_{0}^{l}(C_1x+C_2x^2)f_xdx=(C_1l+C_2l^2)F_s+
+A(\frac{C_1}{2}l^2+\frac{C_2}{3}l^3)f_x$ \\\\
+$\Pi_t=\Pi-W_f=\frac{EA}{2}(\frac{4C_2^2}{3}l^3+2C_1C_2l^2+C_1^2l)-(C_1l+C_2l^2)F_s-
+A(\frac{C_1}{2}l^2+\frac{C_2}{3}l^3)f_x$ \\
+$\delta\Pi_t=0=\delta C_1(\frac{EA}{2}(2C_2l^2+2C_1l)-(l)F_s-A(\frac{l^2}{2})f_x)$ \\
+$\delta\Pi_t=0=\delta C_2(\frac{EA}{2}(\frac{8C_2}{3}l^3 + 2C_1l^2)-(l^2)F_s-A(\frac{l^3}{3})f_x)$ \\\\
+find $C_1$: $\frac{EA}{2}(2C_2l^2+2C_1l)-(l)F_s-A(\frac{l^2}{2})f_x=0$ \\
+$(2C_2l^2+2C_1l)=\frac{A\frac{l^2}{2}f_x+lF_s}{\frac{EA}{2}}$ \\
+$C_1=\frac{\frac{A}{2}lf_x+F_s}{EA}-C_2l$ \\
+$C_1=\frac{lf_x}{2E}+\frac{F_s}{EA}-C_2l$ \\\\
+find $C_2$: $\frac{EA}{2}(\frac{8C_2}{3}l^3 + 2C_1l^2)-(l^2)F_s-A(\frac{l^3}{3})f_x$ \\
+$(\frac{8}{3}C_2l^3+2C_1l^2)=\frac{A\frac{l^3}{3}f_x+l^2F_s}{\frac{EA}{2}}=\frac{2l^3f_x}{3E}+
+\frac{2l^2F_s}{EA}$ \\
+$\frac{8}{3}C_2l^3=\frac{2l^3f_x}{3E}+\frac{2l^2F_s}{EA}-2C_1l^2$ \\
+$C_2=\frac{f_x}{4E}+\frac{3F_s}{4EAl}-\frac{3}{4l}C_1$ \\\\
+$C_2=\frac{f_x}{4E}+\frac{3F_s}{4EAl}-\frac{3}{4l}(\frac{lf_x}{2E}+\frac{F_s}{EA}-C_2l)$ \\
+$C_2=\frac{f_x}{4E}+\frac{3F_s}{4EAl}-\frac{3f_x}{8E}-\frac{3F_s}{4EAl}+\frac{3}{4}C_2$ \\
+$\frac{1}{4}C_2=\frac{-f_x}{8E}$ \\
+$C_2=\frac{-f_x}{2E}$ \\\\
+$C_1=\frac{lf_x}{2E}+\frac{F_s}{EA}-l(\frac{-f_x}{2E})$ \\
+$C_1=\frac{lf_x}{E}+\frac{F_s}{EA}$ \\
+$C_1=\frac{Alf_x+F_s}{EA}$ \\\\
+$\fbox{$u(x)=\frac{Alf_x+F_s}{EA}x-\frac{f_x}{2E}x^2$}$
 
 \end{document}
