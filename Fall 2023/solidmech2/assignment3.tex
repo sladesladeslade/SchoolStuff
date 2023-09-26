@@ -39,11 +39,33 @@ Consider again the simplest problem of a continuum 1D bar of uniform cross-secti
 The bar is fixed at the left-end and is of length $l$ and section area $A$. It is subjected to a uniform body
 force $f_x$ and a concentrated force $F_s$ at the right end. The young’s modulus of the material is $E$. Using
 the method of minimum potential energy, obtain the distribution of the displacement for the following cases.
+\begin{center}
+    \includegraphics{fig}
+\end{center}
 
 \subsection*{Part 1}
-$f_x=0$ and $F_s=$ constant
+$f_x=0$ and $F_s=$ constant \\\\
+$\Pi=\frac{1}{2}\int_V \varepsilon^T\sigma dV$, $\sigma=E\varepsilon$,
+$\Pi=\frac{E}{2}A\int_{0}^{l}\varepsilon^2 dx$ \\\\
+assume $u(x)=C_0+C_1x \rightarrow \varepsilon=\frac{du}{dx}=C_1$ \\\\
+$\Pi=\frac{EA}{2}\int_{0}^{l}C_1^2 dx=\frac{EA}{2}lC_1^2$ \\
+$W_f=u(l)F=C_1lF_s$ \\
+$\Pi_t=\Pi-W_f=\frac{EA}{2}lC_1^2-lF_sC_1$ \\
+$\delta\Pi_t=0=\delta C_1[EAlC_1-lF_s]=\delta C_1[EAC_1-F_s]=0$ \\
+$C_1=\frac{F_s}{EA}$ \\
+enforce boundary condition: $u(0)=0=C_0$ \\
+$\fbox{$u(x)=\frac{F}{EA}x$}$
 
 \subsection*{Part 2}
-$f_x=$ constant and $F_s=$ constant
+$f_x=$ constant and $F_s=$ constant \\\\
+$\Pi=\frac{E}{2}A\int_{0}^{l}\varepsilon^2 dx$ \\\\
+assume $u(x)=C_0+C_1x+C_2x^2 \rightarrow \varepsilon=\frac{du}{dx}=C_1+2C_2x$ \\\\
+$\Pi=\frac{EA}{2}\int_{0}^{l}(C_1+2C_2x)^2 dx=\frac{EA}{2}\int_{0}^{l}(4C_2x^2+4C_1C_2x+C_1^2)dx
+=\frac{EA}{2}(\frac{4C_2}{3}l^3+2C_1C_2l^2+C_1^2l)$\\
+enforce boundary condition: $u(0)=0=C_0$ \\
+$W_f=u(l)F+\int_{V}u^Tf_bdV=(C_1l+C_2l^2)F_s+\int_{0}^{l}(C_1x+C_2x^2)f_xdx=(C_1l+C_2l^2)F_s+
+(\frac{C_1}{2}l^2+\frac{C_2}{3}l^3)f_x$ \\\\
+$\Pi_t=\Pi-W_f=\frac{EA}{2}(\frac{4C_2}{3}l^3+2C_1C_2l^2+C_1^2l)-(C_1l+C_2l^2)F_s-
+(\frac{C_1}{2}l^2+\frac{C_2}{3}l^3)f_x$
 
 \end{document}
