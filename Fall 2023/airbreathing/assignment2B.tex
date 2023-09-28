@@ -114,14 +114,25 @@ $NPR>PR_{crit} \rightarrow$ nozzle is choked \\
 $P_9=\frac{P_{07}}{PR_{crit}}=\frac{3.8}{1.85}=2.054$ bar \\\\
 $TR_{crit}=1.167$ \\
 $T_9=\frac{T_{07}}{TR_{crit}}=\frac{1000}{1.167}=856.9$ K \\\\
-$C_9=1\sqrt{\gamma_gRT_9}=\sqrt{1.148(287)(856.9)}=531.35$ m/s \\
+$C_9=1\sqrt{\gamma_gRT_9}=\sqrt{1.333(287)(856.9)}=572.56$ m/s \\
 $\rho_9=\frac{P_9}{RT_9}=\frac{2.054}{287(856.9)}*100000=0.8352$ kg/m$^3$ \\
-$A_9=\frac{\dot{m}}{\rho_9C_9}=\frac{23}{0.8352(531.35)}=0.0518$ m$^2$ \\
-$\fbox{$A_9=0.0518$ m$^2$}$ \\\\
-$F=\dot{m}(C_9-C_a)+A_9(P_9-P_a)=23(531.35-0)+0.0518(2.054-1.01)*100000=17629$ N \\
-$\fbox{$F=17629$ N}$
+$A_9=\frac{\dot{m}}{\rho_9C_9}=\frac{23}{0.8352(572.56)}=0.0481$ m$^2$ \\
+$\fbox{$A_9=0.0481$ m$^2$}$ \\\\
+$F=\dot{m}(C_9-C_a)+A_9(P_9-P_a)=23(572.56-0)+0.0481(2.054-1.01)*100000=18191$ N \\
+$\fbox{$F=18191$ N}$
 
 \subsection*{Part B}
+fully expanded: $P_9=P_a$, $T_9=T_a$
+$P_{09}=P_{07}$ because isentropic nodzle \\
+$\frac{P_{09}}{Pa}=[1+\frac{\gamma_g-1}{2}M^2]^\frac{\gamma_g}{\gamma_g-1} \rightarrow
+\frac{3.8}{1.01}=[1+\frac{0.333}{2}M^2]^\frac{1.333}{0.333}$ \\
+solve for $M=1.535$ \\\\
+$C_9=M\sqrt{\gamma_gRT_9}=1.535\sqrt{1.333(287)(288)}=509.52$ m/s \\
+$\rho_9=\frac{P_9}{RT_9}=\frac{1.01}{287(288)}*100000=1.222$ kg/m$^3$ \\
+$A_9=\frac{\dot{m}}{\rho_9C_9}=\frac{23}{1.222(509.52)}=0.03694$ m$^2$ \\
+$\fbox{$A_9=0.03694$ m$^2$}$ \\\\
+$F=\dot{m}(C_9-C_a)=23(509.52)=11719$ N \\
+$\fbox{$F=11719$ N}$
 
 \subsection*{Part C}
 
