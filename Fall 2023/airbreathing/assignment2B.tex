@@ -26,45 +26,89 @@ the SFC.
     $\eta_{\infty c}$ & 0.87 \\
     $\eta_{\infty t}$ & 0.87 \\
     $\eta_i$ & 0.95 \\
-    $\eta_n$ & 0.95 \\
+    $\eta_j$ & 0.95 \\
     $\eta_m$ & 0.99 \\
     $\Delta P_b/P_{02}$ (\%) & 6 \\
     $\eta_b$ & 0.97
 \end{tabular}
 \end{center}
+\subsubsection*{Ambient}
 find conditions at altitude: \\
 $\theta=0.8423$, $\delta=0.4057$ (from table A.2) \\
 $P_a=0.4057*1.01325=0.411$ bar, $T_a=0.8423*288.15=242.71$ K, $a=340.3*\sqrt{0.8423}=312.317$ m/s \\
-$M=\frac{V}{a}=\frac{260}{312.317}=0.8325$ \\\\
+$M=\frac{V}{a}=\frac{260}{312.317}=0.8325$
+
+\subsubsection*{Inlet}
 find $P_{01}$: \\
 $P_{01}/P_a=(1+\eta_i\frac{\gamma_c-1}{2}M^2)^\frac{\gamma_c}{\gamma_c-1}=
 (1+0.95\frac{0.4}{2}(0.8325)^2)^\frac{1.4}{0.4}=1.542$ \\
 $P_{01}=0.6338$ bar \\\\
 intake is adiabatic so: $T_{01}=T_{0a}=T_a*(1+\frac{\gamma_c-1}{2}M^2)=
 288.15(1+\frac{0.4}{2}(0.8325)^2)$ \\
-$T_{01}=276.35$ K \\\\
+$T_{01}=276.35$ K
+
+\subsubsection*{Compressor}
 $P_{02}=rP_{01}=8(0.6338)=5.0704$ bar \\\\
 $\frac{n-1}{n}=\frac{\gamma_c-1}{\gamma_c\eta_{\infty c}}=\frac{0.4}{1.4(0.87)}=0.3284$ \\
 $T_{02}/T_{01}=(r)^\frac{n-1}{n}=8^{0.3284}=1.98$ \\
-$T_{02}=547.17$ K \\\\
+$T_{02}=547.17$ K
+
+\subsubsection*{Combustor}
 account for pressure loss in combustor: $P_{03}=P_{02}(1-\frac{\Delta P_b}{P_{02}})=
 5.0704(1-0.06)=4.766$ bar \\
-$P_{03}=4.766$ bar \\\\
+$P_{03}=4.766$ bar
+
+\subsubsection*{Turbine}
 $W_c=\frac{c_{pc}}{\eta_m}(T_{02}-T_{01})=\frac{1.005}{0.99}(547.17-276.35)=275$ kJ/kg \\
 $W_t=W_c=275$ kJ/kg $=c_{pg}(T_{03}-T_{04})=1.148(1200-T_{04})=275$ \\
 $T_{04}=960.45$ K \\\\
 $\frac{m-1}{m}=\frac{\eta_{\infty t}(\gamma_g-1)}{\gamma_g}=\frac{0.87(0.333)}{1.333}=0.2173$ \\
 $\frac{T_{04}}{T_{03}}=(\frac{P_{04}}{P_{03}})^\frac{m-1}{m} \rightarrow \frac{960.45}{1200}=
 (\frac{P_{04}}{P_{03}})^{0.2173} \rightarrow \frac{P_{04}}{P_{03}}=0.359$ \\
-$P_{04}=1.71$ bar \\\\
-$NPR=\frac{P_{04}}{P_a}=\frac{1.71}{0.411}=4.16$ \\
-$PR_{crit}=(\frac{2}{\gamma_g+1})^\frac{\gamma_g}{\gamma_g-1}=(\frac{2}{2.333})^
-\frac{1.333}{0.333}=0.54$ \\
-$NPR>PR_{crit} \rightarrow$ nozzle is choked \\\\
-$A^*=\dot{m}/[\frac{P_{05}}{\sqrt{RT_{05}}}\sqrt{\gamma_g}(1+\frac{\gamma_g-1}{2})^
-\frac{\gamma_g+1}{2(1-\gamma_g)}]$
+$P_{04}=1.71$ bar
 
-$f_{a}=\frac{c_{pg}T_{03}-c_{pc}T_{02}}{\eta_b(Q_f-c_{pg}T_{03})}=\frac{1.148(1200)-1.005(547.17)}
-{0.99(43100-1.148(1200))}=0.02$ \\
+\subsubsection*{Nozzle}
+$NPR=\frac{P_{04}}{P_a}=\frac{1.71}{0.411}=4.16$ \\
+$PR_{crit}=\frac{1}{[1-\frac{1}{\eta_j}(\frac{\gamma_g-1}{\gamma_g+1})]
+^\frac{\gamma_g}{\gamma_g-1}}=\frac{1}{[1-\frac{1}{0.95}(\frac{0.333}{2.333})]
+^\frac{1.333}{0.333}}=1.92$ \\
+$NPR>PR_{crit} \rightarrow$ nozzle is choked \\
+$P_5=\frac{P_{04}}{PR_{crit}}=\frac{1.71}{1.92}=0.89$ bar \\\\
+$TR_{crit}=\frac{\gamma_g+1}{2}=\frac{2.333}{2}=1.167$ \\
+$T_5=\frac{T_{04}}{TR_{crit}}=\frac{960.45}{1.167}=823$ K \\\\
+$C_5=1\sqrt{\gamma_gRT_5}=\sqrt{1.333*287*823}=561.12$ m/s \\
+$\rho_5=\frac{P_5}{RT_5}=\frac{0.89}{287*823}*100000=0.377$ kg/m$^3$ \\
+$\dot{m}=\rho_5C_5A_5 \rightarrow A_5=\frac{\dot{m}}{\rho_5C_5}=\frac{15}{0.377*561.12}
+=0.0709$ m$^2$ \\
+$\fbox{$A_5=0.0709$ m$^2$}$ \\\\
+$F=\dot{m}(C_5-C_a)+A_5(P_5-P_a)=15(561.12-260)+0.0709(0.89-0.411)*100000=7913$ N \\
+$\fbox{$F=7913$ N}$ \\\\
+$f_a=\frac{c_{pg}T_{03}-c_{pc}T_{02}}{\eta_b(Q_f-c_{pg}T_{03})}=
+\frac{1.148(1200)-1.005(547.17)}{0.99(43100-1.148(1200))}=0.02$ \\
+$F_s=\frac{F}{\dot{m}}=\frac{7913}{15}=527.53$ Ns/kg \\
+$TSFC=\frac{f}{F_s}=\frac{0.02}{527.53}*3600=0.1365$ kg/hrN \\
+$\fbox{$TSFC=0.1365$ kg/hrN}$
+
+\section*{Problem 2}
+Under take-off conditions when the ambient pressure and temperature are 1.01
+bar and 288 K, the stagnation pressure and temperature in the jet pipe of a turbojet
+engine are 3.8 bar and 1000 K, and the mass flow is 23 kg/s. Calculate:
+
+a. The exit area required and the thrust produced, assuming an isentropic
+convergent nozzle. (Use stations 7 \& 9 for inlet and exit of nozzle)
+
+b. The nozzle exit area and thrust produced, assuming an isentropic convergent-
+divergent nozzle that is fully expanded. (Use stations 7, 8, \& 9 for inlet, throat, and
+exit of nozzle)
+
+c. Comment on which nozzle you would choose if you were the design engineer
+responsible for selecting the type of nozzle to utilize on an aircraft. \\\\
+$P_a=1.01$ bar, $T_a=288$ K, $P_{04}=3.8$ bar, $T_{04}=1000$ K, $\dot{m}=23$ kg/s
+
+\subsection*{Part A}
+
+\subsection*{Part B}
+
+\subsection*{Part C}
 
 \end{document}
