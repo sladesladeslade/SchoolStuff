@@ -103,9 +103,23 @@ exit of nozzle)
 
 c. Comment on which nozzle you would choose if you were the design engineer
 responsible for selecting the type of nozzle to utilize on an aircraft. \\\\
-$P_a=1.01$ bar, $T_a=288$ K, $P_{04}=3.8$ bar, $T_{04}=1000$ K, $\dot{m}=23$ kg/s
+$P_a=1.01$ bar, $T_a=288$ K, $P_{07}=3.8$ bar, $T_{07}=1000$ K, $\dot{m}=23$ kg/s
 
 \subsection*{Part A}
+$NPR=\frac{P_{07}}{P_a}=\frac{3.8}{1.01}=3.76$ \\
+$PR_{crit}=\frac{1}{[1-(\frac{\gamma_g-1}{\gamma_g+1})]
+^\frac{\gamma_g}{\gamma_g-1}}=\frac{1}{[1-(\frac{0.333}{2.333})]
+^\frac{1.333}{0.333}}=1.85$ \\
+$NPR>PR_{crit} \rightarrow$ nozzle is choked \\
+$P_9=\frac{P_{07}}{PR_{crit}}=\frac{3.8}{1.85}=2.054$ bar \\\\
+$TR_{crit}=1.167$ \\
+$T_9=\frac{T_{07}}{TR_{crit}}=\frac{1000}{1.167}=856.9$ K \\\\
+$C_9=1\sqrt{\gamma_gRT_9}=\sqrt{1.148(287)(856.9)}=531.35$ m/s \\
+$\rho_9=\frac{P_9}{RT_9}=\frac{2.054}{287(856.9)}*100000=0.8352$ kg/m$^3$ \\
+$A_9=\frac{\dot{m}}{\rho_9C_9}=\frac{23}{0.8352(531.35)}=0.0518$ m$^2$ \\
+$\fbox{$A_9=0.0518$ m$^2$}$ \\\\
+$F=\dot{m}(C_9-C_a)+A_9(P_9-P_a)=23(531.35-0)+0.0518(2.054-1.01)*100000=17629$ N \\
+$\fbox{$F=17629$ N}$
 
 \subsection*{Part B}
 
