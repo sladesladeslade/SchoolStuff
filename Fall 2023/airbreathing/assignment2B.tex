@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./images/A2B}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4063 - Assignment 2B}
+\author{Slade Brooks}
+\date{09.29.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+Simple turbojet is operating with a compressor pressure ratio of 8.0, a turbine
+inlet temperature of 1200 K, and a mass flow of 15 kg/s, when the aircraft is flying at 260
+m/s at an altitude of 7,000 m. Assuming the following component efficiencies, and ISA
+conditions, calculate the propelling nozzle area required, the net thrust developed, and
+the SFC.
+\begin{center}
+\begin{tabular}{cc}
+    r & 8 \\
+    $T_{03}$ (K) & 1200 \\
+    $\dot{m}$ (kg/s) & 15 \\
+    $C_a$ (m/s) & 260 \\
+    alt (m) & 7000 \\
+    $\eta_{\infty c}$ & 0.87 \\
+    $\eta_{\infty t}$ & 0.87 \\
+    $\eta_i$ & 0.95 \\
+    $\eta_n$ & 0.95 \\
+    $\eta_m$ & 0.99 \\
+    $\Delta P_b/P_{02}$ (\%) & 6 \\
+    $\eta_b$ & 0.97
+\end{tabular}
+\end{center}
+find conditions at altitude: \\
+$\theta=0.8423$, $\delta=0.4057$ (from table A.2) \\
+$P_a=0.4057*1.01325=0.411$ bar, $T_a=0.8423*288.15=242.71$ K, $a=340.3*\sqrt{0.8423}=312.317$ m/s \\
+$M=\frac{V}{a}=\frac{260}{312.317}=0.8325$ \\\\
+find $P_{01}$: \\
+$P_{01}/P_a=(1+\eta_i\frac{\gamma_c-1}{2}M^2)^\frac{\gamma_c}{\gamma_c-1}=
+(1+0.95\frac{0.4}{2}(0.8325)^2)^\frac{1.4}{0.4}=1.542$ \\
+$P_{01}=0.6338$ bar \\\\
+intake is adiabatic so: $T_{01}=T_{0a}=T_a*(1+\frac{\gamma_c-1}{2}M^2)=
+288.15(1+\frac{0.4}{2}(0.8325)^2)$ \\
+$T_{01}=276.35$ K \\\\
+$P_{02}=rP_{01}=8(0.6338)=5.0704$ bar \\\\
+$\frac{n-1}{n}=\frac{\gamma_c-1}{\gamma_c\eta_{\infty c}}=\frac{0.4}{1.4(0.87)}=0.3284$ \\
+$T_{02}/T_{01}=(r)^\frac{n-1}{n}=8^{0.3284}=1.98$ \\
+$T_{02}=547.17$ K \\\\
+account for pressure loss in combustor: $P_{03}=P_{02}(1-\frac{\Delta P_b}{P_{02}})=
+5.0704(1-0.06)=4.766$ bar \\
+$P_{03}=4.766$ bar \\\\
+$W_c=\frac{c_{pc}}{\eta_m}(T_{02}-T_{01})=\frac{1.005}{0.99}(547.17-276.35)=275$ kJ/kg \\
+$W_t=W_c=275$ kJ/kg $=c_{pg}(T_{03}-T_{04})=1.148(1200-T_{04})=275$ \\
+$T_{04}=960.45$ K \\\\
+$\frac{m-1}{m}=\frac{\eta_{\infty t}(\gamma_g-1)}{\gamma_g}=\frac{0.87(0.333)}{1.333}=0.2173$ \\
+$\frac{T_{04}}{T_{03}}=(\frac{P_{04}}{P_{03}})^\frac{m-1}{m} \rightarrow \frac{960.45}{1200}=
+(\frac{P_{04}}{P_{03}})^{0.2173} \rightarrow \frac{P_{04}}{P_{03}}=0.359$ \\
+$P_{04}=1.71$ bar \\\\
+$NPR=\frac{P_{04}}{P_a}=\frac{1.71}{0.411}=4.16$ \\
+$PR_{crit}=(\frac{2}{\gamma_g+1})^\frac{\gamma_g}{\gamma_g-1}=(\frac{2}{2.333})^
+\frac{1.333}{0.333}=0.54$ \\
+$NPR>PR_{crit} \rightarrow$ nozzle is choked \\\\
+$A^*=\dot{m}/[\frac{P_{05}}{\sqrt{RT_{05}}}\sqrt{\gamma_g}(1+\frac{\gamma_g-1}{2})^
+\frac{\gamma_g+1}{2(1-\gamma_g)}]$
+
+$f_{a}=\frac{c_{pg}T_{03}-c_{pc}T_{02}}{\eta_b(Q_f-c_{pg}T_{03})}=\frac{1.148(1200)-1.005(547.17)}
+{0.99(43100-1.148(1200))}=0.02$ \\
+
+\end{document}
