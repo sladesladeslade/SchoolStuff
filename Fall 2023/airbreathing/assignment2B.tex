@@ -86,8 +86,8 @@ $\fbox{$F=7913$ N}$ \\\\
 $f_a=\frac{c_{pg}T_{03}-c_{pc}T_{02}}{\eta_b(Q_f-c_{pg}T_{03})}=
 \frac{1.148(1200)-1.005(547.17)}{0.99(43100-1.148(1200))}=0.02$ \\
 $F_s=\frac{F}{\dot{m}}=\frac{7913}{15}=527.53$ Ns/kg \\
-$TSFC=\frac{f}{F_s}=\frac{0.02}{527.53}*3600=0.1365$ kg/hrN \\
-$\fbox{$TSFC=0.1365$ kg/hrN}$
+$TSFC=\frac{f}{F_s}=\frac{0.02}{527.53}*3600=0.1365$ kg/N-hr \\
+$\fbox{$TSFC=0.1365$ kg/N-hr}$
 
 \section*{Problem 2}
 Under take-off conditions when the ambient pressure and temperature are 1.01
@@ -135,5 +135,58 @@ $F=\dot{m}(C_9-C_a)=23(509.52)=11719$ N \\
 $\fbox{$F=11719$ N}$
 
 \subsection*{Part C}
+For this case I would choose the convergent nozzle because it provides more thrust
+at the same conditions. If the aircraft were to have an afterburner, I would want the C-D
+nozzle to be able to operate efficiently across all flight regimes. Otherwise, the reduced
+complexity and increased performance of the converging nozzle is preferred.
+
+\section*{Problem 3}
+A high bypass ratio turbofan is designed for a cruise condition of M=0.85, at
+an altitude of 11,000 m. Assume a simple two-spool configuration with separate
+converging-only nozzles. The following cycle data apply:
+\begin{center}
+\begin{tabular}{cc}
+    $\eta_{\infty f/c/t}$ & 0.90 \\
+    $\eta_i$ & 0.95 \\
+    $BPR$ & 6.2 \\
+    $FPR=\frac{P_{02}}{P_{01}}$ & 1.55 \\
+    $OPR=\frac{P_{03}}{P_{01}}$ & 34 \\
+    $T_{03}$ (K) & 1350 \\
+    $\dot{m}$ (kg/s) & 220 \\
+    $\Delta P_b/P_{02}$ (\%) & 6 \\
+    $r=\frac{P_{03}}{P_{02}}=\frac{OPR}{FPR}$ & 21.94
+\end{tabular} \\
+\end{center}
+
+\subsection*{Part A}
+\subsubsection*{Ambient}
+find conditions at altitude: \\
+$\theta=0.7523$, $\delta=0.224$ (from table A.2) \\
+$P_a=0.224(1.01325)=0.227$ bar, $T_a=0.7523(288.15)=216.76$ K,
+$a=340.3\sqrt{0.7523}=295.16$ m/s \\
+$C_a=295.16*0.85=250.9$ m/s
+
+\subsubsection*{Inlet}
+find $P_{01}$: \\
+$P_{01}/P_a=(1+\eta_i\frac{\gamma_c-1}{2}M^2)^\frac{\gamma_c}{\gamma_c-1}=
+(1+0.95\frac{0.4}{2}(0.85)^2)^\frac{1.4}{0.4}=1.569$ \\
+$P_{01}=0.3561$ bar \\\\
+inlet is adiabatic: \\
+$T_{01}=T_1(1+\frac{\gamma_c-1}{2}M^2)=216.76(1+\frac{0.4}{2}(0.85)^2)=248.08$ K
+
+\subsubsection*{Fan}
+$\frac{n-1}{n}=\frac{\gamma_c-1}{\gamma_c\eta_{\infty c}}=\frac{0.4}{1.4(0.9)}=0.3175$ \\
+$\frac{T_{02}}{T_{01}}=FPR^{(\frac{n-1}{n})}=1.55^{0.3175}=1.149$ \\
+$T_{02}=285.04$ K \\\\
+$P_{02}=0.3561*1.55=0.552$ bar
+
+\subsubsection*{Fan Nozzle}
+$PR_{crit}=\frac{1}{[1-(\frac{\gamma_c-1}{\gamma_c+1})]
+^\frac{\gamma_c}{\gamma_c-1}}=\frac{1}{[1-(\frac{0.4}{2.4})]
+^\frac{1.4}{0.4}}=1.893$ \\
+$\frac{P_{02}}{P_a}=\frac{0.552}{0.227}=2.432$ \\
+$NPR>PR_{crit} \rightarrow$ nozzle is choked \\
+
+\subsection*{Part B}
 
 \end{document}
