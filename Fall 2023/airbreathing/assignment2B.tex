@@ -151,11 +151,13 @@ converging-only nozzles. The following cycle data apply:
     $BPR$ & 6.2 \\
     $FPR=\frac{P_{02}}{P_{01}}$ & 1.55 \\
     $OPR=\frac{P_{03}}{P_{01}}$ & 34 \\
-    $T_{03}$ (K) & 1350 \\
+    $T_{04}$ (K) & 1350 \\
     $\dot{m}$ (kg/s) & 220 \\
     $\Delta P_b/P_{02}$ (\%) & 6 \\
     $r=\frac{P_{03}}{P_{02}}=\frac{OPR}{FPR}$ & 21.94
 \end{tabular} \\
+$\dot{m}_c=\frac{220*6.2}{6.2 + 1}=189.44$ kg/s \\
+$\dot{m}_h=\frac{220}{6.2 + 1}=30.56$ kg/s
 \end{center}
 
 \subsection*{Part A}
@@ -180,13 +182,78 @@ $\frac{T_{02}}{T_{01}}=FPR^{(\frac{n-1}{n})}=1.55^{0.3175}=1.149$ \\
 $T_{02}=285.04$ K \\\\
 $P_{02}=0.3561*1.55=0.552$ bar
 
+\subsubsection*{Compressor}
+$P_{03}=rP_{02}=21.94(0.552)=12.11$ bar \\\\
+$\frac{n-1}{n}=\frac{\gamma_c-1}{\gamma_c \eta_{\infty c}}=\frac{0.4}{1.4(0.9)}=
+0.3175$ \\
+$T_{03}/T_{02}=(r)^\frac{n-1}{n}=21.94^{0.3175}=2.666$ \\
+$T_{03}=759.92$ K
+
+\subsubsection*{Combustor}
+account for pressure loss in combustor: $P_{04}=P_{03}(0.94)=12.11(0.94)=11.38$ \\
+$P_{04}=11.38$ bar
+
+\subsubsection*{High Pressure Turbine}
+$\eta_m \dot{m}_h c_{pg}(T_{04}-T_{05})=\dot{m}_h c_{pc}(T_{03}-T_{02})$ \\
+$T_{04}-T_{05}=\frac{c_{pc}}{\eta_m c_{pg}}(T_{03}-T_{02})=\frac{1.005}{0.99(1.148)}
+(759.92-285.04)=419.93$ \\
+$T_{05}=930.07$ K \\\\
+$\frac{m-1}{m}=\frac{\eta_{\infty t}(\gamma_g-1)}{\gamma_g}=\frac{0.9(0.333)}{1.333}=
+0.2248$ \\
+$\frac{P_{05}}{P_{04}}=\frac{T_{05}}{T_{04}}^\frac{m}{m-1}=\frac{930.07}{1350}^{1/0.2248}
+=0.1912$ \\
+$P_{05}=2.176$ bar
+
+\subsubsection*{Low Pressure Turbine}
+$\eta_m \dot{m}_h c_{pg}(T_{05}-T_{06})=\dot{m} c_{pc}(T_{02}-T_{01})$ \\
+$T_{05}-T_{06}=\frac{\dot{m}}{\dot{m}_h}\frac{c_{pc}}{\eta_m c_{pg}}(T_{02}-T_{01})=
+\frac{220}{30.56}\frac{1.005}{0.99(1.148)}(285.04-248.08)=235.28$ \\
+$T_{06}=694.8$ K \\\\
+$\frac{P_{06}}{P_{05}}=(\frac{T_{06}}{T_{05}})^\frac{m}{m-1}=(\frac{694.8}{930.07})^
+{1/0.2248}=0.2733$ \\
+$P_{06}=0.595$ bar
+
+\subsubsection*{Nozzle}
+$NPR=\frac{P_{06}}{P_a}=\frac{0.595}{0.227}=2.621$ \\
+$PR_{crit}=\frac{1}{[1-\frac{\gamma_g-1}{\gamma_g+1}]^\frac{\gamma_g}{\gamma_g-1}}=
+1.852$ \\
+$NPR>PR_{crit} \rightarrow$ nozzle is choked \\
+$P_7=\frac{P_{06}}{PR_{crit}}=\frac{0.595}{1.852}=0.321$ bar \\\\
+$TR_{crit}=1.167$ \\
+$T_7=\frac{T_{06}}{TR_{crit}}=\frac{694.8}{1.167}=595.37$ K \\\\
+$C_7=1\sqrt{\gamma_g RT_{7}}=\sqrt{1.148(287)(595.37)}=442.9$ m/s \\
+$\rho_7=\frac{P_7}{RT_7}=\frac{0.321}{287(595.37)}*100000=0.1879$ kg/m$^3$ \\
+$A_7=\frac{\dot{m}_h}{\rho_7 C_7}=\frac{30.56}{0.1879(442.9)}=0.3672$ m$^2$ \\\\
+$F_c=\dot{m}_h(C_7-C_a)+A_7(P_7-P_a)*100000=\\
+30.56(442.9-250.9)+0.3672(0.321-0.227)*100000=9319.2$ N
+
 \subsubsection*{Fan Nozzle}
 $PR_{crit}=\frac{1}{[1-(\frac{\gamma_c-1}{\gamma_c+1})]
 ^\frac{\gamma_c}{\gamma_c-1}}=\frac{1}{[1-(\frac{0.4}{2.4})]
 ^\frac{1.4}{0.4}}=1.893$ \\
 $\frac{P_{02}}{P_a}=\frac{0.552}{0.227}=2.432$ \\
 $NPR>PR_{crit} \rightarrow$ nozzle is choked \\
+$P_8=\frac{P_{02}}{PR_{crit}}=\frac{0.552}{1.893}=0.2916$ bar \\\\
+$TR_{crit}=1.167$ \\
+$T_8=\frac{T_{02}}{TR_{crit}}=\frac{285.04}{1.167}=244.25$ K \\\\
+$C_8=1\sqrt{\gamma_c RT_8}=\sqrt{1.4(287)(244.25)}=313.272$ m/s \\
+$\rho_8=\frac{P_8}{RT_8}=\frac{0.2916}{287(244.25)}*100000=0.416$ kg/m$^3$ \\
+$A_8=\frac{\dot{m}_c}{\rho_8C_8}=\frac{189.44}{0.416(313.272)}=1.454$ m$^2$ \\\\
+$F_f=\dot{m}_c(C_8-C_a)+A_8(P_8-P_a)*100000=\\
+189.44(313.272-250.9)+1.454(0.2916-0.227)*100000=21208.6$ N
+
+\subsubsection*{Thrust and TSFC}
+$F_t=21208.6+9319.2=30527.8$ \\
+$\fbox{$F_{total}=30527.8$ N}$ \\\\
+$f_a=\frac{c_{pg}T_{04}-c_{pc}T_{03}}{\eta_b(Q_f-c_{pg}T_{04})}=\frac{1.148(1350)
+-1.005(759.92)}{0.99(43100-1.148(1350))}=0.0191$ \\
+$TSFC=\frac{f\dot{m}}{(1+B)F}=\frac{0.0191(220)}{(1+6.2)30527.8}*3600=0.0688$ \\
+$\fbox{$TSFC=0.0688$ kg/N-hr}$
 
 \subsection*{Part B}
+I would recommend an increase in bypass ratio as that would increase the thrust and lower
+the SFC of the engine. This also would allow for the core to stay very similar to the
+original so it would be easier to make new engines as they would not need to be
+done from scratch.
 
 \end{document}
