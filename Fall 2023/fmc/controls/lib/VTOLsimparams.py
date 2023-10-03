@@ -13,11 +13,11 @@ theta0 = 0.
 thetadot0 = 0.
 
 t_start = 0.    # sim start time
-t_end = 20.     # sim end time
-Ts = 0.01       # sim sample time
+t_end = 80.     # sim end time
+Ts = 0.1       # sim sample time
 t_plot = 0.1    # plot/anim update rate
 
-F_max = 5.      # max force (N)
+F_max = 50.      # max force (N)
 
 w = 0.5         # width of block (m)
 h = 0.5        # height of block (m)
