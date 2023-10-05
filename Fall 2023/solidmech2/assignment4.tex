@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{multirow}
 \graphicspath{{./images/hw4/}}
 \usepackage[legalpaper, portrait, margin=1in]{geometry}
 
@@ -25,6 +26,10 @@ the material is $2.0E10$ N/m$^2$. Using the finite element method, calculate \\
 \end{center}
 \subsection*{Part A}
 \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    & \multicolumn{2}{|c|}{Global node corresponding to} &
+    \multicolumn{2}{|c|}{Coordinates in global} & 
+    \multicolumn{2}{|c|}{Direction cosines} \\
     \hline
     Element \# & local node 1 & local node 2 & $X_i, Y_i$ & $X_j, Y_j$ & $l_{ij}$ & $m_{ij}$ \\
     \hline
@@ -80,7 +85,7 @@ $K=10^8*\begin{bmatrix}
     0 & 0 & -1/\sqrt{2} & 1/\sqrt{2} & 1/\sqrt{2} & -1/\sqrt{2} \\
     0 & 0 & 1/\sqrt{2} & -1/\sqrt{2} & -1/\sqrt{2} & 1/\sqrt{2}
 \end{bmatrix}$ \\\\
-set up F and D matrices: \\
+set up F and D matrices from boundary conditions: \\
 $F=\begin{bmatrix}
     R_{D1} \\ R_{D2} \\ 0 \\ -100 \\ R_{D5} \\ R_{D6}
 \end{bmatrix}$, \quad
