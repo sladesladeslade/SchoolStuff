@@ -166,17 +166,130 @@ $\fbox{$\begin{bmatrix}
 \section*{Problem 2}
 Figure 2 shows a three-node truss element of length $L$ and a constant cross-section area
 $A$. It is made of a material of Young’s modulus $E$ and density $\rho$. The truss is
-subjected to a uniformly distributed force $b$.
+subjected to a uniformly distributed force $b$. \\
 (a) Derive the stiffness matrix for the element. \\
 (b) Write down the expression for the element mass matrix, and obtain $m_{11}$ in terms of
 $L$, $E$, $\rho$, and $A$. \\
 (c) Derive the external force vector.
 \begin{center}
-    \includegraphics[]{fig2} \\
+    \includegraphics[]{fig2} \includegraphics[scale=0.5]{fig22} \\
     Figure 2
 \end{center}
 \subsection*{Part A}
+$N_0(\xi)=-\frac{1}{2}\xi(1-\xi)=-\frac{1}{2}\xi+\frac{1}{2}\xi^2$ \\
+$N_1(\xi)=(1+\xi)(1-\xi)=1-\xi^2$ \\
+$N_2(\xi)=\frac{1}{2}\xi(1+\xi)=\frac{1}{2}\xi+\frac{1}{2}\xi^2$ \\\\
+$a\xi=x \rightarrow d\xi=\frac{1}{a}dx \rightarrow \frac{d\xi}{dx}=\frac{1}{a}$ \\\\
+$K=\int_{V}B^TcBdV=A\int_{-L/2}^{L/2}B^TEBdx$ \\
+$B=\frac{dN}{dx}=\frac{dN}{d\xi}\frac{d\xi}{dx}=\frac{dN}{d\xi}\frac{1}{a}$ \\
+$B=\frac{1}{dx}\begin{bmatrix}
+    dN_1 & dN_2 & dN_3
+\end{bmatrix}$ \\
+$\frac{dN_1}{d\xi}=-\frac{1}{2}+\xi$, \quad $\frac{dN_2}{d\xi}=-2\xi$, \quad $\frac{dN_3}{d\xi}
+=\frac{1}{2}+\xi$ \\
+$B=\frac{1}{a}\begin{bmatrix}
+    -\frac{1}{2}+\xi & -2\xi & \frac{1}{2}+\xi
+\end{bmatrix}$ \\\\
+$K=EA\int_{-1}^{1}B^TB ad\xi$ \\
+$B^TB=\frac{1}{a^2}\begin{bmatrix}
+    -\frac{1}{2}+\xi & -2\xi & \frac{1}{2}+\xi
+\end{bmatrix}\begin{bmatrix}
+    -\frac{1}{2}+\xi \\ -2\xi \\ \frac{1}{2}+\xi
+\end{bmatrix}=\frac{1}{a^2}\begin{bmatrix}
+    \frac{1}{4}-\xi+\xi^2 & \xi-2\xi^2 & -\frac{1}{4}+\xi^2 \\
+    & 4\xi^2 & -\xi-2\xi^2 \\
+    sym. & & \frac{1}{4}+\xi+\xi^2
+\end{bmatrix}$ \\\\\\
+integrate and ignore the odd power terms of $\xi$ since they will cancel: \\\\
+$K=\frac{EA}{a}\int_{-1}^{1}\begin{bmatrix}
+    \frac{1}{4}-\xi+\xi^2 & \xi-2\xi^2 & -\frac{1}{4}+\xi^2 \\
+    & 4\xi^2 & -\xi-2\xi^2 \\
+    sym. & & \frac{1}{4}+\xi+\xi^2
+\end{bmatrix} d\xi=\frac{EA}{a}\begin{bmatrix}
+    \frac{1}{4}\xi+\frac{1}{3}\xi^3 & -\frac{2}{3}\xi^3 & -\frac{1}{4}\xi+\frac{1}{3}\xi^3 \\
+    & \frac{4}{3}\xi^3 & -\frac{2}{3}\xi^3 \\
+    sym. & & \frac{1}{4}\xi+\frac{1}{3}\xi^3
+\end{bmatrix}_{-1}^1$ \\
+then evaluate from 0 to 1 and multiply by 2 since those terms are gone: \\\\
+$K=\frac{2EA}{a}\begin{bmatrix}
+    \frac{1}{4}\xi+\frac{1}{3}\xi^3 & -\frac{2}{3}\xi^3 & -\frac{1}{4}\xi+\frac{1}{3}\xi^3 \\
+    & \frac{4}{3}\xi^3 & -\frac{2}{3}\xi^3 \\
+    sym. & & \frac{1}{4}\xi+\frac{1}{3}\xi^3
+\end{bmatrix}_{0}^1=\frac{2EA}{a}\begin{bmatrix}
+    \frac{1}{4}+\frac{1}{3} & -\frac{2}{3} & -\frac{1}{4}+\frac{1}{3} \\
+    & \frac{4}{3} & -\frac{2}{3} \\
+    sym. & & \frac{1}{4}+\frac{1}{3}
+\end{bmatrix}$ \\\\
+then plug in $a=L/2$: \\
+$\fbox{$K=\frac{EA}{L}\begin{bmatrix}
+    \frac{7}{3} & -\frac{8}{3} & \frac{1}{3} \\
+    & \frac{16}{3} & -\frac{8}{3} \\
+    sym. & & \frac{7}{3}
+\end{bmatrix}$}$
+
 \subsection*{Part B}
+$m_e=\int_{V_e}\rho N^TNdV=A\rho a\int_{-1}^{1}N^TNd\xi$ \\
+$N^TN=\begin{bmatrix}
+    -\frac{1}{2}\xi+\frac{1}{2}\xi^2 \\ 1-\xi^2 \\ \frac{1}{2}\xi+\frac{1}{2}\xi^2
+\end{bmatrix}\begin{bmatrix}
+    -\frac{1}{2}\xi+\frac{1}{2}\xi^2 & 1-\xi^2 & \frac{1}{2}\xi+\frac{1}{2}\xi^2
+\end{bmatrix}=\\ \begin{bmatrix}
+    \frac{1}{4}\xi^2-\frac{1}{2}\xi^3+\frac{1}{4}\xi^4 &
+    -\frac{1}{2}\xi+\frac{1}{2}\xi^2+\frac{1}{3}\xi^3-\frac{1}{2}\xi^4 &
+    -\frac{1}{4}\xi^2+\frac{1}{4}\xi^4 \\
+    & 1-2\xi^2+\xi^4 & \frac{1}{2}\xi+\frac{1}{2}\xi^2-\frac{1}{2}\xi^3-\frac{1}{2}\xi^4 \\
+    sym. & & \frac{1}{4}\xi^2+\frac{1}{2}\xi^3+\frac{1}{4}\xi^4
+\end{bmatrix}$ \\\\\\
+integrate and ignore the odd power terms of $\xi$ since they will cancel: \\\\
+$m_e=A\rho a\int_{-1}^{1}\begin{bmatrix}
+    \frac{1}{4}\xi^2-\frac{1}{2}\xi^3+\frac{1}{4}\xi^4 &
+    -\frac{1}{2}\xi+\frac{1}{2}\xi^2+\frac{1}{3}\xi^3-\frac{1}{2}\xi^4 &
+    -\frac{1}{4}\xi^2+\frac{1}{4}\xi^4 \\
+    & 1-2\xi^2+\xi^4 & \frac{1}{2}\xi+\frac{1}{2}\xi^2-\frac{1}{2}\xi^3-\frac{1}{2}\xi^4 \\
+    sym. & & \frac{1}{4}\xi^2+\frac{1}{2}\xi^3+\frac{1}{4}\xi^4
+\end{bmatrix}d\xi= \\\\
+A\rho a\begin{bmatrix}
+    \frac{1}{12}\xi^3+\frac{1}{20}\xi^5 & \frac{1}{6}\xi^3-\frac{1}{10}\xi^5 &
+    -\frac{1}{12}\xi^3+\frac{1}{20}\xi^5 \\
+    & \xi-\frac{2}{3}\xi^3+\frac{1}{5}\xi^5 & \frac{1}{6}\xi^3-\frac{1}{10}\xi^5 \\
+    sym. & & \frac{1}{12}\xi^3+\frac{1}{20}\xi^5
+\end{bmatrix}_{-1}^1$ \\
+then evaluate from 0 to 1 and multiply by 2 since those terms are gone: \\\\
+$m_e=2A\rho a\begin{bmatrix}
+    \frac{1}{12}\xi^3+\frac{1}{20}\xi^5 & \frac{1}{6}\xi^3-\frac{1}{10}\xi^5 &
+    -\frac{1}{12}\xi^3+\frac{1}{20}\xi^5 \\
+    & \xi-\frac{2}{3}\xi^3+\frac{1}{5}\xi^5 & \frac{1}{6}\xi^3-\frac{1}{10}\xi^5 \\
+    sym. & & \frac{1}{12}\xi^3+\frac{1}{20}\xi^5
+\end{bmatrix}_{0}^1=2A\rho a\begin{bmatrix}
+    \frac{1}{12}+\frac{1}{20} & \frac{1}{6}-\frac{1}{10} & -\frac{1}{12}+\frac{1}{20} \\
+    & 1-\frac{2}{3}+\frac{1}{5} & \frac{1}{6}-\frac{1}{10} \\
+    sym. & & \frac{1}{12}+\frac{1}{20}
+\end{bmatrix}$ \\\\
+then plug in $a=L/2$: \\
+$\fbox{$m_e=A\rho L\begin{bmatrix}
+    \frac{2}{15} & \frac{1}{15} & -\frac{1}{30} \\
+    & \frac{8}{15} & \frac{1}{15} \\
+    sym. & & \frac{2}{15}
+\end{bmatrix}$}$ \\\\
+find $m_{11}$: \\
+$\fbox{$m_{11}=\frac{2A\rho L}{15}$}$
+
 \subsection*{Part C}
+$f_e=\int_{V_e}N^Tf_bdV+\int_{S_e}N^Tf_sdS=A\int_{-1}^{1}N^Tf_bad\xi+L\int_{-1}^{1}N^Tf_sad\xi$ \\
+$f_e=(Aaf_b+Laf_s)\int_{-1}^{1}N^Td\xi=(Aaf_b+Laf_s)\int_{-1}^{1}\begin{bmatrix}
+    -\frac{1}{2}\xi+\frac{1}{2}\xi^2 \\ 1-\xi^2 \\ \frac{1}{2}\xi+\frac{1}{2}\xi^2
+\end{bmatrix}d\xi=\\
+(Aaf_b+Laf_s)\begin{bmatrix}
+    -\frac{1}{4}\xi^2+\frac{1}{6}\xi^3 \\
+    \xi+\frac{1}{3}\xi^3 \\
+    \frac{1}{4}\xi^2+\frac{1}{6}\xi^3
+\end{bmatrix}_{-1}^1=(Aaf_b+Laf_s)\begin{bmatrix}
+    -\frac{1}{12}+\frac{5}{12} \\
+    \frac{2}{3}+\frac{2}{3} \\
+    \frac{5}{12}-\frac{1}{12}
+\end{bmatrix}$ \\\\
+$\fbox{$f_e=(Aaf_b+Laf_s)\begin{bmatrix}
+    \frac{1}{3} \\\\ \frac{4}{3} \\\\ \frac{1}{3}
+\end{bmatrix}$}$
 
 \end{document}
