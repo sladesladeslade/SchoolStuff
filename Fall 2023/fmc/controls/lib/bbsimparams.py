@@ -4,7 +4,7 @@ l = 0.5             # beam length (m)
 g = 9.8             # gravity (m/s^2)
 r = 0.05            # radius of ball (m)
 
-z0 = 0.             # initial position of ball on beam (m)
+z0 = 0.5            # initial position of ball on beam (m)
 zdot0 = 0.          # initial speed of ball on beam (m/s)
 theta0 = 0.         # initial angle of beam (rad)
 thetadot0 = 0.      # initial theta dot of beam (rad/s)
