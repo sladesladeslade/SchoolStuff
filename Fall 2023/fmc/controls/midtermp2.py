@@ -11,24 +11,26 @@ import lib.ballBeamDynamics as dynamics
 import numpy as np
 import keyboard
 import lib.signalGenerator as sig
+import lib.bbPD as ctr
 
 
 # define system
 anim = animation.ballBeamAnim(0.6, False)
 bb = dynamics.ballBeamDynamics()
-uf = sig.signalGenerator(0.01, 0.1)
+ctr = ctr.controller()
 
 # define initial states
 state = np.array([[P.z0], [P.theta0], [P.zdot0], [P.thetadot0]])
 
 # initial force
 u = 13.23
+target = 0.25
 
 # sim loop
 t = P.t_start
 while t < P.t_end:
     # add force
-    u += uf.sin(t)
+    u = ctr.update(target, bb.state)
     
     # update dynamics
     bb.update(u)
