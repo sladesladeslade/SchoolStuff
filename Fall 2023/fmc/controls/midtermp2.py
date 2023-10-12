@@ -18,7 +18,7 @@ import lib.bbPD as ctr
 anim = animation.ballBeamAnim(0.6, True)
 bb = dynamics.ballBeamDynamics()
 ctr = ctr.controller()
-tdev = sig.signalGenerator(0.15, 0.01)
+tdev = sig.signalGenerator(0.15, 0.035)
 
 # set up plots
 forcep = anim.fig.add_subplot(522)
@@ -66,12 +66,11 @@ while t < P.t_end:
     thetas.append(np.rad2deg(th)); tdots.append(np.rad2deg(td)); ts.append(t)
     # plot and format
     forcep.clear(); zp.clear(); zdotp.clear(); tp.clear(); tdotp.clear()
-    zp.plot(ts, zs, label="Actual"); zp.plot(ts, targets, "r--", label="Target"); zp.legend(loc="lower left")
+    zp.plot(ts, zs, label="Actual"); zp.plot(ts, targets, "r-", label="Target"); zp.legend(loc="lower left")
     zp.set_xlim((0, ts[-1])); zp.set_ylim((0, 0.5)); zp.set_ylabel("z (m)"); zp.grid()
     forcep.plot(ts, forces); forcep.set_xlim((0, ts[-1])); forcep.set_ylim((0, 15))
     forcep.set_ylabel("Force Input (N)"); forcep.grid()
     zdotp.plot(ts, zdots); zdotp.set_xlim((0, ts[-1])); zdotp.set_ylabel("$\dot{z}$ (m/s)"); zdotp.grid()
-    zdotp.set_ylim((-0.02, 0.02))
     tp.plot(ts, thetas); tp.set_xlim((0, ts[-1])); tp.set_ylabel("$\\theta$ (deg)"); tp.grid()
     tdotp.plot(ts, tdots); tdotp.set_xlim((0, ts[-1])); tdotp.set_ylabel("$\dot{\\theta}$ (deg/s)"); tdotp.grid()
     
