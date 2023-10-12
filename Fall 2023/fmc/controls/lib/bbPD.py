@@ -3,13 +3,19 @@ import bbsimparams as P
 
 class controller:
     def __init__(self):
-        self.kP = 4.5
-        self.kD = 12
+        self.m1 = P.m1
+        self.m2 = P.m2
+        self.l = P.l
+        self.g = P.g
+        self.kPt = 1.825
+        self.kDt = 1.173
+        self.kPz = -0.004939
+        self.kDz = -0.031743
 
     def update(self, zc, state):
-        z = state[0]
-        zdot = state[2]
-        feq = 13.23
-        fc = self.kP*(zc - z)  - self.kD*zdot
+        z, theta, zdot, thetadot = state.flatten()
+        feq = self.m2*self.g/2 + self.m1*self.g*z/self.l
+        zs = self.kPz*(zc - z) - self.kDz*zdot
+        fc = self.kPt*(zs - theta)  - self.kDt*thetadot
         f = feq + fc
-        return f[0]
+        return f
