@@ -1,4 +1,4 @@
-# AEEM4042 Controls Midterm Part 2
+# AEEM4042 Controls Midterm Part E
 # Slade Brooks
 # brooksl@mail.uc.edu
 
