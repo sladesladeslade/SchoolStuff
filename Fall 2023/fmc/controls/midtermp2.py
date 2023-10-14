@@ -18,7 +18,7 @@ import lib.bbPD as ctr
 anim = animation.ballBeamAnim(0.6, True)
 bb = dynamics.ballBeamDynamics()
 ctr = ctr.controller()
-tdev = sig.signalGenerator(0.15, 0.035)
+tdev = sig.signalGenerator(0.15, 0.01)
 
 # set up plots
 forcep = anim.fig.add_subplot(522)
