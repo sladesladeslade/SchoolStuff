@@ -51,13 +51,36 @@ members, \\
 \end{tabular}
 
 \subsubsection*{Build Element Matrices}
-$K_e=\frac{AE}{l_e}
+$K_{e_{truss}}=\frac{AE}{l_e}
 \begin{bmatrix}
     l_{ij}^2 & l_{ij}m_{ij} & -l_{ij}^2 & -l_{ij}m_{ij} \\
     & m_{ij}^2 & -l_{ij}m_{ij} & -m_{ij}^2 \\
     & & l_{ij}^2 & l_{ij}m_{ij} \\
     sym. & & & m_{ij}^2
-\end{bmatrix}$
+\end{bmatrix}\rightarrow K_{3}=\frac{A_tE}{l_3}
+\begin{bmatrix}
+    0^2 & 0 & -0^2 & -0 \\
+    & (-1)^2 & -0 & -(-1)^2 \\
+    & & 0^2 & 0 \\
+    sym. & & & (-1)^2
+\end{bmatrix}$ \\\\
+$K_3=4*10^7\begin{bmatrix}
+    0 & 0 & 0 & 0 \\
+    & 1 & 0 & -1 \\
+    & & 0 & 0 \\
+    sym. & & & 1
+\end{bmatrix}=\begin{bmatrix}
+    0 & 0 & 0 & 0 \\
+    & 4 & 0 & -4 \\
+    & & 0 & 0 \\
+    sym. & & & 4
+\end{bmatrix}*10^7$ \\\\\\
+$k_{e_{beam}}=\frac{EI_z}{2a^3}\begin{bmatrix}
+    3 & 3a & -3 & 3a \\
+    & 4a^2 & -3a & 2a^2 \\
+    & & 3 & -3a \\
+    sym. & & & 4a^2
+\end{bmatrix}$, \quad $\frac{l_e}{2}=a$
 
 \subsection*{Part B}
 
