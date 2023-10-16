@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\graphicspath{{./images/hw5/}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4058 - Homework 5}
+\author{Slade Brooks}
+\date{10.17.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+Figure 1 shows a beam of $2$ m length that is supported by a truss member at
+the middle point A and clamped on the rigid walls at the two ends. It carries
+a uniformly distributed vertical load over the left span. The truss and beam
+are all of uniform cross-section and made of the same material with the
+Young’s modulus $E=200.0$ GPa. The cross section of the beam is circular, and
+the area of the cross-section is $0.01$ m$^2$. The area of the cross-section of
+the truss member is $0.0002$ m$^2$. Using the finite element method with two
+elements for the entire beam, using an efficient approach to \\
+(a) calculate the nodal displacement at the middle pint A, \\
+(b) calculate the reaction forces at the supports for the beam and truss
+members, \\
+(c) calculate the internal forces in the truss member.
+
+\begin{center}
+    \includegraphics[scale=0.5]{fig1} \includegraphics[scale=0.35]{fig2}\\
+    Figure 1
+\end{center}
+
+\subsection*{Part A}
+\begin{center}
+    \includegraphics[scale=0.4]{e1} \includegraphics[scale=0.4]{e2}
+    \includegraphics[scale=0.4]{e3}
+\end{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    & \multicolumn{2}{|c|}{Global node corresponding to} &
+    \multicolumn{2}{|c|}{Coordinates in global} & 
+    \multicolumn{2}{|c|}{Direction cosines} \\
+    \hline
+    Element \# & local node 1 & local node 2 & $X_i, Y_i$ & $X_j, Y_j$ & $l_{ij}$ & $m_{ij}$ \\
+    \hline
+    1 & 1 & 2 & 0, 0 & 1, 0 & 1 & 0 \\
+    2 & 2 & 4 & 1, 0 & 2, 0 & 1 & 0 \\
+    3 & 2 & 3 & 1, 0 & 1, -1 & 0 & -1 \\
+    \hline
+\end{tabular}
+
+\subsubsection*{Build Element Matrices}
+$K_e=\frac{AE}{l_e}
+\begin{bmatrix}
+    l_{ij}^2 & l_{ij}m_{ij} & -l_{ij}^2 & -l_{ij}m_{ij} \\
+    & m_{ij}^2 & -l_{ij}m_{ij} & -m_{ij}^2 \\
+    & & l_{ij}^2 & l_{ij}m_{ij} \\
+    sym. & & & m_{ij}^2
+\end{bmatrix}$
+
+\subsection*{Part B}
+
+\subsection*{Part C}
+
+\end{document}
