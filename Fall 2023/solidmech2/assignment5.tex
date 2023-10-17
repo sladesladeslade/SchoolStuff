@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{multirow}
+\setcounter{MaxMatrixCols}{11}
 \graphicspath{{./images/hw5/}}
 \usepackage[legalpaper, portrait, margin=1in]{geometry}
 
@@ -74,16 +75,154 @@ $K_3=4*10^7\begin{bmatrix}
     & 4 & 0 & -4 \\
     & & 0 & 0 \\
     sym. & & & 4
-\end{bmatrix}*10^7$ \\\\\\
+\end{bmatrix}*10^7$ \\\\
+$D_3=\begin{bmatrix}
+    D_4 \\ D_5 \\ D_7 \\ D_8
+\end{bmatrix}$\\\\\\
 $k_{e_{beam}}=\frac{EI_z}{2a^3}\begin{bmatrix}
     3 & 3a & -3 & 3a \\
     & 4a^2 & -3a & 2a^2 \\
     & & 3 & -3a \\
     sym. & & & 4a^2
-\end{bmatrix}$, \quad $\frac{l_e}{2}=a$
+\end{bmatrix}$, \quad $\frac{l_e}{2}=a$, \quad $a=0.5$, \quad
+$I_z=\frac{\pi}{2}r^4=\frac{\pi}{2}(\frac{A}{\pi})^2=1.59*10^{-5}$ \\\\\\
+$k_1=k_2=4EI_z\begin{bmatrix}
+    3 & 1.5 & -3 & 1.5 \\
+    & 1 & -1.5 & 0.5 \\
+    & & 3 & -1.5 \\
+    sym. & & & 1
+\end{bmatrix}$ \\\\
+$d_1=\begin{bmatrix}
+    D_2 \\ D_3 \\ D_5 \\ D_6
+\end{bmatrix}$, \quad
+$d_2=\begin{bmatrix}
+    D_5 \\ D_6 \\ D_{11} \\ D_{12}
+\end{bmatrix}$ \\\\\\
+$T=\begin{bmatrix}
+    l_x & m_x & 0 & 0 & 0 & 0 \\
+    l_y & m_y & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & l_x & m_x & 0 \\
+    0 & 0 & 0 & l_y & m_y & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1
+\end{bmatrix}=\begin{bmatrix}
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1
+\end{bmatrix}$, T is identity matrix for both element 1 and 2: \\\\
+$K_1=K_2=k_1=k_2$
+
+\subsubsection*{Expand Global K Matrices}
+$K_1=\begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & 3.816 & 1.908 & 0 & -3.816 & 1.908 & 0 & 0 & 0 & 0 & 0 \\
+    & & 1.272 & 0 & -1.908 & 0.635 & 0 & 0 & 0 & 0 & 0 \\
+    & & & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & & & 3.816 & -1.908 & 0 & 0 & 0 & 0 & 0 \\
+    & & & & & 1.272 & 0 & 0 & 0 & 0 & 0 \\
+    & & & & & & 0 & 0 & 0 & 0 & 0 \\
+    & & & & & & & 0 & 0 & 0 & 0 \\
+    & & & & & & & & 0 & 0 & 0 \\
+    & & & & & & & & & 0 & 0 \\
+    sym. & & & & & & & & & & 0
+\end{bmatrix}*10^7$ \\\\\\
+$K_2=\begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & & & 3.816 & 1.908 & 0 & 0 & 0 & -3.816 & 1.908 \\
+    & & & & & 1.272 & 0 & 0 & 0 & -1.908 & 0.635 \\
+    & & & & & & 0 & 0 & 0 & 0 & 0 \\
+    & & & & & & & 0 & 0 & 0 & 0 \\
+    & & & & & & & & 0 & 0 & 0 \\
+    & & & & & & & & & 3.816 & -1.908 \\
+    sym. & & & & & & & & & & 1.272
+\end{bmatrix}*10^7$ \\\\\\
+$K_3=\begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & & & 4 & 0 & 0 & -4 & 0 & 0 & 0 \\
+    & & & & & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & & & & & 0 & 0 & 0 & 0 & 0 \\
+    & & & & & & & 4 & 0 & 0 & 0 \\
+    & & & & & & & & 0 & 0 & 0 \\
+    & & & & & & & & & 0 & 0 \\
+    sym. & & & & & & & & & & 0
+\end{bmatrix}*10^7$
+
+\subsubsection*{Combine the Global K Matrices}
+$K=\begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & 3.816 & 1.908 & 0 & -3.816 & 1.908 & 0 & 0 & 0 & 0 & 0 \\
+    & & 1.272 & 0 & -1.908 & 0.635 & 0 & 0 & 0 & 0 & 0 \\
+    & & & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    & & & & 11.632 & 0 & 0 & -4 & 0 & -3.816 & 1.908 \\
+    & & & & & 2.544 & 0 & 0 & 0 & -1.908 & 0.635 \\
+    & & & & & & 0 & 0 & 0 & 0 & 0 \\
+    & & & & & & & 4 & 0 & 0 & 0 \\
+    & & & & & & & & 0 & 0 & 0 \\
+    & & & & & & & & & 3.816 & -1.908 \\
+    sym. & & & & & & & & & & 1.272
+\end{bmatrix}*10^7$
+
+\subsubsection*{Define Other Global Matrices}
+$D=\begin{bmatrix}
+    D_1 \\ D_2 \\ D_3 \\ D_4 \\ D_5 \\ D_6 \\ D_7 \\ D_8 \\ D_{10} \\
+    D_{11} \\ D_{12}
+\end{bmatrix}=\begin{bmatrix}
+    0 \\ 0 \\ 0 \\ 0 \\ D_5 \\ D_6 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0
+\end{bmatrix}$ \\\\\\
+$f_e=\begin{bmatrix}
+    f_xa + f_{sx1} \\ f_ya + f_{sy1} \\ f_y\frac{a^2}{3}+m_{s1} \\
+    f_xa + f_{sx2} \\ f_ya + f_{sy2} \\ -f_y\frac{a^2}{3}+m_{s2}
+\end{bmatrix}$, \quad $f_1=\begin{bmatrix}
+    0 + 0 \\ -4000(0.5) + R_{y1} \\ -4000\frac{(0.5)^2}{3} + M_1 \\
+    0 + 0 \\ -4000(0.5) + R_{y2} \\ 4000\frac{(0.5)^2}{3} + M_2
+\end{bmatrix}=\begin{bmatrix}
+    0 \\ -2000+R_{y1} \\ -333.33+M_1 \\ 0 \\ 0 \\ 333.33+M_2
+\end{bmatrix}$ \\\\\\
+$f_2=\begin{bmatrix}
+    0 + 0 \\ -4000/4 \\ -M_2 \\
+    0 + 0 \\ R_{y3} \\ M_3
+\end{bmatrix}=\begin{bmatrix}
+    0 \\ -500 \\ -M_2 \\
+    0 \\ R_{y3} \\ M_3
+\end{bmatrix}$ \\\\\\
+$f_3=\begin{bmatrix}
+    -4000/4 \\ 0 \\ R_{y4} \\ 0
+\end{bmatrix}=\begin{bmatrix}
+    -500 \\ 0 \\ R_{y4} \\ 0
+\end{bmatrix}$ \\\\\\
+$F=\begin{bmatrix}
+    0 \\ -2000+R_{y1} \\ -333.33+M_1 \\
+    0 \\ -2000 \\ 333.33 \\
+    0 \\ R_{y4} \\ 0 \\
+    R_{y3} \\ M_3 \\
+\end{bmatrix}$
+
+\subsubsection*{Solve KD=F for $D_5$ and $D_6$}
+using matlab: \\
+$\fbox{$D_5=-1.7194*10^{-5}$ m}$ \\
+$\fbox{$D_6=1.31026*10^{-5}$ rad}$
 
 \subsection*{Part B}
+from KD=F: \\\\
+$-2000+R_{y1}=(-3.816D_5 + 1.908D_6)*10^7$ \\
+$\fbox{$R_{y1}=2902.3$ N}$ \\\\
+$R_{y3}=(-3.816D_5-1.908D_6)*10^7$ \\
+$\fbox{$R_{y3}=402.31$ N}$ \\\\
+$R_{y4}=(-4D_5)*10^7$ \\
+$\fbox{$R_{y4}=683.76$ N}$
 
 \subsection*{Part C}
+sum reaction forces in truss: \\\\
+$F_{t}=\sqrt{R_{x4}^2+R_{y4}^2}=\sqrt{0^2+683.76^2}$ \\
+$\fbox{$F_t=683.76$ N}$
 
 \end{document}
