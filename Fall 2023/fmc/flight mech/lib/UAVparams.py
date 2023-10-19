@@ -1,4 +1,5 @@
 import numpy as np
+import simparams as SIM
 
 # Inertial parameters
 jx= 0.824
@@ -8,13 +9,13 @@ jxz= 0.120
 g=9.806650
 m=13.5
 
-Ts = 0.01       # sim sample time
+Ts = SIM.ts_simulation      # sim sample time
 
 # ICs
 states0=np.array([[0.], #pn
                   [0.], #pe
                   [-100.], # pd
-                  [10.], # u
+                  [35.], # u
                   [0.], # v
                   [0.], # w
                   [0.], # phi
