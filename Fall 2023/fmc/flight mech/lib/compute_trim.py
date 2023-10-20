@@ -17,9 +17,10 @@ class ComputeTrim:
         self.forces_mom=UAVaero()
         self.mav=UAVdynamics()
         
-    def compute_trim(self, Va, Y, R, alpha, beta):
+    def compute_trim(self, Va, Y, R):
         x0 = np.array([0, 0, 0])
-        res = minimize(lambda x: self.compute_trim_cost(x, Va, Y, R, alpha, beta), x0, method='nelder-mead',options={'xatol': 1e-8, 'disp': False})
+        res = minimize(lambda x: self.compute_trim_cost(x, Va, Y, R), x0, method='nelder-mead',
+                       options={'xatol': 1e-8, 'disp': False})
         x_trim, u_trim=self.compute_trim_states_input(res.x, Va, Y, R)
         return x_trim, u_trim
 
@@ -40,7 +41,6 @@ class ComputeTrim:
         gamma6 = jxz/jy
         gamma7 = ((jx-jy)*jx+jxz**2)/gamma
         gamma8 = jx/gamma
-        #Va0=self.P.Va0
 
         ## aerodynamic parameters
         S_wing        = self.P.S
@@ -98,7 +98,7 @@ class ComputeTrim:
         q=(Va/R)*sin(phi)*cos(theta)
         r=(Va/R)*cos(phi)*cos(theta)
         
-        x_trim=np.array([[0],[0],[0],[u],[v],[w],[phi],[theta],[0],[p],[q],[r]])
+        x_trim=np.array([[0],[0],[0],[u],[v],[w],[phi],[theta],[0],[p],[q],[r]], dtype=float)
 
         C_L=C_L_0+C_L_alpha*alpha
         C_D=C_D_0+C_D_alpha*alpha
@@ -125,36 +125,38 @@ class ComputeTrim:
         
         d_r=temp_3[1][0]
 
-        u_trim=np.array([d_e,d_t,d_a,d_r])
+        u_trim=np.array([[d_e],[d_t],[d_a],[d_r]], dtype=float)
         
         return x_trim, u_trim
     
-    def compute_trim_cost(self, x, Va, Y, R, alpha, beta):
+    def compute_trim_cost(self, x, Va, Y, R):
+        alpha=x[0]
+        beta=x[1]
+        phi=x[2]
         #compute X_dot_star
-        x_dot=np.array([[0],
-                        [0],
+        x_dot=np.array([[0.],
+                        [0.],
                         [-Va*sin(Y)], # I am using Pd_dot not hdot..that is why there is a sign change
-                        [0],
-                        [0],
-                        [0],
-                        [0],
-                        [0],
+                        [0.],
+                        [0.],
+                        [0.],
+                        [0.],
+                        [0.],
                         [Va/R],
-                        [0],
-                        [0],
-                        [0]])
+                        [0.],
+                        [0.],
+                        [0.]], dtype="float64")
         
         #compute trimmed states
-        x_trim, u_trim=self.compute_trim_states_input(x,Va,Y,R)
-        d_e=u_trim[0]
-        d_t=u_trim[1]
-        d_a=u_trim[2]
-        d_r=u_trim[3]
+        x_trim, u_trim=self.compute_trim_states_input(x, Va, Y, R)
+        d_e=u_trim[0][0]
+        d_t=u_trim[1][0]
+        d_a=u_trim[2][0]
+        d_r=u_trim[3][0]
         
         # get to inputs i can actually use
-        x_trim = x_trim.reshape((12, 1))
         fx, fy, fz = self.forces_mom.forces(x_trim, alpha, beta, d_a, d_e, d_r, d_t, Va).flatten()
-        l, m, n = self.forces_mom.forces(x_trim, alpha, beta, d_a, d_e, d_r, d_t, Va).flatten()
+        l, m, n = self.forces_mom.moments(x_trim, alpha, beta, d_a, d_e, d_r, d_t, Va).flatten()
 
         # get derivs
         states_dot=self.mav.f(x_trim, fx, fy, fz, l, m, n)

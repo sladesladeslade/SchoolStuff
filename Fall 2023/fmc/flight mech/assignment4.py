@@ -13,7 +13,8 @@ import lib.UAVdynamics as dynamics
 import lib.UAVaero as aero
 import lib.wind as wind
 import lib.UAVparams as P
-import lib.compute_trim as comp
+# import lib.compute_trim as comp
+import lib.trim as comp
 import keyboard
 from lib.hangar import sampleUAV_verts, sampleUAV_obj, f18_verts
 import numpy as np
@@ -34,16 +35,6 @@ verts = sampleUAV_verts
 obj = sampleUAV_obj
 # obj = None
 faces = ["b"]
-
-# initial state
-state = P.states0
-deltaa = 0
-deltae = 0
-deltar = 0
-deltat = 0.5
-alpha = 0
-beta = 0
-Va = np.sqrt(state[3][0]**2 + state[4][0]**2 + state[5][0]**2)
 
 # add subplots
 throttle = plt.figure(1).add_subplot(1, 20, 1); tpp = throttle.get_position(); tpp.x0-=0.1; tpp.x1-=0.1
@@ -81,12 +72,34 @@ sim_time = SIM.start_time
 
 # targets
 Vat = 35.
-Y = 0.
+Y = np.deg2rad(0)
 R = np.inf
+xtrim, utrim = trim.compute_trim(Vat, Y, R)
+deltae, deltat, deltaa, deltar = utrim.flatten()
+# deltae = -deltae
+print("--- Trim Conditions ---")
+print(f"E: {np.rad2deg(deltae):.2f} deg")
+print(f"T: {deltat*100:.2f} %")
+print(f"A: {np.rad2deg(deltaa):.2f} deg")
+print(f"R: {np.rad2deg(deltar):.2f} deg")
 
-_, utrim = trim.compute_trim(Vat, Y, R, alpha, beta)
-deltae, deltat, deltaa, deltar = utrim
-print(deltae, deltat, deltaa, deltar)
+# initial state
+Va = Vat
+pn = 0.
+pe = 0.
+pd = -100.
+u = xtrim.item(3)
+v = xtrim.item(4)
+w = xtrim.item(5)
+phi = xtrim.item(6)
+theta = xtrim.item(7)
+psi = xtrim.item(8)
+p = xtrim.item(9)
+q = xtrim.item(10)
+r = xtrim.item(11)
+state0 = np.array([[pn], [pe], [pd], [u], [v], [w], [phi], [theta], [psi], [p], [q], [r]])
+uav.state = np.ndarray.copy(state0)
+state = uav.state
 
 # main simulation loop
 print("Press Q to exit...")
@@ -94,8 +107,6 @@ while sim_time < SIM.end_time:
     t_next_plot = sim_time + SIM.ts_plotting
     while sim_time < t_next_plot:
         # update everything
-        _, utrim = trim.compute_trim(Vat, Y, R, alpha, beta)
-        deltae, deltat, deltaa, deltar = utrim
         Va, alpha, beta = wind.windout(state, Va, sim_time)
         fx, fy, fz = aero.forces(state, alpha, beta, deltaa, deltae, deltar, deltat, Va).flatten()
         l, m, n = aero.moments(state, alpha, beta, deltaa, deltae, deltar, deltat, Va).flatten()
