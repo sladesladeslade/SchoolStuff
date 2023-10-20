@@ -10,11 +10,11 @@ import matplotlib.pyplot as plt
 import lib.simparams as SIM
 import lib.animation as animation
 import lib.UAVdynamics as dynamics
-import lib.UAVaero as aero
+import lib.UAVlinaero as aero
 import lib.wind as wind
 import lib.UAVparams as P
-# import lib.compute_trim as comp
-import lib.trim as comp
+import lib.compute_trim as comp
+# import lib.trim as comp
 import keyboard
 from lib.hangar import sampleUAV_verts, sampleUAV_obj, f18_verts
 import numpy as np
@@ -71,8 +71,8 @@ rates0 = np.zeros(buffer); rates1 = np.zeros(buffer); rates2 = np.zeros(buffer)
 sim_time = SIM.start_time
 
 # targets
-Vat = 35.
-Y = np.deg2rad(0)
+Vat = 13.
+Y = np.deg2rad(0.1)
 R = np.inf
 xtrim, utrim = trim.compute_trim(Vat, Y, R)
 deltae, deltat, deltaa, deltar = utrim.flatten()
