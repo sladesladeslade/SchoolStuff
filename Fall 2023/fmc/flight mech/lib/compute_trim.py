@@ -1,11 +1,6 @@
 import numpy as np
-# load message types
-#from message_types.msg_state import MsgState
 import lib.UAVparams as P
-# from library.rotations import Quaternion2Euler, Quaternion2Rotation, Euler2Rotation
-from numpy import cos, sin, tan
-# import control
-# from control.matlab import *
+from numpy import cos, sin
 from lib.UAVdynamics import UAVdynamics
 from lib.UAVlinaero import UAVaero
 from scipy.optimize import minimize
@@ -141,7 +136,7 @@ class ComputeTrim:
                            [d_a],
                            [d_r]], dtype=float)
 
-        return (x_trim, u_trim)
+        return x_trim, u_trim
     
     def compute_trim_cost(self, x, Va, Y, R):
 
