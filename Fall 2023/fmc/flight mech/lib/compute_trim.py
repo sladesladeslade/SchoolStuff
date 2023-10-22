@@ -1,8 +1,8 @@
 import numpy as np
-import lib.UAVparams as P
+import UAVparams as P
 from numpy import cos, sin
-from lib.UAVdynamics import UAVdynamics
-from lib.UAVlinaero import UAVaero
+from UAVdynamics import UAVdynamics
+from annAero import mavAero
 from scipy.optimize import minimize
 
 
@@ -11,7 +11,7 @@ class ComputeTrim:
     def __init__(self):
         self.P = P
         self.Ts = P.Ts
-        self.forces_mom = UAVaero()
+        self.forces_mom = mavAero()
         self.mav = UAVdynamics()
         
     def compute_trim(self, Va, Y, R):
@@ -26,8 +26,8 @@ class ComputeTrim:
         jy = self.P.jy
         jz = self.P.jz
         jxz = self.P.jxz
-        gravity = self.P.g
-        mass = self.P.m
+        gravity = self.P.gravity
+        mass = self.P.mass
         gamma = jx*jz - jxz**2
         gamma1 = (jxz*(jx - jy + jz))/gamma
         gamma2 = (jz*(jz - jy) + jxz**2)/gamma
@@ -40,7 +40,7 @@ class ComputeTrim:
         #Va0=self.P.Va0
 
         ## aerodynamic parameters
-        S_wing        = self.P.S
+        S_wing        = self.P.S_wing
         b             = self.P.b
         c             = self.P.c
         S_prop        = self.P.S_prop
@@ -164,8 +164,8 @@ class ComputeTrim:
         d_a = u_trim[2][0]
         d_r = u_trim[3][0]
         
-        fx, fy, fz = self.forces_mom.forces(x_trim, alpha, beta, d_a, d_e, d_r, d_t, Va).flatten()
-        l, m, n = self.forces_mom.moments(x_trim, alpha, beta, d_a, d_e, d_r, d_t, Va).flatten()
+        fx, fy, fz = self.forces_mom.forces(x_trim, alpha, beta, d_a, d_e, d_r, d_t, Va)
+        l, m, n = self.forces_mom.moments(x_trim, alpha, beta, d_a, d_e, d_r, d_t, Va)
         
         states_dot = self.mav.f(x_trim, fx, fy, fz, l, m, n) # 
 

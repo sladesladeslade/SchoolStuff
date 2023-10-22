@@ -6,8 +6,8 @@ jx= 0.824
 jy= 1.135
 jz= 1.759
 jxz= 0.120
-g=9.806650
-m=13.5
+gravity=9.806650
+mass=13.5
 
 Ts = SIM.ts_simulation      # sim sample time
 
@@ -27,13 +27,13 @@ states0=np.array([[0.], #pn
 
 
 ## aerodynamic parameters
-S        = 0.55
+S_wing        = 0.55
 b             = 2.90
 c             = 0.19
 S_prop        = 0.2027
 rho           = 1.2682
 e             = 0.9
-AR            = b**2/S
+AR            = b**2/S_wing
 C_L_0         = 0.23
 C_D_0         = 0.043
 C_m_0         = 0.0135
@@ -46,7 +46,7 @@ C_m_q         = -38.21
 C_L_delta_e   = 0.13
 C_D_delta_e   = 0.0135
 C_m_delta_e   = -0.99
-M             = 50
+M             = 50.
 alpha0        = 0.47
 epsilon       = 0.16
 C_D_p         = 0.0
@@ -68,7 +68,7 @@ C_n_delta_a   = -0.011
 C_Y_delta_r   = 0.19
 C_ell_delta_r = 0.0024
 C_n_delta_r   = -0.069
-C_prop        = 1
-k_motor       = 80 #80
-k_t_p = 0
-k_omega = 0
+C_prop        = 1.
+k_motor       = 80. #80
+k_t_p = 0.
+k_omega = 0.

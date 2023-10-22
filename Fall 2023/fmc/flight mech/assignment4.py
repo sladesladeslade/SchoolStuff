@@ -1,4 +1,4 @@
-# AEEM4012 Flight Mechanics Assignment #3
+# AEEM4012 Flight Mechanics Assignment #4
 # Slade Brooks
 # brooksl@mail.uc.edu
 
@@ -22,7 +22,7 @@ import warnings; warnings.filterwarnings("ignore", category=UserWarning, module=
 
 # define stuff
 uav = dynamics.UAVdynamics()
-anim = animation.animation(limits=10, alpha=0.35, flag=False)
+anim = animation.animation(limits=20, alpha=0.35, flag=False)
 aero = aero.UAVaero()
 Vs = np.array([[0],[0],[0]])        # steady wind m/s
 wind = wind.wind(Vs)
@@ -70,12 +70,11 @@ rates0 = np.zeros(buffer); rates1 = np.zeros(buffer); rates2 = np.zeros(buffer)
 sim_time = SIM.start_time
 
 # targets
-Vat = 35.
-Y = np.deg2rad(0.1)
-R = np.inf
-xtrim, utrim = trim.compute_trim(Vat, Y, R)
+Va = 35.
+Y = np.deg2rad(10.)
+R = 100.
+xtrim, utrim = trim.compute_trim(Va, Y, R)
 deltae, deltat, deltaa, deltar = utrim.flatten()
-# deltae = -deltae
 print("--- Trim Conditions ---")
 print(f"E: {np.rad2deg(deltae):.2f} deg")
 print(f"T: {deltat*100:.2f} %")
@@ -83,7 +82,6 @@ print(f"A: {np.rad2deg(deltaa):.2f} deg")
 print(f"R: {np.rad2deg(deltar):.2f} deg")
 
 # initial state
-Va = Vat
 pn = 0.
 pe = 0.
 pd = -100.
@@ -99,6 +97,7 @@ r = xtrim.item(11)
 state0 = np.array([[pn], [pe], [pd], [u], [v], [w], [phi], [theta], [psi], [p], [q], [r]])
 uav.state = np.ndarray.copy(state0)
 state = uav.state
+Va = np.sqrt(u**2 + v**2 + w**2)
 
 # main simulation loop
 print("Press Q to exit...")
