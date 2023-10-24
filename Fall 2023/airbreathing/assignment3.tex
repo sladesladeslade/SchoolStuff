@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./images/A3}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4063 - Assignment 3}
+\author{Slade Brooks}
+\date{10.26.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+\begin{tabular}{cc}
+    $r_h$ (m) & 0.065 \\
+    $r_t$ (m) & 0.15 \\
+    $\dot{m}$ (kg/s) & 8 \\
+    $P_a$ (bar) & 1 \\
+    $T_a$ (K) & 288 \\
+    $n$ (rev/s) & 270 \\
+    $C_a$ (m/s) & 123.1
+\end{tabular} \\\\\\
+since no prewhirl, $C_1=C_a=123.1$ m/s \\\\
+$n=\frac{270}{1}\frac{2\pi}{1} \rightarrow \omega=1696.5$ rad/s \\
+$U_{1h}=\omega r_h = 1696.5*0.065 = 110.273$ m/s \\
+$U_{1t}=\omega r_t = 1696.5*0.15 = 254.475$ m/s \\\\
+$\tan{\beta_h}=\frac{C_1}{U_{1h}}$, \quad $\beta_h=\arctan{\frac{123.1}{110.273}}
+=48.15^\circ$ \\
+$\tan{\beta_t}=\frac{C_1}{U_{1t}}$, \quad $\beta_t=\arctan{\frac{123.1}{254.475}}
+=25.815^\circ$ \\
+$\fbox{$\beta_{h}=48.15^\circ$}$ \\
+$\fbox{$\beta_{t}=25.82^\circ$}$ \\\\
+$M_{1t_{rel}}=\frac{V_{1t}}{\sqrt{\gamma R T_1}}$ \\
+$T_1 = T_a - \frac{C_1^2}{2c_p}=288 - \frac{123.1^2}{2(1005)}=280.46$ K \\
+$V_{1t}=\sqrt{U_{1t}^2 + C_1^2}=\sqrt{254.475^2 + 123.1^2}=282.69$ m/s \\
+$M_{1t_{rel}}=\frac{282.69}{\sqrt{1.4(287)(280.46)}}=0.842$ \\
+$\fbox{$M_{1t_{rel}}=0.842$}$ \\
+\includegraphics[]{p1.png}
+
+\section*{Problem 2}
+
+\section*{Problem 3}
+
+\section*{Problem 4}
+
+\end{document}
