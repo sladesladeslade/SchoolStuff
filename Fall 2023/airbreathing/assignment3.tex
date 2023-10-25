@@ -38,6 +38,40 @@ $\fbox{$M_{1t_{rel}}=0.842$}$ \\
 \includegraphics[]{p1.png}
 
 \section*{Problem 2}
+\begin{tabular}{cc}
+    $\dot{m}$ (kg/s) & 14 \\
+    $r$ & 4 \\
+    $n$ (rev/s) & 200 \\
+    $T_{0a}$ (K) & 288 \\
+    $P_{0a}$ (bar) & 1 \\
+    $\sigma$ & 0.9 \\
+    $\psi$ & 1.04 \\
+    $\eta_c$ & 0.80
+\end{tabular} \\\\\\
+$\frac{P_{03}}{P_{01}}=[1 + \frac{\eta_c \psi \sigma U_2^2}{c_{pc} T_{01}}]^
+\frac{\gamma}{\gamma-1} \rightarrow
+4 = [1 + \frac{0.8(1.04)(0.9)U_2^2}{1005(288)}]^\frac{1.4}{0.4}$ \\
+$U_2=433.423$ m/s \\\\
+$\omega=2\pi n=2\pi(200)=1256.64$ rad/s \\
+$D=\frac{2U}{\omega}=\frac{2(433.423)}{1256.64}=0.69$ m \\
+$\fbox{$D=69$ cm}$ \\\\
+$0.5(1-\eta_c)=0.1$, \quad $\eta_c=0.9$ through impeller \\
+$\frac{P_{02}}{P_{01}}=[1+\frac{0.9(1.04)(0.9)(433.423)^2}{1005(288)}]^\frac{1.4}{0.4}
+=4.6$, \quad $P_{02}=4.6$ bar \\
+$T_{03}=T_{02}=T_{01}+\frac{\psi \sigma U^2}{c_p}=288+\frac{1.4(0.9)(433.426)^2}{1005}
+=462.96$ K \\
+$C_{w2}=\omega U_2=0.9(433.423)=390.08$ m/s \\
+$\frac{T_{02}}{T_2}=1+\frac{\gamma-1}{2}M^2 \rightarrow
+T_2=T_{02}/(1+\frac{\gamma-1}{2})=462.96/1.2=385.8$ K \\
+$C_2=$ M1, \quad $C_2=1\sqrt{\gamma R T_2}=\sqrt{1.4(287)(385.8)}=393.72$ m/s \\
+$C_{r2}=\sqrt{C_2^2 - C_{w2}^2}=\sqrt{393.72^2 - 390.08^2}=53.4$ m/s \\
+$\frac{P_{02}}{P_2}=(1+\frac{\gamma-1}{2}1^2)^\frac{\gamma}{\gamma-1} \rightarrow
+P_2=4.6/(1+0.2)^\frac{1.4}{0.4}=2.43$ bar \\
+$\dot{m}=\rho C_{r2} A \rightarrow A=\frac{\dot{m}}{\rho C_{r2}}=
+\frac{\dot{m}RT_2}{P_2 C_{r2}}=\frac{14(0.287)(385.8)}{2.43(53.4)*100000}=0.1195$ m$^2$ \\
+$h=\frac{A}{\pi D}=\frac{0.1195}{\pi 0.69}=0.055$ m \\
+$\fbox{$h=5.5$ m}$ \\
+\includegraphics[scale=0.75]{p2.png}
 
 \section*{Problem 3}
 
