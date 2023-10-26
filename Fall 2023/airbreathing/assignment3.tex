@@ -11,14 +11,14 @@
 \maketitle
 
 \section*{Problem 1}
-\begin{tabular}{cc}
-    $r_h$ (m) & 0.065 \\
-    $r_t$ (m) & 0.15 \\
-    $\dot{m}$ (kg/s) & 8 \\
-    $P_a$ (bar) & 1 \\
-    $T_a$ (K) & 288 \\
-    $n$ (rev/s) & 270 \\
-    $C_a$ (m/s) & 123.1
+\begin{tabular}{ccc}
+    $r_h$ & 0.065 & (m) \\
+    $r_t$ & 0.15 & (m) \\
+    $\dot{m}$ & 8 & (kg/s) \\
+    $P_a$ & 1 & (bar) \\
+    $T_a$ & 288 & (K) \\
+    $n$ & 270 & (rev/s) \\
+    $C_a$ & 123.1 & (m/s)
 \end{tabular} \\\\\\
 since no prewhirl, $C_1=C_a=123.1$ m/s \\\\
 $n=\frac{270}{1}\frac{2\pi}{1} \rightarrow \omega=1696.5$ rad/s \\
@@ -38,12 +38,12 @@ $\fbox{$M_{1t_{rel}}=0.842$}$ \\
 \includegraphics[]{p1.png}
 
 \section*{Problem 2}
-\begin{tabular}{cc}
-    $\dot{m}$ (kg/s) & 14 \\
+\begin{tabular}{ccc}
+    $\dot{m}$ & 14 & (kg/s) \\
     $r$ & 4 \\
-    $n$ (rev/s) & 200 \\
-    $T_{0a}$ (K) & 288 \\
-    $P_{0a}$ (bar) & 1 \\
+    $n$ & 200 & (rev/s) \\
+    $T_{0a}$ & 288 & (K) \\
+    $P_{0a}$ & 1 & (bar) \\
     $\sigma$ & 0.9 \\
     $\psi$ & 1.04 \\
     $\eta_c$ & 0.80
@@ -58,7 +58,7 @@ $\fbox{$D=69$ cm}$ \\\\
 $0.5(1-\eta_c)=0.1$, \quad $\eta_c=0.9$ through impeller \\
 $\frac{P_{02}}{P_{01}}=[1+\frac{0.9(1.04)(0.9)(433.423)^2}{1005(288)}]^\frac{1.4}{0.4}
 =4.6$, \quad $P_{02}=4.6$ bar \\
-$T_{03}=T_{02}=T_{01}+\frac{\psi \sigma U^2}{c_p}=288+\frac{1.4(0.9)(433.426)^2}{1005}
+$T_{03}=T_{02}=T_{01}+\frac{\psi \sigma U^2}{c_p}=288+\frac{1.04(0.9)(433.426)^2}{1005}
 =462.96$ K \\
 $C_{w2}=\omega U_2=0.9(433.423)=390.08$ m/s \\
 $\frac{T_{02}}{T_2}=1+\frac{\gamma-1}{2}M^2 \rightarrow
@@ -74,7 +74,64 @@ $\fbox{$h=5.5$ m}$ \\
 \includegraphics[scale=0.75]{p2.png}
 
 \section*{Problem 3}
+\begin{tabular}{ccc}
+   $U_{t}$ & 250 & (m/s) \\
+   $U_{m}$ & 200 & (m/s) \\
+   $U_{r}$ & 150 & (m/s) \\
+   $T_{02}-T_{01}$ & 20 & (K) \\
+   $C_{a1}$ & 150 & (m/s) \\
+   $\lambda$ & 0.93 \\
+   $\Lambda_m$ & 0.5 \\
+   $\eta_s$ & 0.88
+\end{tabular} \\\\\\
+$w=c_p(T_{02}-T_{01})=1005(20)=20100$ J/kg \\
+$\fbox{$w=20100$ J/kg}$ \\\\
+$T_{03}=T_{02}$, \quad assume $T_{01}=288$ K \\
+$\frac{P_{03}}{P_{01}}=[1+\frac{\eta_s(T_{03}-T_{01})}{T_{01}}]^\frac{\gamma}{\gamma-1}
+=[1+\frac{0.88(20)}{288}]^\frac{1.4}{0.4}=1.23$ \\
+$\fbox{$\frac{P_{03}}{P_{02}}=1.23$}$
+
+\subsection*{Mean}
+$\Delta C_w=\frac{c_p(T_{02}-T_{01})}{\lambda U}=\frac{1005(20)}{0.93(200)}=
+108.065$ m/s \\
+$C_{w1}=\frac{U-\Delta C_w}{2}=\frac{200-(108.065)}{2}=45.97$ m/s \\
+$\tan{\alpha_1}=\frac{C_{w1}}{C_{a1}} \rightarrow \alpha_1=\arctan\frac{45.97}{150}$ \\
+$\fbox{$\alpha_{1m}=\beta_{2m}=17.04^\circ$}$ \\\\
+$C_{w2}=154$ m/s \\
+$\tan{\alpha_2}=\frac{C_{w2}}{C_{a1}} \rightarrow \alpha_2=\arctan\frac{154}{150}$ \\
+$\fbox{$\alpha_{2m}=\beta_{1m}=45.75^\circ$}$
+
+\subsection*{Root}
+$\Delta C_w=\frac{c_p(T_{02}-T_{01})}{\lambda U}=\frac{1005(20)}{0.93(150)}=
+144.09$ m/s \\
+$C_{w1}=\frac{C_{w1m}U_{m}}{U_{r}}=\frac{45.97(200)}{150}=61.3$ m/s \\
 
 \section*{Problem 4}
+\begin{tabular}{ccc}
+    $r_m$ & 0.6 & (m) \\
+    $n$ & 4075 & (rpm) \\
+    $C_{a1}$ & 155 & (m/s) \\
+    $C_{w1}$ & 28 & (m/s) \\
+    $\Lambda_m$ & 0.5 \\
+\end{tabular}
+
+\subsection*{Part 1}
+$\omega=2\pi n/60=2\pi 4075/60=426.73$ rad/s \\
+$U_m=\omega r_m=426.73(0.6)=256.04$ m/s \\
+$\fbox{$U_m=256.04$ m/s}$
+
+\subsection*{Part 2}
+$C_1=\sqrt{C_{a1}^2+C_{w1}^2}=\sqrt{155^2+28^2}=157.51$ m/s \\
+since $\Lambda_m=0.5$: $C_{w2}=U_m-C_{w1}=256.04-28=228.04$ m/s \\
+$C_2=\sqrt{C_{a2}^2+C_{w2}^2}=\sqrt{155^2+228.04^2}=275.73$ m/s \\
+$\alpha_1=\arctan\frac{28}{155}=10.24^\circ$ \\
+$\alpha_2=\arctan\frac{228.04}{155}=55.8^\circ$ \\
+$\cos\alpha_1=\frac{C_{a1}}{C_3}$, \quad $C_3=\frac{C_{a1}}{\cos\alpha_1}=\frac{155}
+{\cos(10.24)}=157.51$ m/s \\
+\includegraphics*[scale=0.85]{p4p2.png}
+
+\subsection*{Part 3}
+$w=U(C_{w2}-C_{w1})=256.04(228.04-28)/1000=51218.24$ J/kg \\
+$\fbox{$w=51.22$ kJ/kg}$
 
 \end{document}
