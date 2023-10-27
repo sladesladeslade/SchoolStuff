@@ -13,21 +13,21 @@ T0 = 216.78         # K
 M0 = 0.85
 
 # ---------- Given Vals ----------
-yc = 1.4
-yh = 1.333
-T04 = 1560          # K
-hfuel = 43100       # kJ/kg
-BPR = 10
-pif = 1.5
-pic = 36
-pib = 0.96
-etai = 0.98
-etainff = 0.89
-etainfc = 0.90
-etab = 0.99
-etainft = 0.90
-etam = 0.99
-etaj = 0.99
+yc = 1.4            # spec heat ratio cold
+yh = 1.333          # spec heat ratio hot
+T04 = 1560          # turbine inlet temp, K
+hfuel = 43100       # fuel heat thing whatever kJ/kg
+BPR = 10            # bypass ratio
+pif = 1.5           # fan pres ratio
+pic = 36            # compres pres ratio
+pib = 0.96          # burner pres ratio
+etai = 0.98         # inlet eff
+etainff = 0.89      # fan polytropic eff
+etainfc = 0.90      # compres polytropic eff
+etab = 0.99         # 'bustion eff
+etainft = 0.90      # turb polytropic eff
+etam = 0.99         # mech eff
+etaj = 0.99         # nozzle eff
 
 
 # ---------- Inlet ----------
@@ -42,12 +42,12 @@ def inlet(P0, M0, etai, yc):
 
 
 # ---------- Fan ----------
-def fan(pif, etainfc, P02, T02, yc):
+def fan(pif, etainff, P02, T02, yc):
     # solve for P w/ pressure ratio
     P025 = P02*pif
     
     # solve for n-1/n based on polytropic eff
-    n1n = (1/etainfc)*(yc - 1)/yc
+    n1n = (1/etainff)*(yc - 1)/yc
     
     # solve for T from relation with n-1/n
     T025 = T02*pif**n1n
@@ -80,9 +80,15 @@ def combustor(pib, P03, TIT):
     return P04, T04
 
 
+# ---------- Turbine ----------
+def turbine(etainft, P04, T04, yh):
+    # solve for m-1/m based on polytropic eff
+    m1m = etainft*(yh - 1)/yh
+
+
 # ---------- Testing ----------
 P02, T02 = inlet(P0, M0, etai, yc)
-P025, T025 = fan(pif, etainfc, P02, T02, yc)
+P025, T025 = fan(pif, etainff, P02, T02, yc)
 P03, T03 = compressor(pic, etainfc, P025, T025, yc)
 P04, T04 = combustor(pib, P03, T04)
 print(P02, T02)
