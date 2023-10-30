@@ -194,14 +194,217 @@ def quickSolve(P0, M0, etai, yc, pif, etainff, pic, etainfc, pib, etainft, BPR, 
     
     return fmdot, TSFC, f, etaT, etaP, etaO
     
-   
+
 # ---------- Real Cycle ----------
+# test and verify with hand calcs
 fmdot, TSFC, f, etaT, etaP, etaO = quickSolve(P0, M0, etai, yc, pif, etainff, pic, etainfc, pib, etainft, BPR, hfuel,
                                               yh, cph, cpc, etab, etam, etaj, R, TR, C0, T04, False)
-print(fmdot, TSFC, f, etaT, etaP, etaO)
+# print(fmdot, TSFC, f, etaT, etaP, etaO)
 
 
 # ---------- Ideal Cycle ----------
+# verify with cycle results posted
 fmdot, TSFC, f, etaT, etaP, etaO = quickSolve(P0, M0, 1, yc, pif, 1, pic, 1, pib, 1, BPR, hfuel, yh, cph, cpc, 1, 1, 1,
                                               R, TR, C0, T04, True)
-print(fmdot, TSFC, f, etaT, etaP, etaO)
+# print(fmdot, TSFC, f, etaT, etaP, etaO)
+
+
+# ---------- Iterating Through Designs ----------
+# set up vars to iterate through
+BPRs = np.linspace(5, 20., 100)
+pifs = np.linspace(1.2, 2., 100)
+pics = np.linspace(20, 40., 100)
+
+# iterate thru BPRs
+# set up empty lists
+fmdots = np.empty((2, 100))
+TSFCs = np.empty((2, 100))
+fs = np.empty((2, 100))
+etaTs = np.empty((2, 100))
+etaPs = np.empty((2, 100))
+etaOs = np.empty((2, 100))
+
+# loop through and get vals
+for i, BPRo in enumerate(BPRs):
+    fmdots[0][i], TSFCs[0][i], fs[0][i], etaTs[0][i], etaPs[0][i], etaOs[0][i] = quickSolve(P0, M0, etai, yc, pif,
+        etainff, pic, etainfc, pib, etainft, BPRo, hfuel, yh, cph, cpc, etab, etam, etaj, R, TR, C0, T04, False)
+    fmdots[1][i], TSFCs[1][i], fs[1][i], etaTs[1][i], etaPs[1][i], etaOs[1][i] = quickSolve(P0, M0, 1, yc, pif, 1, pic,
+        1, pib, 1, BPRo, hfuel, yh, cph, cpc, 1, 1, 1, R, TR, C0, T04, False)
+
+# plot specific thrust
+plt.figure()
+plt.plot(BPRs, fmdots[0], "k", label="Real", linewidth=2)
+plt.plot(BPRs, fmdots[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("BPR"); plt.ylabel(r"$\frac{F}{\dot{m}}$ (Ns/kg)")
+plt.xlim((5, 20)); plt.ylim((80, 200))
+plt.legend(); plt.grid(); plt.title("Specific Thrust vs Bypass Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/BPRfmdot.png")
+
+# plot specific fuel consumption
+plt.figure()
+plt.plot(BPRs, TSFCs[0], "k", label="Real", linewidth=2)
+plt.plot(BPRs, TSFCs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("BPR"); plt.ylabel("TSFC (g/kNs)")
+plt.xlim((5, 20)); plt.ylim((0.04, 0.075))
+plt.legend(); plt.grid(); plt.title("Specific Fuel Consumption vs Bypass Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/BPRtsfc.png")
+
+# plot fuel air ratio
+plt.figure()
+plt.plot(BPRs, fs[0], "k", label="Real", linewidth=2)
+plt.plot(BPRs, fs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("BPR"); plt.ylabel("f")
+plt.xlim((5, 20)); plt.ylim((0.02, 0.025))
+plt.legend(); plt.grid(); plt.title("Fuel-Air Ratio vs Bypass Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/BPRf.png")
+
+# plot thermal eff
+plt.figure()
+plt.plot(BPRs, etaTs[0], "k", label="Real", linewidth=2)
+plt.plot(BPRs, etaTs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("BPR"); plt.ylabel(r"$\eta_T$")
+plt.xlim((5, 20)); plt.ylim((0.4, 0.65))
+plt.legend(); plt.grid(); plt.title("Thermal Efficiency vs Bypass Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/BPRetaT.png")
+
+# plot propulsive eff
+plt.figure()
+plt.plot(BPRs, etaPs[0], "k", label="Real", linewidth=2)
+plt.plot(BPRs, etaPs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("BPR"); plt.ylabel(r"$\eta_P$")
+plt.xlim((5, 20)); plt.ylim((0.45, 0.85))
+plt.legend(); plt.grid(); plt.title("Propulsive Efficiency vs Bypass Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/BPRetaP.png")
+
+# plot overall eff
+plt.figure()
+plt.plot(BPRs, etaOs[0], "k", label="Real", linewidth=2)
+plt.plot(BPRs, etaOs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("BPR"); plt.ylabel(r"$\eta_O$")
+plt.xlim((5, 20)); plt.ylim((0.25, 0.55))
+plt.legend(); plt.grid(); plt.title("Overall Efficiency vs Bypass Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/BPRetaO.png")
+
+# loop through and get vals
+for i, pifo in enumerate(pifs):
+    fmdots[0][i], TSFCs[0][i], fs[0][i], etaTs[0][i], etaPs[0][i], etaOs[0][i] = quickSolve(P0, M0, etai, yc, pifo,
+        etainff, pic, etainfc, pib, etainft, BPR, hfuel, yh, cph, cpc, etab, etam, etaj, R, TR, C0, T04, False)
+    fmdots[1][i], TSFCs[1][i], fs[1][i], etaTs[1][i], etaPs[1][i], etaOs[1][i] = quickSolve(P0, M0, 1, yc, pifo, 1, pic,
+        1, pib, 1, BPR, hfuel, yh, cph, cpc, 1, 1, 1, R, TR, C0, T04, False)
+
+# plot specific thrust
+plt.figure()
+plt.plot(pifs, fmdots[0], "k", label="Real", linewidth=2)
+plt.plot(pifs, fmdots[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("FPR"); plt.ylabel(r"$\frac{F}{\dot{m}}$ (Ns/kg)")
+plt.xlim((1.2, 2.0)); plt.ylim((100, 180))
+plt.legend(); plt.grid(); plt.title("Specific Thrust vs Fan Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/FPRfmdot.png")
+
+# plot specific fuel consumption
+plt.figure()
+plt.plot(pifs, TSFCs[0], "k", label="Real", linewidth=2)
+plt.plot(pifs, TSFCs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("FPR"); plt.ylabel("TSFC (g/kNs)")
+plt.xlim((1.2, 2.0)); plt.ylim((0.04, 0.08))
+plt.legend(); plt.grid(); plt.title("Specific Fuel Consumption vs Fan Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/FPRtsfc.png")
+
+# plot fuel air ratio
+plt.figure()
+plt.plot(pifs, fs[0], "k", label="Real", linewidth=2)
+plt.plot(pifs, fs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("FPR"); plt.ylabel("f")
+plt.xlim((1.2, 2.0)); plt.ylim((0.02, 0.026))
+plt.legend(); plt.grid(); plt.title("Fuel-Air Ratio vs Fan Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/FPRf.png")
+
+# plot thermal eff
+plt.figure()
+plt.plot(pifs, etaTs[0], "k", label="Real", linewidth=2)
+plt.plot(pifs, etaTs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("FPR"); plt.ylabel(r"$\eta_T$")
+plt.xlim((1.2, 2.0)); plt.ylim((0.4, 0.7))
+plt.legend(); plt.grid(); plt.title("Thermal Efficiency vs Fan Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/FPRetaT.png")
+
+# plot propulsive eff
+plt.figure()
+plt.plot(pifs, etaPs[0], "k", label="Real", linewidth=2)
+plt.plot(pifs, etaPs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("FPR"); plt.ylabel(r"$\eta_P$")
+plt.xlim((1.2, 2.0)); plt.ylim((0.45, 0.85))
+plt.legend(); plt.grid(); plt.title("Propulsive Efficiency vs Fan Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/FPRetaP.png")
+
+# plot overall eff
+plt.figure()
+plt.plot(pifs, etaOs[0], "k", label="Real", linewidth=2)
+plt.plot(pifs, etaOs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("FPR"); plt.ylabel(r"$\eta_O$")
+plt.xlim((1.2, 2.0)); plt.ylim((0.25, 0.5))
+plt.legend(); plt.grid(); plt.title("Overall Efficiency vs Fan Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/FPRetaO.png")
+
+# loop through and get vals
+for i, pico in enumerate(pics):
+    fmdots[0][i], TSFCs[0][i], fs[0][i], etaTs[0][i], etaPs[0][i], etaOs[0][i] = quickSolve(P0, M0, etai, yc, pif,
+        etainff, pico, etainfc, pib, etainft, BPR, hfuel, yh, cph, cpc, etab, etam, etaj, R, TR, C0, T04, False)
+    fmdots[1][i], TSFCs[1][i], fs[1][i], etaTs[1][i], etaPs[1][i], etaOs[1][i] = quickSolve(P0, M0, 1, yc, pif, 1, pico,
+        1, pib, 1, BPR, hfuel, yh, cph, cpc, 1, 1, 1, R, TR, C0, T04, False)
+
+# plot specific thrust
+plt.figure()
+plt.plot(pics, fmdots[0], "k", label="Real", linewidth=2)
+plt.plot(pics, fmdots[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("CPR"); plt.ylabel(r"$\frac{F}{\dot{m}}$ (Ns/kg)")
+plt.xlim((20, 40)); plt.ylim((115, 155))
+plt.legend(); plt.grid(); plt.title("Specific Thrust vs Compressor Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/CPRfmdot.png")
+
+# plot specific fuel consumption
+plt.figure()
+plt.plot(pics, TSFCs[0], "k", label="Real", linewidth=2)
+plt.plot(pics, TSFCs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("CPR"); plt.ylabel("TSFC (g/kNs)")
+plt.xlim((20, 40)); plt.ylim((0.052, 0.066))
+plt.legend(); plt.grid(); plt.title("Specific Fuel Consumption vs Compressor Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/CPRtsfc.png")
+
+# plot fuel air ratio
+plt.figure()
+plt.plot(pics, fs[0], "k", label="Real", linewidth=2)
+plt.plot(pics, fs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("CPR"); plt.ylabel("f")
+plt.xlim((20, 40)); plt.ylim((0.021, 0.028))
+plt.legend(); plt.grid(); plt.title("Fuel-Air Ratio vs Compressor Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/CPRf.png")
+
+# plot thermal eff
+plt.figure()
+plt.plot(pics, etaTs[0], "k", label="Real", linewidth=2)
+plt.plot(pics, etaTs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("CPR"); plt.ylabel(r"$\eta_T$")
+plt.xlim((20, 40)); plt.ylim((0.45, 0.65))
+plt.legend(); plt.grid(); plt.title("Thermal Efficiency vs Compressor Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/CPRetaT.png")
+
+# plot propulsive eff
+plt.figure()
+plt.plot(pics, etaPs[0], "k", label="Real", linewidth=2)
+plt.plot(pics, etaPs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("CPR"); plt.ylabel(r"$\eta_P$")
+plt.xlim((20, 40)); plt.ylim((0.6, 0.8))
+plt.legend(); plt.grid(); plt.title("Propulsive Efficiency vs Compressor Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/CPRetaP.png")
+
+# plot overall eff
+plt.figure()
+plt.plot(pics, etaOs[0], "k", label="Real", linewidth=2)
+plt.plot(pics, etaOs[1], "k--", label="Ideal", linewidth=2)
+plt.xlabel("CPR"); plt.ylabel(r"$\eta_O$")
+plt.xlim((20, 40)); plt.ylim((0.3, 0.4))
+plt.legend(); plt.grid(); plt.title("Overall Efficiency vs Compressor Pressure Ratio")
+plt.savefig("Fall 2023/airbreathing/figs/CPRetaO.png")
+
+plt.show()
