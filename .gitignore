@@ -16,3 +16,4 @@
 /.vscode/
 /Fall 2023/airbreathing/__pycache__/
 /Fall 2023/fmc/controls/lib/__pycache__/
+*.png

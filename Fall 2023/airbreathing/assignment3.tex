@@ -1,0 +1,170 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./images/A3}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4063 - Assignment 3}
+\author{Slade Brooks}
+\date{10.26.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+\begin{tabular}{ccc}
+    $r_h$ & 0.065 & (m) \\
+    $r_t$ & 0.15 & (m) \\
+    $\dot{m}$ & 8 & (kg/s) \\
+    $P_a$ & 1 & (bar) \\
+    $T_a$ & 288 & (K) \\
+    $n$ & 270 & (rev/s) \\
+    $C_a$ & 123.1 & (m/s)
+\end{tabular} \\\\\\
+since no prewhirl, $C_1=C_a=123.1$ m/s \\\\
+$n=\frac{270}{1}\frac{2\pi}{1} \rightarrow \omega=1696.5$ rad/s \\
+$U_{1h}=\omega r_h = 1696.5*0.065 = 110.273$ m/s \\
+$U_{1t}=\omega r_t = 1696.5*0.15 = 254.475$ m/s \\\\
+$\tan{\beta_h}=\frac{C_1}{U_{1h}}$, \quad $\beta_h=\arctan{\frac{123.1}{110.273}}
+=48.15^\circ$ \\
+$\tan{\beta_t}=\frac{C_1}{U_{1t}}$, \quad $\beta_t=\arctan{\frac{123.1}{254.475}}
+=25.815^\circ$ \\
+$\fbox{$\beta_{h}=48.15^\circ$}$ \\
+$\fbox{$\beta_{t}=25.82^\circ$}$ \\\\
+$M_{1t_{rel}}=\frac{V_{1t}}{\sqrt{\gamma R T_1}}$ \\
+$T_1 = T_a - \frac{C_1^2}{2c_p}=288 - \frac{123.1^2}{2(1005)}=280.46$ K \\
+$V_{1t}=\sqrt{U_{1t}^2 + C_1^2}=\sqrt{254.475^2 + 123.1^2}=282.69$ m/s \\
+$M_{1t_{rel}}=\frac{282.69}{\sqrt{1.4(287)(280.46)}}=0.842$ \\
+$\fbox{$M_{1t_{rel}}=0.842$}$ \\
+\includegraphics[]{p1.png}
+
+\section*{Problem 2}
+\begin{tabular}{ccc}
+    $\dot{m}$ & 14 & (kg/s) \\
+    $r$ & 4 \\
+    $n$ & 200 & (rev/s) \\
+    $T_{0a}$ & 288 & (K) \\
+    $P_{0a}$ & 1 & (bar) \\
+    $\sigma$ & 0.9 \\
+    $\psi$ & 1.04 \\
+    $\eta_c$ & 0.80
+\end{tabular} \\\\\\
+$\frac{P_{03}}{P_{01}}=[1 + \frac{\eta_c \psi \sigma U_2^2}{c_{pc} T_{01}}]^
+\frac{\gamma}{\gamma-1} \rightarrow
+4 = [1 + \frac{0.8(1.04)(0.9)U_2^2}{1005(288)}]^\frac{1.4}{0.4}$ \\
+$U_2=433.423$ m/s \\\\
+$\omega=2\pi n=2\pi(200)=1256.64$ rad/s \\
+$D=\frac{2U}{\omega}=\frac{2(433.423)}{1256.64}=0.69$ m \\
+$\fbox{$D=69$ cm}$ \\\\
+$0.5(1-\eta_c)=0.1$, \quad $\eta_c=0.9$ through impeller \\
+$\frac{P_{02}}{P_{01}}=[1+\frac{0.9(1.04)(0.9)(433.423)^2}{1005(288)}]^\frac{1.4}{0.4}
+=4.6$, \quad $P_{02}=4.6$ bar \\
+$T_{03}=T_{02}=T_{01}+\frac{\psi \sigma U^2}{c_p}=288+\frac{1.04(0.9)(433.426)^2}{1005}
+=462.96$ K \\
+$C_{w2}=\omega U_2=0.9(433.423)=390.08$ m/s \\
+$\frac{T_{02}}{T_2}=1+\frac{\gamma-1}{2}M^2 \rightarrow
+T_2=T_{02}/(1+\frac{\gamma-1}{2})=462.96/1.2=385.8$ K \\
+$C_2=$ M1, \quad $C_2=1\sqrt{\gamma R T_2}=\sqrt{1.4(287)(385.8)}=393.72$ m/s \\
+$C_{r2}=\sqrt{C_2^2 - C_{w2}^2}=\sqrt{393.72^2 - 390.08^2}=53.4$ m/s \\
+$\frac{P_{02}}{P_2}=(1+\frac{\gamma-1}{2}1^2)^\frac{\gamma}{\gamma-1} \rightarrow
+P_2=4.6/(1+0.2)^\frac{1.4}{0.4}=2.43$ bar \\
+$\dot{m}=\rho C_{r2} A \rightarrow A=\frac{\dot{m}}{\rho C_{r2}}=
+\frac{\dot{m}RT_2}{P_2 C_{r2}}=\frac{14(0.287)(385.8)}{2.43(53.4)*100000}=0.1195$ m$^2$ \\
+$h=\frac{A}{\pi D}=\frac{0.1195}{\pi 0.69}=0.055$ m \\
+$\fbox{$h=5.5$ m}$ \\
+\includegraphics[scale=0.75]{p2.png}
+
+\section*{Problem 3}
+\begin{tabular}{ccc}
+   $U_{t}$ & 250 & (m/s) \\
+   $U_{m}$ & 200 & (m/s) \\
+   $U_{r}$ & 150 & (m/s) \\
+   $T_{02}-T_{01}$ & 20 & (K) \\
+   $C_{a1}$ & 150 & (m/s) \\
+   $\lambda$ & 0.93 \\
+   $\Lambda_m$ & 0.5 \\
+   $\eta_s$ & 0.88
+\end{tabular} \\\\\\
+$w=c_p(T_{02}-T_{01})=1005(20)=20100$ J/kg \\
+$\fbox{$w=20100$ J/kg}$ \\\\
+$T_{03}=T_{02}$, \quad assume $T_{01}=288$ K \\
+$\frac{P_{03}}{P_{01}}=[1+\frac{\eta_s(T_{03}-T_{01})}{T_{01}}]^\frac{\gamma}{\gamma-1}
+=[1+\frac{0.88(20)}{288}]^\frac{1.4}{0.4}=1.23$ \\
+$\fbox{$\frac{P_{03}}{P_{02}}=1.23$}$
+
+\subsection*{Mean}
+$\Delta C_w=\frac{c_p(T_{02}-T_{01})}{\lambda U}=\frac{1005(20)}{0.93(200)}=
+108.065$ m/s \\
+$C_{w1}=\frac{U-\Delta C_w}{2}=\frac{200-(108.065)}{2}=45.97$ m/s \\
+$\tan{\alpha_1}=\frac{C_{w1}}{C_{a1}} \rightarrow \alpha_1=\arctan\frac{45.97}{150}$ \\
+$\fbox{$\alpha_{1m}=\beta_{2m}=17.04^\circ$}$ \\\\
+$C_{w2}=154$ m/s \\
+$\tan{\alpha_2}=\frac{C_{w2}}{C_{a1}} \rightarrow \alpha_2=\arctan\frac{154}{150}$ \\
+$\fbox{$\alpha_{2m}=\beta_{1m}=45.75^\circ$}$
+
+\subsection*{Root}
+$\Delta C_w=\frac{c_p(T_{02}-T_{01})}{\lambda U}=\frac{1005(20)}{0.93(150)}=
+144.09$ m/s \\
+$C_{w1}=\frac{C_{w1m}U_{m}}{U_{r}}=\frac{45.97(200)}{150}=61.3$ m/s \\
+$C_{w2}=61.3+144.09=205.4$ m/s \\
+$V_{w1}=U_r-C_{w1}=150-61.3=88.7$ m/s \\
+$V_{w2}=U_r-C_{w2}=150-205.4=-55.4$ m/s \\
+$\alpha_1=\arctan\frac{C_{w1}}{C_{a1}}=\arctan\frac{61.3}{150}=
+\fbox{$\alpha_1=22.23^\circ$}$ \\
+$\beta_1=\arctan\frac{V_{w1}}{C_{a1}}=\arctan\frac{88.7}{150}=
+\fbox{$\beta_1=30.6^\circ$}$ \\
+$\alpha_2=\arctan\frac{C_{w2}}{C_{a1}}=\arctan\frac{205.4}{150}=
+\fbox{$\alpha_2=53.86^\circ$}$ \\
+$\beta_2=\arctan\frac{V_{w2}}{C_{a1}}=\arctan\frac{-55.4}{150}=
+\fbox{$\beta_2=-20.27^\circ$}$ \\\\
+$\Lambda_r=\frac{C_{a1}}{2U}(\tan\beta_2+\tan\beta_1)=\frac{150}{2(150)}
+(\tan(-20.27)+\tan(30.6))=0.11$ \\
+$\fbox{$\Lambda_r=11$\%}$
+
+\subsection*{Tip}
+$\Delta C_w=\frac{c_p(T_{02}-T_{01})}{\lambda U}=\frac{1005(20)}{0.93(250)}=
+86.45$ m/s \\
+$C_{w1}=\frac{C_{w1m}U_{m}}{U_{t}}=\frac{45.97(200)}{250}=36.78$ m/s \\
+$C_{w2}=36.78+86.45=123.23$ m/s \\
+$V_{w1}=U_t-C_{w1}=250-36.78=213.22$ m/s \\
+$V_{w2}=U_t-C_{w2}=250-123.23=126.77$ m/s \\
+$\alpha_1=\arctan\frac{C_{w1}}{C_{a1}}=\arctan\frac{36.78}{150}=
+\fbox{$\alpha_1=13.78^\circ$}$ \\
+$\beta_1=\arctan\frac{V_{w1}}{C_{a1}}=\arctan\frac{213.22}{150}=
+\fbox{$\beta_1=54.87^\circ$}$ \\
+$\alpha_2=\arctan\frac{C_{w2}}{C_{a1}}=\arctan\frac{123.23}{150}=
+\fbox{$\alpha_2=39.4^\circ$}$ \\
+$\beta_2=\arctan\frac{V_{w2}}{C_{a1}}=\arctan\frac{126.77}{150}=
+\fbox{$\beta_2=40.2^\circ$}$ \\\\
+$\Lambda_t=\frac{C_{a1}}{2U}(\tan\beta_2+\tan\beta_1)=\frac{150}{2(250)}
+(\tan(40.2)+\tan(54.87))=0.68$ \\
+$\fbox{$\Lambda_t=68$\%}$
+
+\section*{Problem 4}
+\begin{tabular}{ccc}
+    $r_m$ & 0.6 & (m) \\
+    $n$ & 4075 & (rpm) \\
+    $C_{a1}$ & 155 & (m/s) \\
+    $C_{w1}$ & 28 & (m/s) \\
+    $\Lambda_m$ & 0.5 \\
+\end{tabular}
+
+\subsection*{Part 1}
+$\omega=2\pi n/60=2\pi 4075/60=426.73$ rad/s \\
+$U_m=\omega r_m=426.73(0.6)=256.04$ m/s \\
+$\fbox{$U_m=256.04$ m/s}$
+
+\subsection*{Part 2}
+$C_1=\sqrt{C_{a1}^2+C_{w1}^2}=\sqrt{155^2+28^2}=157.51$ m/s \\
+since $\Lambda_m=0.5$: $C_{w2}=U_m-C_{w1}=256.04-28=228.04$ m/s \\
+$C_2=\sqrt{C_{a2}^2+C_{w2}^2}=\sqrt{155^2+228.04^2}=275.73$ m/s \\
+$\alpha_1=\arctan\frac{28}{155}=10.24^\circ$ \\
+$\alpha_2=\arctan\frac{228.04}{155}=55.8^\circ$ \\
+$\cos\alpha_1=\frac{C_{a1}}{C_3}$, \quad $C_3=\frac{C_{a1}}{\cos\alpha_1}=\frac{155}
+{\cos(10.24)}=157.51$ m/s \\
+\includegraphics*[scale=0.85]{p4p2.png}
+
+\subsection*{Part 3}
+$w=U(C_{w2}-C_{w1})=256.04(228.04-28)/1000=51218.24$ J/kg \\
+$\fbox{$w=51.22$ kJ/kg}$
+
+\end{document}
