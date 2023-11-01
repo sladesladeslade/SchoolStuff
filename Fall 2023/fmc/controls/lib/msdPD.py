@@ -1,4 +1,5 @@
 import mssimparams as P
+import numpy as np
 
 
 class controller:
@@ -16,6 +17,6 @@ class controller:
         feq = P.k*z
         fc = self.kP*(zc - z)  - self.kD*zdot
         f = feq + fc
-        if f[0] > self.Fmax:
-            f[0] = self.Fmax
+        if abs(f[0]) > self.Fmax:
+            f[0] = self.Fmax*np.sign(f[0])
         return f[0]
