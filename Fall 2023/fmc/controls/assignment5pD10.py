@@ -16,15 +16,13 @@ import lib.ass5.msdPID as ctr
 msd = dynamics.massSpringDynamics()
 anim = animation.massSpringAnim(limits=2, flag=True)
 ctr = ctr.controller(6., 0.05, False)
+print(f"M: {P.m1:.2f}")
+print(f"K: {P.k:.2f}")
+print(f"B: {P.b:.2f}")
 
-# tune controller
-trise = 2
-wn = 2.2/trise
-damping = 0.7
-a1 = 2*damping*wn
-a0 = wn**2
-ctr.kd = P.m1*(a1 - P.b/P.m1)
-ctr.kp = P.m1*(a0 - P.k/P.m1)
+# set controller
+ctr.kd = 7.2
+ctr.kp = 3.05
 ctr.ki = 0.4
 
 # add subplots
