@@ -32,18 +32,18 @@ zes = anim.fig.add_subplot(2, 2, 2)
 fes = anim.fig.add_subplot(2, 2, 4)
 zes.set_ylabel("z (m)")
 fes.set_ylabel("Force (N)")
-simtimes = []
-zs = []
-fs = []
-targets = []
 
 # initials
 z = 0
 u = 0
 target = 1
+zs = [z]
+fs = [u]
+targets = [target]
 
 # simulation loop
 t = P.t_start
+simtimes = [t]
 while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
@@ -53,7 +53,7 @@ while t < P.t_end:
     
     # update daterp
     simtimes.append(t)
-    zs.append(z)
+    zs.append(z[0])
     fs.append(u)
     targets.append(target)
     
