@@ -10,13 +10,12 @@ import lib.massSpringAnim as animation
 import lib.ass5.massSpringDynamics as dynamics
 import keyboard
 import lib.ass5.msdPID as ctr
-import numpy as np
 
 
 # define system
 msd = dynamics.massSpringDynamics()
 anim = animation.massSpringAnim(limits=2, flag=True)
-ctr = ctr.controller(6., 0.05, True)
+ctr = ctr.controller(6., 0.05, False)
 
 # tune controller
 trise = 2
@@ -26,7 +25,7 @@ a1 = 2*damping*wn
 a0 = wn**2
 ctr.kd = P.m1*(a1 - P.b/P.m1)
 ctr.kp = P.m1*(a0 - P.k/P.m1)
-ctr.ki = 0.5
+ctr.ki = 0.4
 
 # add subplots
 zes = anim.fig.add_subplot(2, 2, 2)
@@ -46,8 +45,11 @@ target = 1
 # simulation loop
 t = P.t_start
 while t < P.t_end:
-    u = ctr.update(target, msd.h()[0])
-    z = msd.update(u)
+    t_next_plot = t + P.t_plot
+    while t < t_next_plot:
+        u = ctr.update(target, msd.h()[0])
+        z = msd.update(u)
+        t += P.Ts
     
     # update daterp
     simtimes.append(t)
@@ -67,9 +69,8 @@ while t < P.t_end:
     fes.grid()
     zes.set_ylabel("z (m)")
     fes.set_ylabel("Force (N)")
-    plt.pause(0.01)
     
-    t += P.Ts
+    plt.pause(0.1)
     if keyboard.is_pressed("q"): break
 
 # wait to close

@@ -8,9 +8,9 @@ class controller:
         self.m = P.m1
         self.k = P.k
         self.b = P.b
-        self.kp = 4.5
-        self.kd = 12
-        self.ki = 0
+        self.kp = 7.2
+        self.kd = 3.05
+        self.ki = 0.4
         self.limit = Fmax
         self.sigma = sigma
         self.flag = flag
@@ -23,7 +23,16 @@ class controller:
         self.integrator = 0.0 # integrator
     
     
-    def update(self, y_r, y):
+    def update(self, zr, h):
+        z = h
+        f_eq = P.k * z
+        f_s = self.PID(zr, z)
+        f = f_eq + f_s
+        f = self.saturate(f)
+        return f
+    
+    
+    def PID(self, y_r, y):
         # Compute the current error
         error = y_r - y
         # integrate error using trapazoidal rule
