@@ -1,4 +1,4 @@
-import VTOLsimparams2 as P
+import VTOLsimparams as P
 
 
 class controller:
@@ -34,5 +34,15 @@ class controller:
         # get indiv fs from answers
         fr = (tau + self.d*f)/(2*self.d)
         fl = f - fr
+        
+        # saturate them bois
+        if fr >= 10:
+            fr = 10
+        if fl >= 10:
+            fl = 10
+        if fr < 0:
+            fr = 0
+        if fl < 0:
+            fl = 0
 
         return fr, fl
