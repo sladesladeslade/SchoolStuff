@@ -1,4 +1,4 @@
-import VTOLsimparams as P
+import VTOLsimparams2 as P
 
 
 class controller:
