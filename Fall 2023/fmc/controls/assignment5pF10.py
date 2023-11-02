@@ -25,9 +25,9 @@ ctr.kpz = -0.0077095
 ctr.kdz = -0.032858
 ctr.kph = 0.11345
 ctr.kdh = 0.5835
-ctr.kih = 0.
-ctr.kit = 0.
-ctr.kiz = 0.
+ctr.kih = 0.5
+ctr.kit = 0.5
+ctr.kiz = 0.5
 
 # add subplots
 zes = anim.fig.add_subplot(322)
@@ -53,11 +53,11 @@ while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
         if t > 2:
-            ht = 0.25
-            zt = 0.
+            ht = 5.
+            zt = 3.
 
         zee, ach, thet = vtol.h().flatten()
-        fr, fl = ctr.update(ht, zt, zee, ach, thet)
+        fr, fl = ctr.update(ht, zt, ach, zee, thet)
         y = vtol.update(fr, fl)
         t += P.Ts
     
