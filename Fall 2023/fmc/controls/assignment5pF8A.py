@@ -18,13 +18,6 @@ anim = animation.VTOLAnim(limits=10, flag=True)
 ctr = ctr.controller()
 
 # tune controller
-# trise = 8
-# wn = 2.2/trise
-# damping = 0.707
-# a1 = 2*damping*wn
-# a0 = wn**2
-# ctr.kd = a1*(P.mc + 2*P.mr)
-# ctr.kp = a0*(P.mc + 2*P.mr)
 ctr.kd = 0.5835
 ctr.kP = 0.11345
 
