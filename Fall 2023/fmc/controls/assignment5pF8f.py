@@ -11,12 +11,14 @@ import lib.VTOLDynamics as dynamics
 import keyboard
 import lib.vtolPD2 as ctr
 import numpy as np
+import lib.signalGenerator as sig
 
 
 # define system
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=True)
 ctr = ctr.controller()
+sig = sig.signalGenerator(0.25, 0.08)
 
 # tune controller
 triseh = 2.61
@@ -62,7 +64,10 @@ simtimes = [t]
 while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
-        if t > 2:
+        if t > 10:
+            ht = 5 + sig.square(t)
+            zt = 3 + sig.square(t)
+        else:
             ht = 5
             zt = 3
     

@@ -43,9 +43,8 @@ simtimes = [t]
 while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
-        if t > 12.5:
-            ht = 0.5
-            zt = 3 + zsig.square(t)
+        ht = 5
+        zt = 3 + zsig.square(t)
     
         fr, fl = ctr.update(zt, ht, vtol.state)
         y = vtol.update(fr, fl)

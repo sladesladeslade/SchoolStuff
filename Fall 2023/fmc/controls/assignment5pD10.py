@@ -10,12 +10,14 @@ import lib.massSpringAnim as animation
 import lib.ass5.massSpringDynamics as dynamics
 import keyboard
 import lib.ass5.msdPID as ctr
+import lib.signalGenerator as sig
 
 
 # define system
 msd = dynamics.massSpringDynamics()
 anim = animation.massSpringAnim(limits=2, flag=True)
 ctr = ctr.controller(6., 0.05, False)
+sig = sig.signalGenerator(1, 0.05)
 print(f"M: {P.m1:.2f}")
 print(f"K: {P.k:.2f}")
 print(f"B: {P.b:.2f}")
@@ -45,6 +47,7 @@ simtimes = [t]
 while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
+        target = sig.square(t)
         u = ctr.update(target, msd.h()[0])
         z = msd.update(u)
         t += P.Ts
