@@ -25,11 +25,21 @@ class controller:
         self.flag = flag
         self.beta = (2.0*sigma-P.Ts)/(2.0*sigma+P.Ts)
         self.Ts = P.Ts # sample rate
-        self.y_dot = 0.0 # estimated derivative of y
-        self.y_d1 = 0.0 # Signal y delayed by one sample
-        self.error_dot = 0.0 # estimated derivative of error
-        self.error_d1 = 0.0 # Error delayed by one sample
-        self.integrator = 0.0 # integrator
+        self.y_dotz = 0.0 # estimated derivative of y
+        self.y_d1z = 0.0 # Signal y delayed by one sample
+        self.error_dotz = 0.0 # estimated derivative of error
+        self.error_d1z = 0.0 # Error delayed by one sample
+        self.integratorz = 0.0 # integrator
+        self.y_dott = 0.0 # estimated derivative of y
+        self.y_d1t = 0.0 # Signal y delayed by one sample
+        self.error_dott = 0.0 # estimated derivative of error
+        self.error_d1t = 0.0 # Error delayed by one sample
+        self.integratort = 0.0 # integrator
+        self.y_doth = 0.0 # estimated derivative of y
+        self.y_d1h = 0.0 # Signal y delayed by one sample
+        self.error_doth = 0.0 # estimated derivative of error
+        self.error_d1h = 0.0 # Error delayed by one sample
+        self.integratorh = 0.0 # integrator
     
     
     def update(self, hc, zc, h, z, theta):
@@ -59,34 +69,34 @@ class controller:
         # Compute the current error
         error = y_r - y
         # integrate error using trapazoidal rule
-        self.integrator = self.integrator \
-        + (self.Ts/2) * (error + self.error_d1)
+        self.integratorz = self.integratorz \
+        + (self.Ts/2) * (error + self.error_d1z)
         # PID Control
         if self.flag is True:
             # differentiate error
-            self.error_dot = self.beta * self.error_dot \
-                + (1-self.beta)/self.Ts * (error - self.error_d1)
+            self.error_dotz = self.beta * self.error_dotz \
+                + (1-self.beta)/self.Ts * (error - self.error_d1z)
             # PID control
             u_unsat = self.kpz*error \
-                + self.kiz*self.integrator \
-                + self.kdz*self.error_dot
+                + self.kiz*self.integratorz \
+                + self.kdz*self.error_dotz
         else:
             # differentiate y
-            self.y_dot = self.beta * self.y_dot \
-            + (1-self.beta)/self.Ts * (y - self.y_d1)
+            self.y_dotz = self.beta * self.y_dotz \
+            + (1-self.beta)/self.Ts * (y - self.y_d1z)
             # PID control
             u_unsat = self.kpz*error \
-                + self.kiz*self.integrator \
-                - self.kdz*self.y_dot
+                + self.kiz*self.integratorz \
+                - self.kdz*self.y_dotz
         # return saturated control signal
         u_sat = self.saturate(u_unsat)
         # integrator anti - windup
         if self.kiz != 0.0:
-            self.integrator = self.integrator \
+            self.integratorz = self.integratorz \
                 + 1.0 / self.kiz * (u_sat - u_unsat)
         # update delayed variables
-        self.error_d1 = error
-        self.y_d1 = y
+        self.error_d1z = error
+        self.y_d1z = y
         return u_sat
     
     
@@ -94,34 +104,34 @@ class controller:
         # Compute the current error
         error = y_r - y
         # integrate error using trapazoidal rule
-        self.integrator = self.integrator \
-        + (self.Ts/2) * (error + self.error_d1)
+        self.integratort = self.integratort \
+        + (self.Ts/2) * (error + self.error_d1t)
         # PID Control
         if self.flag is True:
             # differentiate error
-            self.error_dot = self.beta * self.error_dot \
-                + (1-self.beta)/self.Ts * (error - self.error_d1)
+            self.error_dott = self.beta * self.error_dott \
+                + (1-self.beta)/self.Ts * (error - self.error_d1t)
             # PID control
             u_unsat = self.kpt*error \
-                + self.kit*self.integrator \
-                + self.kdt*self.error_dot
+                + self.kit*self.integratort \
+                + self.kdt*self.error_dott
         else:
             # differentiate y
-            self.y_dot = self.beta * self.y_dot \
-            + (1-self.beta)/self.Ts * (y - self.y_d1)
+            self.y_dott = self.beta * self.y_dott \
+            + (1-self.beta)/self.Ts * (y - self.y_d1t)
             # PID control
             u_unsat = self.kpt*error \
-                + self.kit*self.integrator \
-                - self.kdt*self.y_dot
+                + self.kit*self.integratort \
+                - self.kdt*self.y_dott
         # return saturated control signal
         u_sat = self.saturate(u_unsat)
         # integrator anti - windup
         if self.kit != 0.0:
-            self.integrator = self.integrator \
+            self.integratort = self.integratort \
                 + 1.0 / self.kit * (u_sat - u_unsat)
         # update delayed variables
-        self.error_d1 = error
-        self.y_d1 = y
+        self.error_d1t = error
+        self.y_d1t = y
         return u_sat
     
     
@@ -129,34 +139,34 @@ class controller:
         # Compute the current error
         error = y_r - y
         # integrate error using trapazoidal rule
-        self.integrator = self.integrator \
-        + (self.Ts/2) * (error + self.error_d1)
+        self.integratorh = self.integratorh \
+        + (self.Ts/2) * (error + self.error_d1h)
         # PID Control
         if self.flag is True:
             # differentiate error
-            self.error_dot = self.beta * self.error_dot \
-                + (1-self.beta)/self.Ts * (error - self.error_d1)
+            self.error_doth = self.beta * self.error_doth \
+                + (1-self.beta)/self.Ts * (error - self.error_d1h)
             # PID control
             u_unsat = self.kph*error \
-                + self.kih*self.integrator \
-                + self.kdh*self.error_dot
+                + self.kih*self.integratorh \
+                + self.kdh*self.error_doth
         else:
             # differentiate y
-            self.y_dot = self.beta * self.y_dot \
-            + (1-self.beta)/self.Ts * (y - self.y_d1)
+            self.y_doth = self.beta * self.y_doth \
+            + (1-self.beta)/self.Ts * (y - self.y_d1h)
             # PID control
             u_unsat = self.kph*error \
-                + self.kih*self.integrator \
-                - self.kdh*self.y_dot
+                + self.kih*self.integratorh \
+                - self.kdh*self.y_doth
         # return saturated control signal
         u_sat = self.saturate(u_unsat)
         # integrator anti - windup
         if self.kih != 0.0:
-            self.integrator = self.integrator \
+            self.integratorh = self.integratorh \
                 + 1.0 / self.kih * (u_sat - u_unsat)
         # update delayed variables
-        self.error_d1 = error
-        self.y_d1 = y
+        self.error_d1h = error
+        self.y_d1h = y
         return u_sat
     
     
