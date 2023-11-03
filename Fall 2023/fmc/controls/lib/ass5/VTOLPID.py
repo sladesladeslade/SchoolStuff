@@ -4,22 +4,22 @@ import VTOLsimparams as P
 
 
 class controller:
-    def __init__(self, Fmax, sigma, flag, kp, kd, ki):
-        self.kp = kp
-        self.kd = kd
-        self.ki = ki
-        self.limit = Fmax
-        self.sigma = sigma
+    def __init__(self, kp, ki, kd, limit, sigma, Ts, flag=False):
+        self.kp = kp # Proportional control gain
+        self.ki = ki # Integral control gain
+        self.kd = kd # Derivative control gain
+        self.limit = limit # The output saturates at this limit
+        self.sigma = sigma # dirty derivative bandwidth is 1/sigma
+        self.beta = (2.0*sigma-Ts)/(2.0*sigma+Ts)
+        self.Ts = Ts # sample rate
         self.flag = flag
-        self.beta = (2.0*sigma-P.Ts)/(2.0*sigma+P.Ts)
-        self.Ts = P.Ts # sample rate
         self.y_dot = 0.0 # estimated derivative of y
         self.y_d1 = 0.0 # Signal y delayed by one sample
         self.error_dot = 0.0 # estimated derivative of error
         self.error_d1 = 0.0 # Error delayed by one sample
         self.integrator = 0.0 # integrator
-    
-    
+
+
     def PID(self, y_r, y):
         # Compute the current error
         error = y_r - y
@@ -92,9 +92,9 @@ class controller:
 class VTOLControl():
     def __init__(self, Fmax, sigma, flag, kpz, kph, kpt, kdz, kdh, kdt, kih, kit):
         # init stuffs
-        self.PDz = controller(Fmax, sigma, flag, kpz, kdz, 0)
-        self.PIDt = controller(Fmax, sigma, flag, kpt, kdt, kit)
-        self.PIDh = controller(Fmax, sigma, flag, kph, kdh, kih)
+        self.PDz = controller(kpz, 0, kdz, Fmax, sigma, P.Ts, False)
+        self.PIDt = controller(kpt, kit, kdt, Fmax, sigma, P.Ts, False)
+        self.PIDh = controller(kph, kih, kdh, Fmax, sigma, P.Ts, False)
         self.mr = P.mr
         self.mc = P.mc
         self.Jc = P.Jc
