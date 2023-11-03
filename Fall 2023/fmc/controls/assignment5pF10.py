@@ -11,6 +11,7 @@ import lib.ass5.VTOLDynamics as dynamics
 import keyboard
 import lib.ass5.VTOLPID as ctro
 import numpy as np
+import lib.signalGenerator as sig
 
 
 # set controller
@@ -21,12 +22,13 @@ kdz = -0.032858
 kph = 0.11345
 kdh = 0.5835
 kih = 0.0001
-kit = 0.5
+kit = 0.4
 
 # define system
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=True)
 ctr = ctro.VTOLControl(10, 0.05, kpz, kph, kpt, kdz, kdh, kdt, kih, kit)
+sig = sig.signalGenerator(0.25, 0.08)
 
 # add subplots
 zes = anim.fig.add_subplot(322)
@@ -51,9 +53,12 @@ simtimes = [t]
 while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
-        if t > 1:
-            ht = 5.
-            zt = 3.
+        if t > 15:
+            ht = 5 + sig.square(t)
+            zt = 3 + sig.square(t)
+        else:
+            ht = 5
+            zt = 3
 
         zee, ach, thet = vtol.h().flatten()
         fr, fl = ctr.update(ht, zt, ach, zee, thet)
