@@ -9,25 +9,24 @@ import lib.ass5.VTOLsimparams as P
 import lib.VTOLAnim as animation
 import lib.ass5.VTOLDynamics as dynamics
 import keyboard
-import lib.ass5.VTOLPID as ctr
+import lib.ass5.VTOLPID as ctro
 import numpy as np
 
+
+# set controller
+kpt = 0.3721
+kdt = 0.1913
+kpz = -0.0077095
+kdz = -0.032858
+kph = 0.11345
+kdh = 0.5835
+kih = 0.
+kit = 0.
 
 # define system
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=True)
-ctr = ctr.controller(10, 0.05, False)
-
-# set controller
-ctr.kpt = 0.3721
-ctr.kdt = 0.1913
-ctr.kpz = -0.0077095
-ctr.kdz = -0.032858
-ctr.kph = 0.11345
-ctr.kdh = 0.5835
-ctr.kih = 0.5
-ctr.kit = 0.5
-ctr.kiz = 0.5
+ctr = ctro.VTOLControl(10, 0.05, False, kpz, kph, kpt, kdz, kdh, kdt, kih, kit)
 
 # add subplots
 zes = anim.fig.add_subplot(322)
@@ -52,7 +51,7 @@ simtimes = [t]
 while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
-        if t > 2:
+        if t > 1:
             ht = 5.
             zt = 3.
 
