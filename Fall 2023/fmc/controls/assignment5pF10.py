@@ -20,13 +20,13 @@ kpz = -0.0077095
 kdz = -0.032858
 kph = 0.11345
 kdh = 0.5835
-kih = 0.
-kit = 0.
+kih = 0.0001
+kit = 0.5
 
 # define system
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=True)
-ctr = ctro.VTOLControl(10, 0.05, False, kpz, kph, kpt, kdz, kdh, kdt, kih, kit)
+ctr = ctro.VTOLControl(10, 0.05, kpz, kph, kpt, kdz, kdh, kdt, kih, kit)
 
 # add subplots
 zes = anim.fig.add_subplot(322)

@@ -82,15 +82,13 @@ class controller:
     
     
     def saturate(self, u):
-        if u > self.limit:
-            u = self.limit
-        elif u < 0:
-            u = 0
+        if abs(u) > self.limit:
+            u = self.limit*np.sign(u)
         return u
 
 
 class VTOLControl():
-    def __init__(self, Fmax, sigma, flag, kpz, kph, kpt, kdz, kdh, kdt, kih, kit):
+    def __init__(self, Fmax, sigma, kpz, kph, kpt, kdz, kdh, kdt, kih, kit):
         # init stuffs
         self.PDz = controller(kpz, 0, kdz, Fmax, sigma, P.Ts, False)
         self.PIDt = controller(kpt, kit, kdt, Fmax, sigma, P.Ts, False)
@@ -103,7 +101,7 @@ class VTOLControl():
         self.g = P.g
         self.limit = Fmax
 
-        
+    
     def update(self, hc, zc, h, z, theta):
         # do theta part
         taueq = 0.
