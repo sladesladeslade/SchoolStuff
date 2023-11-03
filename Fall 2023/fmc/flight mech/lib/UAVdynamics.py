@@ -17,7 +17,7 @@ class UAVdynamics():
     def __init__(self):
         self.state = P.states0
         self.Ts = P.Ts
-        self.mass = P.m
+        self.mass = P.mass
         self.jxz = P.jxz
         self.jx = P.jx
         self.jy = P.jy
