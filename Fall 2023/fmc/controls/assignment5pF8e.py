@@ -18,7 +18,7 @@ import numpy as np
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=True)
 ctr = ctr.controller()
-zsig = sig.signalGenerator(0.25, 0.08)
+zsig = sig.signalGenerator(2.5, 0.08)
 
 # add subplots
 zes = anim.fig.add_subplot(322)

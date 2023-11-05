@@ -18,10 +18,10 @@ import lib.signalGenerator as sig
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=True)
 ctr = ctr.controller()
-sig = sig.signalGenerator(0.25, 0.08)
+sig = sig.signalGenerator(2.5, 0.08)
 
 # tune controller
-triseh = 2.61
+triseh = 2.7
 wnh = 2.2/triseh
 damping = 0.707
 a1 = 2*damping*wnh
@@ -34,7 +34,7 @@ a1 = 2*damping*wnt
 a0 = wnt**2
 ctr.kDt = a1*(P.Jc + 2*P.mr*P.d**2)
 ctr.kPt = a0*(P.Jc + 2*P.mr*P.d**2)
-trisez = 2.9
+trisez = 3.
 wnz = 2.2/trisez
 a1 = 2*damping*wnz
 a0 = wnz**2
@@ -64,12 +64,12 @@ simtimes = [t]
 while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
-        if t > 10:
+        if t > 12.5:
             ht = 5 + sig.square(t)
             zt = 3 + sig.square(t)
         else:
-            ht = 5
-            zt = 3
+            ht = 2.5
+            zt = 0.5
     
         fr, fl = ctr.update(zt, ht, vtol.state)
         y = vtol.update(fr, fl)

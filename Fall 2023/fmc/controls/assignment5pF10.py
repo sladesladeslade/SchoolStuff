@@ -28,7 +28,7 @@ kit = 0.4
 vtol = dynamics.VTOLDynamics()
 anim = animation.VTOLAnim(limits=10, flag=True)
 ctr = ctro.VTOLControl(10, 0.05, kpz, kph, kpt, kdz, kdh, kdt, kih, kit)
-sig = sig.signalGenerator(0.25, 0.08)
+sig = sig.signalGenerator(2.5, 0.08)
 
 # add subplots
 zes = anim.fig.add_subplot(322)
@@ -54,7 +54,7 @@ while t < P.t_end:
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
         if t > 15:
-            ht = 5 + sig.square(t)
+            ht = 5
             zt = 3 + sig.square(t)
         else:
             ht = 5
