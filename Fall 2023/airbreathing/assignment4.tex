@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./images/A4}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4063 - Assignment 4}
+\author{Slade Brooks}
+\date{11.07.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+\subsection*{Air}
+Air = $O_2 + 3.76N_2$ \\
+$MW_{air}=2MW_O+7.52MW_N=2(15.999)+7.52(14.007)=137.33$ g/mol \\
+$\fbox{$MW_{air}=137.33$ g/mol}$ 
+
+\subsection*{Dodecane}
+Dodecane = $C_{12}H_{26}$ \\
+$MW_{C_{12}H_{26}}=12MW_C+26MW_H=12(12.011)+26(1.008)=170.34$ g/mol \\
+$\fbox{$MW_{C_{12}H_{26}}=170.34$ g/mol}$
+
+\subsection*{Fuel-Air Ratio}
+$Q_{f}=44147$ kJ/kg (from book p.286) \\
+$\dot{m}fQ_f=c_p\dot{m}(\Delta T_0) \rightarrow f=\frac{c_p \Delta T_0}{Q_f}=\frac{1.08*1150}{44147}$ \\
+$\fbox{$f=0.0281$}$
+
+\subsection*{Moles of Air Required}
+$f=\frac{MW_{C_{12}H_{26}}N_{C_{12}H_{26}}}{MW_{air}N_{air}} \rightarrow
+N_{air}=\frac{MW_{C_{12}H_{26}}N_{C_{12}H_{26}}}{fMW_{air}}=\frac{170.34(1)}{0.0281(137.33)}=
+44.14$ mol \\
+$\fbox{$N_{air}=44.14$ mol/mol of fuel}$
+
+\section*{Problem 2}
+\subsection*{Part A}
+\subsubsection*{$\phi=1, C_3H_8$}
+for $C_nH_{2n+2}$ fuels with $\phi=1$, \\
+$C_nH_{2n+2}+(\frac{3n+1}{2})(O_2+3.76N_2) \rightarrow nCO_2 + (n+1)H_2O +3.76(\frac{3n+1}{2})N_2$ \\
+$\fbox{$C_3H_8+5(O_2+3.76N_2)\rightarrow 3CO_2+4H_2O+18.8N_2$}$ \\
+$\fbox{1 mol $C_3H_8$, 5 mol air, 3 mol $CO_2$, 4 mol water, 18.8 mol $N_2$}$\\\\
+$f_{stoic}=\frac{7n+1}{34.32(3n+1)}$ \\
+$\fbox{$f=0.0641$}$ \\\\
+$\frac{A}{F}=\frac{1}{f}=15.6$ \\
+$\fbox{$\frac{A}{F}=15.6$}$
+
+\subsubsection*{$\phi=0.5, C_3H_8$}
+$\phi=\frac{1}{X}$, $X=2$ \\
+for $C_nH_{2n+2}$ fuels with $\phi<1$ and $X$, \\
+$C_nH_{2n+2}+X(\frac{3n+1}{2})(O_2+3.76N_2) \rightarrow nCO_2 + (n+1)H_2O +3.76X(\frac{3n+1}{2})N_2 +
+(X-1)(\frac{3n+1}{2})O_2$ \\
+$\fbox{$C_3H_8+10(O_2+3.76N_2)\rightarrow 3CO_2+4H_2O+37.6N_2+5O_2$}$ \\
+$\fbox{1 mol $C_3H_8$, 10 mol air, 3 mol $CO_2$, 4 mol water, 37.6 mol $N_2$, 5 mol $O_2$}$\\\\
+$f=\phi f_{stoic}=0.5(0.0641)=0.03205$ \\
+$\fbox{$f=0.03205$}$ \\\\
+$\frac{A}{F}=\frac{1}{f}=31.2$ \\
+$\fbox{$\frac{A}{F}=31.2$}$
+
+\subsection*{Part B}
+\subsubsection*{$\phi=1, C_{10}H_{22}$}
+for $C_nH_{2n+2}$ fuels with $\phi=1$, \\
+$C_nH_{2n+2}+(\frac{3n+1}{2})(O_2+3.76N_2) \rightarrow nCO_2 + (n+1)H_2O +3.76(\frac{3n+1}{2})N_2$ \\
+$\fbox{$C_{10}H_{22}+15.5(O_2+3.76N_2) \rightarrow 10CO_2+11H_2O+58.28N_2$}$ \\
+$\fbox{1 mol $C_{10}H_{22}$, 15.5 mol air, 10 mol $CO_2$, 11 mol water, 58.28 mol $N_2$}$\\\\
+$f_{stoic}=\frac{7n+1}{34.32(3n+1)}$ \\
+$\fbox{$f=0.06673$}$ \\\\
+$\frac{A}{F}=\frac{1}{f}=14.985$ \\
+$\fbox{$\frac{A}{F}=14.985$}$
+
+\subsubsection*{$\phi=0.5, C_{10}H_{22}$}
+$\phi=\frac{1}{X}$, $X=2$ \\
+for $C_nH_{2n+2}$ fuels with $\phi<1$ and $X$, \\
+$C_nH_{2n+2}+X(\frac{3n+1}{2})(O_2+3.76N_2) \rightarrow nCO_2 + (n+1)H_2O +3.76X(\frac{3n+1}{2})N_2 +
+(X-1)(\frac{3n+1}{2})O_2$ \\
+$\fbox{$C_{10}H_{22}+31(O_2+3.76N_2) \rightarrow 10CO_2+11H_2O+116.56N_2+15.5O_2$}$ \\
+$\fbox{1 mol $C_{10}H_{22}$, 31 mol air, 10 mol $CO_2$, 11 mol water, 116.56 mol $N_2$,
+15.5 mol $O_2$}$\\\\
+$f=\phi f_{stoic}=0.5(0.06673)=0.03337$ \\
+$\fbox{$f=0.03337$}$ \\\\
+$\frac{A}{F}=\frac{1}{f}=29.97$ \\
+$\fbox{$\frac{A}{F}=29.97$}$
+
+\section*{Problem 3}
+\begin{tabular}{ccc}
+    $A_i$ & 0.0389 & m$^2$ \\
+    $A_m$ & 0.0975 & m$^2$ \\
+    $K_1$ & 19 \\
+    $\dot{m}$ & 9 & kg/s \\
+    $T_{01}$ & 475 & K \\
+    $T_{02}$ & 1023 & K \\
+    $P_1$ & 4.47 & bar \\
+    $\Delta P_0$ & 0.27 & bar
+\end{tabular} \\\\\\
+$\frac{\Delta P_0}{\dot{m}^2/2\rho_1A_m^2}=K_1+K_2(\frac{T_{02}}{T_{01}}-1)$ \\\\
+$\dot{m}=\rho_1V_1A_i \rightarrow V_1=\frac{\dot{m}}{\rho_1A_i}$ \\
+$T_{01}=T_1+\frac{V_1^2}{2c_p} \rightarrow T_{01}=\frac{P_1}{R\rho_1}+
+\frac{\dot{m}^2}{2c_p\rho_1^2A_i^2} \rightarrow \rho_1^2T_{01}=\frac{P_1\rho_1}{R}+\frac{\dot{m}^2}
+{2c_pA_i^2}$ \\
+$T_{01}\rho_1^2-\frac{P_1}{R}\rho_1-\frac{\dot{m}^2}{2c_pA_i^2}=0$ \\
+$475\rho_1^2-\frac{4.47*10^5}{287}\rho_1-\frac{9^2}{2(1005)(0.0389)^2}=0$, \quad
+$\rho_1=3.296$ kg/m$^3$ \\\\
+$K_2=(\frac{\Delta P_0}{\dot{m}^2/2\rho_1A_m^2}-K_1)/(\frac{T_{02}}{T_{01}}-1)=
+(\frac{0.27*10^5}{9/2(3.296)(0.0975)^2}-19)/(\frac{1023}{475}-1)=1.637$ \\\\\\
+\begin{tabular}{ccc}
+    $A_m$ & 0.0975 & m$^2$ \\
+    $K_1$ & 19 \\
+    $K_2$ & 1.637 \\
+    $\dot{m}$ & 7.4 & kg/s \\
+    $T_{01}$ & 439 & K \\
+    $T_{02}$ & 900 & K \\
+    $P_1$ & 3.52 & bar
+\end{tabular} \\\\\\
+$\Delta P_0=\frac{\dot{m}^2}{2\rho_1A_m^2}(K_1 + K_2(\frac{T_{02}}{T_{01}}-1))$ \\\\
+$T_{01}\rho_1^2-\frac{P_1}{R}\rho_1-\frac{\dot{m}^2}{2c_pA_i^2}=0$ \\
+$439\rho_1^2-\frac{3.52*10^5}{287}\rho_1-\frac{7.4^2}{2(1005)(0.0389)^2}$, \quad
+$\rho_1=2.808$ kg/m$^3$ \\\\
+$\Delta P_0=\frac{7.4^2}{2(2.808)(0.0975)^2}(19+1.637(\frac{900}{439}-1))=21251.85$ Pa \\
+$\fbox{$\Delta P_0=0.213$ bar}$
+
+\subsection*{Part A}
+\subsubsection*{Design}
+$V_1=\frac{\dot{m}}{\rho_1A_i}=\frac{9}{3.296(0.0389)}=70.195$ m/s \\
+$\fbox{$V_1=70.2$ m/s}$
+
+\subsubsection*{Partial}
+$V_{1}=\frac{\dot{m}}{\rho_1A_i}=\frac{7.4}{2.808(0.0389)}=67.75$ m/s \\
+$\fbox{$V_{1}=67.75$ m/s}$
+
+\subsection*{Part B}
+\subsubsection*{Design}
+$P_{01}=P_1(\frac{T_{01}}{T_1})^\frac{\gamma}{\gamma-1}=P_1(\frac{T_{01}R\rho_1}{P_1})
+^\frac{\gamma}{\gamma-1}=4.47(\frac{475(287)(3.296)}{4.47*10^5})^\frac{1.4}{0.4}=4.552$ bar \\\\
+$\frac{\Delta P_0}{P_{01}}=\frac{0.27}{4.552}=0.05931$ \\
+$\fbox{$\frac{\Delta P_0}{P_{01}}=0.05931$}$
+
+\subsubsection*{Partial}
+$P_{01}=P_1(\frac{T_{01}R\rho_1}{P_1})^\frac{\gamma}{\gamma-1}
+=3.52(\frac{439(287)(2.808)}{3.52*10^5})^\frac{1.4}{0.4}=3.583$ bar \\
+$\frac{\Delta P_0}{P_{01}}=\frac{0.213}{3.583}=0.05945$ \\
+$\fbox{$\frac{\Delta P_0}{P_{01}}=0.0595$}$
+
+\subsubsection*{Discussion}
+We can see that despite the different operating conditions, the ratio of pressure loss to delivery
+pressure stays relatively the same. This would imply that the combustor will have similar performance
+in terms of pressure loss across a range of operating conditions that would be required for engine
+operation. We also see that the velocity is similar in both cases, which is also a good sign for stable
+operation across a range of conditions.
+
+\end{document}
