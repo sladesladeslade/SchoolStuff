@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\setcounter{MaxMatrixCols}{11}
+\graphicspath{{./images/hw6/}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4058 - Homework 6}
+\author{Slade Brooks}
+\date{11.07.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+Show that the stiffness matrix of an isotropic linear triangular element whose thickness varies
+linearly in the element is: \\
+$k_e=\bar{h}A_eB^TcB$ \\
+where B is the strain matrix, c is matrix of material constants, $A_e$ is the area of the
+triangle and $\bar{h}$ the average thickness $(h_1+h_2+h_3)/3$, where $h_1$, $h_2$, and $h_3$ are
+the nodal thickness at the node. \\\\\\
+$N=\begin{bmatrix}
+    N_1 & N_2 & N_3
+\end{bmatrix}=\begin{bmatrix}
+    L_1 & L_2 & L_3
+\end{bmatrix}$, \quad
+$h=\begin{bmatrix}
+    h_1 \\ h_2 \\ h_3
+\end{bmatrix}$ \\\\
+$h(x, y)=Nh=L_1h_1 + L_2h_2 + L_3h_3$ \\\\
+$k_e=B^TcB\int_{A_e}h(x,y)dA=B^TcB\int_{A_e}(L_1h_1+L_2h_2+L_3h_3) dA$ \\\\
+from eisenberg and malvern: $\int_{A_e}L_1^mL_2^nL_3^p dA=\frac{m!n!p!}{(m+n+p+2)!}$ \\
+$h_1\int_{A_e}L_1=h_1\frac{1!0!0!}{(1+0+0+2)!}2A_e=\frac{2h_1}{6}A_e=\frac{h_1A_e}{3}$ \\
+$h_2\int_{A_e}L_2=h_2\frac{0!1!0!}{(0+1+0+2)!}2A_e=\frac{2h_2}{6}A_e=\frac{h_2A_e}{3}$ \\
+$h_3\int_{A_e}L_3=h_3\frac{0!0!1!}{(0+0+1+2)!}2A_e=\frac{2h_3}{6}A_e=\frac{h_3A_e}{3}$ \\\\
+$k_e=B^TcB\frac{h_1+h_2+h_3}{3}A_e \rightarrow \fbox{$k_e=\bar{h}A_eB^TcB$}$
+
+\section*{Problem 2}
+Show that the mass matrix of a linear triangular element whose thickness varies linearly within
+the plane of the element is: \\\\
+$m_e=\frac{\rho\bar{h}A_e}{60}\begin{bmatrix}
+    6+4\alpha_1 & 0 & 6-\alpha_3 & 0 & 6-\alpha_2 & 0 \\
+    & 6+4\alpha_1 & 0 & 6-\alpha_3 & 0 & 6-\alpha_2 \\
+    & & 6+4\alpha_2 & 0 & 6-\alpha_1 & 0 \\
+    & & & 6+4\alpha_2 & 0 & 6-\alpha_1 \\
+    & & & & 6+4\alpha_3 & 0 \\
+    sym. & & & & & 6+4\alpha_3
+\end{bmatrix}$ \\\\
+where $\rho$ is the density, $A_e$ is the area, $\bar{h}$ is the mean thickness and $\alpha_i
+=\frac{h_i}{\bar{h}}$ with i=1, 2, 3 for the three nodes. \\\\\\
+$m_e=\rho\int_{A_e}h(x,y)N^TNdA$ \\\\
+$m_e=\rho\int_{A_e}\begin{bmatrix}
+    hN_1^2 & 0 & hN_1N_2 & 0 & hN_1N_3 & 0 \\
+    & hN_1^2 & 0 & hN_1N_2 & 0 & hN_1N_3 \\
+    & & hN_2^2 & 0 & hN_2N_3 & 0 \\
+    & & & hN_2^2 & 0 & hN_2N_3 \\
+    & & & & hN_3^2 & 0 \\
+    sym. & & & & & hN_3^2
+\end{bmatrix}dA$ \\\\
+$\int_{A_e}hN_1^2=\int_{A_e}(h_1N_1^3+h_2N_2N_1^2+h_3N_3N_1^2)dA=\frac{12}{120}h_1A_e+
+\frac{4}{120}h_2A_e+\frac{4}{120}h_3A_e=\frac{60}{60}A_e(\frac{1}{10}h_1+\frac{1}{30}(h_2+h_3))$ \\
+$\frac{A_e}{60}(4h_1+2(h_1+h_2+h_3))=\frac{A_e}{60}(4h_1+6\bar{h})=
+\frac{A_e\bar{h}}{60}(4\alpha_1+6)$, \quad so \quad $\int_{A_e}hN_i^2dA=
+\frac{A_e\bar{h}}{60}(6+4\alpha_i)$ \\\\
+$\int_{A_e}hN_1N_2dA=\int_{A_e}(h_1N_1^2N_2+h_2N_1N_2^2+h_3N_1N_2N_3)dA=\frac{4}{120}h_1A_e+
+\frac{4}{120}h_2A_e+\frac{2}{120}h_3A_e$ \\
+$\frac{60}{60}A_e(\frac{1}{30}h_1+\frac{1}{30}h_2+ \frac{1}{60}h_3)=\frac{A_e}{60}(2h_1+2h_2+h_3)
+=\frac{A_e}{60}(2(h_1+h_2+h_3)-h_3)=\frac{A_e}{60}(6\bar{h}-h_3)=
+\frac{A_e\bar{h}}{60}(6-\alpha_3)$, \quad so \quad $\int_{A_e}hN_iN_jdA=\frac{A_e\bar{h}}{60}
+(6-\alpha_{\textrm{not i or j}})$ \\\\
+then apply those definitions to the original $m_e$ matrix to get the desired matrix: \\
+$\fbox{$m_e=\frac{\rho\bar{h}A_e}{60}\begin{bmatrix}
+    6+4\alpha_1 & 0 & 6-\alpha_3 & 0 & 6-\alpha_2 & 0 \\
+    & 6+4\alpha_1 & 0 & 6-\alpha_3 & 0 & 6-\alpha_2 \\
+    & & 6+4\alpha_2 & 0 & 6-\alpha_1 & 0 \\
+    & & & 6+4\alpha_2 & 0 & 6-\alpha_1 \\
+    & & & & 6+4\alpha_3 & 0 \\
+    sym. & & & & & 6+4\alpha_3
+\end{bmatrix}$}$
+
+\section*{Problem 3}
+
+\end{document}
