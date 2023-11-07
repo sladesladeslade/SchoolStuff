@@ -80,5 +80,86 @@ $\fbox{$m_e=\frac{\rho\bar{h}A_e}{60}\begin{bmatrix}
 \end{bmatrix}$}$
 
 \section*{Problem 3}
+Figure 7-39 shows a plane strain problem to be solved using only one rectangular element.
+Determine the nodal displacements and element stresses. \\
+\begin{center}
+    \includegraphics[scale=0.4]{fig1} \\ Figure 7-39
+\end{center}
+$\xi=\frac{x-\frac{x_2+x_1}{2}}{a}$, \quad $\eta=\frac{y-\frac{y_2+y_1}{2}}{b}$ \\\\
+$k_e=\begin{bmatrix}
+    K_{11} & K_{12} & K_{13} & K_{14} \\
+    & K_{22} & K_{23} & K_{24} \\
+    & & K_{33} & K_{34} \\
+    sym. & & & K_{44}
+\end{bmatrix}$, \quad $k_e=\frac{abh}{16}\int_{-1}^{1}\int_{-1}^{1}B^TcBd\xi d\eta$ \\\\
+$B=\begin{bmatrix}
+    \textrm{Node 1} & & & \textrm{Node 2} & & & \textrm{Node 3} & & & \textrm{Node 4}\\
+    \hline
+    -\frac{1-\eta}{a} & 0 & | & \frac{1-\eta}{a} & 0 & | & \frac{1+\eta}{a} & 0 & |
+    & -\frac{1+\eta}{a} & 0 \\
+    0 & -\frac{1-\xi}{b} & | & 0 & -\frac{1+\xi}{b} & | & 0 & \frac{1+\xi}{b} & | & 0 &
+    \frac{1-\xi}{b} \\
+    -\frac{1-\xi}{b} & -\frac{1-\eta}{a} & | & -\frac{1+\xi}{b} & \frac{1-\eta}{a} & | & 
+    \frac{1+\xi}{b} & \frac{1+\eta}{a} & | & \frac{1-\xi}{b} & -\frac{1+\eta}{a}
+\end{bmatrix}$ \\\\
+$C=\begin{bmatrix}
+    C_{11} & C_{12} & 0 \\
+    & C_{22} & 0 \\
+    sym. & & C_{33}
+\end{bmatrix}=\frac{E(1-v)}{(1+v)(1-v)}\begin{bmatrix}
+    1 & \frac{v}{1-v} & 0 \\
+    & 1 & 0 \\
+    sym. & & \frac{1-2v}{2(1-v)}
+\end{bmatrix}$ \\\\
+$k_ed_e=f_e=\begin{bmatrix}
+    0 \\ 0 \\ 0 \\ -P \\ 0 \\ 0 \\ 0 \\ 0
+\end{bmatrix}$ \\\\\\
+matlab output: \\
+\begin{tabular}{|c|}
+\hline
+X disp: $(72*P*a^2*b^2*(v - 1)*(v + 1))/(E*h*(64*a^4*v^2 - 96*a^4*v + 32*a^4 + 128*a^2*b^2*v^2$ \\$ -
+192*a^2*b^2*v + 71*a^2*b^2 + 64*b^4*v^2 - 96*b^4*v + 32*b^4))$ \\ \hline
+Y disp:
+$-(96*P*a*b*(v - 1)*(v + 1)*(2*a^2*v + 2*b^2*v - a^2 - 2*b^2))/ $\\$ (E*h*(64*a^4*v^2 -
+96*a^4*v + 32*a^4 + 128*a^2*b^2*v^2 - 192*a^2*b^2*v + 71*a^2*b^2 + $\\$ 64*b^4*v^2
+- 96*b^4*v + 32*b^4))$
+\\ \hline
+\end{tabular}
+\\\\ all other nodes have 0 disp b/c clamped \\\\
+$\sigma_{xx}=E\varepsilon_{xx}=E\frac{dx}{l} \rightarrow \sigma_{e1}=\sigma_{xx}=\frac{Edx}{2a}$ \\
+$\sigma_{yy}=E\varepsilon_{yy}=E\frac{dy}{l} \rightarrow \sigma_{e2}=\sigma_{yy}=\frac{Edy}{2b}$ \\\\
+$\fbox{$\sigma_{e1}=\frac{E}{2a}\textrm{X disp}$}$ \\
+$\fbox{$\sigma_{e2}=\frac{E}{2b}\textrm{Y disp}$}$ \\\\
+no forces/disp in other elements so no stress in those
+
+\section*{Matlab Code}
+\begin{verbatim}
+clear; clc; close all;
+
+syms n x a b v E C11 C12 C22 C33 P h
+
+% B matrix
+B = [-(1-n)/a 0 (1-n)/a 0 (1+n)/a 0 -(1+n)/a 0;
+    0 -(1-x)/b 0 -(1+x)/b 0 (1+x)/b 0 (1-x)/b;
+    -(1-x)/b -(1-n)/a -(1+x)/b (1-n)/a (1+x)/b (1+n)/a (1-x)/b -(1+n)/a];
+
+% C matrix
+C = (E*(1-v))/((1+v)*(1-v))*[1 v/(1-v) 0;
+                            v/(1-v) 1 0;
+                            0 0 (1-2*v)/(2*(1-v))];
+
+% ke matrix
+ke = (a*b*h/16)*int(int(transpose(B)*C*B, x, [-1, 1]), n, [-1, 1]);
+
+% fe matrix
+fe = [0; 0; 0; -P; 0; 0; 0; 0];
+
+% calc disp at only node 2
+disp2 = inv(ke(3:4, 3:4))*fe(3:4, 1);
+fprintf("x disp @ node 2:")
+simplify(disp2(1))
+fprintf("y disp @ node 2:")
+simplify(disp2(2))
+\end{verbatim}
 
 \end{document}
