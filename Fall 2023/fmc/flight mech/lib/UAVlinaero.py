@@ -45,6 +45,9 @@ class UAVaero():
         """
         """
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = states.flatten()
+        m = mass
+        g = gravity
+        S = S_wing
         grav = np.array([[-m*g*np.sin(theta)],
                        [m*g*np.cos(theta)*np.sin(phi)],
                        [m*g*np.cos(theta)*np.cos(phi)]])
@@ -61,6 +64,7 @@ class UAVaero():
         """
         """
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = states.flatten()
+        S = S_wing
         moments = 0.5*rho*(Va**2)*S*np.array([[b*(C_ell_0 + C_ell_beta*beta + C_ell_p*(b/(2*Va))*p +\
                                                 C_ell_r*(b/(2*Va))*r + C_ell_delta_a*deltaa + C_ell_delta_r*deltar)],
                                               [c*(C_m_0 + C_m_alpha*alpha + C_m_q*(c/(2*Va))*q + C_m_delta_e*deltae)],

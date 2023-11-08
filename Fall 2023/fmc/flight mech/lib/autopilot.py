@@ -122,7 +122,7 @@ class autopilot():
         else:
             delta_e = self.pitch_hold(theta_c, theta, q, 0, self.dt)
         
-        return (delta_e, delta_a, delta_r, delta_t, phi_c, theta_c, chi_c, self.altitude_state)
+        return (delta_e, delta_a, delta_r, delta_t)
 
 
     def roll_hold(self, phi_c, phi, p, flag, dt):
@@ -153,9 +153,6 @@ class autopilot():
 
         
     def course_hold(self, chi_c, chi, r, flag, dt):
-        limit1 = np.deg2rad(45)
-        limit2 = -np.deg2rad(45)
-        
         kp = 0.1
         kd = 0.01
         ki = 0
@@ -172,11 +169,7 @@ class autopilot():
         
         u = kp*error + ki*self.course_integrator + kd*self.course_differentiator
         
-        u_sat = self.sat(u, limit1, limit2)
-        if ki != 0:
-            self.course_integrator = self.course_integrator + dt/ki*(u_sat - u)
-        
-        return u_sat
+        return u
 
         
     def pitch_hold(self, theta_c, theta, q, flag, dt):
@@ -207,9 +200,6 @@ class autopilot():
 
         
     def airspeed_hold_pitch(self, Va_c, Va, flag, dt):
-        limit1 = np.deg2rad(45)
-        limit2 = -np.deg2rad(45)
-        
         kp = 0.1
         kd = 0.01
         ki = 0
@@ -227,11 +217,7 @@ class autopilot():
         
         u = kp*error + ki*self.ahp_integrator + kd*self.ahp_differentiator
         
-        u_sat = self.sat(u, limit1, limit2)
-        if ki != 0:
-            self.ahp_integrator = self.ahp_integrator + dt/ki*(u_sat - u)
-        
-        return u_sat
+        return u
         
         
     def airspeed_hold_throttle(self, Va_c, Va, flag, dt):
@@ -263,9 +249,6 @@ class autopilot():
         
         
     def altitude_hold(self, h_c, h, flag, dt):
-        limit1 = np.deg2rad(45)
-        limit2 = -np.deg2rad(45)
-        
         kp = 0.1
         kd = 0.01
         ki = 0
@@ -283,11 +266,7 @@ class autopilot():
         
         u = kp*error + ki*self.ah_integrator + kd*self.ah_differentiator
         
-        u_sat = self.sat(u, limit1, limit2)
-        if ki != 0:
-            self.ah_integrator = self.ah_integrator + dt/ki*(u_sat - u)
-        
-        return u_sat
+        return u
 
 
     @staticmethod
