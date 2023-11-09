@@ -26,7 +26,7 @@ anim = animation.animation(limits=20, alpha=0.35, flag=False)
 aero = aero.UAVaero()
 Vs = np.array([[0],[0],[0]])        # steady wind m/s
 wind = wind.wind(Vs)
-autp = autopilot.autopilot(P.Ts, 10., 0.5)
+autp = autopilot.autopilot(P.Ts, 10., 2.)
 
 # create vehicle
 # verts = sampleUAV_verts
