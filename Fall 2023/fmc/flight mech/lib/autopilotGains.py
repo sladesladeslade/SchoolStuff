@@ -41,7 +41,7 @@ kd_roll = (2*zeta*wn_roll - a_phi1)/a_phi2
 ki_roll = 0
 
 # course hold
-tr_course = 10.
+tr_course = 5.
 wn_course = 2.2/tr_course
 kp_course = (2*zeta*wn_course*Va_trim)/P.gravity
 kd_course = 0

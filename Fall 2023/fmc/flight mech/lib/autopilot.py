@@ -18,18 +18,7 @@ class autopilot():
     
     def update(self, u):
         # get info from the "state" thing
-        t = u[0]
-        phi = u[1]
-        theta = u[2]
-        chi = u[3]
-        p = u[4]
-        q = u[5]
-        r = u[6]
-        Va = u[7]
-        h = u[8]
-        Va_c = u[9]
-        h_c = u[10]
-        chi_c = u[11]
+        t, phi, theta, chi, p, q, r, Va, h, Va_c, h_c, chi_c = u
         
         #Lateral Autopilot
         if t == 0:
@@ -154,6 +143,9 @@ class autopilot():
 
         
     def course_hold(self, chi_c, chi, r, flag, dt):
+        limit1 = np.deg2rad(25)
+        limit2 = -np.deg2rad(25)
+        
         kp = G.kp_course
         kd = G.kd_course
         ki = G.ki_course
@@ -170,7 +162,11 @@ class autopilot():
         
         u = kp*error + ki*self.course_integrator + kd*self.course_differentiator
         
-        return u
+        u_sat = self.sat(u, limit1, limit2)
+        if ki != 0:
+            self.course_integrator = self.course_integrator + dt/ki*(u_sat - u)
+        
+        return u_sat
 
         
     def pitch_hold(self, theta_c, theta, q, flag, dt):
@@ -201,6 +197,9 @@ class autopilot():
 
         
     def airspeed_hold_pitch(self, Va_c, Va, flag, dt):
+        limit1 = np.deg2rad(45)
+        limit2 = -np.deg2rad(45)
+        
         kp = G.kp_airspeed
         kd = G.kd_airspeed
         ki = G.ki_airspeed
@@ -218,7 +217,11 @@ class autopilot():
         
         u = kp*error + ki*self.ahp_integrator + kd*self.ahp_differentiator
         
-        return u
+        u_sat = self.sat(u, limit1, limit2)
+        if ki != 0:
+            self.ahp_integrator = self.ahp_integrator + dt/ki*(u_sat - u)
+        
+        return u_sat
         
         
     def airspeed_hold_throttle(self, Va_c, Va, flag, dt):
@@ -250,6 +253,9 @@ class autopilot():
         
         
     def altitude_hold(self, h_c, h, flag, dt):
+        limit1 = np.deg2rad(45)
+        limit2 = -np.deg2rad(45)
+        
         kp = G.kp_altitude
         kd = G.kd_altitude
         ki = G.ki_altitude
@@ -267,7 +273,11 @@ class autopilot():
         
         u = kp*error + ki*self.ah_integrator + kd*self.ah_differentiator
         
-        return u
+        u_sat = self.sat(u, limit1, limit2)
+        if ki != 0:
+            self.ah_integrator = self.ah_integrator + dt/ki*(u_sat - u)
+        
+        return u_sat
 
 
     @staticmethod
