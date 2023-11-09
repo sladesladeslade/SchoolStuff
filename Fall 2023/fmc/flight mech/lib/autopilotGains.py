@@ -7,7 +7,7 @@ import UAVparams as P
 
 
 # set xtrim and utrim
-x_trim = [0., 0., 0., 34.9957342, -0.178955066,  0.516297664, -0.0123004054, 0.0147520897, 0., 0., 0., 0.]
+x_trim = np.array([0., 0., 0., 34.9957342, -0.178955066,  0.516297664, -0.0123004054, 0.0147520897, 0., 0., 0., 0.])
 u_trim = np.array([-0.027192652340385412, 0.46236388117478694, -0.0038422387096093266, -0.004796900558456178])
 
 # do the tf stuff to get the answers and woo
@@ -34,14 +34,14 @@ a_V3 = P.gravity * np.cos(theta_trim - alpha_trim)
 zeta = .707
 
 # roll
-tr_roll = 10.
+tr_roll = 0.5
 wn_roll = 2.2/tr_roll
-kp_roll = (wn_roll**2)/a_phi1
+kp_roll = (wn_roll**2)/a_phi2
 kd_roll = (2*zeta*wn_roll - a_phi1)/a_phi2
 ki_roll = 0
 
 # course hold
-tr_course = 30.
+tr_course = 10.
 wn_course = 2.2/tr_course
 kp_course = (2*zeta*wn_course*Va_trim)/P.gravity
 kd_course = 0
@@ -64,7 +64,7 @@ kd_altitude = 0
 ki_altitude = (wn_altitude**2)/(ktheta_DC*Va_trim)
 
 # airspeed from pitch
-tr_airspeed = 1.
+tr_airspeed = 0.01
 wn_airspeed = 2.2/tr_airspeed
 kp_airspeed = (a_V1 - 2*zeta*wn_airspeed)/ktheta_DC
 kd_airspeed = 0
@@ -76,7 +76,3 @@ wn_throttle = 2.2/tr_throttle
 kp_throttle = (2*zeta*wn_throttle - a_V1)/a_V2
 kd_throttle = 0
 ki_throttle = (wn_throttle**2)/a_V2
-
-kp = np.array([kp_roll, kp_course, kp_pitch, kp_altitude, kp_airspeed, kp_throttle])
-kd = np.array([kd_roll, kd_course, kd_pitch, kd_altitude, kd_airspeed, kd_throttle])
-ki = np.array([ki_roll, ki_course, ki_pitch, ki_altitude, ki_airspeed, ki_throttle])
