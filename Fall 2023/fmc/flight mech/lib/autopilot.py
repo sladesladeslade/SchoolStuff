@@ -4,6 +4,7 @@
 # what even
 
 import numpy as np
+import autopilotGains as G
 
 
 class autopilot():
@@ -129,9 +130,9 @@ class autopilot():
         limit1 = np.deg2rad(45)
         limit2 = -np.deg2rad(45)
         
-        kp = 0.1
-        kd = 0.01
-        ki = 0
+        kp = G.kp_roll
+        kd = G.kd_roll
+        ki = G.ki_roll
         
         if flag == 1:
             self.roll_integrator = 0
@@ -153,9 +154,9 @@ class autopilot():
 
         
     def course_hold(self, chi_c, chi, r, flag, dt):
-        kp = 0.1
-        kd = 0.01
-        ki = 0
+        kp = G.kp_course
+        kd = G.kd_course
+        ki = G.ki_course
         
         if flag == 1:
             self.course_integrator = 0
@@ -176,9 +177,9 @@ class autopilot():
         limit1 = np.deg2rad(45)
         limit2 = -np.deg2rad(45)
         
-        kp = 0.1
-        kd = 0.01
-        ki = 0
+        kp = G.kp_pitch
+        kd = G.kd_pitch
+        ki = G.ki_pitch
         
         if flag == 1:
             self.pitch_integrator = 0
@@ -200,9 +201,9 @@ class autopilot():
 
         
     def airspeed_hold_pitch(self, Va_c, Va, flag, dt):
-        kp = 0.1
-        kd = 0.01
-        ki = 0
+        kp = G.kp_airspeed
+        kd = G.kd_airspeed
+        ki = G.ki_airspeed
         
         if flag == 1:
             self.ahp_integrator = 0
@@ -224,9 +225,9 @@ class autopilot():
         limit1 = 1.
         limit2 = 0.
         
-        kp = 0.1
-        kd = 0.01
-        ki = 0
+        kp = G.kp_throttle
+        kd = G.kd_throttle
+        ki = G.ki_throttle
         
         if flag == 1:
             self.aht_integrator = 0
@@ -249,9 +250,9 @@ class autopilot():
         
         
     def altitude_hold(self, h_c, h, flag, dt):
-        kp = 0.1
-        kd = 0.01
-        ki = 0
+        kp = G.kp_altitude
+        kd = G.kd_altitude
+        ki = G.ki_altitude
         
         if flag == 1:
             self.ah_integrator = 0

@@ -132,7 +132,7 @@ while sim_time < SIM.end_time:
     throttle.set_xticks([]); throttle.set_title("Throttle")
     deflections.clear(); deflections.plot(simtimes, defsa, label="a"); deflections.plot(simtimes, defse, label="e")
     deflections.plot(simtimes, defsr, label="r"); deflections.set_ylabel("Deflection (deg)")
-    deflections.legend(loc="upper right"); deflections.grid(); deflections.set_xlim((x0, x1)); deflections.set_ylim((-45, 45))
+    deflections.legend(loc="upper right"); deflections.grid(); deflections.set_xlim((x0, x1)); deflections.set_ylim((-50, 50))
     force.clear(); force.plot(simtimes, forces0, label="fx"); force.plot(simtimes, forces1, label="fy")
     force.plot(simtimes, forces2, label="fz"); force.set_ylabel("Force (N)"); force.legend(loc="upper right"); force.grid()
     force.set_xlim((x0, x1)); force.set_ylim((-1000, 1000))
