@@ -26,7 +26,7 @@ anim = animation.animation(limits=20, alpha=0.35, flag=False)
 aero = aero.UAVaero()
 Vs = np.array([[0],[0],[0]])        # steady wind m/s
 wind = wind.wind(Vs)
-autp = autopilot.autopilot(P.Ts, 5., 10.)
+autp = autopilot.autopilot(P.Ts, 10., 0.5)
 
 # create vehicle
 # verts = sampleUAV_verts
@@ -72,7 +72,7 @@ sim_time = SIM.start_time
 # targets
 Va = P.states0[3][0]
 Va_c = 35.
-h_c = 15.
+h_c = 50.
 chi_c = np.deg2rad(0.)
 state = uav.state
 
@@ -83,8 +83,8 @@ while sim_time < SIM.end_time:
     while sim_time < t_next_plot:
         # build u matrix
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = state.flatten()
-        u = np.array([sim_time, phi, theta, psi, p, q, r, Va, -pd, Va_c, h_c, chi_c])
-        deltae, deltaa, deltar, deltat = autp.update(u)
+        U = np.array([sim_time, phi, theta, psi, p, q, r, Va, -pd, Va_c, h_c, chi_c])
+        deltae, deltaa, deltar, deltat = autp.update(U)
         
         # wind baby
         Va, alpha, beta = wind.windout(state, Va, sim_time)
