@@ -143,8 +143,8 @@ class autopilot():
 
         
     def course_hold(self, chi_c, chi, r, flag, dt):
-        limit1 = np.deg2rad(25)
-        limit2 = -np.deg2rad(25)
+        # limit1 = np.deg2rad(25)
+        # limit2 = -np.deg2rad(25)
         
         kp = G.kp_course
         kd = G.kd_course
@@ -161,10 +161,10 @@ class autopilot():
         self.course_error_d1 = error
         
         u = kp*error + ki*self.course_integrator + kd*self.course_differentiator
-        
-        u_sat = self.sat(u, limit1, limit2)
-        if ki != 0:
-            self.course_integrator = self.course_integrator + dt/ki*(u_sat - u)
+        u_sat=u
+        # u_sat = self.sat(u, limit1, limit2)
+        # if ki != 0:
+        #     self.course_integrator = self.course_integrator + dt/ki*(u_sat - u)
         
         return u_sat
 
@@ -197,8 +197,8 @@ class autopilot():
 
         
     def airspeed_hold_pitch(self, Va_c, Va, flag, dt):
-        limit1 = np.deg2rad(45)
-        limit2 = -np.deg2rad(45)
+        # limit1 = np.deg2rad(45)
+        # limit2 = -np.deg2rad(45)
         
         kp = G.kp_airspeed
         kd = G.kd_airspeed
@@ -216,10 +216,10 @@ class autopilot():
         self.ahp_error_d1 = error
         
         u = kp*error + ki*self.ahp_integrator + kd*self.ahp_differentiator
-        
-        u_sat = self.sat(u, limit1, limit2)
-        if ki != 0:
-            self.ahp_integrator = self.ahp_integrator + dt/ki*(u_sat - u)
+        u_sat=u
+        # u_sat = self.sat(u, limit1, limit2)
+        # if ki != 0:
+        #     self.ahp_integrator = self.ahp_integrator + dt/ki*(u_sat - u)
         
         return u_sat
         
@@ -239,6 +239,7 @@ class autopilot():
         
         tau = 5
         error = Va_c - Va
+        error *= -1
         self.aht_integrator = self.aht_integrator + (dt/2)*(error + self.aht_error_d1)
         self.aht_differentiator = (2*tau - dt)/(2*tau + dt)*self.aht_differentiator + 2/(2*tau + dt)*(error - self.aht_error_d1)
         self.aht_error_d1 = error
@@ -253,8 +254,8 @@ class autopilot():
         
         
     def altitude_hold(self, h_c, h, flag, dt):
-        limit1 = np.deg2rad(45)
-        limit2 = -np.deg2rad(45)
+        # limit1 = np.deg2rad(45)
+        # limit2 = -np.deg2rad(45)
         
         kp = G.kp_altitude
         kd = G.kd_altitude
@@ -272,10 +273,10 @@ class autopilot():
         self.ah_error_d1 = error
         
         u = kp*error + ki*self.ah_integrator + kd*self.ah_differentiator
-        
-        u_sat = self.sat(u, limit1, limit2)
-        if ki != 0:
-            self.ah_integrator = self.ah_integrator + dt/ki*(u_sat - u)
+        u_sat=u
+        # u_sat = self.sat(u, limit1, limit2)
+        # if ki != 0:
+        #     self.ah_integrator = self.ah_integrator + dt/ki*(u_sat - u)
         
         return u_sat
 

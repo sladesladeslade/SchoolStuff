@@ -15,7 +15,7 @@ Ts = SIM.ts_simulation      # sim sample time
 states0=np.array([[0.], #pn
                   [0.], #pe
                   [0.], # pd
-                  [0.1], # u
+                  [1.], # u
                   [0.], # v
                   [0.], # w
                   [0.], # phi

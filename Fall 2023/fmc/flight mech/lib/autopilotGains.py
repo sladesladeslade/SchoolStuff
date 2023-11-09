@@ -34,14 +34,14 @@ a_V3 = P.gravity * np.cos(theta_trim - alpha_trim)
 zeta = .707
 
 # roll
-tr_roll = 0.5
+tr_roll = 1.
 wn_roll = 2.2/tr_roll
 kp_roll = (wn_roll**2)/a_phi2
 kd_roll = (2*zeta*wn_roll - a_phi1)/a_phi2
 ki_roll = 0
 
 # course hold
-tr_course = 5.
+tr_course = 2.
 wn_course = 2.2/tr_course
 kp_course = (2*zeta*wn_course*Va_trim)/P.gravity
 kd_course = 0

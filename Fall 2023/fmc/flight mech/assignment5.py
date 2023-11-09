@@ -26,7 +26,7 @@ anim = animation.animation(limits=20, alpha=0.35, flag=False)
 aero = aero.UAVaero()
 Vs = np.array([[0],[0],[0]])        # steady wind m/s
 wind = wind.wind(Vs)
-autp = autopilot.autopilot(P.Ts, 25., 5.)
+autp = autopilot.autopilot(P.Ts, 50., 5.)
 
 # create vehicle
 # verts = sampleUAV_verts
@@ -81,6 +81,11 @@ print("Press Q to exit...")
 while sim_time < SIM.end_time:
     t_next_plot = sim_time + SIM.ts_plotting
     while sim_time < t_next_plot:
+        if sim_time > 10:
+            h_c = 100.
+        elif sim_time > 20:
+            chi_c = np.deg2rad(10.)
+        
         # build u matrix
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = state.flatten()
         U = np.array([sim_time, phi, theta, psi, p, q, r, Va, -pd, Va_c, h_c, chi_c])
