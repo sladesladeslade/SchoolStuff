@@ -34,14 +34,14 @@ a_V3 = P.gravity * np.cos(theta_trim - alpha_trim)
 zeta = .707
 
 # roll
-tr_roll = 1.
+tr_roll = 2.
 wn_roll = 2.2/tr_roll
 kp_roll = (wn_roll**2)/a_phi2
 kd_roll = (2*zeta*wn_roll - a_phi1)/a_phi2
 ki_roll = 0
 
 # course hold
-tr_course = 2.
+tr_course = 5.
 wn_course = 2.2/tr_course
 kp_course = (2*zeta*wn_course*Va_trim)/P.gravity
 kd_course = 0
@@ -71,7 +71,7 @@ kd_airspeed = 0
 ki_airspeed = (wn_airspeed**2)/(ktheta_DC*P.gravity)
 
 # airspeed from throttle
-tr_throttle = 0.1
+tr_throttle = 15.
 wn_throttle = 2.2/tr_throttle
 kp_throttle = (2*zeta*wn_throttle - a_V1)/a_V2
 kd_throttle = 0

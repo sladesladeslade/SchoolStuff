@@ -73,7 +73,7 @@ sim_time = SIM.start_time
 Va = P.states0[3][0]
 Va_c = 35.
 h_c = 50.
-chi_c = np.deg2rad(0.)
+chi_c = 0.
 state = uav.state
 
 # main simulation loop
@@ -81,10 +81,16 @@ print("Press Q to exit...")
 while sim_time < SIM.end_time:
     t_next_plot = sim_time + SIM.ts_plotting
     while sim_time < t_next_plot:
-        if sim_time > 10:
+        if sim_time > 12 and sim_time < 25:
             h_c = 100.
-        elif sim_time > 20:
-            chi_c = np.deg2rad(10.)
+            Va_c = 50.
+        elif sim_time < 38:
+            h_c = 50.
+            Va_c = 35.
+        elif sim_time < 48:
+            chi_c = np.deg2rad(20.)
+        else:
+            chi_c = np.deg2rad(-20.)
         
         # build u matrix
         pn, pe, pd, u, v, w, phi, theta, psi, p, q, r = state.flatten()
@@ -144,15 +150,17 @@ while sim_time < SIM.end_time:
     moment.clear(); moment.plot(simtimes, moments0, label="l"); moment.plot(simtimes, moments1, label="m")
     moment.plot(simtimes, moments2, label="n"); moment.set_ylabel("Moment (Nm)"); moment.legend(loc="upper right")
     moment.grid(); moment.set_xlim((x0, x1)); moment.set_ylim((-40, 40))
-    posp.clear(); posp.plot(simtimes, poss0, label="n"); posp.plot(simtimes, poss1, label="e")
+    posp.clear(); posp.axhline(h_c, color="k", linestyle="--")
+    posp.plot(simtimes, poss0, label="n"); posp.plot(simtimes, poss1, label="e")
     posp.plot(simtimes, poss2, label="h"); posp.set_ylabel("Position (m)"); posp.legend(loc="upper right"); posp.grid()
     posp.set_xlim((x0, x1))
-    velp.clear(); velp.plot(simtimes, vels0, label="u"); velp.plot(simtimes, vels1, label="v")
+    velp.clear(); velp.axhline(Va_c, color="k", linestyle="--")
+    velp.plot(simtimes, vels0, label="u"); velp.plot(simtimes, vels1, label="v")
     velp.plot(simtimes, vels2, label="w"); velp.set_ylabel("Velocity (m/s)"); velp.legend(loc="upper right"); velp.grid()
-    velp.set_xlim((x0, x1)); velp.set_ylim((-25, 100))
+    velp.set_xlim((x0, x1)); velp.set_ylim((-10, 80))
     angp.clear(); angp.plot(simtimes, angs0, label="$\phi$"); angp.plot(simtimes, angs1, label="$\\theta$")
     angp.plot(simtimes, angs2, label="$\psi$"); angp.set_ylabel("Angle (deg)"); angp.legend(loc="upper right"); angp.grid()
-    angp.set_xlim((x0, x1)); angp.set_ylim((-180, 180))
+    angp.set_xlim((x0, x1)); angp.set_ylim((-45, 45))
     ratep.clear(); ratep.plot(simtimes, rates0, label="p"); ratep.plot(simtimes, rates1, label="q")
     ratep.plot(simtimes, rates2, label="r"); ratep.set_ylabel("Rates (deg/s)"); ratep.legend(loc="upper right"); ratep.grid()
     ratep.set_xlim((x0, x1)); ratep.set_ylim((-360, 360))

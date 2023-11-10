@@ -5,7 +5,8 @@ import simparams as SIM
 jx= 0.824
 jy= 1.135
 jz= 1.759
-jxz= 0.120
+# jxz= 0.120
+jxz=0
 gravity=9.806650
 mass=13.5
 
