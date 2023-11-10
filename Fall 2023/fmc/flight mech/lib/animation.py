@@ -166,11 +166,11 @@ class animation():
             self.ax.set_xlim([e-self.lim, e+self.lim])
             self.ax.set_ylim([n-self.lim, n+self.lim])
             self.ax.set_zlim([-d-self.lim, -d+self.lim])
-            plt.pause(0.001)
+            # plt.pause(0.001)
         # otherwise update vert location
         else:
             self.obj.set_verts(faces)
             self.ax.set_xlim([e-self.lim, e+self.lim])
             self.ax.set_ylim([n-self.lim, n+self.lim])
             self.ax.set_zlim([-d-self.lim, -d+self.lim])
-            plt.pause(0.001)
+            # plt.pause(0.001)

@@ -5,7 +5,8 @@ import simparams as SIM
 jx= 0.824
 jy= 1.135
 jz= 1.759
-jxz= 0.120
+# jxz= 0.120
+jxz=0
 gravity=9.806650
 mass=13.5
 
@@ -14,8 +15,8 @@ Ts = SIM.ts_simulation      # sim sample time
 # ICs
 states0=np.array([[0.], #pn
                   [0.], #pe
-                  [-100.], # pd
-                  [35.], # u
+                  [0.], # pd
+                  [1.], # u
                   [0.], # v
                   [0.], # w
                   [0.], # phi
