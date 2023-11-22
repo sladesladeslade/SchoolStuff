@@ -62,7 +62,58 @@ $\cos\beta_3=\frac{C_{a3}}{V_3} \rightarrow V_3=481.9$ m/s \\
     $U_r$ & 500 & m/s \\
     $\eta_t$ & 0.91 \\
     $\frac{r_t}{r_h}$ & 1.4 \\
-    $\lambda_N$ & 0.05
+    $\lambda_N$ & 0.05 \\
+    $\Lambda_r$ & 0 \\
+\end{tabular} \\ $C_1=C_3=C_{a1}=C_{a3}$
+
+\subsection*{Hub}
+$\Delta T_{013}=\eta_t T_{01}[1-(\frac{P_{03}}{P_{01}})^\frac{\gamma-1}{\gamma}]=
+0.91(1350)[1-\frac{1}{3.4}^{0.333/1.333}]=323.6$ K \\
+$w=U(C_{w2}+C_{w3})=c_p\Delta T_{013} \rightarrow C_{w2}=\frac{c_p \Delta T_{013}}{U}=
+\frac{1148(323.6)}{500}=743$ m/s \\
+$T_2 = T_{02}-\frac{C_2^2}{2c_p}$, \quad $T_2=T_3$ because $\Lambda=0$ \\
+$T_{02}-\frac{C_2^2}{2c_p}=T_{03}-\frac{C_3^2}{2c_p}$, \quad $T_{02}=T_{01}$ \\
+$C_2^2=2c_p(\frac{C_3^2}{2c_p}+\Delta T_{013})=2(1148)(\frac{275^2}{2(1148)}+323.6) \rightarrow
+C_2=904.77$ m/s \\
+$\sin\alpha_2=\frac{C_{w2}}{C_2} \rightarrow \alpha_2=55.2^\circ$ \\
+$\fbox{$\alpha_2=55.2^\circ$}$ \\\\
+$C_{w2}^2+C_{a2}^2=C_2^2 \rightarrow C_{a2}=516.3$ m/s \\
+$\tan\beta_2=\frac{C_{w2}-U}{C_{a2}} \rightarrow \beta_2=25.2^\circ$ \\
+$\fbox{$\beta_2=25.2^\circ$}$
+
+\subsection*{Tip}
+since free vortex design, $C_{a2r}=C_{a2t}$ \\
+$C_{w2t}r_t=C_{w2h}r_h \rightarrow C_{w2t}=C_{w2h}\frac{r_h}{r_t}=743\frac{1}{1.4}=530.7$ m/s \\
+$\tan\alpha_{2t}=\frac{C_{w2t}}{C_{a2t}} \rightarrow \alpha_{2t}=45.8^\circ$ \\
+$\fbox{$\alpha_2=45.8^\circ$}$ \\\\
+$T_{3t}=T_{3h}=T_{03}-\frac{C_3^2}{2c_p}=1350-323.6-\frac{275^2}{2(1148)}=993.5$ K \\
+$C_{2t}=\sqrt{C_{w2t}^2+C_{a2t}^2}=740.4$ m/s \\
+$T_{2t}=T_{02}-\frac{C_{2t}^2}{2c_p}=1350-\frac{740.4^2}{2(1148)}=1111.2$ K \\
+$\Lambda_t=\frac{T_{2t}-T_{3t}}{T_{01}-T_{03}}=\frac{1111.2-993.5}{323.6}=0.364$ \\
+$\fbox{$\Lambda=0.364$}$
+
+\subsection*{Hub Static Pressures}
+$\lambda_N=\frac{T_2-T_2'}{C_2^2/2c_p} \rightarrow T_2'=T_2-\frac{\lambda_N C_2^2}{2c_p} \rightarrow
+T_2'=T_{02}-\frac{C_2^2}{2c_p}-\frac{\lambda_N C_2^2}{2c_p} \rightarrow \\
+T_2'=T_{02}-(1+\lambda_N)\frac{C_2^2}{2c_p}=1350-(1+0.05)\frac{904.77^2}{2(1148)}=975.6$ K \\
+$\frac{P_{02}}{P_2}=(\frac{T_{02}}{T_2'})^\frac{\gamma}{\gamma-1} \rightarrow P_2=1.42$ bar \\
+$\frac{P_{03}}{P_3}=(\frac{T_{03}}{T_3'})^\frac{\gamma}{\gamma-1} \rightarrow P_3=1.25$ bar \\
+$\fbox{$P_2=1.42$ bar}$ \\
+$\fbox{$P_3=1.25$ bar}$ \\\\
+since $P_3<P_2$, some expansion is happening at the root in the rotor blade passages
+
+\section*{Problem 3}
+\begin{tabular}{ccc}
+    $\dot{m}$ & 36 & kg/s \\
+    $T_{01}$ & 1200 & K \\
+    $P_{01}$ & 8 & bar \\
+    $\Delta T_{013}$ & 150 & K \\
+    $\eta_t$ & 0.9 \\
+    $U_m$ & 320 & m/s \\
+    $N$ & 250 & rev/s \\
+    $C_3$ & 400 & m/s \\
+    $\lambda_N$ & 0.07 \\
+    $C_a$ & 346 & m/s
 \end{tabular}
 
 \end{document}
