@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./images/A5}}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\title{AEEM4063 - Assignment 5}
+\author{Slade Brooks}
+\date{11.22.2023}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+\begin{tabular}{ccc}
+    $\dot{m}$ & 20 & kg/s \\
+    $T_{01}$ & 1000 & K \\
+    $P_{01}$ & 4 & bar \\
+    $C_a$ & 260 & m/s \\
+    $U$ & 360 & m/s \\
+    $\alpha_2$ & $65^\circ$ \\
+    $\alpha_3$ & $10^\circ$ \\
+    $\lambda_N$ & 0.05
+\end{tabular} \\\\\\
+$\frac{U}{C_{a2}}=\tan\alpha_2-\tan\beta_2 \rightarrow \frac{360}{260}=\tan{65}-\tan\beta_2$ \\
+$\fbox{$\beta_2 = 37.23^\circ$}$ \\\\
+$\frac{U}{C_{a3}}=\tan\beta_3-\tan\alpha_3 \rightarrow \frac{360}{260}=\tan\beta_3-\tan{10}$ \\
+$\fbox{$\beta_3 = 57.35^\circ$}$ \\\\
+$\Lambda=\frac{C_a}{2U}(\tan\beta_3-\tan\beta_2)=\frac{260}{2(360)}(\tan57.35-\tan37.23)=0.29$ \\
+$\fbox{$\Lambda=0.29$}$ \\\\
+$\psi=\frac{2C_a}{U}(\tan\beta_2+\tan\beta_3)=\frac{2(260)}{360}(\tan37.23+\tan57.35)=3.35$ \\
+$\fbox{$\psi=3.35$}$ \\\\
+$W=\dot{m}w=\dot{m}UC_a(\tan\alpha_2+\tan\alpha_3)=20*360*260(\tan65+\tan10)=4344601$ W \\
+$\fbox{$W=4345$ kW}$ \\\\
+$\sin(90-\alpha_2)=\frac{C_{a2}}{C_2} \rightarrow C_2=615.2$ m/s \\
+$T_2=T_{02}-\frac{C_2^2}{2c_p}$, \quad $T_{02}=T_{01}$, \quad $T_2=T_{01}-\frac{C_2^2}{2c_p}=
+1000-\frac{615.2^2}{2(1148)}=835.2$ K \\
+$\lambda_N=\frac{T_2-T_2'}{C_2^2/2c_p} \rightarrow T_2'=T_2-\frac{\lambda_NC_2^2}{2c_p}=
+835.2-\frac{0.05(615.2)^2}{2(1148)}=827$ K \\
+$\frac{P_{01}}{P_{2}}=(\frac{T_{01}}{T_2'})^\frac{\gamma}{\gamma-1}
+\rightarrow P_2=\frac{P_{01}}{(\frac{T_{01}}{T_2'})^\frac{\gamma}{\gamma-1}}=
+\frac{4}{(1000/827)^{1.333/0.333}}=1.87$ bar, \quad $\frac{P_{01}}{P_2}=2.14$ \\
+$PR_{crit}=\frac{\gamma+1}{2}^\frac{\gamma}{\gamma-1}=1.853$, \quad $\frac{P_{01}}{P_2}>PR_{crit}$,
+\quad nozzle is choked \\
+$P_{crit}=P_{01}/1.853=2.16$ bar $=P_2$ \\
+$\rho_2=\frac{P_2}{RT_2}=\frac{2.16*10^5}{287(835.2)}=0.901$ kg/m$^3$ \\
+$V=M\sqrt{\gamma RT_2}=1\sqrt{1.333*287*835.2}=565.3$ m/s \\
+$\dot{m}=\rho VA \rightarrow A=\frac{\dot{m}}{\rho V}=\frac{20}{0.901(565.3)}=0.0393$ m$^2$ \\
+$\fbox{$A=0.0393$ m$^2$}$ \\\\
+$\cos\beta_2=\frac{C_{a2}}{V_2} \rightarrow V_2=326.5$ m/s \\
+$\tan\alpha_2=\frac{C_{w2}}{C_{a2}} \rightarrow C_{w2}=557.6$ m/s \\
+$\tan\alpha_3=\frac{C_{w3}}{C_{a3}} \rightarrow C_{w3}=45.85$ m/s \\
+$\cos\alpha_3=\frac{C_{a3}}{C_3} \rightarrow C_3=264$ m/s \\
+$\cos\beta_3=\frac{C_{a3}}{V_3} \rightarrow V_3=481.9$ m/s \\
+\includegraphics[scale=0.75]{fig1}
+
+\section*{Problem 2}
+\begin{tabular}{ccc}
+    $T_{01}$ & 1350 & K \\
+    $P_{01}$ & 5.2 & bar \\
+    $\frac{P_{01}}{P_{03}}$ & 3.4 \\
+    $C_3$ & 275 & m/s \\
+    $U_r$ & 500 & m/s \\
+    $\eta_t$ & 0.91 \\
+    $\frac{r_t}{r_h}$ & 1.4 \\
+    $\lambda_N$ & 0.05 \\
+    $\Lambda_r$ & 0 \\
+\end{tabular} \\ $C_1=C_3=C_{a1}=C_{a3}$
+
+\subsection*{Hub}
+$\Delta T_{013}=\eta_t T_{01}[1-(\frac{P_{03}}{P_{01}})^\frac{\gamma-1}{\gamma}]=
+0.91(1350)[1-\frac{1}{3.4}^{0.333/1.333}]=323.6$ K \\
+$w=U(C_{w2}+C_{w3})=c_p\Delta T_{013} \rightarrow C_{w2}=\frac{c_p \Delta T_{013}}{U}=
+\frac{1148(323.6)}{500}=743$ m/s \\
+$T_2 = T_{02}-\frac{C_2^2}{2c_p}$, \quad $T_2=T_3$ because $\Lambda=0$ \\
+$T_{02}-\frac{C_2^2}{2c_p}=T_{03}-\frac{C_3^2}{2c_p}$, \quad $T_{02}=T_{01}$ \\
+$C_2^2=2c_p(\frac{C_3^2}{2c_p}+\Delta T_{013})=2(1148)(\frac{275^2}{2(1148)}+323.6) \rightarrow
+C_2=904.77$ m/s \\
+$\sin\alpha_2=\frac{C_{w2}}{C_2} \rightarrow \alpha_2=55.2^\circ$ \\
+$\fbox{$\alpha_2=55.2^\circ$}$ \\\\
+$C_{w2}^2+C_{a2}^2=C_2^2 \rightarrow C_{a2}=516.3$ m/s \\
+$\tan\beta_2=\frac{C_{w2}-U}{C_{a2}} \rightarrow \beta_2=25.2^\circ$ \\
+$\fbox{$\beta_2=25.2^\circ$}$
+
+\subsection*{Tip}
+since free vortex design, $C_{a2r}=C_{a2t}$ \\
+$C_{w2t}r_t=C_{w2h}r_h \rightarrow C_{w2t}=C_{w2h}\frac{r_h}{r_t}=743\frac{1}{1.4}=530.7$ m/s \\
+$\tan\alpha_{2t}=\frac{C_{w2t}}{C_{a2t}} \rightarrow \alpha_{2t}=45.8^\circ$ \\
+$\fbox{$\alpha_2=45.8^\circ$}$ \\\\
+$T_{3t}=T_{3h}=T_{03}-\frac{C_3^2}{2c_p}=1350-323.6-\frac{275^2}{2(1148)}=993.5$ K \\
+$C_{2t}=\sqrt{C_{w2t}^2+C_{a2t}^2}=740.4$ m/s \\
+$T_{2t}=T_{02}-\frac{C_{2t}^2}{2c_p}=1350-\frac{740.4^2}{2(1148)}=1111.2$ K \\
+$\Lambda_t=\frac{T_{2t}-T_{3t}}{T_{01}-T_{03}}=\frac{1111.2-993.5}{323.6}=0.364$ \\
+$\fbox{$\Lambda=0.364$}$
+
+\subsection*{Hub Static Pressures}
+$\lambda_N=\frac{T_2-T_2'}{C_2^2/2c_p} \rightarrow T_2'=T_2-\frac{\lambda_N C_2^2}{2c_p} \rightarrow
+T_2'=T_{02}-\frac{C_2^2}{2c_p}-\frac{\lambda_N C_2^2}{2c_p} \rightarrow \\
+T_2'=T_{02}-(1+\lambda_N)\frac{C_2^2}{2c_p}=1350-(1+0.05)\frac{904.77^2}{2(1148)}=975.6$ K \\
+$\frac{P_{02}}{P_2}=(\frac{T_{02}}{T_2'})^\frac{\gamma}{\gamma-1} \rightarrow P_2=1.42$ bar \\
+$\frac{P_{03}}{P_3}=(\frac{T_{03}}{T_3'})^\frac{\gamma}{\gamma-1} \rightarrow P_3=1.25$ bar \\
+$\fbox{$P_2=1.42$ bar}$ \\
+$\fbox{$P_3=1.25$ bar}$ \\\\
+since $P_3<P_2$, some expansion is happening at the root in the rotor blade passages
+
+\subsection*{Velocity Triangles}
+\includegraphics[scale=0.55]{fig2}
+
+\section*{Problem 3}
+\begin{tabular}{ccc}
+    $\dot{m}$ & 36 & kg/s \\
+    $T_{01}$ & 1200 & K \\
+    $P_{01}$ & 8 & bar \\
+    $\Delta T_{013}$ & 150 & K \\
+    $\eta_t$ & 0.9 \\
+    $U_m$ & 320 & m/s \\
+    $N$ & 250 & rev/s \\
+    $C_3$ & 400 & m/s \\
+    $\lambda_N$ & 0.07 \\
+    $C_a$ & 346 & m/s
+\end{tabular} \\\\\\
+$T_{03}=T_{01}-\Delta T_{013}=1200-150=1050$ K \\
+$T_3=T_{03}-\frac{C_3^2}{2c_p}=1050-\frac{400^2}{2(1148)}=980.3$ K \\
+$\Delta T_{013}=\eta_t T_{01}[1-(\frac{P_{03}}{P_{01}})^\frac{\gamma-1}{\gamma}] \rightarrow
+\frac{P_{03}}{P_{01}}=(1-\frac{\Delta T_{013}}{\eta_tT_{01}})^\frac{\gamma}{\gamma-1} \rightarrow
+P_{03}=4.4$ bar \\
+$\frac{P_{03}}{P_3}=(\frac{T_{03}}{T_3})^\frac{\gamma}{\gamma-1} \rightarrow P_3=3.3$ bar \\
+$U_m=\omega r_m=2\pi Nr_m \rightarrow r_m=\frac{U_m}{2\pi N}=\frac{320}{2\pi(250)}=0.204$ m \\
+$\dot{m}=\rho AC_3 \rightarrow A=\frac{\dot{m}}{\rho C_3}$ \\
+$\rho=\frac{P_3}{RT_3}=\frac{3.3*10^5}{287(980.3)}=1.173$ kg/m$^3$ \\
+$A=Ch=2\pi r_mh \rightarrow h=\frac{\dot{m}}{2\pi\rho C_3 r_m}=\frac{36}{2\pi(1.173)(400)(0.204)}
+=0.0599$ m \\
+$\fbox{$h=0.0599$ m}$ \\\\
+$r_t=r_m + h/2=0.234$ m \\
+$r_h=r_m - h/2=0.174$ m \\
+$\frac{r_t}{r_h}=\frac{0.234}{0.174}=1.34$ \\
+$\fbox{$\frac{r_t}{r_h}=1.34$}$ \\\\
+$w=C_{w2}U=c_p\Delta T_{013} \rightarrow C_{w2}=538.1$ m/s, \quad $C_{a2}=346$ m/s \\
+$C_2=\sqrt{C_{w2}^2+C_{a2}^2}=639.7$ m/s \\
+$T_2=T_{02}-\frac{C_2^2}{2c_p}$, \quad $T_{02}=T_{01}$, \quad $T_2=1021.77$ K \\
+$T_2'=T_2-\frac{\lambda_N C_2^2}{2c_p}=1021.77-\frac{0.07(639.7)^2}{2(1148)}=1009.3$ K \\
+$\frac{P_{02}}{P_2}=(\frac{T_{02}}{T_2'})^\frac{\gamma}{\gamma-1} \rightarrow P_2=4$ bar \\
+$\rho_2=\frac{P_2}{RT_2}=\frac{4*10^5}{287(1021.77)}=1.36$ kg/m$^3$ \\
+$A=\frac{\dot{m}}{\rho_3 C_3}=\frac{36}{1.173(400)}=0.076$ m$^2$ \\
+$C_{a2}=\frac{\dot{m}}{\rho_2 A_3}=\frac{36}{1.36(0.076)}=348.3$ m/s \\
+$C_{w2h}=C_{w2m}\frac{r_m}{r_h}=538.1\frac{0.204}{0.174}=630.9$ m/s \\
+$C_{2h}=\sqrt{C_{w2h}^2+C_{a2}^2}=720.7$ m/s \\
+$U_h=U_m\frac{r_h}{r_m}=273$ m/s \\
+$V_{2h}=\sqrt{C_{a2}^2+(C_{w2h}-U_h)^2}=499.4$ m/s \\
+$T_{2h}=T_{01}-\frac{C_{2h}^2}{2c_p}=973.8$ K \\
+$M_h=\frac{V_{2h}}{\sqrt{\gamma RT_{2h}}}=0.818$ \\
+$\fbox{$M_h=0.818$}$
+
+\end{document}
