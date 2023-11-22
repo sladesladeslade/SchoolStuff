@@ -102,6 +102,9 @@ $\fbox{$P_2=1.42$ bar}$ \\
 $\fbox{$P_3=1.25$ bar}$ \\\\
 since $P_3<P_2$, some expansion is happening at the root in the rotor blade passages
 
+\subsection*{Velocity Triangles}
+\includegraphics[scale=0.55]{fig2}
+
 \section*{Problem 3}
 \begin{tabular}{ccc}
     $\dot{m}$ & 36 & kg/s \\
@@ -114,6 +117,37 @@ since $P_3<P_2$, some expansion is happening at the root in the rotor blade pass
     $C_3$ & 400 & m/s \\
     $\lambda_N$ & 0.07 \\
     $C_a$ & 346 & m/s
-\end{tabular}
+\end{tabular} \\\\\\
+$T_{03}=T_{01}-\Delta T_{013}=1200-150=1050$ K \\
+$T_3=T_{03}-\frac{C_3^2}{2c_p}=1050-\frac{400^2}{2(1148)}=980.3$ K \\
+$\Delta T_{013}=\eta_t T_{01}[1-(\frac{P_{03}}{P_{01}})^\frac{\gamma-1}{\gamma}] \rightarrow
+\frac{P_{03}}{P_{01}}=(1-\frac{\Delta T_{013}}{\eta_tT_{01}})^\frac{\gamma}{\gamma-1} \rightarrow
+P_{03}=4.4$ bar \\
+$\frac{P_{03}}{P_3}=(\frac{T_{03}}{T_3})^\frac{\gamma}{\gamma-1} \rightarrow P_3=3.3$ bar \\
+$U_m=\omega r_m=2\pi Nr_m \rightarrow r_m=\frac{U_m}{2\pi N}=\frac{320}{2\pi(250)}=0.204$ m \\
+$\dot{m}=\rho AC_3 \rightarrow A=\frac{\dot{m}}{\rho C_3}$ \\
+$\rho=\frac{P_3}{RT_3}=\frac{3.3*10^5}{287(980.3)}=1.173$ kg/m$^3$ \\
+$A=Ch=2\pi r_mh \rightarrow h=\frac{\dot{m}}{2\pi\rho C_3 r_m}=\frac{36}{2\pi(1.173)(400)(0.204)}
+=0.0599$ m \\
+$\fbox{$h=0.0599$ m}$ \\\\
+$r_t=r_m + h/2=0.234$ m \\
+$r_h=r_m - h/2=0.174$ m \\
+$\frac{r_t}{r_h}=\frac{0.234}{0.174}=1.34$ \\
+$\fbox{$\frac{r_t}{r_h}=1.34$}$ \\\\
+$w=C_{w2}U=c_p\Delta T_{013} \rightarrow C_{w2}=538.1$ m/s, \quad $C_{a2}=346$ m/s \\
+$C_2=\sqrt{C_{w2}^2+C_{a2}^2}=639.7$ m/s \\
+$T_2=T_{02}-\frac{C_2^2}{2c_p}$, \quad $T_{02}=T_{01}$, \quad $T_2=1021.77$ K \\
+$T_2'=T_2-\frac{\lambda_N C_2^2}{2c_p}=1021.77-\frac{0.07(639.7)^2}{2(1148)}=1009.3$ K \\
+$\frac{P_{02}}{P_2}=(\frac{T_{02}}{T_2'})^\frac{\gamma}{\gamma-1} \rightarrow P_2=4$ bar \\
+$\rho_2=\frac{P_2}{RT_2}=\frac{4*10^5}{287(1021.77)}=1.36$ kg/m$^3$ \\
+$A=\frac{\dot{m}}{\rho_3 C_3}=\frac{36}{1.173(400)}=0.076$ m$^2$ \\
+$C_{a2}=\frac{\dot{m}}{\rho_2 A_3}=\frac{36}{1.36(0.076)}=348.3$ m/s \\
+$C_{w2h}=C_{w2m}\frac{r_m}{r_h}=538.1\frac{0.204}{0.174}=630.9$ m/s \\
+$C_{2h}=\sqrt{C_{w2h}^2+C_{a2}^2}=720.7$ m/s \\
+$U_h=U_m\frac{r_h}{r_m}=273$ m/s \\
+$V_{2h}=\sqrt{C_{a2}^2+(C_{w2h}-U_h)^2}=499.4$ m/s \\
+$T_{2h}=T_{01}-\frac{C_{2h}^2}{2c_p}=973.8$ K \\
+$M_h=\frac{V_{2h}}{\sqrt{\gamma RT_{2h}}}=0.818$ \\
+$\fbox{$M_h=0.818$}$
 
 \end{document}
