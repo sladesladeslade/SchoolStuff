@@ -11,10 +11,10 @@ from numpy import sin, cos, tan, arcsin as asin, arccos as acos, arctan as atan
 cp = 1148                               # cp of hot air, J/kgK
 y = 1.333                               # specific heat ratio of hot air
 iT01 = 2275.                            # turbine inlet temp, K
-iP01 = 21.278                           # turbine inlet pressure, bar
+iP01 = 31.045                           # turbine inlet pressure, bar
 etaInfT = 0.92                          # turbine polytropic eff
 etaM = 0.99                             # mechanical efficiency
-wComp = 437774.0                        # compressor work, J/kg
+wComp = 419350.5                        # compressor work, J/kg
 wFan = 18200.6                          # fan work, J/kg
 mdotA = 280.                            # fan mass flow, kg/s
 mdotH = 40.                             # core mass flow, kg/s
@@ -22,7 +22,7 @@ mdotF = 1.862                           # fuel mass flow, kg/s
 mdotT = mdotF + mdotH                   # total mass flow, kg/s
 n = 172.32                              # rotational speed, rev/s
 omega = 2*np.pi*n                       # rotational speed, rad/s
-Ca1 = 275.                              # axial speed into turbine, m/s
+Ca1 = 300.                              # axial speed into turbine, m/s
 alpha1 = np.deg2rad(0.)                 # inlet rel gas angle, rad
 R = 287.                                # r, J/kgK
 
@@ -167,8 +167,8 @@ def rootTipCalc(ri, rm, omega, Cwm, Ca, b3):
 # -------------------- Stage 1 Mean --------------------
 # design params
 lambdam = 0.5                           # degree of reaction @ rm
-phi = 0.78                              # flow coeff @ rm
-psi = 3.3                               # blade loading coeff @ rm
+phi = 0.804                             # flow coeff @ rm
+psi = 3.0609                            # blade loading coeff @ rm
 
 # run meanline calcs
 s1C1, s1Ca1, s1Cw1, s1C2, s1Ca2, s1Cw2, s1C3, s1Ca3, s1Cw3, s1V2, s1V3, s1b2, s1a2, s1b3, s1a3, s1T03, s1P03, s1w, s1rm \
@@ -178,8 +178,8 @@ s1C1, s1Ca1, s1Cw1, s1C2, s1Ca2, s1Cw2, s1C3, s1Ca3, s1Cw3, s1V2, s1V3, s1b2, s1
 # -------------------- Stage 2 Mean --------------------
 # design params
 lambdam = 0.5                           # degree of reaction @ rm
-phi = 0.78                              # flow coeff @ rm
-psi = 3.3                               # blade loading coeff @ rm
+phi = 0.8107                            # flow coeff @ rm
+psi = 2.99                              # blade loading coeff @ rm
 
 # run meanline calcs
 s2C1, s2Ca1, s2Cw1, s2C2, s2Ca2, s2Cw2, s2C3, s2Ca3, s2Cw3, s2V2, s2V3, s2b2, s2a2, s2b3, s2a3, s2T03, s2P03, s2w, s2rm \
@@ -188,20 +188,34 @@ s2C1, s2Ca1, s2Cw1, s2C2, s2Ca2, s2Cw2, s2C3, s2Ca3, s2Cw3, s2V2, s2V3, s2b2, s2
 
 # -------------------- Stage 3 Mean --------------------
 wleft = wTurb - (s1w + s2w)
-print(wTurb)
-print(s1w, s2w)
-print(wleft)
-rinc = s2rm/s1rm
-s3rm = rinc*s2rm
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Stage Work")
+print(f"total turb w: {wTurb/1000:.2f} kJ/kg")
+print(f"s1w: {s1w/1000:.2f} kJ/kg, s2w: {s2w/1000:.2f} kJ/kg")
+print(f"s3w: {wleft/1000:.2f} kJ/kg")
+
+# get root and tip radii for each
+s1rr, s1rt = rootTipRadii(mdotT, s1C1, iP01, iT01, s1rm)
+s2rr, s2rt = rootTipRadii(mdotT, s2C1, s1P03, s1T03, s2rm)
+s1h = s1rt - s1rr
+s2h = s2rt - s2rr
+s3rm = 0.98*s2rm
 s3C1, s3Ca1, s3Cw1, s3C2, s3Ca2, s3Cw2, s3C3, s3Ca3, s3Cw3, s3V2, s3V3, s3b2, s3a2, s3b3, s3a3, s3T03, s3P03, s3phi, \
     s3psi, s3lam = lastStageCalc(s2a3, s2Ca3, wleft, s2T03, s2P03, omega, s3rm)
-    
+
 
 # -------------------- Root and Tips --------------------
 # get root and tip radii for each
 s1rr, s1rt = rootTipRadii(mdotT, s1C1, iP01, iT01, s1rm)
 s2rr, s2rt = rootTipRadii(mdotT, s2C1, s1P03, s1T03, s2rm)
 s3rr, s3rt = rootTipRadii(mdotT, s3C1, s2P03, s2T03, s3rm)
+
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Stage Geometries")
+print(f"hs: {s1h:.4f} m, {s2h:.4f} m, {(s3rt-s3rr):.4f} m")
+print(f"rms: {s1rm:.4f} m, {s2rm:.4f} m, {s3rm:.4f} m")
+print(f"rts: {s1rt:.4f} m, {s2rt:.4f} m, {s3rt:.4f} m")
+print(f"rrs: {s1rr:.4f} m, {s2rr:.4f} m, {s3rr:.4f} m")
 
 # stage 1 root and tip
 s1C2r, s1Ca2r, s1Cw2r, s1V2r, s1b2r, s1a2r, s1phir, s1psir, s1lamr = rootTipCalc(s1rr, s1rm, omega, s1Cw2, s1Ca1, s1b3)
@@ -227,137 +241,124 @@ for k in range(len(phis)):
         print(f"{phiss[k]} = {phis[k]:.3f} (<0.78)")
     if psis[k] > 3.3:
         print(f"{psiss[k]} = {psis[k]:.2f} (>3.3)")
-print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
 
-# -------------------- Print Results --------------------
+# outputs
 print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-print('stage 1 mean','\n',\
-      '\n-- gas angles --', \
-      '\nb2_s1:', np.degrees(s1b2), \
-      '\nb3_s1:', np.degrees(s1b3), \
-      '\na2_s1:', np.degrees(s1a2), \
-      '\na3_s1:', np.degrees(s1a3), \
-      '\n-- nozzle inlet --', \
-      '\nCa1_s1:', s1Ca1, \
-      '\nCw1_s1:', s1Cw1, \
-      '\nC1_s1:', s1C1, \
-      '\n-- rotor inlet --', \
-      '\nCa2_s1:', s1Ca2, \
-      '\nCw2_s1:', s1Cw2, 
-      '\nC2_s1:', s1C2, \
-      '\nV2_s1:', s1V2, \
-      '\n-- stage 1 exit --', \
-      '\nCa3_s1:', s1Ca3, \
-      '\nCw3_s1:', s1Cw3, \
-      '\nC3_s1:', s1C3, \
-      '\nV3_s1:', s1V3, \
-      '\n-- stage 1 exit flow conditions --', \
-      '\nT03_s1:', s1T03, \
-      '\nP03_s1:', s1P03)
-print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-print('--stage 1 root--', \
-      '\nCw2r_s1:', s1Cw2r, \
-      '\nC2r_s1:', s1C2r, \
-      '\nV2r_s1:', s1V2r, \
-      '\nphir_s1:', s1phir, \
-      '\npsir_s1:', s1psir, \
-      '\nlamr_s1:', s1lamr, \
-      '\n-- stage 1 tip--', \
-      '\nCw2t_s1:', s1Cw2t, \
-      '\nC2t_s1:', s1C2t, \
-      '\nV2t_s1:', s1V2t, \
-      '\nphit_s1:', s1phit, \
-      '\npsit_s1:', s1psit, \
-      '\nlamt_s1:', s1lamt, \
-      '\n-- radii --', \
-      '\nr_r_s1:', s1rr, \
-      '\nr_t_s1:', s1rt)
-print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-print('stage 2 mean','\n',
-      '\n-- gas angles --', \
-      '\nb2_s2:', np.degrees(s2b2), \
-      '\nb3_s2:', np.degrees(s2b3), \
-      '\na2_s2:', np.degrees(s2a2), \
-      '\na3_s2:', np.degrees(s2a3), \
-      '\n-- nozzle inlet --', \
-      '\nCa2_s2:', s2Ca1, \
-      '\nCw1_s2:', s2Cw1, \
-      '\nC1_s2:', s2C1, \
-      '\n-- rotor inlet --', \
-      '\nCa2_s2:', s2Ca2, \
-      '\nCw2_s2:', s2Cw2, \
-      '\nC2_s2:', s2C2, \
-      '\nV2_s2:', s2V2, \
-      '\n-- stage 2 exit --', \
-      '\nCa3_s2:', s2Ca3, \
-      '\nCw3_s2:', s2Cw3, \
-      '\nC3_s2:', s2C3, \
-      '\nV3_s2:', s2V3, \
-      '\n-- stage 2 exit flow conditions --', \
-      '\nT03_s2:', s2T03, \
-      '\nP03_s2:', s2P03)
-print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-print('-- stage 2 root --',\
-      '\nCw2r_s2:', s2Cw2r, \
-      '\nC2r_s2:', s2C2r, \
-      '\nV2r_s2:', s2V2r, \
-      '\nphir_s2:', s2phir, \
-      '\npsir_s2:', s2psir, \
-      '\nlamr_s2:', s2lamr, \
-      '\n-- stage 2 tip --',\
-      '\nCw2t_s2:', s2Cw2t, \
-      '\nC2t_s2:', s2C2t, \
-      '\nV2t_s2:', s2V2t, \
-      '\nphit_s2:', s2phit, \
-      '\npsit_s2:', s2psit, \
-      '\nlamt_s2:', s2lamt, \
-      '\n-- radii --',\
-      '\nr_r_s2:', s2rr, \
-      '\nr_t_s2:', s2rt)
-print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-print('final stage mean','\n',
-      '\n-- gas angles --', \
-      '\nb2_s3:', np.degrees(s3b2), \
-      '\nb3_s3:', np.degrees(s3b3), \
-      '\na2_s3:', np.degrees(s3a2), \
-      '\na3_s3:', np.degrees(s3a3), \
-      '\n-- nozzle inlet --', \
-      '\nCw1_s3:', s3Cw1, \
-      '\nC1_s3:', s3C1, \
-      '\n-- rotor inlet --', \
-      '\nCa2_s3:', s3Ca2, \
-      '\nCw2_s3:', s3Cw2, \
-      '\nC2_s3:', s3C2, \
-      '\nV2_s3:', s3V2, \
-      '\n-- stage 3 exit --', \
-      '\nCa3_s3:', s3Ca3, \
-      '\nCw3_s3:', s3Cw3, \
-      '\nC3_s3:', s3C3, \
-      '\nV3_s3:', s3V3, \
-      '\n-- stage 3 exit flow conditions --', \
-      '\nT03_s3:', s3T03, \
-      '\nP03_s3:', s3P03, \
-      '\n-- parameters --', \
-      '\nphi_s3:', s3phi, \
-      '\npsi_s3:', s3psi, \
-      '\nlam_s3:', s3lam)
-print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-print('-- stage 3 root --',\
-      '\nCw2r_s3:', s3Cw2r, \
-      '\nC2r_s3:', s3C2r, \
-      '\nV2r_s3:', s3V2r, \
-      '\nphir_s3:', s3phir, \
-      '\npsir_s3:', s3psir, \
-      '\nlamr_s3:', s3lamr, \
-      '\n-- stage 3 tip --',\
-      '\nCw2t_s3:', s3Cw2t, \
-      '\nC2t_s3:', s3C2t, \
-      '\nV2t_s3:', s3V2t, \
-      '\nphit_s3:', s3phit, \
-      '\npsit_s3:', s3psit, \
-      '\nlamt_s3:', s3lamt, \
-      '\n-- radii --',\
-      '\nr_r_s3:', s3rr, \
-      '\nr_t_s3:', s3rt)
-print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print('Results')
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Stage 1")
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Mean:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s1a2):.1f} deg, b2: {np.rad2deg(s1b2):.1f} deg")
+print(f"a3: {np.rad2deg(s1a3):.1f} deg, b3: {np.rad2deg(s1b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s1C1:.1f} m/s, Ca1: {s1Ca1:.1f} m/s, Cw1: {s1Cw1:.1f} m/s")
+print(f"C2: {s1C2:.1f} m/s, Ca2: {s1Ca2:.1f} m/s, Cw2: {s1Cw2:.1f} m/s")
+print(f"C3: {s1C3:.1f} m/s, Ca3: {s1Ca3:.1f} m/s, Cw3: {s1Cw3:.1f} m/s")
+print("")
+print("Root:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s1a2r):.1f} deg, b2: {np.rad2deg(s1b2r):.1f} deg")
+print(f"a3: {np.rad2deg(s1a3):.1f} deg, b3: {np.rad2deg(s1b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s1C1:.1f} m/s, Ca1: {s1Ca1:.1f} m/s, Cw1: {s1Cw1:.1f} m/s")
+print(f"C2: {s1C2r:.1f} m/s, Ca2: {s1Ca2r:.1f} m/s, Cw2: {s1Cw2r:.1f} m/s")
+print(f"C3: {s1C3:.1f} m/s, Ca3: {s1Ca3:.1f} m/s, Cw3: {s1Cw3:.1f} m/s")
+print("")
+print("Tip:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s1a2t):.1f} deg, b2: {np.rad2deg(s1b2t):.1f} deg")
+print(f"a3: {np.rad2deg(s1a3):.1f} deg, b3: {np.rad2deg(s1b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s1C1:.1f} m/s, Ca1: {s1Ca1:.1f} m/s, Cw1: {s1Cw1:.1f} m/s")
+print(f"C2: {s1C2t:.1f} m/s, Ca2: {s1Ca2t:.1f} m/s, Cw2: {s1Cw2t:.1f} m/s")
+print(f"C3: {s1C3:.1f} m/s, Ca3: {s1Ca3:.1f} m/s, Cw3: {s1Cw3:.1f} m/s")
+print("")
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Stage 2")
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Mean:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s2a2):.1f} deg, b2: {np.rad2deg(s2b2):.1f} deg")
+print(f"a3: {np.rad2deg(s2a3):.1f} deg, b3: {np.rad2deg(s2b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s2C1:.1f} m/s, Ca1: {s2Ca1:.1f} m/s, Cw1: {s2Cw1:.1f} m/s")
+print(f"C2: {s2C2:.1f} m/s, Ca2: {s2Ca2:.1f} m/s, Cw2: {s2Cw2:.1f} m/s")
+print(f"C3: {s2C3:.1f} m/s, Ca3: {s2Ca3:.1f} m/s, Cw3: {s2Cw3:.1f} m/s")
+print("")
+print("Root:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s2a2r):.1f} deg, b2: {np.rad2deg(s2b2r):.1f} deg")
+print(f"a3: {np.rad2deg(s2a3):.1f} deg, b3: {np.rad2deg(s2b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s2C1:.1f} m/s, Ca1: {s2Ca1:.1f} m/s, Cw1: {s2Cw1:.1f} m/s")
+print(f"C2: {s2C2r:.1f} m/s, Ca2: {s2Ca2r:.1f} m/s, Cw2: {s2Cw2r:.1f} m/s")
+print(f"C3: {s2C3:.1f} m/s, Ca3: {s2Ca3:.1f} m/s, Cw3: {s2Cw3:.1f} m/s")
+print("")
+print("Tip:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s2a2t):.1f} deg, b2: {np.rad2deg(s2b2t):.1f} deg")
+print(f"a3: {np.rad2deg(s2a3):.1f} deg, b3: {np.rad2deg(s2b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s2C1:.1f} m/s, Ca1: {s2Ca1:.1f} m/s, Cw1: {s2Cw1:.1f} m/s")
+print(f"C2: {s2C2t:.1f} m/s, Ca2: {s2Ca2t:.1f} m/s, Cw2: {s2Cw2t:.1f} m/s")
+print(f"C3: {s2C3:.1f} m/s, Ca3: {s2Ca3:.1f} m/s, Cw3: {s2Cw3:.1f} m/s")
+print("")
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Stage 3")
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Mean:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s3a2):.1f} deg, b2: {np.rad2deg(s3b2):.1f} deg")
+print(f"a3: {np.rad2deg(s3a3):.1f} deg, b3: {np.rad2deg(s3b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s3C1:.1f} m/s, Ca1: {s3Ca1:.1f} m/s, Cw1: {s3Cw1:.1f} m/s")
+print(f"C2: {s3C2:.1f} m/s, Ca2: {s3Ca2:.1f} m/s, Cw2: {s3Cw2:.1f} m/s")
+print(f"C3: {s3C3:.1f} m/s, Ca3: {s3Ca3:.1f} m/s, Cw3: {s3Cw3:.1f} m/s")
+print("")
+print("Root:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s3a2r):.1f} deg, b2: {np.rad2deg(s3b2r):.1f} deg")
+print(f"a3: {np.rad2deg(s3a3):.1f} deg, b3: {np.rad2deg(s3b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s3C1:.1f} m/s, Ca1: {s3Ca1:.1f} m/s, Cw1: {s3Cw1:.1f} m/s")
+print(f"C2: {s3C2r:.1f} m/s, Ca2: {s3Ca2r:.1f} m/s, Cw2: {s3Cw2r:.1f} m/s")
+print(f"C3: {s3C3:.1f} m/s, Ca3: {s3Ca3:.1f} m/s, Cw3: {s3Cw3:.1f} m/s")
+print("")
+print("Tip:")
+print("")
+print("Gas Angles:")
+print(f"a1: {np.rad2deg(alpha1):.1f} deg")
+print(f"a2: {np.rad2deg(s3a2t):.1f} deg, b2: {np.rad2deg(s3b2t):.1f} deg")
+print(f"a3: {np.rad2deg(s3a3):.1f} deg, b3: {np.rad2deg(s3b3):.1f} deg")
+print("")
+print("Flow Velocities:")
+print(f"C1: {s3C1:.1f} m/s, Ca1: {s3Ca1:.1f} m/s, Cw1: {s3Cw1:.1f} m/s")
+print(f"C2: {s3C2t:.1f} m/s, Ca2: {s3Ca2t:.1f} m/s, Cw2: {s3Cw2t:.1f} m/s")
+print(f"C3: {s3C3:.1f} m/s, Ca3: {s3Ca3:.1f} m/s, Cw3: {s3Cw3:.1f} m/s")
