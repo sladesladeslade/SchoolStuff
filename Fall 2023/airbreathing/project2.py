@@ -11,20 +11,23 @@ from numpy import sin, cos, tan, arcsin as asin, arccos as acos, arctan as atan
 cp = 1148                               # cp of hot air, J/kgK
 y = 1.333                               # specific heat ratio of hot air
 iT01 = 2275.                            # turbine inlet temp, K
-iP01 = 0.                               # turbine inlet pressure, bar
+iP01 = 21.278                           # turbine inlet pressure, bar
 etaInfT = 0.92                          # turbine polytropic eff
 etaM = 0.99                             # mechanical efficiency
-wComp = 0.                              # compressor work, J/kg
-mdotA = 280.                            # air mass flow, kg/s
-mdotF = 0.                              # fuel mass flow, kg/s
-mdotT = mdotA + mdotF                   # total mass flow, kg/s
-pTurb = wComp*mdotA*(1 - etaM)          # power required, W
-wTurb = pTurb/mdotT                     # turbine specific work, J/kg
-n = 0.                                  # rotational speed, rev/s
+wComp = 437774.0                        # compressor work, J/kg
+wFan = 0.                               # fan work, J/kg
+mdotA = 280.                            # fan mass flow, kg/s
+mdotH = 40.                             # core mass flow, kg/s
+mdotF = 1.862                           # fuel mass flow, kg/s
+mdotT = mdotF + mdotH                   # total mass flow, kg/s
+n = 172.32                              # rotational speed, rev/s
 omega = 2*np.pi*n                       # rotational speed, rad/s
 Ca1 = 275.                              # axial speed into turbine, m/s
 alpha1 = np.deg2rad(0.)                 # inlet rel gas angle, rad
 R = 287.                                # r, J/kgK
+
+# calc turb specific work required, J/kg
+wTurb = (mdotA*wFan + mdotH*wComp)/(etaM*mdotT)
 
 
 # calc gas angles from design params
@@ -81,10 +84,7 @@ def meanCalcs(alpha1, Ca1, phi, psi, lam, T01, P01, omega):
 def lastStageCalc(alpha1, Ca1, w, T01, P01, omega, r):
     # solve for inlet speeds
     C1 = Ca1/cos(alpha1)
-    if alpha1 != 0:
-        Cw1 = Ca1/sin(alpha1)
-    else:
-        Cw1 = 0.
+    Cw1 = Ca1*tan(alpha1)
 
     # solve for U
     U = omega*r
@@ -116,7 +116,7 @@ def lastStageCalc(alpha1, Ca1, w, T01, P01, omega, r):
     # check phi, psi, and degree of reaction
     phi = Ca1/U
     psi = (2*cp*dT013)/(U**2)
-    lam = Ca1/(2*U)*(tan(b3) - tan(b2))
+    lam = (Ca1/(2*U))*(tan(b3) - tan(b2))
     
     return C1, Ca1, Cw1, C2, Ca2, Cw2, C3, Ca3, Cw3, V2, V3, b2, a2, b3, a3, T03, P03, phi, psi, lam
 
@@ -130,8 +130,8 @@ def rootTipRadii(mdot, C, P0, T0, rm):
     Ps = P0/((T0/Ts)**(y/(y - 1)))
     
     # find area then height then radii
-    area = (mdot*R*Ts)/(Ps*C)
-    h = area/(2*np.pi*rm)
+    area = (mdot*R*Ts)/((Ps*100000)*C) # m^2
+    h = area/(2*np.pi*rm) # m
     rr = rm - h/2
     rt = rm + h/2
     
@@ -159,7 +159,7 @@ def rootTipCalc(ri, rm, omega, Cwm, Ca, b3):
     # find phi, psi, lambda  
     lam = (Ca/(2*U))*(tan(b3) - tan(b2))
     phi = Ca/U
-    psi = 2*Ca/U*(tan(b2) + tan(b3))
+    psi = ((2*Ca)/U)*(tan(b2) + tan(b3))
     
     return C2, Ca2, Cw2, V2, b2, a2, phi, psi, lam
 
@@ -188,6 +188,9 @@ s2C1, s2Ca1, s2Cw1, s2C2, s2Ca2, s2Cw2, s2C3, s2Ca3, s2Cw3, s2V2, s2V3, s2b2, s2
 
 # -------------------- Stage 3 Mean --------------------
 wleft = wTurb - (s1w + s2w)
+print(wTurb)
+print(s1w, s2w)
+print(wleft)
 rinc = s2rm/s1rm
 s3rm = rinc*s2rm
 s3C1, s3Ca1, s3Cw1, s3C2, s3Ca2, s3Cw2, s3C3, s3Ca3, s3Cw3, s3V2, s3V3, s3b2, s3a2, s3b3, s3a3, s3T03, s3P03, s3phi, \
@@ -211,3 +214,136 @@ s2C2t, s2Ca2t, s2Cw2t, s2V2t, s2b2t, s2a2t, s2phit, s2psit, s2lamt = rootTipCalc
 # stage 3 root and tip
 s3C2r, s3Ca2r, s3Cw2r, s3V2r, s3b2r, s3a2r, s3phir, s3psir, s3lamr = rootTipCalc(s3rr, s3rm, omega, s3Cw2, s3Ca1, s3b3)
 s3C2t, s3Ca2t, s3Cw2t, s3V2t, s3b2t, s3a2t, s3phit, s3psit, s3lamt = rootTipCalc(s3rt, s3rm, omega, s3Cw2, s3Ca1, s3b3)
+
+# -------------------- Print Results --------------------
+# Stage 1
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print('stage 1 mean','\n',\
+      '\n-- gas angles --', \
+      '\nb2_s1:', np.degrees(s1b2), \
+      '\nb3_s1:', np.degrees(s1b3), \
+      '\na2_s1:', np.degrees(s1a2), \
+      '\na3_s1:', np.degrees(s1a3), \
+      '\n-- nozzle inlet --', \
+      '\nCa1_s1:', s1Ca1, \
+      '\nCw1_s1:', s1Cw1, \
+      '\nC1_s1:', s1C1, \
+      '\n-- rotor inlet --', \
+      '\nCa2_s1:', s1Ca2, \
+      '\nCw2_s1:', s1Cw2, 
+      '\nC2_s1:', s1C2, \
+      '\nV2_s1:', s1V2, \
+      '\n-- stage 1 exit --', \
+      '\nCa3_s1:', s1Ca3, \
+      '\nCw3_s1:', s1Cw3, \
+      '\nC3_s1:', s1C3, \
+      '\nV3_s1:', s1V3, \
+      '\n-- stage 1 exit flow conditions --', \
+      '\nT03_s1:', s1T03, \
+      '\nP03_s1:', s1P03)
+print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print('--stage 1 root--', \
+      '\nCw2r_s1:', s1Cw2r, \
+      '\nC2r_s1:', s1C2r, \
+      '\nV2r_s1:', s1V2r, \
+      '\nphir_s1:', s1phir, \
+      '\npsir_s1:', s1psir, \
+      '\nlamr_s1:', s1lamr, \
+      '\n-- stage 1 tip--', \
+      '\nCw2t_s1:', s1Cw2t, \
+      '\nC2t_s1:', s1C2t, \
+      '\nV2t_s1:', s1V2t, \
+      '\nphit_s1:', s1phit, \
+      '\npsit_s1:', s1psit, \
+      '\nlamt_s1:', s1lamt, \
+      '\n-- radii --', \
+      '\nr_r_s1:', s1rr, \
+      '\nr_t_s1:', s1rt)
+print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print('stage 2 mean','\n',
+      '\n-- gas angles --', \
+      '\nb2_s2:', np.degrees(s2b2), \
+      '\nb3_s2:', np.degrees(s2b3), \
+      '\na2_s2:', np.degrees(s2a2), \
+      '\na3_s2:', np.degrees(s2a3), \
+      '\n-- nozzle inlet --', \
+      '\nCa2_s2:', s2Ca1, \
+      '\nCw1_s2:', s2Cw1, \
+      '\nC1_s2:', s2C1, \
+      '\n-- rotor inlet --', \
+      '\nCa2_s2:', s2Ca2, \
+      '\nCw2_s2:', s2Cw2, \
+      '\nC2_s2:', s2C2, \
+      '\nV2_s2:', s2V2, \
+      '\n-- stage 2 exit --', \
+      '\nCa3_s2:', s2Ca3, \
+      '\nCw3_s2:', s2Cw3, \
+      '\nC3_s2:', s2C3, \
+      '\nV3_s2:', s2V3, \
+      '\n-- stage 2 exit flow conditions --', \
+      '\nT03_s2:', s2T03, \
+      '\nP03_s2:', s2P03)
+print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print('-- stage 2 root --',\
+      '\nCw2r_s2:', s2Cw2r, \
+      '\nC2r_s2:', s2C2r, \
+      '\nV2r_s2:', s2V2r, \
+      '\nphir_s2:', s2phir, \
+      '\npsir_s2:', s2psir, \
+      '\nlamr_s2:', s2lamr, \
+      '\n-- stage 2 tip --',\
+      '\nCw2t_s2:', s2Cw2t, \
+      '\nC2t_s2:', s2C2t, \
+      '\nV2t_s2:', s2V2t, \
+      '\nphit_s2:', s2phit, \
+      '\npsit_s2:', s2psit, \
+      '\nlamt_s2:', s2lamt, \
+      '\n-- radii --',\
+      '\nr_r_s2:', s2rr, \
+      '\nr_t_s2:', s2rt)
+print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print('final stage mean','\n',
+      '\n-- gas angles --', \
+      '\nb2_s3:', np.degrees(s3b2), \
+      '\nb3_s3:', np.degrees(s3b3), \
+      '\na2_s3:', np.degrees(s3a2), \
+      '\na3_s3:', np.degrees(s3a3), \
+      '\n-- nozzle inlet --', \
+      '\nCw1_s3:', s3Cw1, \
+      '\nC1_s3:', s3C1, \
+      '\n-- rotor inlet --', \
+      '\nCa2_s3:', s3Ca2, \
+      '\nCw2_s3:', s3Cw2, \
+      '\nC2_s3:', s3C2, \
+      '\nV2_s3:', s3V2, \
+      '\n-- stage 3 exit --', \
+      '\nCa3_s3:', s3Ca3, \
+      '\nCw3_s3:', s3Cw3, \
+      '\nC3_s3:', s3C3, \
+      '\nV3_s3:', s3V3, \
+      '\n-- stage 3 exit flow conditions --', \
+      '\nT03_s3:', s3T03, \
+      '\nP03_s3:', s3P03, \
+      '\n-- parameters --', \
+      '\nphi_s3:', s3phi, \
+      '\npsi_s3:', s3psi, \
+      '\nlam_s3:', s3lam)
+print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print('-- stage 3 root --',\
+      '\nCw2r_s3:', s3Cw2r, \
+      '\nC2r_s3:', s3C2r, \
+      '\nV2r_s3:', s3V2r, \
+      '\nphir_s3:', s3phir, \
+      '\npsir_s3:', s3psir, \
+      '\nlamr_s3:', s3lamr, \
+      '\n-- stage 3 tip --',\
+      '\nCw2t_s3:', s3Cw2t, \
+      '\nC2t_s3:', s3C2t, \
+      '\nV2t_s3:', s3V2t, \
+      '\nphit_s3:', s3phit, \
+      '\npsit_s3:', s3psit, \
+      '\nlamt_s3:', s3lamt, \
+      '\n-- radii --',\
+      '\nr_r_s3:', s3rr, \
+      '\nr_t_s3:', s3rt)
+print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
