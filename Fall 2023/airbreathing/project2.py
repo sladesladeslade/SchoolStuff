@@ -15,7 +15,7 @@ iP01 = 21.278                           # turbine inlet pressure, bar
 etaInfT = 0.92                          # turbine polytropic eff
 etaM = 0.99                             # mechanical efficiency
 wComp = 437774.0                        # compressor work, J/kg
-wFan = 0.                               # fan work, J/kg
+wFan = 18200.6                          # fan work, J/kg
 mdotA = 280.                            # fan mass flow, kg/s
 mdotH = 40.                             # core mass flow, kg/s
 mdotF = 1.862                           # fuel mass flow, kg/s
@@ -215,8 +215,22 @@ s2C2t, s2Ca2t, s2Cw2t, s2V2t, s2b2t, s2a2t, s2phit, s2psit, s2lamt = rootTipCalc
 s3C2r, s3Ca2r, s3Cw2r, s3V2r, s3b2r, s3a2r, s3phir, s3psir, s3lamr = rootTipCalc(s3rr, s3rm, omega, s3Cw2, s3Ca1, s3b3)
 s3C2t, s3Ca2t, s3Cw2t, s3V2t, s3b2t, s3a2t, s3phit, s3psit, s3lamt = rootTipCalc(s3rt, s3rm, omega, s3Cw2, s3Ca1, s3b3)
 
+# design lims check
+phis = [s1phir, s1phit, s2phir, s2phit, s3phir, s3phit, s3phi]
+phiss = ["s1phir", "s1phit", "s2phir", "s2phit", "s3phir", "s3phit", "s3phi"]
+psis = [s1psir, s1psit, s2psir, s2psit, s3psir, s3psit, s3psi]
+psiss = ["s1psir", "s1psit", "s2psir", "s2psit", "s3psir", "s3psit", "s3psi"]
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+print("Design Params Check")
+for k in range(len(phis)):
+    if phis[k] < 0.78:
+        print(f"{phiss[k]} = {phis[k]:.3f} (<0.78)")
+    if psis[k] > 3.3:
+        print(f"{psiss[k]} = {psis[k]:.2f} (>3.3)")
+print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+
+
 # -------------------- Print Results --------------------
-# Stage 1
 print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 print('stage 1 mean','\n',\
       '\n-- gas angles --', \
