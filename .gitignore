@@ -20,3 +20,6 @@
 /Fall 2023/fmc/controls/lib/ass5/__pycache__/
 /Fall 2023/fmc/stls/
 !/Fall 2023/fmc/stls/*.stl
+*.synctex.gz
+*.log
+*.aux

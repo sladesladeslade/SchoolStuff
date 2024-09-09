@@ -1,0 +1,122 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#1}
+\date{09.10.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+The thin-walled cross section shown in Fig.~1 has uniform wall thickness t=1.7 mm. It consists of three of circular arcs
+of radii R, R/2 and 2R, and a straight segment of length R-the length R being 200~mm. The dimensions shown in Fig.~1 can
+be assumed to correspond to the centerline of the cross section.
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw1fig1.png}
+\end{figure} \par
+
+\subsection*{a)}
+Find the coordinates of the centroid relative to the frame (u, v) with origin coincident with the center of the arc of
+radius R.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{figs/hw1fig2.png}
+\end{figure} \\ \\
+First define the different s directions to analyze and their limits. The limits for $s_2$, $s_3$, and $s_4$ can be
+determined by the circumference of the circle each one is a part of, then dividing by the amount of circle there is.
+\begin{align*}
+    C = \pi D \\
+    s_2: \quad C = 4\pi R \rightarrow s_{2_{lim}}=\pi R \\
+    s_3: \quad C = \pi R \rightarrow s_{3_{lim}}=\frac{\pi R}{2} \\
+    s_4: \quad C = 2\pi R \rightarrow s_{4_{lim}}=\frac{3\pi R}{2}
+\end{align*} \\
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    s & u(s) & v(s) & bounds \\ \hline
+    $s_1$ & 0 & $R+s_1$ & $0 \rightarrow R$ \\
+    $s_2$ & $-2R\sin{\frac{s_2}{2R}}$ & $2R\cos{\frac{s_2}{2R}}$ & $0 \rightarrow \pi R$ \\
+    $s_3$ & $-\frac{3R}{2} - \frac{R}{2}\cos{\frac{2s_3}{R}}$ & $\frac{R}{2}\sin{\frac{2s_3}{R}}$ & $0 \rightarrow
+    \frac{\pi R}{2}$
+    \\
+    $s_4$ & $-R\cos{\frac{s_4}{R}}$ & $-R\sin{\frac{s_4}{R}}$ & $0 \rightarrow \frac{3\pi R}{2}$ \\
+    \hline
+\end{tabular} \\ \\
+Create the integrals to solve for the coordinates of the centroid with respect to u and v. Simplify, solve, and plug in
+the known values to determine the coordinates of the centroid.
+\begin{align*}
+    u_c=\frac{\int_{l}{u(s)t(s) ds}}{\int_{l}{t(s) ds}}=
+    \frac{\int_{s_1}{0} + \int_{s_2}{-2R\sin{\frac{s}{2R}}tds} + \int_{s_3}{(-\frac{3R}{2}-\frac{R}{2}\cos{\frac{2s}{R}})tds}
+    + \int_{s_4}{(-R\cos{\frac{s}{R}})tds}}{\int_{s_1}{tds} + \int_{s_2}{tds} + \int_{s_3}{tds} + \int_{s_4}{tds}} \\
+    =\frac{-2Rt\int_{0}^{\pi R}{\sin{\frac{s}{2R}ds}} + t\int_{0}^{\frac{\pi R}{2}}{(-\frac{3R}{2}-\frac{R}{2}\cos{\frac{2s}{R}})ds}
+    -Rt\int_{0}^{\frac{3\pi R}{2}}{\cos{\frac{s}{R}}ds}}{t\int_{0}^{R}{ds} + t\int_{0}^{\pi R}{ds} + t\int_{0}^{\frac{\pi R}{2}}{ds}
+    + t\int_{0}^{\frac{3\pi R}{2}}{ds}} \\
+    = \frac{-4R^2t-\frac{3\pi R^2t}{4}+R^2t}{tR + \pi Rt + \frac{\pi Rt}{2} + \frac{3\pi Rt}{2}} = -\frac{3(\pi+4)R}{4(3\pi+1)}
+    = -102.759 \textrm{mm}
+\end{align*}
+\begin{align*}
+    v_c=\frac{\int_{l}{v(s)t(s) ds}}{\int_{l}{t(s) ds}} =
+    \frac{\int_{s_1}{(R+s)tds} + \int_{s_2}{2R\cos{\frac{s}{2R}}tds} + \int_{s_3}{\frac{R}{2}\sin{\frac{2s}{R}}tds} +
+    \int_{s_4}{-R\sin{\frac{s}{R}}tds}}{\int_{s_1}{tds} + \int_{s_2}{tds} + \int_{s_3}{tds} + \int_{s_4}{tds}} \\
+    =\frac{t\int_{0}^{R}{(R+s)ds} + 2Rt\int_{0}^{\pi R}{\cos{\frac{s}{2R}}ds} + \frac{Rt}{2}\int_{0}^{\frac{\pi R}{2}}
+    {\sin{\frac{2s}{R}}ds} - Rt\int_{0}^{\frac{3\pi R}{2}}{\sin{\frac{s}{R}}ds}}{t\int_{0}^{R}{ds} + t\int_{0}^{\pi R}{ds}
+    + t\int_{0}^{\frac{\pi R}{2}}{ds} + t\int_{0}^{\frac{3\pi R}{2}}{ds}} \\
+    =\frac{\frac{3tR^2}{2} + 4R^2t + \frac{R^2t}{2} - R^2t}{tR + \pi Rt + \frac{\pi Rt}{2} + \frac{3\pi Rt}{2}}
+    = \frac{5R}{1+3\pi} = 95.925\textrm{mm}
+\end{align*} \\ \\
+\begin{center} $\fbox{$u_c$, $v_c$ = (-102.759, 95.925) mm}$ \end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{figs/hw1fig3.png}
+\end{figure}
+
+\subsection*{b)}
+Determine the three second moment of area relative to a reference frame with axes parallel to the frame (u,v) and with
+origin coincident with the centroid. \\ \\
+We first define the reference frame $(\eta, \zeta)$ through the centroid determined in part a and parallel to u and v.
+Then, we will set up the integrals to determine the 3 second moments of area relative to u and v, using the s, u(s), and
+v(s) defined in part a. We solve the integral, simplify, then plug in and solve.
+\begin{align*}
+    I_{uu}=\int_{l}{v(s)^2tds}=\int_{s_1}{(R+s)^2tds} + \int_{s_2}{(2R\cos{\frac{s}{2R}})^2tds}
+    + \int_{s_3}{(\frac{R}{2}\sin{\frac{2s}{R}})^2tds} + \int_{s_4}{(-R\sin{\frac{s}{R}})^2tds} \\
+    =t\int_{0}^{R}{(R+s)^2ds} + t\int_{0}^{\pi R}{(2R\cos{\frac{s}{2R}})^2ds}
+    + t\int_{0}^{\frac{\pi R}{2}}{(\frac{R}{2}\sin{\frac{2s}{R}})^2ds} + t\int_{0}^{\frac{3\pi R}{2}}{(-R\sin{\frac{s}{R}})^2ds}
+    \\ = \frac{7R^3t}{3} + 2\pi R^3t + \frac{\pi R^3t}{16} + \frac{3\pi R^3t}{4} = \frac{112R^3t + 135\pi R^3t}{48}
+    = 151899252.3 \textrm{mm}^4
+\end{align*}
+\begin{align*}
+    I_{vv}=\int_{l}{u(s)^2tds}=\int_{s_1}{(0)^2tds} + \int_{s_2}{(-2R\sin{\frac{s}{2R}})^2tds}
+    + \int_{s_3}{(-\frac{3R}{2}-\frac{R}{2}\cos{\frac{2s}{R}})^2tds} + \int_{s_4}{(-R\cos{\frac{s}{R}})^2tds} \\
+    = t\int_{0}^{\pi R}{(-2R\sin{\frac{s}{2R}})^2ds} + t\int_{0}^{\frac{\pi R}{2}}{(-\frac{3R}{2}-\frac{R}{2}\cos{\frac{2s}{R}})^2ds}
+    + t\int_{0}^{\frac{3\pi R}{2}}{(-R\cos{\frac{s}{R}})^2ds} \\
+    = 2\pi R^3t + \frac{19\pi R^3t}{16} + \frac{3\pi R^3t}{4} = \frac{63\pi R^3t}{16} = 168232286.6 \textrm{mm}^4
+\end{align*}
+\begin{align*}
+    I_{uv}=\int_{l}{u(s)v(s)tds}=\int_{s_1}{(0)(R+s)tds} + \int_{s_2}{(2R\cos{\frac{s}{2R}})(-2R\sin{\frac{s}{2R}})tds} \\
+    + \int_{s_3}{(\frac{R}{2}\sin{\frac{2s}{R}})(-\frac{3R}{2}-\frac{R}{2}\cos{\frac{2s}{R}})tds}
+    + \int_{s_4}{(-R\sin{\frac{s}{R}})(-R\cos{\frac{s}{R}})tds} \\
+    = -4R^3t - \frac{3R^3t}{4} + \frac{R^3t}{2} = -\frac{17R^3t}{4} = -57800000 \textrm{mm}^4
+\end{align*} \\ \\
+Then, we will use transport theorem to determine the moments of area about the desired axes. The minimum distance will
+be the coordinates of the centroid. We will determine the total cross sectional area of the shape by multiplying the
+total length, the sum of all the s ranges, by the thickness.
+\begin{align*}
+    A = t(s_1+s_2+s_3+s_4)=t(R+\pi R+\frac{\pi R}{2}+\frac{3\pi R}{2}) = 3544.425 \textrm{mm}^2
+\end{align*} \\ \\ 
+Then we can solve for the moment of area using the transport theorem.
+\begin{align*}
+    I_{x'} = I_x + Ah^2 \rightarrow \textrm{solve for $I_x$ because we have $I_{x'}$, the one not through the centroid}\\
+    I_\eta = I_u - Ah^2 = 151899252.3 - 3544.425(95.925)^2 = \fbox{$I_\eta = 119284851.3 \textrm{mm}^4$} \\
+    I_\zeta = I_z - Ah^2 = 168232286.6 - 3544.425(-102.759)^2 = \fbox{$I_\zeta = 130805242.4 \textrm{mm}^4$} \\
+    I_{\eta \zeta} = I_{uv} - Auv = -57800000 - 3544.425(95.925)(-102.759) = \fbox{$I_{\eta \zeta} = -22862046.03 \textrm{mm}^4$}
+\end{align*}
+
+\end{document}
