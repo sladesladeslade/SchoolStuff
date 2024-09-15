@@ -1,0 +1,192 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5063 HW\#2}
+\date{09.16.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{1.5}
+\begin{align*}
+    P=\sin{3t}\hat{i} + \cos{t}\hat{j} + \sin{2t}\hat{k}
+\end{align*}
+\subsection*{(a)}
+\begin{align*}
+    \vec{V}=\dot{P}=3\cos{3t}\hat{i} - \sin{t}\hat{j} + 2\cos{2t}\hat{k}=\fbox{$-2.733\hat{i} - 0.141\hat{j} + 1.920\hat{k}$ m/s}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    v=||\vec{V}||=\sqrt{(-2.733)^2 + (-0.141)^2 + (1.920)^2}=\fbox{$3.343$ m/s}
+\end{align*}
+
+\subsection*{(c)}
+\begin{align*}
+    \hat{u}_t=\frac{\vec{V}}{v}=\frac{-2.733\hat{i} - 0.141\hat{j} + 1.920\hat{k}}{3.343}=\fbox{$-0.818\hat{i} - 0.042\hat{j} 
+    + 0.574\hat{k}$}
+\end{align*}
+
+\subsection*{(d)}
+\begin{align*}
+    \vec{x}=1\hat{i} + 0\hat{j} + 0\hat{k} \\
+    \vec{y}=0\hat{i} + 1\hat{j} + 0\hat{k} \\
+    \vec{z}=0\hat{i} + 0\hat{j} + 1\hat{k} \\
+\end{align*}
+\begin{align*}
+    \hat{u}_t \cdot \vec{x} = 1(-0.818)\hat{i} + 0\hat{j} + 0\hat{k} = -0.818 = xu_t\cos{\theta} \rightarrow \theta_x=\cos^{-1}(-0.818) \\
+    \theta_y=\cos^{-1}(-0.042) \\
+    \theta_z=\cos^{-1}(0.574) \\
+    \fbox{$\theta_x=144.885^\circ$} \\
+    \fbox{$\theta_y=92.407^\circ$} \\
+    \fbox{$\theta_z=54.970^\circ$}
+\end{align*}
+
+\subsection*{(e)}
+\begin{align*}
+    \vec{a}=\dot{\vec{V}}=-9\sin{3t}\hat{i} - \cos{t}\hat{j} -4\sin{2t}=\fbox{$-3.709\hat{i} + 1.000\hat{j} + 1.118\hat{k}$ m/s$^2$}
+\end{align*}
+
+\subsection*{(f)}
+\begin{align*}
+    \hat{u}_b=\frac{\vec{V}\times \vec{a}}{||\vec{V}\times \vec{a}||}
+\end{align*}
+\begin{align*}
+    \vec{V}\times \vec{a} = \begin{bmatrix}
+        \hat{i} & \hat{j} & \hat{k} \\
+        -2.733 & -0.141 & 1.920 \\
+        -3.709 & 1.000 & 1.118
+    \end{bmatrix} = ((-0.141)(1.118) - (1.920)(1.000))\hat{i} \\+ ((-2.733)(1.118) - (1.920)(-3.709))\hat{j} +
+    ((-2.733)(1.000) - (-0.141)(-3.709))\hat{k} \\
+    = -2.078\hat{i} - 4.066\hat{j} -3.256\hat{k} \\
+    ||\vec{V}\times \vec{a}|| = \sqrt{(-2.078)^2 + (-4.066)^2 + (-3.256)^2} = 5.608 \\
+    \fbox{$\hat{u_b}=-0.371\hat{i} - 0.725\hat{j} - 0.581\hat{k}$}
+\end{align*}
+
+\subsection*{(g)}
+\begin{align*}
+    \hat{u_b}=\hat{u_t}\times \hat{u_n} \rightarrow \hat{u_n}=\hat{u_b}\times \hat{u_t}
+\end{align*}
+\begin{align*}
+    \hat{u_n} = \begin{bmatrix}
+        \hat{i} & \hat{j} & \hat{k} \\
+        -0.371 & -0.725 & -0.581 \\
+        -0.818 & -0.042 & 0.574
+    \end{bmatrix} = ((-0.725)(0.574)-(-0.581)(-0.042))\hat{i} \\+ ((-0.371)(0.574)-(-0.581)(-0.818))\hat{j}
+    + ((-0.371)(-0.042)-(-0.725)(-0.818))\hat{k} \\ = \fbox{$-0.441\hat{i} + 0.688\hat{j} -0.577\hat{k}$}
+\end{align*}
+
+\subsection*{(h)}
+\begin{align*}
+    ||\vec{a}||=\sqrt{(-3.709)^2 + (1)^2 + (1.118)^2}=4.001 \\
+    \vec{a}\times \vec{x}=1(-3.709)\hat{i} + 0\hat{j} + 0\hat{k}=-3.709=x||\vec{a}||\cos{\phi} \rightarrow
+    \phi_x=\cos^{-1}(\frac{-3.709}{4.001}) \\
+    \phi_y=\cos^{-1}(\frac{1}{4.001}) \\
+    \phi_z=\cos^{-1}(\frac{1.118}{4.001}) \\
+    \fbox{$\phi_x=157.975^\circ$} \\
+    \fbox{$\phi_y=75.526^\circ$} \\
+    \fbox{$\phi_z=73.774^\circ$}
+\end{align*}
+
+\subsection*{(i)}
+\begin{align*}
+    a_t=\vec{a}\cdot \hat{u_t}=(-3.709*-0.818) + (1.000*-0.042) + (1.118*0.574) = \fbox{$3.634$ m/s$^2$}
+\end{align*}
+
+\subsection*{(j)}
+\begin{align*}
+    a_n=\vec{a}\cdot \hat{u_n}=(-3.709*-0.441) + (1.000*0.688) + (1.118*-0.577) = \fbox{$1.679$ m/s$^2$}
+\end{align*}
+
+\subsection*{(k)}
+\begin{align*}
+    \rho=\frac{v^2}{a_n}=\frac{3.343^2}{1.679}=\fbox{$6.656$ m}
+\end{align*}
+
+\subsection*{(l)}
+\begin{align*}
+    P_C=P+\rho \hat{u_n}=(\sin{9}\hat{i} + \cos{3}\hat{j} + \sin{6}\hat{k}) + 6.656(-0.441\hat{i} + 0.688\hat{j} -0.577\hat{k}) \\
+    =\fbox{$-2.523\hat{i} + 3.589\hat{j} - 4.120\hat{k}$ m}
+\end{align*}
+
+\pagebreak
+\section*{1.7}
+\begin{align*}
+    W=G\frac{m_e m}{r_e^2} \\
+    F_{moon}=G\frac{m_e m}{r_{moon}^2} \\
+    Gm_e m=Wr_e^2 \rightarrow F_{moon}=\frac{Wr_e^2}{r_{moon}^2}=W\left( \frac{r_e}{r_{moon}}\right) ^2 \\
+    r_e=6378\textrm{km}; \quad r_{moon}=384400\textrm{km} \\
+    \fbox{$F=2.753*10^{-4}W$}
+\end{align*}
+
+\section*{1.9}
+\begin{align*}
+    F=ma \rightarrow F_n=ma_n \\
+    a_n=\frac{v^2}{r} \rightarrow v=\sqrt{ra_n} \\
+    F_n=G\frac{Mm}{r^2}=ma_n \rightarrow a_n=\frac{GM}{r^2} \\
+    \fbox{$v=\sqrt{\frac{GM}{r}}$}
+\end{align*}
+
+\pagebreak
+\section*{1.12}
+\begin{align*}
+    \vec{V_P}=\vec{V_O}+\Omega \times r_{rel} + \vec{V_{rel}}
+\end{align*}
+\begin{align*}
+    r_{rel}=r-r_O=(51+16)\hat{I} +(-45-84)\hat{J} + (36-59)\hat{K} = 67\hat{I} -129\hat{J}-23\hat{K}
+\end{align*}
+\begin{align*}
+    \vec{V_{rel}}=31\hat{i} -68\hat{j}-77\hat{k}=31(-0.15617\hat{I}-0.31235\hat{J}+0.93704\hat{K})-68(-0.12940\hat{I}+0.94698\hat{J}\\
+    +0.29409\hat{K})-77(-0.97922\hat{I}-0.075324\hat{J}-0.18831\hat{K})=79.358\hat{I}-68.277\hat{J}+23.550\hat{K} \\
+    \vec{V_P}=7\hat{I}+9\hat{J}+4\hat{K} + \begin{bmatrix}
+        \hat{I} & \hat{J} & \hat{K} \\
+        -0.8 & 0.7 & 0.4 \\
+        67 & -129 & -23
+    \end{bmatrix} + 79.358\hat{I}-68.277\hat{J}+23.550\hat{K} \\
+    = 7\hat{I}+9\hat{J}+4\hat{K} +35.5\hat{I}+8.4\hat{J}+56.3\hat{K} + 79.358\hat{I}-68.277\hat{J}+23.550\hat{K} \\
+    = 121.858\hat{I} -50.877\hat{J} +83.850\hat{K} \\
+    ||\vec{V_{P}}||=\sqrt{(121.858)^2+(-50.877)^2+(83.850)^2}=151.483 \\
+    \fbox{$V_P=156.42 \textrm{m/s$^2$}; \quad \hat{u_V}=0.779\hat{I}-0.325\hat{J}+0.536\hat{K}$}
+\end{align*}
+\begin{align*}
+    \vec{a_P}=\vec{a_O}+\dot{\Omega} \times r_{rel} + \Omega \times (\Omega \times r_{rel}) + 2\Omega \times \vec{V_{rel}} +a_{rel}
+\end{align*}
+\begin{align*}
+    \dot{\Omega}\times r_{rel}=\begin{bmatrix}
+        \hat{I} & \hat{J} & \hat{K} \\
+        -0.4 & 0.9 & -1.0 \\
+        67 & -129 & -23
+    \end{bmatrix} = -149.7\hat{I} -76.2\hat{J}-8.7\hat{K} \\
+    \Omega \times (\Omega \times r_{rel})=\begin{bmatrix}
+        \hat{I} & \hat{J} & \hat{K} \\
+        -0.8 & 0.7 & 0.4 \\
+        35.5 & 8.4 & 56.3
+    \end{bmatrix} = 36.05\hat{I} + 59.24\hat{J} -31.57\hat{K} \\
+    2\Omega \times \vec{V_{rel}} = 2\begin{bmatrix}
+        \hat{I} & \hat{J} & \hat{K} \\
+        -0.8 & 0.7 & 0.4 \\
+        79.358 & -68.277 & 23.550
+    \end{bmatrix} = 87.592\hat{I} + 101.166\hat{J} -1.858\hat{K}
+\end{align*}
+\begin{align*}
+    a_{rel}=2\hat{i}-6\hat{j}+5\hat{k}=2(-0.15617\hat{I}-0.31235\hat{J}+0.93704\hat{K})-6(-0.12940\hat{I}+0.94698\hat{J}\\
+    +0.29409\hat{K})+5(-0.97922\hat{I}-0.075324\hat{J}-0.18831\hat{K})=-4.432\hat{I}-6.683\hat{J}-0.832\hat{K}
+\end{align*}
+\begin{align*}
+    \vec{a_P}=3\hat{I}-7\hat{J}+4\hat{K}-149.7\hat{I}-76.2\hat{J}-8.7\hat{K}+36.05\hat{I}+59.24\hat{J}-31.57\hat{K} +87.592\hat{I}
+    \\ +101.166\hat{J}-1.858\hat{K}-4.432\hat{I}-6.683\hat{J}-0.832\hat{K} = -27.49\hat{I}+70.523\hat{J}-38.96\hat{K} \\
+    ||\vec{a_P}||=\sqrt{(-27.49)^2+(70.523)^2+(-38.96)^2}=85.130 \\
+    \fbox{$a_P=85.130\textrm{m/s$^2$}; \quad \hat{u_a}=-0.323\hat{I}+0.828\hat{J}-0.458\hat{K}$}
+\end{align*}
+\vspace{5.5in}
+\section*{1.23}
+
+\end{document}
