@@ -1,0 +1,117 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#2}
+\date{09.17.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+A cantilevered beam of length L = 1.5 m is simply supported at its end as shown in Fig. 1. The
+beam has the same cross section as in HW\#1 and is subject to a uniformly distributed load p = 40
+kN/m applied at node \#3.
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/hw2fig1.png}
+\end{figure} \par
+
+\pagebreak
+\subsection*{a)}
+Determine the maximum compressive and tensile stresses and indicated on the cross
+section the points where they occur. \\ \\
+The largest stress will occur at the free end farthest from the wall support ($x=L$).
+\begin{align*}
+    P(x) = 40 \rightarrow V(x)=\int{P(x)}=40x \rightarrow M(x)=\int{V(x)} = 40\frac{x^2}{2}=\frac{40L^2}{2}
+    = 45 \textrm{kNm}
+\end{align*}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw2fig3.png}
+\end{figure} \par
+From HW\#1:
+\begin{align*}
+    I_{\eta} = 119284851.3\textrm{mm}^4 \\
+    I_{\zeta}=130805242.4\textrm{mm}^4\\
+    I_{\eta \zeta}=-22862046.03\textrm{mm}^4
+\end{align*} \\ \\
+\begin{align*}
+    \tan{\beta}=\frac{M_{\eta}I_{\eta \zeta}-M_{\zeta}I_{\eta}}{M_{\zeta}I_{\eta \zeta}-M_{\eta}I_{\zeta}} \\
+    M_{\eta}=45000\textrm{kNmm};\quad M_{\zeta}=0 \\
+    \tan{\beta}=\frac{45000(-22862046.03)}{-45000(130805242.4)} \rightarrow \beta=9.9^{\circ}
+\end{align*}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{figs/hw2fig4.png}
+\end{figure} \par
+\begin{align*}
+    \eta_1 = 102.759;\quad \zeta_1=400-95.925=304.075 \\
+    \eta_2 = 102.759-R\sin{\beta}=68.37;\quad \zeta_2=-95.925-R\cos{\beta}=-292.95 \\
+    \eta_1 = 102.759\textrm{mm};\quad \zeta_1=304.075\textrm{mm} \\
+    \eta_2 = 68.37\textrm{mm};\quad \zeta_2=-292.95\textrm{mm}
+\end{align*} \\ \\
+Finally, we can calculate the stress at each of the maximum stress locations.
+\begin{align*}
+    \sigma_{xx}=-\frac{M_{\eta}(I_{\zeta}\zeta-I_{\eta \zeta}\eta)}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2}
+    -\frac{M_{\zeta}(I_{\eta}\eta - I_{\eta \zeta}\zeta)}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2}
+\end{align*} \\ \\
+For each point, plug in the values and solve for $\sigma_{xx}$:
+\begin{align*}
+    \sigma_{x1}=-0.1216 \textrm{kN/mm}^2 \\
+    \sigma_{x2}=0.1061 \textrm{kN/mm}^2 \\
+    \fbox{$\sigma_{x1}=-121.6 \textrm{MPa (compression)}$} \\
+    \fbox{$\sigma_{x2}=106.1 \textrm{MPa (tension)}$}
+\end{align*}
+
+\pagebreak
+\subsection*{b)}
+Determine the principal axes of the cross section, their corresponding second moments of
+area, and sketch them on the cross section. Find the angle that one of the axis (either y or
+z) form with one of the $\eta$, $\zeta$ axes. \\ \\
+From HW\#1:
+\begin{align*}
+    I_{\eta} = 119284851.3\textrm{mm}^4 \\
+    I_{\zeta}=130805242.4\textrm{mm}^4\\
+    I_{\eta \zeta}=-22862046.03\textrm{mm}^4
+\end{align*} \\ \\
+Create matrix for principal axes:
+\begin{align*}
+    \begin{bmatrix}
+        I_{\eta} & -I_{\eta \zeta} \\
+        -I_{\eta \zeta} & I_{\zeta}
+    \end{bmatrix} = \begin{bmatrix}
+        119284851.3 & 22862046.03 \\
+        22862046.03 & 130805242.4
+    \end{bmatrix}
+\end{align*} \\ \\
+Determine the eigenvalues and eigenvectors via Matlab. The eigenvectors are the unit vectors in the direction of the
+principal axes, and the eigenvalues are the moments of inertia for each axis.
+\begin{align*}
+    \begin{bmatrix}
+        1.0147 \\
+        1.4862
+    \end{bmatrix}*10^8; \quad \begin{bmatrix}
+        -0.7888 & 0.6147 \\
+        0.6147 & 0.7888
+    \end{bmatrix} \\ \\
+    \fbox{$I_z = 101470000\textrm{mm}^4; \quad \vec{u_z}=-0.7888\hat{i}+0.6147\hat{j}$} \\
+    \fbox{$I_y = 148620000\textrm{mm}^4; \quad \vec{u_y}=0.6147\hat{i}+0.7888\hat{j}$}
+\end{align*} \\ \\
+Determine the angle between the y axis and the $\eta$ axis:
+\begin{align*}
+    \theta = \tan^{-1}\left(\frac{0.7888}{0.6147}\right)=52.07^{\circ}
+\end{align*} \\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figs/hw2fig2.png}
+\end{figure} \par
+
+\end{document}
