@@ -1,0 +1,63 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5063 HW\#3}
+\date{09.23.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{2.12}
+\begin{align*}
+    \vec{V}=-4\hat{i}+3\hat{j}-5\hat{k} \\
+    \hat{u_r}=0.26726\hat{i}+0.53452\hat{j}+0.80178\hat{k}
+\end{align*}
+\subsection*{(a)}
+\begin{align*}
+    v_r=\vec{V} \cdot \hat{u_r} = -4*0.26726 +3*0.53452-5*0.80178 \\
+    \fbox{$v_r=-3.474 \textrm{km/s}$}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    v = \sqrt{v_r^2+v_{\perp}^2} \rightarrow v_{\perp}=\sqrt{v^2-v_r^2} \\
+    v = \sqrt{(-4)^2+3^2+(-5)^2}=50 \\
+    v_{\perp}=\sqrt{50^2-(-3.474)^2} = \fbox{$6.159$ km/s}
+\end{align*}
+
+\subsection*{(c)}
+\begin{align*}
+    \tan{\gamma}=\frac{v_r}{v_{\perp}}=\frac{-3.474}{6.159} \\
+    \fbox{$\gamma=-29.43^{\circ}$}
+\end{align*}
+
+\section*{2.14}
+\begin{align*}
+    \vec{V}=2\hat{i}+3\hat{j}+4\hat{k} \\
+    v=\sqrt{2^2+3^2+4^2}=5.3852 \\
+    u_V=\frac{\vec{V}}{v}=0.37139\hat{i}+0.55709\hat{j}+0.74278\hat{k} \\
+    \epsilon = \frac{v^2}{2}-\frac{\mu}{r}=\frac{5.3852^2}{2}-\frac{398600}{10000}=-25.36 \\
+    -25.36=\frac{0^2}{2}-\frac{398600}{r} \rightarrow r=15718 \\
+    \vec{r}=ru_V=15718(0.37139\hat{i}+0.55709\hat{j}+0.74278\hat{k}) \\
+    \fbox{$\vec{r}=5837.4\hat{i}+8756.1\hat{j}+11675\hat{k}$ km}
+\end{align*}
+
+\section*{2.16}
+\begin{align*}
+    \mu=42828\textrm{km$^3$/s$^2$};\quad R=3396\textrm{km} \\
+    v=\frac{\mu}{r}=\frac{42828}{3396}=\fbox{$3.4511$ km/s} \\
+    T=\frac{2\pi}{\sqrt{\mu}}r^{3/2}=\frac{2\pi}{\sqrt{42828}}(3396+200)^{3/2}=6547\textrm{s} \\
+    \fbox{T=1 hr, 49 min, 7s}
+\end{align*}
+\\ \\ \\ \\ \\ \\ \\ \\ \\
+\section*{2.5}
+
+\end{document}
