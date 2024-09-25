@@ -1,0 +1,105 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#3}
+\date{09.24.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+The same cross section considered in Homework \#1 is modified by introducing a longitudinal cut
+at corner 1 spanning the entire length L of the beam (no material is removed). The section is
+subject to a shear force F= 25 kN contained in the u-v plane with its line of action intersecting
+the shear center (S.C.) and parallel to the u axis.
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/hw3fig1.png}
+\end{figure} \par
+
+\pagebreak
+\subsection*{a)}
+Compute the shear flow around the cross section, plot its distribution as a function of the arc-length coordinate, s,
+and provide the minimum and maximum values of the shear flow. In your answer show how you compute the shear flow. \\ \\
+The shear flow is defined by:
+\begin{align*}
+    q(s)=q(0)+\alpha f(s) + \beta g(s)
+\end{align*}
+We will evaluate at the free end starting at $s_1$, so $q(0)=0$. We can define the shear forces based on the direction
+of F. Due to the sign conventions, $V_{\eta}$ will be $-F$ and $V_{\zeta}$ will be 0. Adjusting the bounds of s from
+HW\#1 and subtracting from the centroid to convert to the eta and zeta axes, we can define the components of the shear
+flow equation. \\
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    s & $\eta(s)$ & $\zeta(s)$ & bounds \\ \hline
+    $s_2$ & $-u_c$ & $R+s_2-v_c$ & $0 \rightarrow R$ \\
+    $s_3$ & $-2R\sin{\frac{s_3}{2R}}-u_c$ & $2R\cos{\frac{s_3}{2R}}-v_c$ & $0 \rightarrow \pi R$ \\
+    $s_4$ & $-\frac{3R}{2} - \frac{R}{2}\cos{\frac{2s_4}{R}}-u_c$ & $\frac{R}{2}\sin{\frac{2s_4}{R}}-v_c$ & $0 \rightarrow
+    \frac{\pi R}{2}$
+    \\
+    $s_1$ & $-R\cos{\frac{s_1}{R}}-u_c$ & $-R\sin{\frac{s_1}{R}}-v_c$ & $0 \rightarrow \frac{3\pi R}{2}$ \\
+    \hline
+\end{tabular} \\ \\
+From the previous homeworks:
+\begin{align*}
+    I_{\eta} = 119284851.3\textrm{mm}^4 \\
+    I_{\zeta}=130805242.4\textrm{mm}^4\\
+    I_{\eta \zeta}=-22862046.03\textrm{mm}^4
+\end{align*} \\
+$\alpha$ and $\beta$ can now be calculated. Since thickness is constant, it can be removed from f(s) and g(s) and multiplied
+by $\alpha$ and $\beta$ directly.
+\begin{align*}
+    \alpha = \frac{V_{\eta}I_{\eta}-V_{\zeta}I_{\eta \zeta}}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2}t = -3.3617*10^{-4} \\
+    \beta = \frac{V_{\zeta}I_{\zeta}-V_{\eta}I_{\eta \zeta}}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2}t = -6.4430*10^{-5}
+\end{align*} \\
+Now f(s) and g(s) can be calculated. \\
+\begin{align*}
+    f^{12}_{s_1}=\int_{0}^{s_1}(-R\cos{\frac{s}{R}}-u_c)ds=-u_cs_1-R^2\sin{\frac{s_1}{R}} \\
+    f^{23}_{s_2}=f^{12}(s_1)+\int_{0}^{s_2}(-u_c)ds=f^{12}(s_1)-u_cs_2 \\
+    f^{34}_{s_3}=f^{23}(s_2)+\int_{0}^{s_3}\left(-2R\sin{\frac{s}{2R}}-u_c\right)ds=f^{23}(s_2)-u_cs_3+4R^2\cos(\frac{s_3}{2R})-4R^2 \\
+    f^{41}_{s_4}=f^{34}(s_3)+\int_{0}^{s_4}\left(\frac{-3R}{2}-\frac{R}{2}\cos{\frac{2s}{R}}-u_c\right)ds=f^{34}(s_3)-\frac{3Rs_4}{2}
+    -u_cs_4-\frac{R^2}{4}\sin(\frac{2s_4}{R})
+\end{align*}
+\begin{align*}
+    g^{12}_{s_1}=\int_{0}^{s_1}(-R\sin\frac{s}{R}-v_c)ds=-v_cs_1+R^2(\cos{\frac{s_1}{R}}-1) \\
+    g^{23}_{s_2}=g^{12}(s_1)+\int_{0}^{s_2}(R+s-v_c)ds=g^{12}(s_1)+Rs_2-v_cs_2+\frac{s_2^2}{2} \\
+    g^{34}_{s_3}=g^{23}(s_2)+\int_{0}^{s_3}(2R\cos{\frac{s}{2R}}-v_c)ds=g^{23}(s_2)-v_cs_3+4R^2\sin\frac{s_3}{2R} \\
+    g^{41}_{s_4}=g^{34}(s_3)+\int_{0}^{s_4}(\frac{R}{2}\sin{\frac{2s}{R}}-v_c)ds=g^{34}(s_3)-v_cs_4-\frac{R^2}{4}(\cos{\frac{2s_4}{R}}-1)
+\end{align*} \\ \\
+Now we have representations for all of the parts of the shear flow equation. We will use Python to plot these equations
+around the length of the cross section. We can also use python to evaluate the locations and magnitudes of the maximum
+and minimum shear flow. \\
+\begin{align*}
+    \fbox{$q(s)_{max}=7.477$N/mm at s=266.6mm} \\
+    \fbox{$q(s)_{min}=-51.448$N/mm at s=1301.1mm}
+\end{align*}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/hw3fig2.png}
+\end{figure}
+
+\pagebreak
+\subsection*{b)}
+Sketch the distribution of the shear stress around the cross section, indicate its direction, and
+provide the value of stress at significant points. \\ \\
+The shear stress is simply the shear flow divided by the thickness $t$. The direction is given by the sign of the shear
+flow at the point along the cross section. From the plot generated in part a, a sketch of the shear stress can be
+created showing the distribution and values.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figs/hw3fig3.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figs/hw3fig4.png}
+\end{figure}
+
+\end{document}
