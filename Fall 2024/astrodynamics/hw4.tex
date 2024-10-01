@@ -1,0 +1,107 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5063 HW\#4}
+\date{09.30.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{2.20}
+\begin{align*}
+    r_p=10000 \textrm{km};\quad r_a=100000 \textrm{km}
+\end{align*}
+
+\subsection*{a)}
+\begin{align*}
+    e = \frac{r_a-r_p}{r_a+r_p}=\frac{100000-10000}{100000+10000}=\fbox{$0.8182$}
+\end{align*}
+
+\subsection*{b)}
+\begin{align*}
+    a=\frac{r_p+r_a}{2}=\frac{100000+10000}{2}=\fbox{$55000$ km}
+\end{align*}
+
+\subsection*{c)}
+\begin{align*}
+    T=\frac{2\pi}{\sqrt{\mu}}a^{3/2}=\frac{2\pi}{\sqrt{398600}}(55000)^{3/2}=128367.5509\textrm{s}
+    =\fbox{$35.658$ hr}
+\end{align*}
+
+\subsection*{d)}
+\begin{align*}
+    \varepsilon = -\frac{\mu}{2a}=-\frac{398600}{2(55000)}=\fbox{$-3.62364$ km$^2$/s$^2$}
+\end{align*}
+
+\subsection*{e)}
+\begin{align*}
+    6378 + 10000=\frac{55000(1-0.8182^2)}{1+0.8182\cos{\theta}} \rightarrow \fbox{$\theta=82.27^\circ$}
+\end{align*}
+
+\subsection*{f)}
+\begin{align*}
+    h=\sqrt{\mu(1+e)r_p}=85131 \\
+    v_{\perp}=\frac{h}{r}=\frac{85131}{6378+10000}=\fbox{$5.198$ km/s} \\
+    v_r=\frac{\mu}{h}e\sin{\theta}=\frac{398600}{85131}(0.8182)\sin{82.27}=\fbox{$3.796$ km/s}
+\end{align*}
+
+\subsection*{g)}
+\begin{align*}
+    v_p=\frac{h}{r_p}=\frac{85131}{10000}=\fbox{$8.513$ km/s} \\
+    v_a=\frac{h}{r_a}=\frac{85131}{10000}=\fbox{$0.8513$ km/s}
+\end{align*}
+
+\section*{2.35}
+\begin{align*}
+    \mu=1.3271*10^{11}\textrm{km$^3$/s$^2$} \\
+    r_E=149.6*10^6\textrm{km} \\
+    v_E=\sqrt{\frac{\mu_{sun}}{r_E}}=\sqrt{\frac{1.3271*10^{11}}{149.6*10^6}}=29.784\textrm{km/s} \\
+    v_{esc}=\sqrt{2}\cdot 29.784=42.121\textrm{km/s} \\
+    v_{rel}=42.121-29.784=\fbox{$12.337$ km/s}
+\end{align*}
+
+\section*{2.40}
+\begin{align*}
+    v_{\perp}=v\cos{\gamma}=10\cos{30}=8.66\textrm{km/s} \\
+    h=rv_{\perp}=10000(8.66)=86600\textrm{km$^2$/s} \\
+    r=\frac{h^2}{\mu}\frac{1}{1+e\cos{\theta}}\rightarrow e\cos{\theta}=0.8816 \\
+    v_r=v\sin{\gamma}=10\sin{30}=5\textrm{km/s} \\
+    v_r=\frac{\mu}{h}e\sin{\theta} \rightarrow e\sin{\theta}=1.086 \\
+    \tan{\theta}=\frac{e\sin{\theta}}{e\cos{theta}}=\frac{1.086}{0.8816} \rightarrow \fbox{$
+    \theta = 50.93^\circ$}
+\end{align*}
+
+\section*{2.43}
+\subsection*{a)}
+\begin{align*}
+    \bm{r_o} =7000\hat{i} \rightarrow r_o=||\bm{r_o}||=7000 \textrm{km} \\
+    \bm{v_o}=7\hat{i}+7\hat{j} \rightarrow v_o=||\bm{v_o}||=9.8995 \textrm{km/s} \\
+    v_{r_o}=\frac{1}{r_o}\bm{v_o}\cdot \bm{r_o} = 7 \textrm{km/s} \\
+    h=r_o\sqrt{v_o^2 - v_{r_o}^2}=49000\textrm{km/s}
+\end{align*}
+\begin{align*}
+    r=\frac{h^2}{\mu}\frac{1}{1+(\frac{h^2}{\mu r_o}-1)\cos{\Delta \theta} - \frac{hv_{r_o}}{\mu}\sin{\theta}}
+    =43183.453 \textrm{km} \\
+    f = 1-\frac{\mu r}{h^2}(1-\cos{\Delta \theta})=-6.17 \\
+    g=\frac{rr_o}{h}\sin{\Delta \theta}=6170\textrm{s} \\
+    r=f\bm{r_o}+g\bm{v_o}=\fbox{$43190\hat{j}$ km}
+\end{align*}
+
+\subsection*{b)}
+\begin{align*}
+    e\cos{\theta_o}=\frac{h^2}{r_o \mu}=-0.1395 \\
+    e\sin{\theta_o}=v_{r_o}\frac{h}{\mu}=0.8605 \\
+    \tan{\theta}=\frac{e\sin{\theta}}{e\cos{\theta}} \rightarrow \theta_o=-80.79^{\circ} \\
+    \textrm{must be in 2nd quadrant:} \quad \fbox{$\theta_o=99.21^{\circ}$}
+\end{align*}
+
+\end{document}
