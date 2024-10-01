@@ -1,0 +1,115 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#4}
+\date{10.01.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+The cross section shown in Fig 1 is obtained from the one considered in previous homework by
+replacing arc 41 with a straight element and maintaining a cut at node 1. The dimensions continue
+to be R=200 mm and t =1.7 mm. Find the vertical coordinate $v_{S.C.}$ of the shear center (S.C.) relative
+to the frame (u,v). You can use the expressions provided in the Appendix to aid your analysis.
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw4fig1.png}
+\end{figure} \par
+\pagebreak
+First we will apply an arbitrary shear force. Since we only need to find the $v$ location, we will apply a force in the
+$V_\eta$ direction at an unknown $v$ coordinate $e$. For simplicity, we can use the 25kN force in the negative direction
+from the previous
+homework. The moment of this arbitrary force will be set equal to the moment of the shear flow. We can substitute in the
+know functions for the shear flow to get:
+\begin{align*}
+    -eF=\alpha \int_{0}^{L}{f_{\eta}(s)h(s)ds} + \beta \int_{0}^{L}{g_{\eta}(s)h(s)ds}
+\end{align*} \\ \\
+Then, we can define the $h(s)$ for each section, which can be determined by the minimum distance. For the straight
+segments, this will be 0 because they have no tangent points to the origin. Then, these can be plugged into the integral
+for each section.
+\begin{align*}
+    h^{12}(s)=R \\
+    h^{23}(s)=0 \\
+    h^{34}(s)=2R \\
+    h^{41}(s)=0
+\end{align*} \\
+\begin{align*}
+    \int{f^{12}(s)h^{12}(s)}=\int_{-\pi}^{\pi/2}(R^2\sin{\theta_1}-u_cR\theta_1-u_cR\pi)(R)Rd\theta \\
+    \int{f^{23}(s)h^{23}(s)}=0 \\
+    \int{f^{34}(s)h^{34}(s)}=\int_{\pi/2}^{\pi}(-3R^2-\frac{1}{2}\pi u_cR-u_cR+4R^2\sin{\theta_3}-2u_cR\theta_3)(2R)Rd\theta \\
+    \int{f^{41}(s)h^{41}(s)}=0
+\end{align*}
+\begin{align*}
+    \int{g^{12}(s)h^{12}(s)}=\int_{-\pi}^{\pi/2}(-R^2\cos{\theta_1}-\theta_1Rv_c-R^2-v_c\pi R)(R)Rd\theta \\
+    \int{g^{23}(s)h^{23}(s)}=0 \\
+    \int{g^{34}(s)h^{34}(s)}=\int_{\pi/2}^{\pi}(-\frac{1}{2}v_c\pi R-v_cR+\frac{R^2}{2}-4R^2\cos{\theta_3}-2Rv_c\theta_3)(2R)Rd\theta \\
+    \int{g^{41}(s)h^{41}(s)}=0
+\end{align*} \\
+Next, we will solve for $\alpha$ and $\beta$. They are slightly simplified because $V_{\zeta}=0$.
+\begin{align*}
+    I_{\eta}=I_u-Av_c^2=1.213*10^8 \\
+    I_{\zeta}=I_v-Au_c^2=1.213*10^8 \\
+    I_{\eta \zeta}=I_{uv}-Au_cv_c=-1.965*10^7
+\end{align*}
+\begin{align*}
+    \alpha=t\frac{V_{\eta}I_{\eta}}{I_{\eta}I_{\zeta}-I_{\eta\zeta}^2}=-3.599*10^{-4} \\
+    \beta=t\frac{-V_{\eta}I_{\eta\zeta}}{I_{eta}I_{\zeta}-I_{\eta\zeta}^2}=-5.831*10^{-5}
+\end{align*} \\ \\
+Lastly, we can solve for the distance. Plugging in the integrals (and solving with an online calculator) and known
+values allows for $e$ to be solved for.
+\begin{align*}
+    e=\frac{\alpha \int_{0}^{L}{f_{\eta}(s)h(s)ds} + \beta \int_{0}^{L}{g_{\eta}(s)h(s)ds}}{-F} \\ \\
+    \fbox{$e=462.6$ mm}
+\end{align*}
+\pagebreak
+\section*{Problem 2}
+Compute the vertical coordinate $v_{S.C.}$ of the shear center (S.C.) relative to the frame (u,v)
+assuming that the section in Problem \#1 is closed by a weld line along corner 1 as shown in Fig.
+2.
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw4fig2.png}
+\end{figure} \par
+\pagebreak
+First, for a closed section the same arbitrary force and location are applied, but the equation is:
+\begin{align*}
+    -eF=\int(q_o+q_B(s))h(s)ds
+\end{align*} \\ \\
+We already determined some equations in the previous problem, so we can divide those by h(s) to get $q_b(s)$.
+\begin{align*}
+    \int{f^{12}(s)h^{12}(s)}=\int_{-\pi}^{\pi/2}(R^2\sin{\theta_1}-u_cR\theta_1-u_cR\pi)Rd\theta \\
+    \int{f^{23}(s)h^{23}(s)}=\int_{0}^{R}(R^2-\frac{3}{2}\pi u_cR-u_cs_2)ds \\
+    \int{f^{34}(s)h^{34}(s)}=\int_{\pi/2}^{\pi}(-3R^2-\frac{1}{2}\pi u_cR-u_cR+4R^2\sin{\theta_3}-2u_cR\theta_3)Rd\theta \\
+    \int{f^{41}(s)h^{41}(s)}=\int_{0}^{R}(-3R^2-\frac{5}{2}\pi u_cR-u_cR-(2R+u_c)s_4+\frac{s_4^2}{2})ds
+\end{align*}
+\begin{align*}
+    \int{g^{12}(s)h^{12}(s)}=\int_{-\pi}^{\pi/2}(-R^2\cos{\theta_1}-\theta_1Rv_c-R^2-v_c\pi R)Rd\theta \\
+    \int{g^{23}(s)h^{23}(s)}=\int_{0}^{R}(-R^2-\frac{3}{2}v_c\pi R+(R-v_c)s_2+\frac{s_2^2}{2})ds \\
+    \int{g^{34}(s)h^{34}(s)}=\int_{\pi/2}^{\pi}(-\frac{1}{2}v_c\pi R-v_cR+\frac{R^2}{2}-4R^2\cos{\theta_3}-2Rv_c\theta_3)Rd\theta \\
+    \int{g^{41}(s)h^{41}(s)}=\int_{0}^{R}(-\frac{5}{2}v_c\pi R-v_cR+\frac{9R^2}{2}-v_cs_4)ds
+\end{align*} \\ \\
+$\alpha$ and $\beta$ will be the same for the closed section. Then we can plug in and solve the integral (with an online
+calculator) for $q_B$ in order to obtain $q_o$.
+\begin{align*}
+    q_B=\alpha \int_{0}^{L}{f_{\eta}(s)ds} + \beta \int_{0}^{L}{g_{\eta}(s)ds}=-42094.23 \\
+    q_o=\frac{q_B}{L} \\
+    L = 0.75(2\pi R)+R+0.25(4\pi R)+R=1970.79 \\
+    q_o=21.36
+\end{align*} \\ \\
+Lastly, we can find the area enclosed by the shape $\Sigma$ and use that to determine the shear center location $e$. We
+will solve with an online calculator in the same manner as problem 1.
+\begin{align*}
+    \Sigma=0.75\pi R^2+0.25\pi(2R)^2=219911.49 \\
+    e=\frac{2\Sigma q_o+\int{q_B(s)h(s)ds}}{-F} = \fbox{$86.86$ mm}
+\end{align*}
+
+\end{document}
