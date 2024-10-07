@@ -1,0 +1,120 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#5}
+\date{10.08.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+A thin-walled cylinder of radius R and wall thickness t is subject to a torque M. In order to lower
+the shear stress in the cylinder, designers are considering adding fins of width R/2 and the same
+thickness as the cylinder as shown in Fig. 1.
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig1.png}
+\end{figure} \par
+\pagebreak
+
+\subsection*{a)}
+Find the expression of the shear stress in the cylinder, $\tau_c$, and the maximum shear stress in
+the fins, $\tau_f$ as a function of the number of fins, $n$. Note that in Fig. 1 eight fins are show for
+illustration purpose. \\ \\
+First, we will determine the $\tau$ of each section, we will treat them as separate sections. $\tau_c$ will be a closed
+section and $\tau_f$ will be an open section.
+\begin{align*}
+    \tau_c=\frac{M_c}{2\Sigma t} \\
+    \frac{d\theta_c}{dx}=\frac{M_c}{4G\Sigma^2}\int{\frac{1}{t}ds} \\
+    \Sigma = \pi R^2 \\
+    \frac{d\theta_c}{dx}=\frac{M_c}{4G(\pi R^2)^2}\left(\frac{2\pi R}{t}\right)=\frac{M_c}{2\pi GtR^3} \\
+    \tau_c=\frac{M_c}{2\pi tR^2}
+\end{align*}
+\begin{align*}
+    \tau_{f_{max}}=\frac{M_f}{J}t \\
+    \frac{d\theta_f}{dx}=\frac{M_f}{GJ} \\
+    J=\frac{1}{3}\int_{L}{t^3(s)ds}=\frac{1}{3}\frac{Rt^3}{2}\cdot n=\frac{t^3R}{6}n \\
+    \frac{d\theta_f}{dx}=\frac{6M_f}{Gt^3nR} \\
+    \tau_{f_{max}}=\frac{6M_f}{t^2nR}
+\end{align*}
+We can state that the total moment $M$ is equal to the sum of the individual moments:
+\begin{align*}
+    M=M_c+M_f \\
+    M_f=M-M_c
+\end{align*}
+We also impose that since the pieces are connected their rotations must be equivalent:
+\begin{align*}
+    \frac{d\theta_c}{dx}=\frac{d\theta_f}{dx} \\
+    \frac{M_c}{2\pi GtR^3}=\frac{6M_f}{Gt^3nR} \\
+    M_c=\frac{12\pi R^2}{nt^2}M_f=\frac{12\pi R^2}{nt^2}(M-M_c) \\
+    M_c(1+\frac{12\pi R^2}{nt^2})=\frac{12\pi R^2}{nt^2}M \\
+    M_c=\frac{12\pi R^2}{nt^2+12\pi R^2}M \\
+    M_f=M-\frac{12\pi R^2}{nt^2+12\pi R^2}M \\
+    M_f=\frac{nt^2}{nt^2+12\pi R^2}M
+\end{align*}
+Then we can plug back in and solve:
+\begin{align*}
+    \fbox{$\tau_c=\frac{6}{nt^3+12\pi tR^2}M$} \\
+    \fbox{$\tau_{f_{max}}=\frac{6}{Rnt^2+12\pi R^3}M$}
+\end{align*}
+
+\pagebreak
+\subsection*{b)}
+Show that the ratio $\tau_c/\tau_f$ is independent of the number of fins.
+\begin{align*}
+    \tau_c/\tau_f=\frac{\tau_c}{\tau_{f_{max}}}=\frac{\frac{6}{nt^3+12\pi tR^2}M}{\frac{6}{Rnt^2+12\pi R^3}M}=\frac{R}{t}
+\end{align*}
+We can see that the ratio of the shear forces is only based on the radius and thickness of the shape, as $n$ disappears
+when dividing the equations for the shear in each section.
+\\ \\ \\ \\
+
+\subsection*{c)}
+Find the radius, $R'$, of a cylinder with the same wall thickness $t$ but without fins that leads
+to the same $\tau_c$ as the cylinder with fins. \\ \\
+We will set the previously determined $\tau_c$ equal to a new $\tau'$ and solve for the radius that makes them
+equivalent.
+\begin{align*}
+    \tau'=\tau_c \rightarrow \frac{M}{2\pi tR'^2}=\frac{6}{nt^3+12\pi tR^2}M \\
+    \fbox{$R'=\sqrt{\frac{nt^2+12\pi R^2}{12\pi }}$}
+\end{align*}
+
+\pagebreak
+\subsection*{d)}
+Show that the cylinder in (c) is always lighter than the cylinder with fins in (a). \\ \\
+First, we will determine the cross sectional area of each shape based on the number of fins. The area of each cylinder
+will be its diameter times the thickness. The area of the fins is the number of fins times the length of each times the
+thickness.
+\begin{align*}
+    A'=\pi Dt=2\pi R't=t\sqrt{\frac{nt^2+12\pi R^2}{12\pi }} \\
+    A=\pi Dt+n\frac{R}{2}t=2\pi Rt+\frac{nRt}{2}
+\end{align*}
+We will calculate the ratio between the two for ease of comparison. If $A'/A<1$, then the cylinder without fins will be
+lighter (its area is some small percentage of the one with fins).
+\begin{align*}
+    \frac{A'}{A}=\frac{\sqrt{3\pi}\sqrt{nt^2+12\pi R^2}}{3\pi R(n+4\pi)}
+\end{align*}
+We can assume an infinitesimally small $t$ for simplicity and simplify the ratio.
+\begin{align*}
+    \lim_{t\rightarrow 0}\frac{A'}{A}=\frac{2}{n+4\pi}
+\end{align*} 
+We can see that for any number of fins (other than 0), the ratio will be less than 1 meaning $A'$ is smaller than $A$
+and therefore the larger cylinder weighs less than the cylinder with fins.
+\begin{align*}
+    \lim_{n\rightarrow \infty}\frac{A'}{A}=0
+\end{align*}
+Following is a plot of $\frac{A'}{A}$. The x axis is $n$. It is clear that the ratio approaches 0 as $n$ approaches
+infinity, and the ratio is never greater than 1, meaning the cylinder without fins must always be lighter.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figs/hw5fig2.png}
+\end{figure} \par
+
+\end{document}
