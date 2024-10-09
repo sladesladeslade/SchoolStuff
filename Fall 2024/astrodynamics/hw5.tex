@@ -1,0 +1,150 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5063 HW\#5}
+\date{10.09.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{3.10}
+\begin{align*}
+    T=14\textrm{hr};\quad r_p=10000\textrm{km} @ t=10\textrm{hr}
+\end{align*}
+\subsection*{(a)}
+\begin{align*}
+    T=\frac{2\pi}{\sqrt{\mu}}a^{3/2} \\
+    a^{3/2}=\frac{\sqrt{398600}}{2\pi}(14*3600) \\
+    a = 29490.3 \\
+    a = 0.5(r_p+r_a) \rightarrow r_a=48980.6 \\
+    e = \frac{r_a - r_p}{r_a+r_p}=\frac{48980.6-10000}{48980.6+10000}=0.661 \\
+    M_e = \frac{2\pi}{T}t=\frac{2\pi}{14}(10)=4.488=E-e\sin{E}
+\end{align*}
+Solve for $E$ using Matlab kepler equation (kepler\_E) function:
+\begin{align*}
+    E = 3.9915 \\
+    \tan{\frac{E}{2}}=\sqrt{\frac{1-e}{1+e}}\tan{\left(\frac{\theta}{2}\right)}
+\end{align*}
+Plug in and solve for $\theta$:
+\begin{align*}
+    \theta = -2.738\textrm{rad}=203.1^{\circ} \\
+    r=\frac{a(1-e^2)}{1+e\cos{\theta}}=\frac{29490(1-0.661^2)}{1+0.661\cos{203.11}}=\fbox{$42356$km}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    \frac{V^2}{2}-\frac{\mu}{r}=\varepsilon=\frac{-\mu}{2a} \\
+    V=\sqrt{2\mu\left(\frac{1}{r}-\frac{1}{2a}\right)}=\sqrt{2(398600)\left(\frac{1}{42355.5}-\frac{1}{2(29490)}\right)} \\
+    \fbox{$V=2.3$ km/s}
+\end{align*}
+
+\subsection*{(c)}
+\begin{align*}
+    h^2=a\mu(1-e^2) \\
+    h=\sqrt{29490*398600(1-0.661^2)}=81356.2 \\
+    V_r=\frac{\mu}{h}e\sin{\theta}=\frac{398600}{81356.21}0.661\sin{203.11}=\fbox{$-1.27$ km/s}
+\end{align*}
+
+\section*{3.11}
+\begin{align*}
+    r_p=7500\textrm{km};\quad r_a=16000\textrm{km};\quad t=2400\textrm{s};\quad \theta=80^{\circ}
+\end{align*}
+\begin{align*}
+    a=\frac{r_p+r_a}{2}=\frac{7500+16000}{2}=11750 \\
+    T=\frac{2\pi}{\sqrt{\mu}}a^{3/2}=\frac{2\pi}{\sqrt{398600}}11750^{3/2}=12675.59 \\
+    e=\frac{r_a-r_p}{r_a+r_p}=\frac{16000-7500}{16000+7500}=0.3617
+\end{align*}
+@ $\theta=80^{\circ}$:
+\begin{align*}
+    \tan{\frac{E}{2}}=\sqrt{\frac{1-e}{1+e}}\tan{\frac{\theta}{2}}=\sqrt{\frac{1-0.3617}{1+0.3617}tan{80/2}} \\
+    E=1.043 \\
+    M_e=E-e\sin{E}=1.043-0.3617\sin{1.043}=0.73 \\
+    t=\frac{M_eT}{2\pi}=\frac{0.7304(12675.59)}{2\pi}=1473.5
+\end{align*}
+@ new time:
+\begin{align*}
+    t=1473.5+2400=3873.5 \\
+    M_e=\frac{2\pi}{T}t=\frac{2\pi}{12675.59}(3873.5)=1.92
+\end{align*}
+using matlab kepler\_E:
+\begin{align*}
+    E=2.21 \\
+    \theta=2\tan^{-1}\left(\frac{\tan{\frac{E}{2}}}{\sqrt{\frac{1-e}{1+e}}}\right) \\
+    \fbox{$\theta=142^{\circ}$}
+\end{align*}
+
+\section*{3.15}
+\begin{align*}
+    r_p=6600\textrm{km};\quad e=1
+\end{align*}
+
+\subsection*{(a)}
+@ $\theta=90$:
+\begin{align*}
+    M_P=0.5\tan{(90/2)}+1/6\tan^3{(90/2)}=0.667 \\
+    h=\sqrt{r\mu(1+e\cos{\theta})}=\sqrt{6600(398600)(1+1\cos{0})}=72536.34 \\
+    t=\frac{M_ph^3}{\mu^2}=\frac{0.667(72536.34)^2}{398600^2}=1602.2 \\
+    \fbox{$t_{-90\rightarrow90}=2*1602.2\textrm{s}=0.89\textrm{hr}$}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    t=36\textrm{hr}=129600\textrm{s}
+\end{align*}
+\begin{align*}
+    M_P=\frac{\mu^2t}{h^3}=\frac{398600^2*129600}{72536.34^3}=53.95
+\end{align*}
+Use wolfram to solve:
+\begin{align*}
+    M_P=0.5\tan{\frac{\theta}{2}}+1/6\tan^3{\frac{\theta}{2}} \\
+    \theta=163^{\circ}
+\end{align*}
+\begin{align*}
+    r=\frac{h^2}{\mu}\frac{1}{1+\cos{\theta}}=\frac{72536.34^2}{398600}\frac{1}{1+\cos{163}} \\
+    \fbox{$r=304720$ km}
+\end{align*}
+
+\section*{3.17}
+\begin{align*}
+    V_p=1.1V_{esc};\quad r_p=6378+200=6578\textrm{km};\quad V=8\textrm{km/s}@10\textrm{a.m.}
+\end{align*}
+\begin{align*}
+    V_{esc}=\sqrt{\frac{2\mu}{r_p}}\rightarrow V_p=1.1\sqrt{2*398600/6578}=12.11 \\
+    h=r_pV_p=6578*12.11=79659.6 \\
+    r_p=\frac{h^2}{\mu}\frac{1}{1+e\cos{\theta}} \rightarrow \\
+    e=\frac{h^2}{\mu r_p}-1=\frac{79659.6^2}{398600(6578)}-1=1.42
+\end{align*}
+@ 10a.m.:
+\begin{align*}
+    \frac{V^2}{2}-\frac{\mu}{r}=\frac{V_p^2}{2}-\frac{\mu}{r_p} \\
+    r=\frac{398600}{\frac{8^2}{2}-\frac{12.11^2}{2}+\frac{398600}{6578}}=20685.14 \\
+    r=\frac{h^2}{\mu}\frac{1}{1+e\cos{\theta}} \\
+    \theta=\cos^{-1}{\frac{\frac{h^2}{r\mu}-1}{e}}=\cos^{-1}{\frac{\frac{79659.58^2}{20685.14*398600}-1}{1.42}}=-99.34 \\
+    \tan{\theta/2}=\sqrt{\frac{1+e}{e-1}}\tanh{F/2} \\
+    F=2tanh^{-1}{-0.4907} \rightarrow F=-1.074 \\
+    M_h=e\sinh{F}-F=1.42\sinh(-1.074)+1.074=-0.7617 \\
+    M_h=\frac{\mu^2}{h^3}(e^2-1)^{3/2}t \\
+    t=-2365
+\end{align*}
+@ 5p.m.:
+\begin{align*}
+    t=7(3600)-2365=22835 \\
+    M_h=\frac{\mu^2}{h^3}(e^2-1)^{3/2}t=\frac{398600^2}{79659.6^3}(1.42^2-1)^{3/2}(22835)=7.355 \\
+    M_h=e\sinh{F}-F \rightarrow F=2.65 \textrm{(solved w/ wolfram)} \\
+    \tan{\frac{\theta}{2}}=\sqrt{\frac{e+1}{e-1}}\tanh{F/2} \\
+    \tanh{F/2}=\frac{e^{F/2}-e^{-F/2}}{e^{F/2}+e^{-F/2}}=0.868 \\
+    \theta=128.72 \\
+    r=\frac{h^2}{\mu}\frac{1}{1+e\cos{\theta}}=\frac{79659.6^2}{398600}\frac{1}{1+1.42\cos{128.72}}=142435.67 \\
+    z = r-r_e=\fbox{$136058$ km}
+\end{align*}
+
+\end{document}
