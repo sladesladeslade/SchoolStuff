@@ -1,0 +1,156 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5063 HW\#7}
+\date{10.30.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{4.10}
+\begin{align*}
+    \alpha=40^{\circ};\quad \beta=25^{\circ}
+\end{align*}
+\begin{align*}
+    R_1(\alpha)=\begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & \cos{\alpha} & \sin{\alpha} \\
+        0 & -\sin{\alpha} & \cos{\alpha}
+    \end{bmatrix} \\
+    R_2(\beta)=\begin{bmatrix}
+        \cos{\beta} & 0 & -\sin{\beta} \\
+        0 & 1 & 0 \\
+        \sin{\beta} & 0 & \cos{\beta}
+    \end{bmatrix}
+\end{align*}
+solve for Q with matlab:
+\begin{align*}
+    Q = [R_2(\beta)][R_1(\alpha)] = \fbox{$\begin{bmatrix}
+    0.9063 & 0.2717 & -0.3237 \\
+    0 & 0.7660 & 0.6428 \\
+    0.4226 & -0.5826 & 0.6943
+    \end{bmatrix}$}
+\end{align*}
+
+\pagebreak
+\section*{4.11}
+\begin{align*}
+    Q=\begin{bmatrix}
+        0.086824 & -0.77768 & 0.62264 \\
+        -0.49240 & -0.57682 & -0.65178 \\
+        0.86603 & -0.25000 & -0.43301
+    \end{bmatrix}
+\end{align*}
+
+\subsection*{(a)}
+\begin{align*}
+    \alpha= \tan^{-1}{\frac{Q_{31}}{-Q_{32}}}
+\end{align*}
+because num and denom +, $\alpha$ in first quad:
+\begin{align*}
+    \fbox{$\alpha=73.9^{\circ}$} \\
+    \beta=\cos^{-1}{Q_{33}} \\
+    \fbox{$\beta=115.7^{\circ}$}
+\end{align*}
+\begin{align*}
+    \gamma = \tan^{-1}{\frac{Q_{13}}{Q_{23}}}
+\end{align*}
+because num + and denom -, $\gamma$ in 2nd quad:
+\begin{align*}
+    \gamma = 180+\tan^{-1}{\frac{Q_{13}}{Q_{23}}} \\
+    \fbox{$\gamma=136.31^{\circ}$}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    \alpha=\tan^{-1}{\frac{Q_{12}}{Q_{11}}}
+\end{align*}
+because num - and denom +, $\alpha$ in 4th quad:
+\begin{align*}
+    \alpha = 360+\tan^{-1}{\frac{Q_{12}}{Q_{11}}} \\
+    \fbox{$\alpha=276.37^{\circ}$} \\
+    \beta=\sin^{-1}{-Q_{13}} \\
+    \fbox{$\beta=-38.51^{\circ}$}
+\end{align*}
+\begin{align*}
+    \gamma=\tan^{-1}{\frac{Q_{23}}{Q_{33}}}
+\end{align*}
+because num -  and denom -, $\gamma$ in 3rd quad:
+\begin{align*}
+    \gamma=180+\tan^{-1}{\frac{Q_{23}}{Q_{33}}} \\
+    \fbox{$\gamma=236.4^{\circ}$}
+\end{align*}
+
+\section*{4.13}
+\begin{align*}
+    \alpha=300^{\circ}; \quad \beta=-80^{\circ}; \quad \gamma=30^{\circ}
+\end{align*}
+\begin{align*}
+    R_1(\gamma)=\begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & \cos{\gamma} & \sin{\gamma} \\
+        0 & -sin{\gamma} & \cos{\gamma}
+    \end{bmatrix} \\
+    R_2(\beta)=\begin{bmatrix}
+        \cos{\beta} & 0 & -sin{\beta} \\
+        0 & 1 & 0 \\
+        \sin{\beta} & 0 & \cos{\beta}
+    \end{bmatrix} \\
+    R_3{\alpha}=\begin{bmatrix}
+        \cos{\alpha} & \sin{\alpha} & 0 \\
+        -\sin{\alpha} & \cos{\alpha} & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}
+\end{align*}
+\begin{align*}
+    Q = [R_1][R_2][R_3]=\begin{bmatrix}
+        0.086824 & -0.15033 & 0.98481 \\
+        0.5038 & 0.85945 & 0.086824 \\
+        -0.85945 & 0.48861 & 0.15038
+    \end{bmatrix}
+\end{align*}
+\begin{align*}
+    \alpha= \tan^{-1}{\frac{Q_{31}}{-Q_{32}}}
+\end{align*}
+because num and denom -, $\alpha$ in 3rd quad:
+\begin{align*}
+    \alpha=180+\tan^{-1}{\frac{Q_{31}}{-Q_{32}}} \\
+    \fbox{$\alpha=240.38^{\circ}$} \\
+    \beta=\cos^{-1}{Q_{33}} \\
+    \fbox{$\beta=81.351^{\circ}$}
+\end{align*}
+\begin{align*}
+    \gamma = \tan^{-1}{\frac{Q_{13}}{Q_{23}}}
+\end{align*}
+because num + and denom +, $\gamma$ in 2nd quad:
+\begin{align*}
+    \fbox{$\gamma=84.962^{\circ}$}
+\end{align*}
+
+\section*{4.27}
+\begin{align*}
+    h=180\textrm{km};\quad i=30^{\circ}
+\end{align*}
+\begin{align*}
+    T=\frac{2\pi}{\sqrt{\mu}}r^{3/2}=\frac{2\pi}{\sqrt{398600}}(6378+180)^{3/2}=5285.3\textrm{s} \\
+    \dot{\Omega}=-\frac{3}{2}\frac{\sqrt{\mu}J_2R_e^2}{r^{7/2}}\cos{i}=
+    -\frac{3}{2}\frac{\sqrt{398600}*0.0010826*6378^2}{(6378+180)^{7/2}}\cos{30}=-1.5814E-6 \textrm{rad/s} \\
+    \omega_e=\frac{2\pi+\frac{2\pi}{365.26}}{24*3600}=7.2921E-5\textrm{rad/s}
+\end{align*}
+\begin{align*}
+    \Delta\lambda=(\omega_e-\dot{\Omega})T=0.39377\textrm{rad} \\
+    s=R_e\Delta\lambda=6378*0.39377 \\
+    \fbox{$s=2511.4$ km}
+\end{align*} \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+\section*{4.17}
+
+\end{document}
