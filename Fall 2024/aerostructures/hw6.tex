@@ -1,0 +1,228 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{paracol}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#6}
+\date{11.03.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+A wing of length L =2 m has a semi-monocoque structure and undergoes a laboratory test in which
+it is clamped at one end and subject to a concentrated load F= 18 kN applied at the wing tip as
+shown in Fig. 1.
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw6fig1.png}
+\end{figure}
+The wing is rectangular and has the cross section shown in Fig. 2 which consists of a uniform
+external skin of thickness $t_s=0.75$ mm and three vertical webs of thickness $t_w = 1.5$ mm. The
+section has stiffeners at nodes \#1 to \#6 with the cross sectional areas indicated in Fig. 2. All the
+structural elements are made of the same aluminum alloy that has shear modulus G = 26.9 GPa.
+Moreover, for a preliminary stress analysis, it is assumed that the skin and webs resist to shear
+stresses only while the normal stresses are absorbed by the stiffeners that can therefore be
+considered as booms according to the structural idealization theory.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/hw6fig2.png}
+\end{figure}
+
+\pagebreak
+\subsection*{(a)}
+Determine the largest tensile and compressive stresses in the section. \\ \\
+First, determine the centroid location and the moments of inertia based on only the booms (because the skin does not
+contribute to the axial load) w/ origin of u-v set at boom 6. \\
+\begin{align*}
+    u_c=\frac{\Sigma_{i=1}^{N}u_iB_i}{\Sigma_{i=1}^{N}B_i}=\frac{(0*600)+(400*300)+(760*300)+(760*300)+(400*400)+(0*400)}
+    {600+300+300+300+400+400} \\
+    u_c=320\textrm{mm} \\
+    v_c=\frac{\Sigma_{i=1}^{N}v_iB_i}{\Sigma_{i=1}^{N}B_i}=\frac{(250*600)+(250*300)+(175*300)+(0*300)+(0*400)+(0*400)}
+    {600+300+300+300+400+400} \\
+    v_c=120.65\textrm{mm}
+\end{align*}
+\begin{align*}
+    I_{\eta}=\Sigma_{i=1}^{N}(v_i-v_c)^2B_i=(250-120.65)^2(600)+(250-120.65)^2(300)+(175-120.65)^2(300) \\
+    +(0-120.65)^2(300)
+    +(0-120.65)^2(400)+(0-120.65)^2(400) \\
+    I_{\eta}=3.2E7 \textrm{mm}^4 \\ \\
+    I_{\zeta}=\Sigma_{i=1}^{N}(u_i-u_c)^2B_i=(0-320)^2(600)+(400-320)^2(300)+(760-320)^2(300) \\
+    +(760-320)^2(300)+(400-320)^2(400)+(0-320)^2(400) \\
+    I_{\zeta}= 22.3E7 \textrm{mm}^4 \\ \\
+    I_{\eta\zeta}=\Sigma_{i=1}^{N}(u_i-u_c)(v_i-v_c)B_i=(0-320)(250-120.65)(600)+(400-320)(250-120.65)(300) \\
+    +(760-320)(175-120.65)(300)+(760-320)(0-120.65)(300) \\
+    +(400-320)(0-120.65)(400)+(0-320)(0-120.65)(400) \\
+    I_{\eta\zeta}=-1.89E7 \textrm{mm}^4
+\end{align*} \\
+Then determine shear in each direction based on M and right hand rule (see diagram below). M is simply the length
+multiplied by the force applied at the free end since it is not distributed. \\
+\begin{align*}
+    M_{\zeta}=0 \\
+    M_{\eta}=M=FL=36000\textrm{kNmm}
+\end{align*} \\
+Then calculate beta:
+\begin{align*}
+    \tan{\beta}=\frac{M_{\eta}I_{\eta\zeta}-M_{\zeta}I_{\eta}}{M_{\zeta}I_{\eta\zeta}-M_{\eta}I_{\zeta}}
+    =\frac{36000(-1.89E7)-0(3.2E7)}{0(-1.89E7)-36000(22.3E7)} \\ \\
+    \beta=4.84^{\circ}
+\end{align*} \\
+Now we can determine the booms with the maximums based on the diagram are 2 and 6.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{figs/hw6fig3.jpg}
+\end{figure}
+Then we can find the axial force at the two booms from:
+\begin{align*}
+    \sigma_{xx}=-\frac{M_{\eta}(I_{\zeta}\zeta-I_{\eta \zeta}\eta)}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2}
+    -\frac{M_{\zeta}(I_{\eta}\eta - I_{\eta \zeta}\zeta)}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2}
+\end{align*}
+\begin{align*}
+    \sigma_2=-\frac{36000(22.3E7*(250-120.65)-(-1.89E7)(400-320))}{3.2E7*22.3E7-(-1.89E7)^2}
+    =-0.1612 \textrm{kN/mm$^2$} \\
+    \sigma_6=-\frac{36000(22.3E7*(0-120.65)-(-1.89E7)(0-320))}{3.2E7*22.3E7-(-1.89E7)^2}
+    =0.175 \textrm{kN/mm$^2$}
+\end{align*}
+\begin{align*}
+    \fbox{$\sigma_2=-161.2$ MPa (compression)} \\
+    \fbox{$\sigma_6=175$ MPa (tension)}
+\end{align*}
+
+\subsection*{(b)}
+Determine the distribution of the shear stress along the skin and webs and indicate in the
+cross section the corresponding direction. \\ \\
+First we will solve for $\alpha$ and $\beta$ in the shear flow equation ($q_b(s)$). Since there is no $\eta$ component
+of force, it is simplified. $V_{\zeta}=-F$ due to the sign conventions of shear flow (down is +).
+\begin{align*}
+    \alpha = \frac{V_{\eta}I_{\eta}-V_{\zeta}I_{\eta \zeta}}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2} =
+    \frac{-V_{\zeta}I_{\eta \zeta}}{I_{\eta}I_{\zeta}-I_{\eta\zeta}^2}=-5.02E-8 \\
+    \beta = \frac{V_{\zeta}I_{\zeta}-V_{\eta}I_{\eta \zeta}}{I_{\eta}I_{\zeta}-I_{\eta \zeta}^2} =
+    \frac{V_{\zeta}I_{\zeta}}{I_{\eta}I_{\zeta}-I_{\eta\zeta}^2}=-5.92E-7
+\end{align*} \\
+Now we can set up and solve for $q_b$ in each section. We will split it into 3 sections and make 3 cuts---one in each
+section at a convenient location. \\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figs/hw6fig4.jpg}
+\end{figure}
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        I & II & III \\
+        \hline
+        $q_{bo}^{61}=0$ & $q_b^{12}=0$ & $q_b^{23}=0$ \\
+        $q_{bi}^{16}=q_{bo}^{61}+\alpha B_1\eta_1+\beta B_1\zeta_1$ &
+        $q_b^{25}=q_b^{12}+\alpha B_2\eta_2+\beta B_2\zeta_2$ &
+        $q_b^{34}=q_b^{23}+\alpha B_3\eta_3+\beta B_3\zeta_3$ \\
+        & $q_b^{56}=q_b^{25}+\alpha B_5\eta_5+\beta B_5\zeta_5$ &
+        $q_b^{45}=q_b^{34}+\alpha B_4\eta_4+\beta B_4\zeta_4$ \\
+        & $q_b^{16}=q_b^{12}+\alpha B_1\eta_1+\beta B_1\zeta_1$ &
+        $q_b^{25}=q_b^{23}+\alpha B_2\eta_2+\beta B_2\zeta_2$ \\
+        \hline
+    \end{tabular}
+\end{center}
+Plug in and solve the previous table to get the $q_b$ in each boom: \\
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        I & II & III \\
+        \hline
+        $q_{bo}^{61}=0$ & $q_b^{12}=0$ & $q_b^{23}=0$ \\
+        $q_{bi}^{16}=-0.0363$ & $q_b^{25}=-0.0242$ & $q_b^{34}=-0.0163$ \\
+        & $q_b^{56}=0.0028$ & $q_b^{45}=-0.0015$ \\
+        & $q_b^{16}=-0.0363$ & $q_b^{25}=-0.0242$ \\
+        \hline
+    \end{tabular}
+\end{center}
+Now set up the rotational equations for each section and solve for twist in terms of q of each cell:
+\begin{align*}
+    A_I=\frac{\pi R^2}{2}=24543.7; \quad A_{II}=2aR=200000; \quad A_{III}=\frac{2R+c}{2}b=76500 \\
+    \delta_{61o}=\frac{2\pi R}{2t_s}=523.6; \quad \delta_{16}=\delta_{25}=\frac{2R}{t_w}=166.67; \quad
+    \delta_{12}=\delta_{56}=\frac{a}{t_s}=533.33 \\
+    \delta_{34}=\frac{c}{t_w}=116.67; \quad \delta_{45}=\frac{b}{t_s}=480; \quad
+    \delta_{23}=\frac{\sqrt{b^2+(2R-c)^2}}{t_s}=490.3
+\end{align*}
+\subsubsection*{Cell I}
+\begin{align*}
+    \frac{d\theta}{dz}_I=\frac{1}{2A_IG}(q_I(\delta_{61o}+\delta_{16i})-q_{II}\delta_{16i}+q_{bo}^{61}\delta_{61o}
+    +q_{bi}^{16}\delta_{16i})
+\end{align*}
+\subsubsection*{Cell II}
+\begin{align*}
+    \frac{d\theta}{dz}_{II}=\frac{1}{2A_{II}G}(-q_I\delta_{16i}+q_{II}(\delta_{12}+\delta_{25}+\delta_{56}+\delta_{61})
+    -q_{III}\delta_{25}+q_b^{12}\delta_{12}+q_b^{25}\delta_{25}+q_b^{56}\delta_{56}-q_b^{16}\delta_{16})
+\end{align*}
+\subsubsection*{Cell III}
+\begin{align*}
+    \frac{d\theta}{dz}_{III}=\frac{1}{2A_{III}G}(-q_{II}\delta_{25}+q_{III}(\delta_{23}+\delta_{34}+\delta_{45}+\delta_{52})
+    +q_b^{23}\delta_{23}+q_b^{34}\delta_{34}+q_b^{45}\delta_{45}-q_b^{25}\delta_{25})
+\end{align*} \\
+Set moments equal to get final equation:
+\begin{align*}
+    2A_Iq_I+2A_{II}q_{II}+2A_{III}q_{III}+q_b^{25}*(400-50)*2R+q_b^{34}*(760-50)*175=-q_{bi}^{16}*50*2R
+\end{align*}
+Use matlab to solve system of equations with the twists equal to each other and the moment equation:
+\begin{align*}
+    q_I=0.0153 \textrm{kN/mm};\quad
+    q_{II}=0.0089 \textrm{kN/mm};\quad
+    q_{III}=0.0075 \textrm{kN/mm}
+\end{align*}
+Determine shear flow in each section via below equation. (also done in matlab for time saving)
+\begin{align*}
+    q=q_R+q_b \\
+    q_{61o}=0.0153 \\
+    q_{16i}=-0.03 \\
+    q_{12}=0.0089 \\
+    q_{25}=-0.0228 \\
+    q_{56}=0.0117 \\
+    q_{23}=0.0075 \\
+    q_{34}=-0.0088 \\
+    q_{45}=0.006
+\end{align*}
+Lastly, divide by the shear flow in each section by its thickness to get the shear force.
+\begin{paracol}{2}
+    \begin{align*}
+        \tau_{61o}=0.0204 \\
+        \tau_{16i}=-0.02 \\
+        \tau_{12}=0.0119 \\
+        \tau_{25}=-0.0152 \\
+        \tau_{56}=0.0156 \\
+        \tau_{23}=0.01 \\
+        \tau_{34}=-0.0058 \\
+        \tau_{45}=0.008
+    \end{align*}
+    \switchcolumn
+    \begin{align*}
+        \fbox{$\tau_{61o}=20.4$ MPa} \\
+        \fbox{$\tau_{16i}=-20.0$ MPa} \\
+        \fbox{$\tau_{12}=11.9$ MPa} \\
+        \fbox{$\tau_{25}=-15.2$ MPa} \\
+        \fbox{$\tau_{56}=15.6$ MPa} \\
+        \fbox{$\tau_{23}=10.0$ MPa} \\
+        \fbox{$\tau_{34}=-5.8$ MPa} \\
+        \fbox{$\tau_{45}=8.0$ MPa}
+    \end{align*}
+\end{paracol}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/hw6fig3.png}
+\end{figure}
+
+\pagebreak
+\subsection*{(c)}
+Find the twist angle at the wing tip. \\ \\
+Using Matlab again, we will solve one of the twist equations (since all are equal). Evaluating $\frac{d\theta}{dz}_I$
+gives a twist rate of $1.26E-4$ deg/mm. To find the twist at the tip, we multiply by the total wing length (L):
+\begin{align*}
+    \theta=2000*1.257E-4 \\
+    \fbox{$\theta=0.25^{\circ}$}
+\end{align*}
+
+\end{document}
