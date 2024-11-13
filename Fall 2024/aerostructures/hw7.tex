@@ -1,0 +1,148 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{paracol}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#7}
+\date{11.12.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+The structure shown in Fig. 1 consists of two horizontal flanges ABC and FED, three vertical
+stiffeners, AF, BE, and CD, and two thin-walled panels ABEF and BCDE, the length scales are $a
+=1000$ mm and $b =2000$ mm. The structure is simply supported in F and E and is loaded at corner
+C by a force $F =6$ kN and forming the angle $\theta = 30^{\circ}$ relative to flange ABF. Assuming that the
+normal stresses are resisted by the flanges and stiffeners while the panels are effective only in
+shear, calculate and sketch the distribution of the normal force, N, in all flanges and stiffeners and
+the shear flows in the panels.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figs/hw7fig1.png}
+\end{figure}
+
+\pagebreak
+\subsection*{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figs/hw7fig3.png}
+\end{figure}
+First do moment balance around point E.
+\begin{align*}
+    bF_y=aR_{Fy}+aF_x \rightarrow R_{Fy}=(bF_y-aF_x)/a \\
+    F_y=F\sin{\theta}; \quad F_x=F\cos{\theta} \\
+    R_{Fy}=0.804\textrm{kN}
+\end{align*}
+
+\subsection*{Panel BCDE}
+Balance forces within panel BCDE:
+\begin{align*}
+    aq_1=F_x=F\sin{\theta} \\
+    q_1=0.003 \textrm{kN/mm}
+\end{align*}
+
+\subsection*{Panel ABEF}
+Balance forces within panel ABEF:
+\begin{align*}
+    aq_2=-R_{fy} \\
+    q_2=-8.04E-4 \textrm{kN/mm}
+\end{align*}
+
+\subsection*{Member BE}
+Balance forces in the member BE:
+\begin{align*}
+    a(q_2-q_1)=R_{ey} \\
+    R_{Ey}=-3.8\textrm{kN}
+\end{align*} \\
+We know that $R_{Ex}$ must be equal and opposite to the horizontal force as it is the only horizontal reaction force.
+\begin{align*}
+    R_{Ex}=-F\cos{\theta}=-5.2\textrm{kN}
+\end{align*}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figs/hw7fig4.png}
+\end{figure}
+Lastly, do moment balance with at both ends of each panel to determine the components:
+\subsection*{Panel ABEF}
+\begin{align*}
+    \textrm{@E:} \quad 0=aR_{AB}+aR_{Fy} \rightarrow R_{AB}=-804\textrm{N} \\
+    \textrm{@B:} \quad aR_{FE}=aR_{Fy} \rightarrow R_{FE}=804\textrm{N}
+\end{align*}
+\subsection*{Panel BCDE}
+\begin{align*}
+    \textrm{@B:} \quad bF\sin{\theta}=aR_{ED} \rightarrow R_{ED}=6000\textrm{N} \\
+    \textrm{@E:} \quad aR_{BC}+bF\sin{\theta}=aF\cos{\theta} \rightarrow R_{BC}-804\textrm{N}
+\end{align*}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figs/hw7fig5.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figs/hw7fig6.png}
+\end{figure}
+
+\pagebreak
+\section*{Problem 2}
+A thin-walled column of length 4 m has the cross section shown in Fig. 2. If the ends of the column
+are pinned and free to warp, calculate the buckling load and specify the mode of failure. Use $E =
+70$GPa and $G=30$GPa.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figs/hw7fig2.png}
+\end{figure}
+
+\subsection*{}
+Find area and centroid of the cross section.
+\begin{align*}
+    A=bt+w(h-t)=275\textrm{mm}^2 \\
+    y_c=0\textrm{mm} \\
+    z_c=\frac{1}{A}\left[bt(h-\frac{t}{2}+w(h-t)\frac{h-t}{2})\right]=49.03\textrm{mm}
+\end{align*} \\
+Then determine the moments of inertia.
+\begin{align*}
+    I_y=\frac{t^3b}{12}+bt(h-t+\frac{t}{2}-z_c)^2+\frac{(h-t)^3w}{12}+(h-t)w\left(\frac{h-t}{2}-z_c\right)^2=166532\textrm{mm}^4 \\
+    I_z=\frac{b^3t}{12}+\frac{w^3(h-t)}{12}=11081\textrm{mm}^4
+\end{align*} \\
+The shear center can be determined via symmetry and based on the intersection of horizontal and vertical beams w.r.t the
+centroid:
+\begin{align*}
+    y_{sc}=0\textrm{mm} \\
+    z_{sc}=h-\frac{t}{2}-z_c=24.72\textrm{mm}
+\end{align*} \\
+Calculate polar moment, warping modulus, and polar moment of inertia:
+\begin{align*}
+    I_o=Ay_{sc}^2+Az_{sc}^2+I_y+I_z=345404\textrm{mm}^4 \\
+    I_w=\frac{b^3t^3}{144}+\frac{h^3w^3}{36}=188828\textrm{mm}^4 \\
+    J=\frac{1}{3}\int_0^st(s)ds=\frac{bt^3}{3}+\frac{(h-t)w^3}{3}=573\textrm{mm}^4
+\end{align*}
+Then determine the critical P from equations for a simply supported beam:
+\begin{align*}
+    P_{cry}=\frac{\pi^2EI_y}{L^2}=7.2\textrm{kN} \\
+    P_{crz}=\frac{\pi^2EI_z}{L^2}=0.48\textrm{kN} \\
+    P_{cr\theta}=\frac{A}{I_o}\left(GJ+\frac{\pi^2EI_w}{L^2}\right)=13.7\textrm{kN}
+\end{align*}
+Lastly, set up and solve the flexural-torsional load for P in matlab:
+\begin{align*}
+    \begin{bmatrix}
+        P-P_{cry} & 0 & -Py_{sc} \\
+        0 & P-P_{crz} & Pz_{sc} \\
+        -Py_{sc} & Pz_{sc} & \frac{I_o}{A}(P-P_{cr\theta})
+    \end{bmatrix}\begin{bmatrix}
+        A_1 \\ A_2 \\ A_3
+    \end{bmatrix}=\begin{bmatrix}
+        0 \\ 0 \\ 0
+    \end{bmatrix} \rightarrow P=0.47\textrm{kN}
+\end{align*}
+Since P is less than all of the other critical P values, $\fbox{buckling load$=0.47$ kN}$ and the failure mode is a
+combination of bending and torsion.
+
+\end{document}
