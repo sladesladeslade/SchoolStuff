@@ -57,18 +57,19 @@ fprintf("\n%g days have passed between 12 UTC on my birthday and today\n", days)
 
 %% Problem 5.10
 %% Input locations and times
-years = [2008 2007 2005 2006 2006];
-months = [1 12 7 2 3];
-days = [1 21 4 15 21];
-hours = [12 10 20 3 8];
-mins = [0 0 0 0 0];
-secs = [0 0 0 0 0];
-elds = [18 144 -118+360 -43+360 131];      % east long degs (convert west ones to east)
-elms = [3 58 15 6 56];                     % east long mins
+years = [2008 2007 2005 2006 2006 2024];
+months = [1 12 7 2 3 11];
+days = [1 21 4 15 21 12];
+hours = [12 10 20 3 8 17];
+mins = [0 0 0 0 0 0];
+secs = [0 0 0 0 0 0];
+elds = [18 144 -118+360 -43+360 131 -84+360]; % east long degs (convert west ones to east)
+elms = [3 58 15 6 56 30];                     % east long mins
+elss = [0 0 0 0 0 31.075];                    % east long mins
 
 %% run local sidereal time function from book
 % convert to decimals
-ELs = elds + elms/60;
+ELs = elds + elms/60 + elss/3600;
 uts = hours + mins/60 + secs/3600;
 lsts = [0 0 0 0 0];
 for i=1:length(years)
