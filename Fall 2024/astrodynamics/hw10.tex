@@ -1,0 +1,167 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5063 HW\#10}
+\date{11.25.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{6.3}
+\begin{align*}
+    v_{A_1} &= \sqrt{\frac{\mu}{r}} = \sqrt{\frac{398600}{6378 + 500}} = 7.613 \text{km/s}
+\end{align*}
+
+\begin{align*}
+    6378 + 500 &= \frac{h_2^2}{\mu} \cdot \frac{1}{1 - e_2} \rightarrow \frac{h_2^2}{\mu} = 6878 (1 - e_2)
+\end{align*}
+
+\begin{align*}
+    6378 &= \frac{h_2^2}{\mu} \cdot \frac{1}{1 + e_2 \cos 60^\circ} \rightarrow \frac{h_2^2}{\mu} = 6378 (1 + 0.5e_2)
+\end{align*}
+
+set equal and solve for eccentricity:
+\begin{align*}
+    6378(1 + 0.5e_2) = 6878(1 - e_2) \rightarrow e_2 = 0.04967
+\end{align*}
+
+\begin{align*}
+    h_2 &= \sqrt{6878 \mu (1 - e_2)} = \sqrt{6878 \cdot 398600 \cdot (1 - 0.04967)} = 51040 \, \text{km}^2/\text{s}
+\end{align*}
+
+\subsection*{(a)}
+\begin{align*}
+    v_{A_2} &= \frac{h_2}{r_A} = \frac{51040}{6878} = 7.421 \text{km/s}
+\end{align*}
+
+\begin{align*}
+    \Delta v &= v_{A_2} - v_{A_1} = 7.421 - 7.613 = \fbox{$-0.1915 \text{km/s}$}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    \Delta v &= 0 - v_{A_1} = \fbox{$-7.613 \text{km/s}$}
+\end{align*} 
+
+\pagebreak
+\section*{6.8}
+
+\subsection*{(a)}
+\begin{align*}
+    v_1=\frac{\mu}{r}=\sqrt{\frac{398600}{6378+300}}=7.726\text{km/s}
+\end{align*}
+
+\begin{align*}
+    e_2=\frac{r_{a2}-r_{p2}}{r_{a2}+r_{p2}}=\frac{6378+3000-(6378+300)}{6378+3000+6378+300}=0.168 \\
+    r_{p2}=\frac{h_2^2}{398600}\frac{1}{1+0.168}\rightarrow h_2=55760\text{km$^2$/s}
+\end{align*}
+
+\begin{align*}
+    v_{p2}=\frac{h_2}{r_{p2}}=\frac{55760}{6678}=8.35\text{km/s} \\
+    v_{a2}=\frac{h_2}{r_{a2}}=\frac{55760}{9378}=5.95\text{km/s}
+\end{align*}
+
+\begin{align*}
+    v_3=\frac{\mu}{r}=\frac{398600}{6378+3000}=6.52\text{km/s} \\
+    \Delta v_1=v_{p2}-v_1=8.35-7.726=0.6244\text{km/s} \\
+    \Delta v_2=v_3-v_{a2}=6.52-5.95=0.57\text{km/s} \\
+    \fbox{$\Delta v_{tot}=1.2$ km/s}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    a_2=0.5(r_{p2}+r_{a2})=0.5(6678+9378)=8028\text{km/s} \\
+    T_2=\frac{2\pi}{\sqrt{\mu}}a^{\frac{3}{2}}=\frac{2\pi}{\sqrt{398600}}8027^{\frac{3}{2}}=7159\text{s}
+\end{align*}
+time perigee to apogee is half the period:
+\begin{align*}
+    t=T_2/2/60=\fbox{$t=59.7$ min}
+\end{align*}
+
+\pagebreak
+\section*{6.10}
+
+\subsection*{(a)}
+\begin{align*}
+    a=0.5(r_m+r_e)=0.5(227.9E6+149.6E6)=188.8E6 \\
+    T=\frac{2\pi}{\sqrt{\mu}}a^{\frac{3}{2}}=\frac{2\pi}{\sqrt{132.7E9}}(188.8E6)^{\frac{3}{2}}=44.73E6=517.7\text{days} \\
+    \fbox{time of flight$=258.8$ days}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    T_m=\frac{2\pi}{\sqrt{\mu}}r_m^{\frac{3}{2}}=\frac{2\pi}{\sqrt{132.7E9}}(227.9E6)^{\frac{3}{2}}=59.34E6=686.8\text{days}
+\end{align*}
+
+\begin{align*}
+    \frac{180^{\circ}-\alpha}{180^{\circ}}=\frac{\text{tof}}{T_m/2}=\frac{258.8}{343.4}=0.754 \\
+    \fbox{$\alpha=44.3^{\circ}$}
+\end{align*}
+
+\pagebreak
+\section*{6.17}
+\subsection*{(a)}
+
+\subsubsection*{Orbit 1:}
+\begin{align*}
+    v_A^1 &= \sqrt{\frac{\mu}{r_A}} = \sqrt{\frac{398600}{6678}} = 7.726 \, \text{km/s}
+\end{align*}
+
+\subsubsection*{Orbit 2:}
+\begin{align*}
+    0.3 = \frac{r_B - 6678}{r_B + 6678} \rightarrow r_B = 12402 \text{km}
+\end{align*}
+\begin{align*}
+    h_2 &= \sqrt{2 \mu \frac{r_A r_B}{r_A + r_B}} = \sqrt{2 \cdot 398600 \cdot \frac{6678 \cdot 12402}{6678 + 12402}} = 58830 \text{km}^2/\text{s}
+\end{align*}
+
+\begin{align*}
+    v_A^2 &= \frac{h_2}{r_A} = \frac{58830}{6678} = 8.809 \, \text{km/s} \\
+    v_B^2 &= \frac{h_2}{r_B} = \frac{58830}{12402} = 4.743 \, \text{km/s}
+\end{align*}
+
+\subsubsection*{Orbit 3:}
+\begin{align*}
+    h_3 &= \sqrt{2 \mu \frac{r_B r_C}{r_B + r_C}} = \sqrt{2 \cdot 398600 \cdot \frac{12402 \cdot 9378}{12402 + 9378}} = 65250 \, \text{km}^2/\text{s} \\
+\end{align*}
+
+\begin{align*}
+    v_B^3 &= \frac{h_3}{r_B} = \frac{65250}{12402} = 5.261 \, \text{km/s} \\
+    v_C^3 &= \frac{h_3}{r_C} = \frac{65250}{9378} = 6.957 \, \text{km/s}
+\end{align*}
+
+\subsubsection*{Orbit 4:}
+\begin{align*}
+    v_C^4 &= \sqrt{\frac{\mu}{r_C}} = \sqrt{\frac{398600}{9378}} = 6.519 \, \text{km/s}
+\end{align*}
+
+\begin{align*}
+    \Delta v_{\text{total}} &= (v_A^2 - v_A^1) + (v_B^3 - v_B^2) + (v_C^4 - v_C^3) \\
+    &= 1.083 + 0.518 + 0.438 = \fbox{$2.04 \text{km/s}$}
+\end{align*}
+
+\subsection*{(b)}
+\subsubsection*{For Orbit 2:}
+\begin{align*}
+    T_2 &= 2\pi \sqrt{\frac{\left( \frac{r_A + r_B}{2} \right)^3}{\mu}} = 2\pi \sqrt{\frac{\left( \frac{6678 + 12402}{2} \right)^3}{398600}} = 9273 \, \text{s}
+\end{align*}
+
+\subsubsection*{For Orbit 3:}
+\begin{align*}
+    T_3 &= 2\pi \sqrt{\frac{\left( \frac{r_B + r_C}{2} \right)^3}{\mu}} = 2\pi \sqrt{\frac{\left( \frac{12402 + 9378}{2} \right)^3}{398600}} = 11310 \, \text{s}
+\end{align*}
+
+\begin{align*}
+    t_{\text{total}} &= \frac{1}{2} \left( T_2 + T_3 \right) = \frac{1}{2} \left( 9273 + 11310 \right) = 10290 \, \text{s} = \fbox{$2.86\text{hr}$}
+\end{align*}
+
+\end{document}
