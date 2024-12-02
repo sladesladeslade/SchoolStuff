@@ -1,0 +1,99 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5063 HW\#11}
+\date{12.02.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{6.20}
+\begin{align*}
+    T_{phase}=\frac{T}{2} \\
+    \frac{2\pi}{\sqrt{\mu}}a^{\frac{3}{2}}=\frac{1}{2}\frac{2\pi}{\sqrt{\mu}}r^{\frac{3}{2}} \\
+    a=\left(\frac{1}{2}r^{\frac{3}{2}}\right)^{\frac{2}{3}} \\
+    \fbox{$a=0.63r$}
+\end{align*}
+\pagebreak
+
+\section*{6.25}
+
+\subsection*{Orbit 1:}
+\begin{align*}
+    r_p = 6378 + 1270 = 7648 \, \text{km}, \quad v_p = 9 \, \text{km/s} \\
+    h_1 = r_p v_p = 7648 \cdot 9 = 68832 \, \text{km}^2/\text{s} \\
+    r_p = \frac{h_1^2}{\mu} \frac{1}{1 + e_1} \\
+    7648 = \frac{68832^2}{398600} \frac{1}{1 + e_1} \quad \rightarrow \quad \fbox{$e_1 = 0.554$}
+\end{align*}
+
+\subsection*{At the maneuver point, $\theta = 100^{\circ}$:}
+\begin{align*}
+    r = \frac{h_1^2}{\mu} \frac{1}{1 + e_1 \cos \theta} \\
+    r = \frac{68832^2}{398600} \frac{1}{1 + 0.554 \cos 100^{\circ}} = 13150 \, \text{km}
+\end{align*}
+\begin{align*}
+    v_{1\perp} = \frac{h_1}{r} = \frac{68832}{13150} = 5.234 \, \text{km/s} \\
+    v_{1r} = \frac{\mu}{h_1} e_1 \sin \theta = \frac{398600}{68832} \cdot 0.554 \cdot \sin 100^{\circ} = 3.16 \, \text{km/s} \\
+    v_1 = \sqrt{v_{1\perp}^2 + v_{1r}^2} = \sqrt{5.234^2 + 3.16^2} = 6.114 \, \text{km/s} \\
+    \gamma_1 = \tan^{-1} \frac{v_{1r}}{v_{1\perp}} = \tan^{-1} \frac{3.16}{5.234} = 31.13^{\circ}
+\end{align*}
+
+\subsection*{Orbit 2:}
+\begin{align*}
+    e_2 = 0.4, \quad r = \frac{h_2^2}{\mu} \frac{1}{1 + e_2 \cos \theta} \\
+    13150 = \frac{h_2^2}{398600} \frac{1}{1 + 0.4 \cos 100^{\circ}} \quad \rightarrow \quad h_2 = 69840 \, \text{km}^2/\text{s}
+\end{align*}
+\begin{align*}
+    v_{2\perp} = \frac{h_2}{r} = \frac{69840}{13150} = 5.311 \, \text{km/s} \\
+    v_{2r} = \frac{\mu}{h_2} e_2 \sin \theta = \frac{398600}{69840} \cdot 0.4 \cdot \sin 100^{\circ} = 2.248 \, \text{km/s} \\
+    v_2 = \sqrt{v_{2\perp}^2 + v_{2r}^2} = \sqrt{5.311^2 + 2.248^2} = 5.767 \, \text{km/s} \\
+    \gamma_2 = \tan^{-1} \frac{v_{2r}}{v_{2\perp}} = \tan^{-1} \frac{2.248}{5.311} = 22.94^{\circ}
+\end{align*}
+\begin{align*}
+    \Delta \gamma = \gamma_2 - \gamma_1 = 22.94^{\circ} - 31.13^{\circ} = -8.181^{\circ}
+\end{align*}
+\begin{align*}
+    \Delta v = \sqrt{v_1^2 + v_2^2 - 2 v_1 v_2 \cos \Delta \gamma} \\
+    \Delta v = \sqrt{6.114^2 + 5.767^2 - 2 \cdot 6.114 \cdot 5.767 \cdot \cos(-8.181^{\circ})} \\
+    \Delta v = 0.9155 \, \text{km/s}
+\end{align*}
+\begin{align*}
+    \fbox{$\Delta v = 0.916 \, \text{km/s}$}
+\end{align*}
+\pagebreak
+
+\section*{6.31}
+\subsection*{Orbit 1:}
+\begin{align*}
+    r_{P1_1}=\frac{h_1^2}{\mu}\frac{1}{1+e}
+\end{align*}
+
+\subsection*{Orbit 2:}
+\begin{align*}
+    r_{P1_2}=\frac{h_2^2}{\mu}\frac{1}{1+e\cos{90}}=\frac{h_2^2}{\mu} \\
+    r_{P1_1}=r_{P1_2} \\
+    \frac{h_2^2}{\mu}=\frac{h_1^2}{\mu}\frac{1}{1+e} \\
+    \fbox{$h_2=\frac{h_1}{\sqrt{1+e}}$}
+\end{align*}
+\pagebreak
+
+\section*{6.37}
+\begin{align*}
+    A = \sin^{-1}\left(\frac{\cos{i}}{\cos{\phi}}\right) \\
+    (a) \quad A = \sin^{-1}\left(\frac{\cos{116.57^\circ}}{\cos{28.59^\circ}}\right) = \fbox{$329.4^\circ \, \text{or} \, 210.6^\circ$} \\
+    (b) \quad A = \sin^{-1}\left(\frac{\cos{116.57^\circ}}{\cos{34.5^\circ}}\right) = \fbox{$327.1^\circ \, \text{or} \, 212.9^\circ$} \\
+    (c) \quad A = \sin^{-1}\left(\frac{\cos{116.57^\circ}}{\cos{5.5^\circ}}\right) = \fbox{$333.3^\circ \, \text{or} \, 206.7^\circ$}
+\end{align*}
+\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\  \\ \\ \\ \\
+\section*{6.34}
+
+\end{document}
