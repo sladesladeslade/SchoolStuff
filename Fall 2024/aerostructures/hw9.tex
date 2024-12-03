@@ -1,0 +1,182 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{paracol}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{AEEM5058 HW\#9}
+\date{12.03.24}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+A panel of thickness $t = 3$ mm is clamped at one end and subject to an axial force $F= 9600$N at
+the other end. The material has yield stress $\sigma_Y=251$ MPa. Airworthiness regulations require a
+safety factor $n=1.25$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figs/hw11fig1.png}
+\end{figure}
+
+\pagebreak
+\subsection*{a)}
+Show that the panel does not fail under the applied load. \\ \\
+We will analyze each feature on its own. First the leftmost rectanglar section with a circular hole:
+
+\subsection*{Big Hole}
+Using the stress concentration pdf:
+\begin{align*}
+    \frac{d}{w}=\frac{15}{75}=0.2 \rightarrow K_t=2.5
+\end{align*}
+where
+\begin{align*}
+    K_t=\frac{\sigma_{max}}{\sigma_0}
+\end{align*}
+Then determine the nominal stress at the minimum cross sectional area and the max from that:
+\begin{align*}
+    \sigma_0=\frac{F}{A_{min}}=\frac{F}{t(w-d)}=\frac{9600}{3(75-15)}=53.33\text{N/mm$^2$} \rightarrow
+    \sigma_{max} = 133.33\text{MPa}
+\end{align*}
+
+\subsection*{Fillets}
+Same process with stress concentration chart:
+\begin{align*}
+    \frac{r}{d}=\frac{5}{50}=0.1,\quad \frac{D}{d}=\frac{75}{50}=1.5 \rightarrow K_t=2.1
+\end{align*}
+Then determine nominal stress and the max:
+\begin{align*}
+    \sigma_0=\frac{F}{A_{min}}=\frac{F}{td}=\frac{9600}{3\cdot50}=64\text{N/mm$^2$} \rightarrow
+    \sigma_{max}= 134.4\text{MPa}
+\end{align*}
+
+\subsection*{Little Hole}
+Using the stress concentration pdf:
+\begin{align*}
+    \frac{d}{w}=\frac{10}{50}=0.2 \rightarrow K_t=2.5
+\end{align*}
+Then determine the nominal stress at the minimum cross sectional area and the max from that:
+\begin{align*}
+    \sigma_0=\frac{F}{A_{min}}=\frac{F}{t(w-d)}=\frac{9600}{3(50-10)}=80\text{N/mm$^2$} \rightarrow
+    \sigma_{max} = 200\text{MPa}
+\end{align*}
+\\ Then, analyze the yield stress + safety factor to determine if any violated it:
+\begin{align*}
+    \sigma=\frac{\sigma_Y}{n}=\frac{251}{1.25}=200.8\text{MPa}
+\end{align*}
+\fbox{Since all of the individual segments have stress lower than the yield with safety factor} \\
+\fbox{(200.8MPa), the panel does
+not fail.} \\
+
+\subsection*{b)}
+To reduce the weight of the panel the diameter of one of the holes can be increased without
+causing failure. Identify which hole can be enlarged and propose a new diameter for it that
+can reduce weight without compromising the integrity of the panel under the applied load.
+Note- it is not necessary to find the largest possible hole diameter. \\ \\
+It is clear from the results of part a that the small hole cannot be enlarged any meaningful amount, as its stress is
+only 0.8MPa away from the maximum allowable. Thus, we will attempt to double the diameter of the large hole to save
+weight. We can solve with the same process as used in part a:
+\begin{align*}
+    \frac{d}{w}=\frac{30}{75}=0.4 \rightarrow K_t=2.2625
+\end{align*}
+\begin{align*}
+    \sigma_0=\frac{F}{A_{min}}=\frac{F}{t(w-d)}=\frac{9600}{3(75-30)}=71.11\text{N/mm$^2$} \rightarrow
+    \sigma_{max} = 160.9\text{MPa}
+\end{align*}
+Since the result is still lower than the 200.8Mpa limit, \fbox{the large hole could be enlarged to 30mm safely.}
+
+\pagebreak
+\section*{Problem 2}
+A bar of length $L = 700$ mm has a 15 mm x 45 mm rectangular cross section and is simply
+supported at its ends. At the midspan point the bar has two circular notches of radius $r =3.75$ mm
+as shown in Fig. 3. The bar is loaded by a constant force $F = 2$ kN and by a time-varying bending
+moment, M, that oscillates between $\pm 300$ Nm. Both the force and moment are applied at the
+center of the bar. Assuming that the bar is made of a material with ultimate strength $\sigma_u = 280$ MPa
+and endurance limit $\sigma_e = 150$ MPa, determine if the bar fails under the Goodman criterion using a
+safety factor of 1.2.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.\linewidth]{figs/hw11fig2.png}
+\end{figure}
+
+\pagebreak
+\subsection*{}
+To determine the goodman criterion:
+\begin{align*}
+    \frac{k_{ctf}\sigma_{rev}}{\sigma_e}+\frac{\sigma_m}{\sigma_u}=\frac{1}{n} \\
+    \frac{k_{ctf}\sigma_{rev}}{150}+\frac{\sigma_m}{280}=\frac{1}{1.2}
+\end{align*}
+First we need to determine the moment on the beam contributed by the applied force. For a simply supported beam with a
+point force at the center:
+\begin{align*}
+    M_F=\frac{FL}{4}=\frac{2000\cdot700}{4}=350000\text{Nmm}
+\end{align*}
+The stress due to the moment is determined by:
+\begin{align*}
+    \sigma=\frac{My}{I};\quad y=37.5/2=18.75\text{mm}
+\end{align*}
+We will need to determine two moments of inertia to analyze the stress due to force and moment separately:
+\begin{align*}
+    I_{Y'}=\frac{b^3h}{12}=\frac{15^3\cdot37.5}{12}=10546.875\text{mm$^4$} \\
+    I_{X}=\frac{bh^3}{3}=\frac{15\cdot37.5^3}{3}=263671.875\text{mm$^4$}
+\end{align*}
+\begin{align*}
+    \sigma_F=\frac{M_Fy}{I_{Y'}}=\frac{350000\cdot18.75}{10546.875}=622.22\text{N/mm$^2$} \\
+    \sigma_M=\frac{My}{I_X}=\frac{300000\cdot18.75}{263671.875}=21.33\text{N/mm$^2$}
+\end{align*}
+Then we can determine the max and min stress, and then determine the mean and reversible stresses for the goodman\includegraphics[scale=0.02]{figs/goodman.jpg}
+criterion:
+\begin{align*}
+    \sigma_{max}=\sigma_F+\sigma_M=643.55\text{N/mm$^2$} \\
+    \sigma_{min}=\sigma_F-\sigma_M=600.89\text{N/mm$^2$} \\
+    \sigma_m=\frac{\sigma_{max}+\sigma_{min}}{2}=622.22\text{N/mm$^2$} \\
+    \sigma_{rev}=\frac{\sigma_{max}-\sigma_{min}}{2}=21.33\text{N/mm$^2$}
+\end{align*}
+Lastly, we need to determine $k_{ctf}$ from the stress concentration charts:
+\begin{align*}
+    \frac{r}{d}=\frac{3.75}{37.5}=0.1;\quad\frac{D}{d}=\frac{45}{37.5}=1.2 \rightarrow k_{ctf}=2.0
+\end{align*}
+Then we will plug in and solve the goodman criterion and see what the actual safety factor would be:
+\begin{align*}
+    \frac{2\cdot21.33}{150}+\frac{622.22}{280}=\frac{1}{n} \rightarrow n=0.4
+\end{align*}
+Since the required safety factor is $n=1.2$, \fbox{the beam fails the goodman\includegraphics[scale=0.02]{figs/goodman.jpg} criterion.}
+
+\pagebreak
+\section*{Problem 3}
+The fuselage of commercial jet aircraft has a diameter of 2.6 m. The aircraft is used typically for
+an average of six short-haul passenger flights each day. During each flight, the cabin is pressurized
+to 52 kPa. The fuselage skin, 0.9 mm in thickness, is made of an aluminum alloy with fracture
+toughness $K_I=30$ MPa$\sqrt{\text{m}}$. The fatigue crack growth behavior is characterized by the relationship
+da/dN$=2\times10^{-9}(\Delta\text{K})^3$ where da/dN is in m/cycle and $\Delta$K is in MPa$\sqrt{\text{m}}$. When a routine maintenance
+inspection was conducted on the aircraft, the presence of a 0.4-mm long, through thickness crack
+in the fuselage skin, oriented parallel to the longitudinal axis of the fuselage, was left undetected
+due to human error. If the fuselage is designed such that the cabin pressure could be sustained
+even with a longitudinal crack up to 10 cm length, find the safe fatigue life (in years) of the aircraft
+from the time of the maintenance. \\ \\
+First, we will need to determine the minimum and maximum stress on the fuselage. The minimum can be assumed to be 0
+since the vehicle will not see higher pressure than cabin pressure. Furthermore, we will assume the maximum stress to
+occur when the external pressure is 0 and determine the hoop stress at that point.
+\begin{align*}
+    \sigma_{max}=\sigma_h=\frac{P_{cabin}-P_{ext}}{t}R_0=\frac{0.052}{0.0009}(2.6/2)=75.11\text{MPa} \\
+    \sigma_{min}=0
+\end{align*}
+Next, we will determine the Y of the material at the critical crack length:
+\begin{align*}
+    K_I=Y\sigma_{mean}\sqrt{\pi a_c} \rightarrow Y=\frac{K_I}{\frac{\sigma_{max}+\sigma_{min}}{2}\sqrt{\pi a_c}}=1.425
+\end{align*}
+Now we have all necessary values to solve for the residual life:
+\begin{align*}
+    N_f=\frac{2\left(a_c^{\frac{2-m}{2}}-a_i^{\frac{2-m}{2}}\right)}{(2-m)A[Y(\sigma_{max}-\sigma_{min})\sqrt{\pi}]^m}
+    =\frac{2\left(0.1^{\frac{2-3}{2}}-0.0004^{\frac{2-3}{2}}\right)}{(2-3)2E-9[1.425(75.11)\sqrt{\pi}]^3}=6860.14\text{cycles} \\
+    N_f=6860.14/6/365.25=3.13
+\end{align*}
+\fbox{$N_f=3.13$ years}
+
+\end{document}
