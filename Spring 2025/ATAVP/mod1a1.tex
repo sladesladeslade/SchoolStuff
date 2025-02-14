@@ -1,0 +1,59 @@
+\begin{align*}
+    F=127.3\text{kN}; \quad TSFC=58.9\text{g/kNs}; \quad \dot{m}_o=115.2\text{kg/s}
+\end{align*}
+
+\begin{align*}
+    SFC=\frac{\dot{m}_f}{F} \rightarrow \dot{m}_f=F\cdot SFC \\
+    \dot{m}_f=58.9\text{g/kNs}\cdot 127.3\text{kN}\cdot\frac{1\text{kg}}{1000\text{g}}=7.5\text{kg/s}
+\end{align*}
+
+\begin{align*}
+    F=(\dot{m_0}+\dot{m}_f)V_9 \rightarrow V_9=\frac{F}{\dot{m}_0+\dot{m_f}} \\
+    V_9=\frac{127300\text{N}}{115.2\text{kg/s}+7.5\text{kg/s}}=1037.5\text{m/s}
+\end{align*}
+
+\begin{align*}
+    \eta_T=\frac{\dot{W}_{out}}{\dot{Q}_{in}}=\frac{0.5(\dot{m}_0+\dot{m}_f)V_9^2}{\dot{m}_fh_{PR}} \\
+    \eta_T=\frac{0.5(115.2\frac{\text{kg}}{\text{s}}+7.5\frac{\text{kg}}{\text{s}})(1037.5\frac{\text{m}}{\text{s}})^2}
+    {7.5\frac{\text{kg}}{\text{s}}\cdot 42800000\frac{J}{kg}}=0.206
+\end{align*}
+
+\begin{align*}
+    F_c=\frac{\dot{m}_c}{g_c}\left[\left(1+\frac{\dot{m}_f}{\dot{m}_c}\right)V_{ce}-V_0\right] \\
+    \frac{F_c}{\dot{m}_0}=\frac{\dot{m}_c}{\dot{m}_0g_c}\left[\left(1+\frac{\dot{m}_f}{\dot{m}_c}\right)V_{ce}-V_0\right] \\
+    \frac{F_c}{\dot{m}_0}=\frac{\dot{m_c}}{\dot{m}_b+\dot{m}_c}\frac{1}{g_c}\left[\left(1+\frac{\dot{m}_f}{\dot{m}_c}\right)V_{ce}-V_0\right] \\
+    \frac{F_c}{\dot{m}_0}=\frac{\frac{\dot{m}_c}{\dot{m}_c}}{\frac{\dot{m}_b}{\dot{m}_c}+\frac{\dot{m}_c}{\dot{m}_c}}
+    \frac{1}{g_c}\left[\left(1+\frac{\dot{m}_f}{\dot{m}_c}\right)V_{ce}-V_0\right] \\
+    \frac{F_c}{\dot{m}_0}=\frac{1}{1+\alpha}\frac{1}{g_c}\left[\left(1+\frac{\dot{m}_f}{\dot{m}_c}\right)V_{ce}-V_0\right] \\
+\end{align*}
+
+\begin{align*}
+    \frac{F_b}{\dot{m}_0}=\frac{\dot{m}_b}{\dot{m}_0}\frac{1}{g_c}\left(V_{be}-V_0\right) \\
+    \frac{F_b}{\dot{m}_0}=\frac{\dot{m}_b}{\dot{m}_b+\dot{m}_c}\frac{1}{g_c}\left(V_{be}-V_0\right) \\
+    \frac{F_b}{\dot{m}_0}=\frac{\frac{\dot{m}_b}{\dot{m}_c}}{\frac{\dot{m}_b}{\dot{m}_c}+\frac{\dot{m}_c}{\dot{m}_c}}
+    \frac{1}{g_c}\left(V_{be}-V_0\right) \\
+    \frac{F_b}{\dot{m}_0}=\frac{\alpha}{1+\alpha}\frac{1}{g_c}\left(V_{be}-V_0\right) \\
+\end{align*}
+
+\begin{align*}
+    \frac{F}{\dot{m}_0}=\frac{F_c}{\dot{m}_0}+\frac{F_b}{\dot{m}_0}=\frac{1}{g_c}\left[\frac{1}{1+\alpha}\left(
+    \left(1+\frac{\dot{m}_f}{\dot{m}_c}\right)V_{ce}-V_0\right) + \frac{\alpha}{1+\alpha}\left(V_{be}-V_0\right)\right]
+\end{align*}
+
+\begin{align*}
+    -\frac{1}{1+\alpha}V_0-\frac{\alpha}{1+\alpha}V_0 \rightarrow \frac{-1-\alpha}{1+\alpha}V_0 \rightarrow
+    -\frac{(1+\alpha)}{1+\alpha}V_0=-V_0
+\end{align*}
+
+\begin{align*}
+    \frac{F}{\dot{m}_0}=\frac{1}{g_c}\left(\frac{1+\frac{\dot{m}_f}{\dot{m}_c}}{1+\alpha}V_{ce} +
+    \frac{\alpha}{1+\alpha}V_{be}-V_0\right)
+\end{align*}
+
+\begin{align*}
+    S=\frac{\dot{m}_f}{F}\rightarrow \frac{\frac{\dot{m}_f}{\dot{m}_0}}{(F/\dot{m}_0)} \\
+    S=\frac{\frac{\dot{m}_f}{\dot{m}_b+\dot{m}_c}}{(F/\dot{m}_0)}=
+    \frac{\frac{\frac{\dot{m}_f}{\dot{m}_c}}{\frac{\dot{m}_b}{\dot{m}_c}+\frac{\dot{m}_c}{\dot{m}_c}}}{(F/\dot{m}_0)} \\
+    S=\frac{\frac{\frac{\dot{m}_f}{\dot{m}_c}}{\alpha+1}}{(F/\dot{m}_0)} \\
+    \fbox{$S=\frac{\dot{m}_f/\dot{m_c}}{(1+\alpha)(F/\dot{m}_0)}$}
+\end{align*}
