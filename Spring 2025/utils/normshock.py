@@ -44,4 +44,4 @@ def normshock(Mx:float, y:float):
     # calculate density ratio
     rhoy_rhox = Py_Px/Ty_Tx
     
-    return np.round(My, 6), np.round(Pty_Ptx, 6), np.round(Py_Px, 6), np.round(rhoy_rhox, 6), np.round(Ty_Tx, 6)
+    return My, Pty_Ptx, Py_Px, rhoy_rhox, Ty_Tx
