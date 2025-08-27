@@ -64,5 +64,4 @@ def compflow(M:float, y:float):
         mu = 0.
         v = 0.
         
-    return np.round(T_Tt, 6), np.round(P_Pt, 6), np.round(rho_rhot, 6), np.round(A_Astar, 6), np.round(MFPsRgc, 6), \
-        np.round(mu, 6), np.round(v, 6)
+    return T_Tt, P_Pt, rho_rhot, A_Astar, MFPsRgc, mu, v
