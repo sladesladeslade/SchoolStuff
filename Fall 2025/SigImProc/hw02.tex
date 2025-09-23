@@ -1,0 +1,67 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{BME6013C HW\#2}
+\date{09.18.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\begin{align*}
+    r_{fg}=\frac{1}{T}\int_{0}^{T}e^{-j2\pi mt/T}e^{2j\pi nt/T}dt
+\end{align*}
+
+\section*{Part 1}
+First simplify the integrand for simplicity:
+\begin{align*}
+    r_{fg}=\frac{1}{T}\int_{0}^{T}e^{-j2\pi mt/T}e^{j2\pi nt/T}dt \\
+    =\frac{1}{T}\int_{0}^{T}e^{j2\pi n t/T -j2\pi mt/T}dt \\
+    =\frac{1}{T}\int_{0}^{T}e^{j\frac{2\pi}{T}(n - m)t}dt
+\end{align*}
+Now evaluate the integral:
+\begin{align*}
+    r_{fg}=\frac{1}{jT\left(\frac{2\pi}{T}(n - m)\right)}e^{j\frac{2\pi}{T}(n - m)t}|_0^T \\
+    =\frac{1}{j2\pi(n - m)}\left(e^{j\frac{2\pi}{T}(n-m)T}-e^{j\frac{2\pi}{T}(n-m)0}\right) \\
+    =\frac{1}{j2\pi(n - m)}\left(e^{j2\pi(n-m)}-e^{j0}\right) \\
+    \fbox{$r_{fg}=\frac{e^{j2\pi(n - m)}-1}{j2\pi(n - m)}$}
+\end{align*}
+
+\section*{Part 2}
+sub in $n=m$ and simplify the integral:
+\begin{align*}
+    r_{fg}=\frac{1}{T}\int_{0}^{T}e^{-j2\pi mt/T}e^{j2\pi mt/T}dt \\
+    =\frac{1}{T}\int_{0}^{T}e^{j2\pi mt/T -j2\pi mt/T}dt \\
+    =\frac{1}{T}\int_{0}^{T}e^{j0}dt=\frac{1}{T}\int_{0}^{T}1dt
+\end{align*}
+now take the integral w.r.t. $t$:
+\begin{align*}
+    r_{fg}=\frac{1}{T}t|_0^T=\frac{1}{T}(T - 0)=\frac{T}{T}=1
+\end{align*}
+This result makes sense as $r_{fg}$ for two identical signals should be 1, indicating that they are perfectly
+correlated.
+
+\section*{Part 3}
+evaluate $r_{fg}=0$ from Part 1:
+\begin{align*}
+    r_{fg}=\frac{e^{j2\pi (n-m)}-1}{j2\pi (n-m)}=0 \\
+    =e^{j2\pi(n-m)}-1=0
+\end{align*}
+sub in cos/sin definition of complex number:
+\begin{align*}
+    r_{fg}=\cos{(2\pi(n-m))}+j\sin{(2\pi(n-m))}=1
+\end{align*}
+Since $n-m$ will always be an integer if $n$ and $m$ are any real integer, the number within the cos/sin will always be
+a multiple of $2\pi$. This means that the sin term will always be $0$, and cos will always be $1$:
+\begin{align*}
+    r_{fg}=1+j0=1
+\end{align*}
+which simplifies to $r_{fg}=1-1=0$, proving that $r_{fg}=0$ for any non-equal real integers $n$ and $m$.
+\end{document}

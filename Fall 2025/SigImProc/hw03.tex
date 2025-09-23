@@ -1,0 +1,85 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{BME6013C HW\#3}
+\date{09.25.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+For a square wave defined as:
+\begin{align*}
+    u(t) = -A, -T/2 \leq t < 0, \\
+    = A, 0 \leq t < T/2, \\
+    = u(t+T)
+\end{align*}
+and the integral fourier series definition:
+\begin{align*}
+    C_n=\frac{1}{T}\int_{-T/2}^{T/2}e^{-j2\pi nt/T}u(t)dt
+\end{align*}
+First we will solve for $C_n$. The first step is to split the integral into 2 pieces so we can sub in the value of
+$u(t)$ that is known for each interval.
+\begin{align*}
+    C_n=\frac{1}{T}\left[\int_{-T/2}^{0}e^{-j2\pi nt/T}(-A)dt + \int_{0}^{T/2}e^{-j2\pi nt/T}(A)dt\right] \\
+    C_n=\frac{A}{T}\left[\int_{0}^{T/2}e^{-j2\pi nt/T}dt - \int_{-T/2}^{0}e^{-j2\pi nt/T}dt\right]
+\end{align*}
+Now, we can evaluate the integrals.
+\begin{align*}
+    C_n=\frac{A}{T}\left[-\frac{T}{j2\pi n}\left(e^{-j2\pi nt/T}\right)\Big|_0^{T/2} - \left(-\frac{T}{j2\pi n}\right)
+    \left(e^{-j2\pi nt/T}\right)\Big|_{-T/2}^0\right] \\
+    C_n=\frac{A}{j2\pi n}\left[-\left(e^{-j2\pi n(T/2)/T} - e^{-j2\pi n(0)/T}\right)+
+    \left(e^{-j2\pi n(0)/T}-e^{-j2\pi n(-T/2)/T}\right)\right]
+\end{align*}
+Next we will simplify the result:
+\begin{align*}
+    C_n=\frac{A}{j2\pi n}\left[-\left(e^{-j\pi n}-1\right)+\left(1-e^{-j\pi n}\right)\right] \\
+    C_n=\frac{A}{j2\pi n}\left(2-2e^{-j\pi n}\right) \\
+    C_n=\frac{A}{j\pi n}\left(1-e^{-j\pi n}\right)
+\end{align*}
+Convert the $e$ to sin notation using the Euler identity:
+\begin{align*}
+    C_n=\frac{A}{j\pi n}\left(1-\cos{(\pi n)}-j\sin{(\pi n)}\right)
+\end{align*}
+Since the sin of any integer multiple of $\pi$ is 0, that term disappears. The cos of any integer multiple of $\pi$ is
+$-1^n$, which is a known relationship. This can be substituted in to simplify further.
+\begin{align*}
+    C_n=\frac{A}{j\pi n}\left(1-(-1)^n\right)
+\end{align*}
+This expression can be evaluated with some thinking. For any even value of $n$, the term in the parentheses will be
+$1-1=0$, so the coefficient $C_n=0$ for any even value of $n$. If $n$ is odd, it will be $1--1=2$. Thus:
+\begin{align*}
+    C_n = 0, n \text{ is even} \\
+    C_n =\frac{2A}{j\pi n}, n \text{ is odd}
+\end{align*}
+Then, this can be plugged in to the series:
+\begin{align*}
+    u(t)=\sum_{-\infty}^{\infty}C_ne^{j2\pi nt/T}
+\end{align*}
+Since $C_n=0$ for any even value of $n$, we can replace the summation limits. For simplicity, instead of going from
+-infinity to +infinity, we can create a second constant $C_{-n}$ that is the negative pair to go with each $n$ and only
+use positive, odd values of $n$ starting at 1.
+\begin{align*}
+    u(t)=\sum_{n=1,3,5,\cdots}^{\infty}C_ne^{j2\pi nt/T}+C_{-n}e^{-j2\pi nt/T} \\
+    u(t)=\sum_{n=1,3,5,\cdots}^{\infty}\frac{2A}{j\pi n}e^{j2\pi nt/T} + \frac{2A}{-j\pi n}e^{-j2\pi nt/T} \\
+    u(t)=\sum_{n=1,3,5,\cdots}^{\infty}\frac{2A}{j\pi n}\left(e^{j2\pi nt/T}-e^{-j2\pi nt/T}\right)
+\end{align*}
+Now, the function is starting to look like the real sinusoid definition. We will multiply both the numerator and
+denomenator by 2 to make it match:
+\begin{align*}
+    u(t)=\sum_{n=1,3,5,\cdots}^{\infty}\frac{4A}{j2\pi n}\left(e^{j2\pi nt/T}-e^{-j2\pi nt/T}\right) \\
+    u(t)=\sum_{n=1,3,5,\cdots}^{\infty}\frac{4A}{\pi n}\left(\frac{e^{j2\pi nt/T}-e^{-j2\pi nt/T}}{j2}\right) \\
+\end{align*}
+And finally, we can use the definition mentioned in the previous step to plug in and reach the final answer:
+\begin{align*}
+    u(t)=\sum_{n=1,3,5,\cdots}^{\infty}\frac{4A}{\pi n}\sin{\left(\frac{2\pi n t}{T}\right)}
+\end{align*}
+
+\end{document}
