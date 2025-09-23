@@ -1,0 +1,154 @@
+\documentclass[journal]{new-aiaa}
+%\documentclass[conf]{new-aiaa} for conference papers
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\setlength\LTleft{0pt} 
+
+\title{Conceptual Design of Hybrid-Electric Aircraft}
+
+\author{Slade Brooks}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The advent of electric propulsion in the aviation industry has led to the emergence of new types of aircraft propulsion
+systems and power architectures. While many fully-electric aircraft concepts exist, hybrid-electric systems are also
+becoming popular. Hybrid-electric propulsion systems seek to solve some of the initial problems that electric aircraft
+face. Namely, the low energy density of current batteries makes electric aircraft severely range limited. Many different
+hybrid-electric architectures exist to try to combat this issues and deliver long range performance with reduced
+emissions and while retaining the benefits of electric propulsion systems. Selecting an appropriate hybrid-electric
+system for a given aircraft design is vital to the performance of an aircraft system. This selection must happen as part
+of conceptual design. Electric aircraft design and initial sizing is tied closely to the power generation and propulsion
+system, so it must be selected as early as possible. Since the industry is so new, methods for designing hybrid and
+electric aircraft systems are still being developed.
+
+\section{Types of Hybrid Systems}
+While most hybrid architectures aim to employ the benefits of electric propulsion in some way while still using the high
+energy density of hydrocarbon fuels, there are multiple methods for achieving this balance. The following sections
+detail the different types of hybrid-electric systems, their drawbacks and benefits, and some concepts employing them.
+Each type has a unique application for aviation propulsion, and selecting an appropriate type for a given aircraft
+concept will be vitally important to its success.
+
+\subsection{Series Hybrid}
+The first type of system is a series hyrbid architecture. In a series hybrid system, electric motors for propulsion are
+driven by both batteries and a generator. An engine like a turboshaft burns fuel and turns a generator to generate some
+electricity, and supplements the energy stored by dedicated battery packs. Electra's technical demonstrator, the EL-2
+``Goldfinch'', has a series hybrid propulsion system. Figure~\ref{fig:el2} shows an image of the EL-2. It uses
+distributed propellers driven by electric motors for propulsion. It has both a battery pack in the floor of the aircraft
+and a turbogenerator in the nose to increase range.
+\begin{figure}
+    \centering
+    \includegraphics[height=3in]{el2.jpg}
+    \caption{Image of the Electra EL-2 ``Goldfinch'' demonstrating short takeoff capabilities.}
+    \label{fig:el2}
+\end{figure}
+The main benefit of a series hybrid system is that it essentially increases the energy density of the batteries. By
+carrying a generator, an electric aircraft can greatly increase its range while still having reduced emissions. However,
+bringing a generator is more weight, complexity, and failure points. While the range is likely to be increased greatly,
+the aircraft would have to have additional space and weight allowance for fuel tanks, the generator, auxiliary systems,
+gearboxes, and more.
+
+\subsection{Parallel Hybrid}
+A parallel hybrid architecture employs a fuel-burning engine as the main propulsion source. It supplements this
+propulsion in some way with a battery pack driving an electric motor coupled with the drive shaft. Astro Mechanica is a
+company that is trying to employ a parallel hybrid system on a jet engine. By using two electric motors, one for the
+compressor and one for the turbine, they hope to increase the efficiency of jet engines across a range of flight
+conditions by being able to operate the turbomachinery separately at their ideal operating conditions. While parallel
+architecture may have large efficiency benefits for a hyrdocarbon burning engine, its emissions reductions are
+relatively low. An electric propulsion system will typically have much more emissions savings potential than a parallel
+hybrid system that relies on fuel being burned for propulsion, not just energy. Furthermore, it requires some battery
+pack to drive the electric powertrain, which is additional weight that may be useless during some phases of flight.
+
+\subsection{Turboelectric}
+A turboelectric system is one where electric propulsion is used, but no battery packs exist. A turboshaft or other
+similar engine is used as a generator, which directly feeds the electric motors. While few concepts employ fully
+turboelectric systems, partially turboelectric concepts do exist. These aircraft have some propulsion generated via
+fuel-burning engines, and some generated with electric motors that are powered by the fuel-burning engines. These
+concepts typically use electric propulsion during one phase of flight, but do not need to carry heavy battery packs due
+to the selection of a turboelectric architecture. While turboelectric benefits from not requiring auxiliary systems like
+battery packs, it is not as fault tolerant as other hybrid archictectures. With no backup battery system or other
+sources of power, losing the generator could lead to total loss of propulsion almost instantly.
+
+\subsection{Selecting a Hybrid-Electric Architecture}
+\citeauthor{zamboni2019} describes the advantages and disadvantages of each type of hybrid-electric system in detail. It
+is described that while some systems like parallel architecture are the lightest and easiest to retrofit, integrating a
+series system early in the design could allow for more benefits to be taken advantage of \cite{zamboni2019}. This is
+also true of other architectures that may be overlooked in literature since there are few clean sheet hybrid aircraft
+designs with enough public data to provide valuable research. Furthermore, technology maturity has a large impact on the
+viability of different types of systems. The actual benefit of a hybrid system and the degree of which hybridization is
+useful changes as technology assumptions change \cite{zamboni2019}. For this reason, new conceptual design techniques are
+being developed to assist designers with evaluating the merits of various hybrid-electric systems on conceptual designs.
+
+\section{Hybrid-Electric Aircraft Conceptual Design Methods}
+
+\subsection{Traditional Aircraft Design Methods}
+Currently, conceptual design methods specific to hybrid and electric aircraft are still being developed. While they are
+being created and validated, traditional aircraft design methods have been employed in the meantime.
+\citeauthor{sziroczak2020} explains that analysis of radical new technologies is most often evaluated with ``fundamental
+aspects of aircraft design'', allowing for exploration of the design space. Slight modifications to existing design
+tools may be made to allow for analysis of unconventional aircraft systems. \citeauthor{finger2020} describes an
+existing iterative solver for aircraft design that simulates a mission, calculates relevant system masses, and
+determines a converged solution. This system was modified to function with hybrid electric aircraft by defining some
+energy to be consumable and some to be non-consumable. This method was compared to a reference aircraft to determine its
+accuracy. Figure~\ref{fig:diagram} shows an example of a standard aircraft design method that has been adapted to
+electric and hybrid-electric aircraft configurations.
+\begin{figure}
+    \centering
+    \includegraphics[height=3in]{diagram.png}
+    \caption{The conventional conceptual design methodology adapted to the electric and hybrid aircraft configurations \cite{sziroczak2020}.}
+    \label{fig:diagram}
+\end{figure}
+
+\subsection{Custom Design Methods}
+Custom conceptual design methods are still being developed for hybrid and electric aircraft. Both
+\citeauthor{sziroczak2020} and \citeauthor{finger2020} also describe custom design methodologies. One common practice is
+highly customizing existing software. Changing the methods used for calculating mass fractions, setting new constraints
+for energy burn, integrating hybridization power splits, and fully integrating electric propulsion and battery modeling
+are all techniques being used to turn existing software into new conceptual design methodologies \cite{sziroczak2020}.
+Some fully custom methods are also being developed. \citeauthor{finger2020} describes a custom methodology created to
+analyze novel propulsion systems and hybrid architecture. It follows the structure of an existing design tool, but uses
+custom methods for designing the aircraft. Aero-propulsive interactions and electric powertrain components are both
+featured in early sizing to ensure system integration as the concept matures \cite{finger2020}. This and similar custom
+methods are being developed currently to serve the design market. As the industry evolves, new methods will show their
+potential to aid in the design process.
+
+\subsection{Multidisciplinary Design Optimization}
+Multidisciplinary design optimization (MDO) employs optimization methods and multiple disciplines within aircraft design to
+solve an aircraft design problem. MDO is commonly applied in aircraft design to balance various design variables to
+determine the ``best'' possible design given the constraints. \citeauthor{silva2021} describes how a custom MDO
+framework was created to analyze hybrid-electric aircraft. An iterative design process and genetic algorithm is used to
+solve for the ideal aircraft design. A series of constraints on the aircraft are created. Then the geometry,
+aerodynamics, static stability, trim conditions, structures, and mission are all determined and analyzed within the
+framework, shown in Fig.~\ref{fig:diag2}.
+\begin{figure}
+    \centering
+    \includegraphics[height=3in]{diag2.png}
+    \caption{MDO design structure matrix \cite{silva2021}.}
+    \label{fig:diag2}
+\end{figure}
+Each portion of the aircraft is sized in the framework and how they are
+all connected together for analysis. These methods were validated with existing aerodynamics and structures solvers. The
+custom MDO method was shown to be accurate when compared to traditional methods \cite{silva2021}. MDO has proved to be a
+robust and effective tool for conventional aircraft design, and will likely continue to be a hallmark of aircraft design
+software for hybrid-electric systems.
+
+\section{Conclusion}
+The emergence of hybrid-electric propulsion systems represents a critical evolution in the aviation industry, bridging
+the gap between conventional fuel-based propulsion and fully electric flight. These systems offer promising solutions to
+challenges such as limited battery energy density and emissions reduction. With multiple architectures each offering
+unique trade-offs, selecting the appropriate system during conceptual design is
+essential for optimizing aircraft performance. As the field evolves, traditional design tools are being adapted and new
+methodologies developed to accurately evaluate hybrid-electric configurations. Continued research and innovation will be
+key in refining these approaches and advancing sustainable aviation technology.
+
+\bibliography{sample}
+
+\end{document}

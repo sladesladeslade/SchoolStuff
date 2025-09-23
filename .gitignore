@@ -24,6 +24,11 @@
 *.synctex.gz
 *.log
 *.aux
+*.bbl
+*.blg
+*.asv
 Fall 2024/astrodynamics/matlab/html/
 Spring 2025/ATAVP/*.html
 Spring 2025/utils/__pycache__
+Fall 2025/AIAA/Program/
+Fall 2025/SigImProc/Web Downloads/
