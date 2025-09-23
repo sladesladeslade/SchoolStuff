@@ -1,0 +1,160 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{MECH6066 HW\#1}
+\date{09.12.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+
+\subsection*{(a)}
+The wavelength $\lambda=0.6860$ m.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{figs/hw1fig1.png}
+\end{figure} \par
+
+\pagebreak
+\subsection*{(b)}
+If the frequency is doubled, the wavelength should become half of the original value: $\lambda=0.3430$ m. Wavelength is
+inversely related to the frequency ($\lambda=\frac{c}{f}$), so a 2x increase in frequency will become a 2x reduction in
+wavelength.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{figs/hw1fig2.png}
+\end{figure} \par
+
+\pagebreak
+\subsection*{(c)}
+If the medium was changed to water, the speed of sound would increase so the wavelength would increase as well. From the
+equation shown in Part b, wavelength and speed of sound are directly linearly related.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{figs/hw1fig3.png}
+\end{figure} \par
+
+\pagebreak
+\subsection*{(d)}
+If the piston amplitude is doubled, the pressure amplitude should also double but the wavelength will remain constant.
+Wavelength is only related to speed of sound and the frequency, so for a constant material and frequency the wavelength
+will remain constant regardless of amplitude. The pressure is directly related to the amplitude of the piston.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{figs/hw1fig4.png}
+\end{figure} \par
+
+\pagebreak
+\section*{Problem 2}
+\subsection*{(a)}
+Based on the provided plot of the mic signal, one peak spans from 6.5--12.5 milliseconds. This would be a period of
+0.006 seconds. Since $f=1/T$, the frequency would be 167 Hz. The angular frequency $\omega=2\pi f$ so the angular
+frequency is 1050 Hz.
+
+\subsection*{(b)}
+Assuming the 0.9mV/Pa microphone sensitivity is accurate, the Mic 1 signal has an amplitude of roughly
+$0.026*1000/0.9=29$Pa. We will assume that the pressure signal is a right-traveling sinusoid at constant frequency.
+The RMS of a pure sine wave is its peak divided by $\sqrt{2}$. The RMS of the Mic 1 signal
+$p_{rms}=\frac{29}{\sqrt{2}}=20.5$ Pa. Plugging that value into the equation for the sound pressure level in dB:
+\begin{align*}
+    SPL=20\log_{10}\left(\frac{p_{rms}}{p_{ref}}\right)=20\log_{10}\left(\frac{20.5}{20E-6}\right)=120\text{ dB}
+\end{align*}
+The sound measured at Mic 1 is 118 dB. This is roughly as loud as a police siren or rock concert. I would definitely not
+be comfortable listening at the end of the tube. While it is still under the threshold for pain, it would probably not
+be a pleasant experience to listen to.
+
+\subsection*{(c)}
+The total pressure will be the atmospheric plus the acoustic at the start. The acoustic pressure was $p=0.026*1000/0.9=29$
+Pa. Assuming a standard atmosphere $p_{atm}=101325$ Pa, the total pressure $p_{tot}=101354$ Pa.
+
+\subsection*{(d)}
+Mic 2 is likely at a slight lower amplitude because it is further down the tube. Since it is farther away from the
+source, the pressure amplitude is unlikely to be as large as it is in Mic 1 since some energy will be lost as the wave
+travels and attenuate into the medium.
+
+\subsection*{(e)}
+First, we will measure the time between two peaks. Mic 1 appears to have a peak at $t=0$, so $\Delta t=0.75$ ms. We know
+that the mics are spaced by 1 meter, so the wave speed $c=\frac{1}{0.75/1000}=1333$ m/s. I would guess that the gas in
+the tube is Hydrogen, as a quick google search returns its speed of sound is 1330 m/s at 25$^{\circ}$C.
+
+\subsection*{(f)}
+A right-traveling 1-D wave is given by: $p(x, t)=\hat{p}e^{j(\omega t-kx)}$. We previously determined that
+$\hat{p}=29$Pa. We can calculate $k=\omega/c=1050/1333=0.788$ 1/m. Our final equation for the wave measured by Mic 1
+would be:
+\begin{align*}
+    p(x, t)=29e^{j(1050t-0.788x)}
+\end{align*}
+
+\subsection*{(g)}
+We can see from our equation for the particle speed that $u(x, t)=\frac{\hat{p}}{\rho_0c}p(x, t)$ will be at a maximum
+when $p(x, t)=1$ and our max speed will be $v_{max}=\frac{\hat{p}}{\rho_0c}=\frac{29}{0.0838*1330}=0.26$ m/s (assuming
+hydrogen). Integrating $u(x, t)$ adds an $\omega$ back to the equation, meaning the max displacement
+$\zeta_{max}=\frac{\hat{p}}{\rho_0c\omega}=\frac{29}{0.0838*1330*1050}=2.5E-4$ m.
+
+\subsection*{(h)}
+The resulting sound is a low-mid frequency that would be very annoying to listen to for an extended period of time. The
+mic signal plot matches the one given very closely.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figs/hw1fig5.png}
+\end{figure} \par
+
+\section*{Problem 3}
+A leftward traveling wave is given by:
+\begin{align*}
+    p(x, t)=\hat{p}e^{j(\omega t +kx)}
+\end{align*}
+Sub in to Euler's equation:
+\begin{align*}
+    \rho_0\frac{\partial u}{\partial t}=-\frac{\partial \left(\hat{p}e^{j(\omega t +kx)}\right)}{\partial x}
+\end{align*}
+Take the derivative with respect to x:
+\begin{align*}
+    \rho_0\frac{\partial u}{\partial t}=-jk\hat{p}e^{j(\omega t + kx)} \\
+    \frac{\partial u}{\partial t}=-j\frac{k\hat{p}}{\rho_0}e^{j(\omega t + kx)}
+\end{align*}
+Now take the integral with respect to t:
+\begin{align*}
+    u = -j\frac{k\hat{p}}{j\rho_0\omega}e^{j(\omega t + kx)} \\
+    u = -\frac{k}{\rho_0\omega}\hat{p}e^{j(\omega t + kx)} \\
+    u(x, t)=-\frac{k}{\rho_0\omega}p(x, t)
+\end{align*}
+Lastly, we can sub in $k=\omega/c$:
+\begin{align*}
+    u(x, t)=-\frac{1}{\rho_0c}p(x, t) \\
+    p(x, t)=-\rho_0cu(x, t)
+\end{align*}
+The final expression is the same as what was derived in the lecture with the key difference that the relationship
+between pressure and velocity is negative instead of positive. This makes sense as the wave is traveling the opposite
+direction. It also could be interpreted as the acoustic impedance being negative.
+
+\section*{Problem 4}
+I thought Problem 2 was well structured and was a nice way of following through a bunch of relevant calculations with
+some tangible application. I thought Problem 1 was a bit too simple. I don't think anything needs to be changed.
+
+\section*{Matlab Code}
+\begin{verbatim}
+clear variables; close all;
+fs = 8192;
+dt = 1/fs;
+t = 0:dt:5;
+
+Vs = 0.9*29*exp(j*1050*t);
+
+figure()
+plot(t, Vs);
+xlabel("Time (ms)"); ylabel("Signal (V)");
+grid on;
+
+sound(real(Vs))
+\end{verbatim}
+\end{document}
