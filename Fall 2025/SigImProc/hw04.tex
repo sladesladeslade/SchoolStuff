@@ -1,0 +1,113 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{BME6013C HW\#4}
+\date{10.02.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1}
+To prove linearity, we will first start with the proved version of the property and replace $G_1$ and $G_2$ with the
+definition of the Fourier transform:
+\begin{align*}
+    \alpha G_1(f) + \beta G_2(f) \\
+    \alpha \int_{-\infty}^{\infty}e^{-j2\pi ft}g_1(t) dt + \beta \int_{-\infty}^{\infty}e^{-j2\pi ft}g_2(t) dt \\
+    \int_{-\infty}^{\infty}\alpha e^{-j2\pi ft}g_1(t) dt +  \int_{-\infty}^{\infty}\beta e^{-j2\pi ft}g_2(t) dt
+\end{align*}
+Now, we can combine the integrals into a single integral and factor like terms:
+\begin{align*}
+    \int_{-\infty}^{\infty}\left(\alpha e^{-j2\pi ft}g_1(t) + \beta e^{-j2\pi ft}g_2(t)\right) dt \\
+    \int_{-\infty}^{\infty}e^{-j2\pi ft}\left(\alpha g_1(t) + \beta g_2(t)\right) dt
+\end{align*}
+We can now clearly see from the result obtained in the previous step that the simplified version of the original term
+now resembles a Fourier transform where $g(t)=\alpha g_1(t) + \beta g_2(t)$. This would yield that our final integral
+expression is equal to $\mathcal{F}[g(t)]=\mathcal{F}[\alpha g_1(t) + \beta g_2(t)]$, and since we started at
+$\alpha G_1(f) + \beta G_2(f)$ to obtain that integral, it follows that $\mathcal{F}[\alpha g_1(t) + \beta g_2(t)] =
+\alpha G_1(f) + \beta G_2(f)$.
+
+\section*{Part 2}
+First, we will start by taking the transform of $g(\alpha t)$:
+\begin{align*}
+    \mathcal{F}[g(\alpha t)]=\int_{-\infty}^{\infty}e^{-j2\pi ft}g(\alpha t)dt
+\end{align*}
+Now we can set a new variable $t'$ and sub it in:
+\begin{align*}
+    t'=\alpha t \\
+    t = t'/\alpha \\
+    dt = dt'/\alpha
+\end{align*}
+\begin{align*}
+    \mathcal{F}[g(\alpha t)]=\int_{-\infty}^{\infty}e^{-j2\pi ft'/\alpha}g(t')dt'/\alpha=
+    \frac{1}{\alpha}\int_{-\infty}^{\infty}e^{-j2\pi (f/\alpha)t'}g(t')dt'
+\end{align*}
+Now we can see that the simplified integral now resembles the definition of the Fourier transform for
+$\mathcal{F}[g(t')]$ where $f$ is replaced by $f/\alpha$. The integral can then be replaced by the Fourier transform
+$G(f/\alpha)$ to get the final expression.
+\begin{align*}
+    \mathcal{F}[g(\alpha t)]=\frac{G(f/\alpha)}{\alpha}
+\end{align*}
+
+\section*{Part 3}
+First we will start by showing the Fourier transform $G(-f)$ from the definition for the Fourier transform and then take
+the conjugate of the result:
+\begin{align*}
+    G(-f) = \int_{-\infty}^{\infty}e^{-j2\pi (-f)t}g(t) dt = \int_{-\infty}^{\infty}e^{j2\pi ft}g(t) dt \\
+    [G(-f)]^* = \left[\int_{-\infty}^{\infty}e^{j2\pi ft}g(t) dt\right]^*
+\end{align*}
+Since we know taking the conjugate is a linear operation, we can distribute it to the terms within the integral:
+\begin{align*}
+    [G(-f)]^*=\int_{-\infty}^{\infty}(e^{j2\pi ft})^*g^*(t) dt
+\end{align*}
+We know that the definition of a conjugate for a signal $(e^{j\phi})^*=e^{-j\phi}$. We also know that since $g(t)$ has
+no imaginary part, its conjugate is the same as $g(t)$.
+\begin{align*}
+    [G(-f)]^*=\int_{-\infty}^{\infty}e^{-j2\pi ft}g(t)dt
+\end{align*}
+The integral expression created is equal to the Fourier transform of $g(t)$, therefore:
+\begin{align*}
+    \int_{-\infty}^{\infty}e^{-j2\pi ft}g(t)dt=\mathcal{F}[g(t)]=G(f)=[G(-f)]^*
+\end{align*}
+
+\section*{Part 4}
+We can start by using the definition of the Fourier transform:
+\begin{align*}
+    \mathcal{F}[g(t)]=\int_{-\infty}^{\infty}e^{-j2\pi ft}g(t)dt=\int_{-\infty}^{\infty}e^{-j2\pi ft}e^{-t/\tau}\mathcal{H}(t)dt
+\end{align*}
+\begin{align*}
+    \mathcal{F}[g(t)]=\int_{-\infty}^{\infty}e^{-j2\pi ft-t/\tau}\mathcal{H}(t)dt=
+    \int_{-\infty}^{\infty}e^{t(-j2\pi f-1/\tau)}\mathcal{H}(t)dt
+\end{align*}
+We can split out integral into two parts, one containing everything below 0 and one containing everything above.
+\begin{align*}
+    \mathcal{F}[g(t)]=\int_{-\infty}^{0}e^{t(-j2\pi f-1/\tau)}*0 dt + \int_{0}^{\infty}e^{t(-j2\pi f-1/\tau)}*1dt
+\end{align*}
+The first integral will always be 0, so it goes away. We can evaluate the remaining integral:
+\begin{align*}
+    \mathcal{F}[g(t)]=\frac{e^{t(-j2\pi f-1/\tau)}}{-j2\pi f-1/\tau}\Big|_0^{\infty}=\frac{e^{-t(j2\pi f+1/\tau)}}{-j2\pi f-1/\tau}\Big|_0^{\infty}
+\end{align*}
+When we attempt to evaluate, we can see that at $t=\infty$, the term on top will be $e^{-\infty}$. $e^x$ approaches 0 at
+$-\infty$, so this term will be 0. When $t=0$, the term on top will be $e^0=1$.
+\begin{align*}
+    \mathcal{F}[g(t)]=0-\frac{1}{-j2\pi f-1/\tau}=\frac{1}{j2\pi f+1/\tau}=\frac{\tau}{j2\pi f\tau +1} \\
+    \fbox{$\mathcal{F}[g(t)]=\frac{\tau}{j2\pi f\tau +1}$}
+\end{align*}
+To sketch a plot, we will choose $\tau=10$. We can see from the solution that at $f=0$, the denomenator will be 1 so the
+mangitude is $\tau$. As the frequency moves away from 0, the first term in the denomenator will grow rapidly, meaning
+the magnitude will be $\tau$ divided by a large number. Since the magnitude is absolute value, this will be the same for
+negative frequencies. We should expect the plot of the magnitude with respect to frequency to be a sharp peak at $f=0$,
+with a steep falloff that asymptotes to 0 on either side.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{figs/hw4fig1.png}
+\end{figure} \par
+
+\end{document}
