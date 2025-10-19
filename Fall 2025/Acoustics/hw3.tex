@@ -1,0 +1,188 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+\usepackage{pdfpages}
+
+\title{MECH6066 HW\#3}
+\date{10.19.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+We know that the sound pressure level is equal to the sound intensity level. We will assume the standard value of
+$I_{ref}$ for air of $10^{-12}$W/m$^2$.
+\begin{align*}
+    SPL=SIL=10\log_{10}\left(\frac{I}{I_{ref}}\right) \\
+    120=10\log_{10}\left(\frac{I}{10^{-12}}\right) \\
+    I = 10^{-12}\cdot 10^{\frac{120}{10}}=1\text{W/m}^2
+\end{align*}
+Now we can add our efficiency and calculate the size required to generate 3W of power.
+\begin{align*}
+    P_{req}=\frac{3}{0.95}=3.158\text{W} \\
+    A_{req}=3.158/1=3.158\text{m}^2 \\
+    r_{req}=\sqrt{A_{req}/\pi}=1\text{m} \\
+    \fbox{required diameter $D_{req}=2$m}
+\end{align*}
+Repeating the same calculations with 80dB instead of 120dB gives:
+\begin{align*}
+    \fbox{required diameter $D_{req}=200.5$m}
+\end{align*}
+Based on these results, harvesting power from acoustic energy is not very reasonable. It requires a very loud
+environment to have a reasonably sized device, but the device is only able to slow charge 1 phone. There are not many
+environments where it is consistently 120dB to generate power, and even needing a 2 meter circle to charge one phone is
+fairly ridiculous. Clearly the problem is even worse when considering regular ambient noise that requires a 200 meter
+device to charge one phone. These also assume a 95\% efficiency on the device, which is likely not possible to achieve.
+
+\section*{Problem 2}
+\subsection*{(a)}
+From the textbook for water (1) and aluminum (2):
+\begin{align*}
+    Z_1 = 1.48E6; \quad Z_2 = 17E6
+\end{align*}
+
+The percentage reflected is given by the reflection coefficient:
+\begin{align*}
+    R_I=\left(\frac{Z_2-Z_1}{Z_2+Z_1}\right)^2=\left(\frac{17-1.48}{17+1.48}\right)^2=0.705 \\
+    \fbox{amount of intensity reflected is 70.5\%}
+\end{align*}
+
+\subsection*{(b)}
+For maximum transmission, we will do quarter-wavelength matching. The ideal material will have an impedance given by:
+\begin{align*}
+    Z_L=\sqrt{Z_1\cdot Z_2}=\sqrt{1.48E6\cdot 17E6}=5.016E6 \\
+    \fbox{$Z_L=5.016E6$ Ry}
+\end{align*}
+The material will have a length equal to 1/4 of the wavelength at the desired frequency to transmit. We can determine
+that the required speed of sound of the material is given by the same equation as the impedance.
+\begin{align*}
+    c_L = \sqrt{1481*6300}=3054.6\text{m/s} \\
+    L=\frac{c}{4f}=\frac{3054.6}{4\cdot 2E6}=0.000382\text{m} \\
+    \fbox{ideal thickness $L=0.382$mm}
+\end{align*}
+
+\subsection*{(c)}
+There are no perfect materials in the appendix. The closest is quartz sand. It has an impedance of 3.58E6Ry and speed of
+sound of 1730 m/s. Its required length would be:
+\begin{align*}
+    L=\frac{c}{4f}=\frac{1730}{4\cdot 2E6}=0.0002163\text{m} \\
+    \fbox{required thickness $L=0.2163$mm}
+\end{align*}
+
+\subsection*{(d)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figs/hw3fig1.png}
+\end{figure}
+
+\subsection*{(e)}
+We can see without a matching layer, only around 30\% of the intensity is transmitted. For the ideal layer, this goes up
+to 100\% at our design point of 2MHz with a steep falloff on either side. The layer using the quartz sand, the most
+practical option from the book, transmits around 90\% at the design frequencies. Overall, the matching layer is fairly
+good at transmitting despite having a different impedance. There is also good transmission at off-design frequencies.
+This is because the quarter-wavelength matching that is done to set the length is valid for any odd integer multiples of
+the design frequency. This makes sense as we can see transmission peaks at 6MHz (3x) and 10MHz (5x), with the layer
+behaving as if it is not there at even multiples of the design frequency.
+
+\section*{Problem 3}
+\subsection*{(a)}
+The results for the no transmission layer match what I expect. The pressure wave goes between the two mediums and
+changes wavelength as expected for each domain. Since the plot is of total acoustic pressure, we are unable to see the
+change in intensity in this plot. I would expect an animation of this plot would show a standing wave in the water.
+
+\subsection*{(b)}
+\subsubsection*{i}
+The amplitude of the pressure wave is constant at the input 1Pa. The instantaneous value changes over time as it is a
+pressure wave, so the value fluctuates between -1 and 1Pa at 2MHz as time goes on.
+
+\subsubsection*{ii}
+The pressure amplitude fluctuates in the water because a large amount is reflected and creates a standing wave in the
+water. This wave leads to a fluctuation in the amplitude of the pressure. However, since aluminum has some intensity
+transferred to it but nothing reflected within, it has constant amplitude.
+
+\subsubsection*{iii}
+The incident and scattered have different magnitudes in each medium. In the aluminum, there is no indicent so its
+magnitude is 0. The incident wave in water has the magnitude we input. The scattered is also different. Water has a
+lower ampltiude than aluminum for its scattered wave, and a fluctuation is clearly visible (since it is a standing
+wave). Aluminum has a much higher amplitude for its scattered wave which makes sense since this setup has a positive
+transmission coefficient.
+
+\subsubsection*{iv}
+From the plot, the scattered amplitude is around 0.84 Pa on average. This gives $\hat{R}=\frac{0.84}{1}=0.84$. Using
+comsol parameters to calculate the analytical reflection coefficient, we can see that it is 0.84011, which is almost
+identical to the measured value from the comsol sim.
+
+\subsection*{(c)}
+We can see that comsol is very close to the analytical solution for the transmitted intensity. It varies from 29.4\% to
+32.2\% across the range of frequencies. The analytical solution is a constant value of 29.4\%. The variation shown in
+comsol is very likely due to the meshing of the problem. I assume the mesh is generated for the first input frequency, so
+it should be less accurate at other simulation frequencies. We can see for the second model with an ideal transmission
+layer, comsole predicts a similar shape to the analytical solution but it overpredicts the transmission at the design
+frequency (reporting slightly over 100\%). Running the same model with quartz sand instead of the ideal values shows the
+same results---the same shape to the analytical solution but with an overprediction at the design frequency.
+
+\section*{Problem 4}
+I preferred having the hints separate. I thought having more detail given with them and having the option to reference
+it when I felt stuck was a good way to work through the problems and very similar to how I would interact with
+classmates or AI for support on an assignment. I thought this assignment was very good and probably my favorite in terms
+of applying what we learned in class and understanding its real-world application.
+
+\section*{Matlab Code}
+\begin{verbatim}
+%%
+% Slade Brooks
+% brooksl@mail.uc.edu
+% 10.19.25
+% MECH6066
+% HW 03
+
+clear variables
+close all
+
+%% set up vals
+% range of frequencies
+fs = 0.1e6:0.01e6:10e6;
+f = 2e6;
+
+% acoustic properties
+Z1 = 1.48e6; c1 = 1481;
+Z2 = 17e6; c2 = 6300;
+ZL = sqrt(Z1*Z2); cL = sqrt(c1*c2); L = cL/(4*f);
+Zs = 3.58e6; cs = 1730; Ls = cs/(4*f);
+
+%% calculate transmission
+% w/o matching layer
+TIi = 4*Z1*Z2/(Z1 + Z2)^2;
+
+% w/ ideal matching layer
+w = (2*pi).*fs;
+K = w./cL;
+TIii = 4./(2 + (Z2/Z1 + Z1/Z2).*(cos(K*L)).^2 + ((ZL^2)/(Z1*Z2) + (Z1*Z2)/(ZL^2)).*(sin(K*L)).^2);
+
+% w/ practical matching layer
+w = (2*pi).*fs;
+K = w./cs;
+TIiii = 4./(2 + (Z2/Z1 + Z1/Z2).*(cos(K*Ls)).^2 + ((Zs^2)/(Z1*Z2) + (Z1*Z2)/(Zs^2)).*(sin(K*Ls)).^2);
+
+%% plotting
+figure
+hold on
+yline(TIi); plot(fs, TIii); plot(fs, TIiii);
+hold off
+xlabel("Frequency (Hz)"); xlim([fs(1) fs(end)]);
+ylabel("Intensity Transmission Coefficient"); ylim([0 1]);
+legend(["w/o matching layer" "w/ ideal matching layer" "w/ practical matching layer"], location="southeast");
+grid on
+\end{verbatim}
+
+\includepdf[pages=-]{HW3comsol.pdf}
+\includepdf[pages=-]{HW3.2comsol.pdf}
+
+\end{document}
