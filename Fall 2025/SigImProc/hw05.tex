@@ -1,0 +1,97 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{BME6013C HW\#5}
+\date{10.23.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1}
+First we will split up the function as much as possible:
+\begin{align*}
+    v(t)=\frac{d}{d t}\left(\frac{d}{d t}\left(e^{-t^2/2\sigma^2}e^{j2\pi f_0t}\right)\right)
+\end{align*}
+Now we will create a function $w(t)$ to define everything inside of the first $d/dt$.
+\begin{align*}
+    w(t)=\frac{d}{d t}\left(e^{-t^2/2\sigma^2}e^{j2\pi f_0t}\right)=\frac{d}{dt}g(t) \\
+    v(t) = \frac{d}{dt}w(t)
+\end{align*}
+Now, from our F.T. sheet we can see that the F.T. of the derivative of a function is:
+\begin{align*}
+    \mathcal{F}\left[\frac{d}{dt}w(t)\right]=V(f)=j2\pi fW(f) \\
+    \mathcal{F}\left[\frac{d}{dt}g(t)\right]=W(f)=j2\pi fG(f) \\
+    V(f)=(j2\pi f)^2G(f)
+\end{align*}
+We can see that the final expression for the F.T. is an expression times the F.T. of the original function inside the
+derivative $g(t)$. We can see from the F.T. sheet that the tranform of a function times $e^{j2\pi f_0t}$ is a frequency
+shift on the transform of the function by $f_0$. We can see that the function resembles a gaussian pulse, so we can
+multiply by 1 to get it into pure gaussian form, then take the F.T. and apply the frequency shift the get the transform
+$G(f)$.
+\begin{align*}
+    g(t) = e^{j2\pi f_0t}e^{-t^2/2\sigma^2} = \frac{\sqrt{2\pi}\sigma}{\sqrt{2\pi}\sigma}e^{j2\pi f_0t}e^{-t^2/2\sigma^2} \\
+    g(t) = \sqrt{2\pi}\sigma e^{j2\pi f_0t} \frac{e^{-t^2/2\sigma^2}}{\sqrt{2\pi}\sigma} \\
+    G(f) = \sqrt{2\pi}\sigma e^{-2\pi^2\sigma^2(f-f_0)^2}
+\end{align*}
+\begin{align*}
+    \fbox{$V(f)=-(2\pi f)^2\sigma\sqrt{2\pi} e^{-2\pi^2\sigma^2(f-f_0)^2}$}
+\end{align*}
+
+\section*{Part 2}
+We will start by taking the Fourier transform of $g(x-\zeta, y-\eta)$:
+\begin{align*}
+    \mathcal{F}\left[g(x-\zeta, y-\eta)\right]=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-j2\pi(ux+vy)}g(x-\zeta, y-\eta)dxdy
+\end{align*}
+Now we will create a new variable to sub in:
+\begin{align*}
+    x'=x-\zeta \\
+    x = x'+\zeta \\
+    dx = dx' \\
+    y'=y-\eta \\
+    y  =y'+\eta \\
+    dy = dy' \\
+    \mathcal{F}\left[g(x-\zeta, y-\eta)\right] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}
+    e^{-j2\pi(u(x'+\zeta) + v(y'+\eta))}g(x', y')dx'dy' \\
+    \mathcal{F}\left[g(x-\zeta, y-\eta)\right] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}
+    e^{-j2\pi(ux'+u\zeta + vy'+v\eta)}g(x', y')dx'dy' \\
+    \mathcal{F}\left[g(x-\zeta, y-\eta)\right] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}
+    e^{-j2\pi(ux'+vy')}e^{-j2\pi(u\zeta + v\eta)}g(x', y')dx'dy' \\
+    \mathcal{F}\left[g(x-\zeta, y-\eta)\right] = e^{-j2\pi(u\zeta + v\eta)}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}
+    e^{-j2\pi(ux'+vy')}g(x', y')dx'dy'
+\end{align*}
+We can see that after simplifying that we are left with the definition of a 2D Fourier transform of $g(x', y')$ and the
+other exponential term is a constant that can be removed from the integral. This means we can finally show that the
+shift theorem is correct and:
+\begin{align*}
+    \mathcal{F}\left[g(x-\zeta, y-\eta)\right] = e^{-j2\pi(u\zeta + v\eta)}G(u, v)
+\end{align*}
+
+\section*{Part 3}
+First we will separate the two ``parts'' of the given function. This will be a more convenient way to analyze it.
+\begin{align*}
+    f(x,y)=\frac{e^{-x^2/(2\sigma_x^2)}}{\sqrt{2\pi}\sigma_x}\frac{\mathcal{H}(L_y/2-|y|)}{L_y}
+\end{align*}
+This form clearly shows that these are separable since $f(x, y)=g(x)\cdot h(y)$. We know from the definition of
+separable functions that this means that $\mathcal{F}\left[f(x, y)\right]=G(u)\cdot H(v)$. The first term is a Gaussian
+pulse that exactly follows the Fourier transform sheet definition for the F.T. of a Gaussian pulse. We can simply
+replace $t$ with $x$ and $\sigma$ with $\sigma_x$. The second term is a Heaviside function divided by $L_y$. The F.T.
+sheet shows that the F.T. of a Heaviside is almost a sinc function:
+\begin{align*}
+    H(f) = \frac{\sin{\pi fL_y}}{\pi f} \\
+    sinc(L_yf) = \frac{\sin{\pi fL_y}}{\pi fL_y}=\frac{1}{L_y}\frac{\sin{\pi fL_y}}{\pi f}
+\end{align*}
+We can see from this that since $L_y$ is a constant, the F.T. of a Heaviside divided by its period is a sinc function.
+Since we found the function is separable and now know the F.T. of both parts of it, we can write the final equation:
+\begin{align*}
+    \fbox{$F(u, v)=e^{-2\pi^2\sigma_x^2u^2}sinc(L_yv)$}
+\end{align*}
+
+\end{document}
