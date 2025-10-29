@@ -1,0 +1,114 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{BME6013C HW\#6}
+\date{10.30.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1}
+We know from the convolution theorem that:
+\begin{align*}
+    g(t)*h(t)=\int_{-\infty}^{\infty}g(\tau)h(t-\tau)d\tau
+\end{align*}
+Which means that for our given identity we can determine an equation for $u(t)$ and then use the definition of
+convolution to get an expression for the Fourier Transform.
+\begin{align*}
+    u(t)=u(t)*v(t) \\
+    U(f) = U(f)\cdot V(f)
+\end{align*}
+This shows that clearly the F.T. of $v(t)$ must be equal to 1 in order for this definition to be valid. The most obvious
+option for a function for $V(f)$ that could only be 1 and has a known F.T. would be the Heaviside function.
+\begin{align*}
+    V(f) = \mathcal{H}(f_0/2 - |f|)
+\end{align*}
+The Heaviside will be 1 when the term inside is greater than or equal to 0. This means we want the period $f_0$ to
+always be larger than the frequency variable $f$. This could be achieved by forcing $f_0$ to be infinity, which in
+practice would be taking the limit as $f_0$ goes to infinity. Then, we can take the inverse F.T. (which we know from the
+F.T. table) to get an expression for $v(t)$.
+\begin{align*}
+    V(f) = \lim_{f_0\rightarrow\infty}\mathcal{H}(f_0/2-|f|) \\
+    v(t) = \lim_{f_0\rightarrow\infty}\frac{\sin{(\pi f_0 t)}}{\pi t}
+\end{align*}
+
+\section*{Part 2}
+First we will try to take the F.T. of $r_{uv}(t)$ using the F.T. definition:
+\begin{align*}
+    \mathcal{F}[r_{uv}(t)]=\int_{-\infty}^{\infty}e^{-j2\pi ft}r_{uv}(t)dt=\int_{-\infty}^{\infty}e^{-j2\pi ft}
+    \int_{-\infty}^{\infty}[u(\tau)]^*v(t+\tau)d\tau dt
+\end{align*}
+We can reorganize for convenience:
+\begin{align*}
+    \mathcal{F}[r_{uv}(t)]=\int_{-\infty}^{\infty}[u(\tau)]^*\left(\int_{-\infty}^{\infty}e^{-j2\pi ft}v(t+\tau)dt\right)d\tau 
+\end{align*}
+Now we will create a subsitution for $t+\tau$ to simplify the inner integral, with $\tau$ now being a constant since it
+is inside of the other integral:
+\begin{align*}
+    t+\tau = \alpha \\
+    d\alpha = dt
+\end{align*}
+\begin{align*}
+    \mathcal{F}[r_{uv}(t)]=\int_{-\infty}^{\infty}[u(\tau)]^*\left(\int_{-\infty}^{\infty}e^{-j2\pi f(\alpha-\tau)}v(\alpha)d\alpha\right)d\tau \\
+    \mathcal{F}[r_{uv}(t)]=\int_{-\infty}^{\infty}[u(\tau)]^*\left(\int_{-\infty}^{\infty}e^{-j2\pi f\alpha}e^{j2\pi f\tau}
+    v(\alpha)d\alpha\right)d\tau \\
+    \mathcal{F}[r_{uv}(t)]=\int_{-\infty}^{\infty}e^{j2\pi f\tau}[u(\tau)]^*\left(\int_{-\infty}^{\infty}e^{-j2\pi f\alpha}
+    v(\alpha)d\alpha\right)d\tau
+\end{align*}
+Now, the integral inside is clearly the F.T. of a function $v(\alpha)$. This can be subbed in and then moved outside of
+the integral since it does not depend on $t$.
+\begin{align*}
+    \mathcal{F}[r_{uv}(t)]=V(f)\int_{-\infty}^{\infty}e^{j2\pi f\tau}[u(\tau)]^*d\tau
+\end{align*}
+Now we can do some manipulation to the remaining exponential term in order to move the conjugate. We know from the
+definition of the conjugate that we can write it as the conjugate of $e^{-j}$, then move the conjugate outside of the
+integral since both terms have it. This will allows us to see that the integral part is just the definition of the F.T.
+again and we can substitute for that expression:
+\begin{align*}
+    \mathcal{F}[r_{uv}(t)]=V(f)\int_{-\infty}^{\infty}[e^{-j2\pi f\tau}]^*[u(\tau)]^*d\tau \\
+    \mathcal{F}[r_{uv}(t)]=V(f)\left[\int_{-\infty}^{\infty}e^{-j2\pi f\tau}u(\tau)d\tau\right]^* \\
+    \mathcal{F}[r_{uv}(t)]=V(f)[U(f)]^*
+\end{align*}
+Therefore:
+\begin{align*}
+    \mathcal{F}[r_{uv}(t)]=\mathcal{F}[u(t)]^*\cdot\mathcal{F}[v(t)]
+\end{align*}
+
+\section*{Part 3}
+From the definition for the DFT:
+\begin{align*}
+    G[k]=\sum_{n=0}^{N-1}g[n]e^{-j\frac{2\pi kn}{N}} \\
+    G[-k] = \sum_{n=0}^{N-1}g[n]e^{-j\frac{2\pi (-k)n}{N}}=\sum_{n=0}^{N-1}g[n]e^{j\frac{2\pi kn}{N}}
+\end{align*}
+If we are to take the conjugate of $G[-k]$, we will simply flip the sign of the complex part, which in this case will
+just put the negative back in front of $j$. This is clearly the same as the definition of the DFT, giving
+$G[-k]^*=G[k]$.
+\begin{align*}
+    G[-k]^*=\sum_{n=0}^{N-1}g[n]e^{-j\frac{2\pi kn}{N}}=G[k]
+\end{align*}
+We will once again start from the DFT definition to prove the second statement.
+\begin{align*}
+    G[k]=\sum_{n=0}^{N-1}g[n]e^{-j\frac{2\pi kn}{N}} \\
+    G[N-k] =\sum_{n=0}^{N-1}g[n]e^{-j\frac{2\pi (N-k)n}{N}}=\sum_{n=0}^{N-1}g[n]e^{-j\frac{2\pi Nn}{N}}e^{-j\frac{2\pi (-k)n}{N}}
+\end{align*}
+Now we can simplify and take the conjugate:
+\begin{align*}
+    G[N-k] = \sum_{n=0}^{N-1}g[n]e^{-j2\pi n}e^{j\frac{2\pi kn}{N}} \\
+    G[N-k]^*=\sum_{n=0}^{N-1}g[n]e^{j2\pi n}e^{-j\frac{2\pi kn}{N}}
+\end{align*}
+Since $n$ is only integers, the exponent of the term $e^{j2\pi n}$ will always be an integer multiple of $2\pi$, which
+means the magnitude will always be $e^0=1$. Therefore, that term can be ignored. We again see that the final expression
+is the definition of the DFT.
+\begin{align*}
+    G[N-k]^*=\sum_{n=0}^{N-1}g[n]e^{-j\frac{2\pi kn}{N}}=G[k]
+\end{align*}
+
+\end{document}
