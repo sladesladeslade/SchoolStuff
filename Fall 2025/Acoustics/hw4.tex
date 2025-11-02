@@ -1,0 +1,189 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+\usepackage{pdfpages}
+
+\title{MECH6066 HW\#4}
+\date{11.02.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+\subsection*{(a)}
+The mass law states that the transmission loss through a sufficiently thin wall is given by:
+\begin{align*}
+    T_L=20\log_{10}\left(\frac{\rho_2L\omega}{2Z_1}\right) \\
+    10^{T_L/20}=\frac{\rho_2L\omega}{2Z_1} \\
+    L=\frac{2Z_1}{\rho_2\omega}10^{(T_L/20)}
+\end{align*}
+The design requires a transmission loss of 30dB at 300Hz. The imepdance $Z_1$ will be the speed of sound of air times
+the density, assuming standard air. We can plug these known values in to solve for the required
+wall thickness based on the wall density to satisfy the requirement for each material.
+\begin{center}
+    \begin{tabular}{c|c|c|c}
+        Material & Density (kg/m$^3$) & Speed of Sound (m/s) & L (mm) \\
+        \hline
+        air & 1.21 & 343 & --- \\
+        steel & 7700 & 6100 & 1.81 \\
+        glass & 2300 & 5600 & 6.05 \\
+        concrete & 2600 & 3100 & 5.36\\
+        pine & 450 & 3500 & 30.95
+    \end{tabular}
+\end{center}
+
+\subsection*{(b)}
+The exact transmission loss is given by:
+\begin{align*}
+    T_L=20\log_{10}\left(\frac{2+\left(Z_3/Z_1+Z_1/Z_3\right)\cos^2{(K_2L)}+
+    \left(Z_2^2/Z_1Z_3+Z_1Z_3/Z_2^2\right)\sin^2{(K_2L)}}{4}\right) \\
+    K_2 = \omega/c_2;\quad Z_1=Z_3 \\
+    T_L=20\log_{10}\left(\frac{2+2\cos^2{(K_2L)}+
+    \left(Z_2^2/Z_1^2+Z_1^2/Z_2^2\right)\sin^2{(K_2L)}}{4}\right)
+\end{align*}
+We can plug in the known values ($Z_1$, $Z_2$, $K_2$, $L$) to find the actual transmission loss through each material.
+\begin{center}
+    \begin{tabular}{c|c}
+        Material & $T_L$ actual (dB) \\
+        \hline
+        steel & 30.01 \\
+        glass & 30.0 \\
+        concrete & 30.01 \\
+        pine & 30.01
+    \end{tabular}
+\end{center}
+We can see that the mass law is clearly valid for all materials. The lowest speed of sound material, concrete, has a
+wavelength of 10~meters at 300Hz, and the largest wall thickness was pine at 31~mm. All of the materials clearly satisfy
+the assumption that the thickness is very small compared to the wavelength.
+
+\subsection*{(c)}
+I would probably choose pine. Assuming the desire to reduce noise is primarily for a residential area, wooden fences are
+a clear choice. The 31~mm required thickness is around 1.25~inches, which is only slightly smaller than the width of a
+normal 2x4 wood board. A very simple pine fence made of 2x4s should effectively reduce the center frequency by the
+desired amount, while looking nice and being a very cheap option in terms of parts and labor.
+
+\section*{Problem 2}
+\subsection*{(a)}
+We know the vector $\vec{k}$ can be defined by the angle and its magnitude. When the switch to magnitude is made, the
+magnitude is just the regular wave number based on the material. From the book, fresh water has a density of 998kg/m$^3$
+and a speed of sound of 1481m/s.
+\begin{align*}
+    \vec{k}=||\vec{k}||(\cos{\theta}\hat{x} + \sin{\theta}\hat{y})=K(\cos{30}\hat{x}+\sin{30}\hat{y}) \\
+    \vec{k}=\frac{\omega}{c}(0.866\hat{x}+0.5\hat{y})=\frac{2\pi(100000)}{1481}(0.866\hat{x}+0.5\hat{y}) \\
+    \fbox{$\vec{k}=367.4\hat{x}+212.13\hat{y}$}
+\end{align*}
+
+\subsection*{(b)}
+\begin{align*}
+    K=\frac{2\pi}{\lambda}\rightarrow K_x=\frac{2\pi}{\lambda_x};\quad K_y=\frac{2\pi}{\lambda_y} \\
+    \lambda_x=\frac{2\pi}{K_x}=\frac{2\pi}{367.4}=0.0171\text{m} \\
+    \lambda_y=\frac{2\pi}{K_y}=\frac{2\pi}{212.13}=0.03\text{m} \\
+    \fbox{$\lambda_x=17.1$mm; $\lambda_y=30$mm}
+\end{align*}
+\begin{align*}
+    \lambda=\frac{c}{f}=\frac{1481}{100000}=0.01481\text{m} \\
+    \fbox{$\lambda=14.8$mm}
+\end{align*}
+We can see that the wavelength in both directions is larger than the wavelength for 100kHz in water. This makes sense as
+the wave front is moving slower with respect to both directions. Since it is close to the x axis, $\lambda_x$ is not
+much different than the normal wavelength, but the y direction will stretch much more.
+
+\subsection*{(c)}
+\subsubsection*{i.}
+Following the derivation we did in class for 2D instead of 3D:
+\begin{align*}
+    -\nabla p=\rho\frac{\partial u}{\partial t} \\
+    -\nabla \left[\bar{p}e^{j(\omega t-k_xx-k_yy)}\right]=\rho\frac{\partial u}{\partial t} \\
+    -\left(\frac{\partial}{\partial x}\hat{x}+\frac{\partial}{\partial y}\hat{y}\right)\bar{p}e^{j(\omega t-k_xx-k_yy)}
+    =\rho\frac{\partial u}{\partial t} \\
+    -\left(-jk_x\hat{x}-jk_y\hat{y}\right)\bar{p}e^{j(\omega t-k_xx-k_yy)}
+    =\rho\frac{\partial u}{\partial t} \\
+    j\vec{k}\bar{p}e^{j(\omega t-k_xx-k_yy)}=\rho\frac{\partial u}{\partial t} \\
+    \frac{\vec{k}}{\omega\rho}\bar{p}e^{j(\omega t-k_xx-k_yy)}=\vec{u} \\
+    \fbox{$\vec{u}(x,y,t)=\frac{\vec{k}}{\omega\rho}\bar{p}e^{j(\omega t-k_xx-k_yy)}$}
+\end{align*}
+
+\subsubsection*{ii.}
+We know the magnitude will be everything except for the exponential term. We can take this and simplify it based on what
+relationships we know.
+\begin{align*}
+    ||\vec{u}||=u=\frac{\vec{k}}{\omega\rho}\bar{p}=\frac{K\hat{e}_k}{\omega\rho}\bar{p}=\frac{K}{\omega\rho}\bar{p}
+    =\frac{\omega}{c\omega\rho}\bar{p}=\frac{\bar{p}}{c\rho}=\frac{\bar{p}}{Z_0} \\
+    \fbox{$u=\frac{\bar{p}}{Z_0}$}
+\end{align*}
+
+\subsubsection*{iii.}
+First we can solve for the magnitude of the velocity vector since we know both parts:
+\begin{align*}
+    u=\frac{\bar{p}}{Z_0}=\frac{1000000}{998*1481}=0.6766 \\
+    \fbox{$u=0.6766$m/s}
+\end{align*}
+We can plug this and some other knowns back into the particle velocity equation:
+\begin{align*}
+    \vec{u}=0.6766e^{j(\omega t-k_xx-k_yy)}=0.6766e^{j(2\pi(100000)t-367.4x-212.13y)} \\
+    \fbox{$\vec{u}=0.6766e^{j(628318.5t-367.4x-212.13y)}$}
+\end{align*}
+It would also be given in vector form as:
+\begin{align*}
+    \fbox{$\vec{u}=0.6766\left(\cos{30}\hat{x}+\sin{30}\hat{y}\right)$}
+\end{align*}
+
+\subsection*{(d)}
+See attached model pdf.
+
+\subsection*{(e)}
+Yes, there are waves at a 30$^{\circ}$ angle varying from -1 to 1 MPa.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw4fig1.png}
+\end{figure}
+
+\subsection*{(f)}
+Yes, the waves propagate towards the northeast. To make them move southwest, we would switch the sign of both components
+of $\hat{e}_k$.
+
+\subsection*{(g)}
+Based on the plot, one of the peaks goes from 15mm to 45mm, giving a wavelength of 30mm. This is exactly what was
+calculated in part b.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw4fig2.png}
+\end{figure}
+
+\subsection*{(h)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw4fig3.png}
+\end{figure}
+\subsubsection*{i.}
+There are arrows going both northeast and southwest. This makes sense as the particles should be oscillating in both
+directions along the angle of the plane wave and they are aligned with where wave fronts should be.
+
+\subsubsection*{ii.}
+The particles oscillate, flipping their velocity vectors between northeast and southwest.
+
+\subsection*{(i)}
+We can see the resultant plot is all one magnitude of 0.57735m/s. We determined the x direction should be
+$0.6766\cos{30}=0.586$ m/s. This is very close to the comsol value. Any difference in the value is due to using a
+different speed of sound and density for water. I used the book appendix values for part c, but used the simplified
+values from the hint document for the comsol model.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw4fig4.png}
+\end{figure}
+
+\section*{Problem 3}
+I thought this assignment was shorter and easier than previous ones. I enjoyed that. The study materials were very
+adequate. I felt like my notes from class were more than enough to understand everything and the hint sheet helped
+greatly with making comsol take less time.
+
+\includepdf[pages=-]{HW4comsol.pdf}
+
+\end{document}
