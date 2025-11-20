@@ -1,0 +1,95 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{BME6013C HW\#7}
+\date{11.20.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1}
+Since the 2D convolution was defined in the manner given, we can use the convolution theorem similarly to how we would
+for a 1D convolution.
+\begin{align*}
+    u(x,y)*v(x,y)=U(x', y')\cdot V(x', y')
+\end{align*}
+From our notes, we know the F.T. of a 2D gaussian. We can multiply to make them a Gaussian pulse then use the known F.T.:
+\begin{align*}
+    g(x,y)=\frac{2\pi\sigma_1^2}{2\pi\sigma_1^2}e^{-(x^2+y^2)/(2\sigma_1^2)}*\frac{2\pi\sigma_2^2}{2\pi\sigma_2^2}e^{-(x^2+y^2)/(2\sigma_2^2)} \\
+    U(x', y')\cdot V(x', y')=2\pi\sigma_1^2e^{-2\pi^2\sigma_1^2(x'^2+y'^2)}\cdot 2\pi\sigma_2^2e^{-2\pi^2\sigma_2^2(x'^2+y'^2)} \\
+    U(x', y')\cdot V(x', y')=(2\pi)^2\sigma_1^2\sigma_2^2e^{-2\pi^2(\sigma_1^2+\sigma_2^2)(x'^2+y'^2)}
+\end{align*}
+Now to get $g(x,y)$ we can take the inverse 2D F.T. of this result. We can see that it resembles the F.T. of a guassian
+pulse with some scaling, so we can separate the scale factor and take the inverse F.T. with the known definition for a
+2D gaussian pulse.
+\begin{align*}
+    U(x', y')\cdot V(x', y')=(2\pi)^2\sigma_1^2\sigma_2^2e^{-2\pi^2(\sigma_1^2+\sigma_2^2)x'^2}e^{-2\pi^2(\sigma_1^2+\sigma_2^2)y'^2} \\
+    g(x, y)=\mathcal{F}^{-1}[U(x', y')\cdot V(x', y')]=(2\pi)^2\sigma_1^2\sigma_2^2\frac{e^{-(x^2+y^2)/2(\sigma_1^2+\sigma_2^2)}}{2\pi(\sigma_1^2 + \sigma_2^2)}
+\end{align*}
+Therefore:
+\begin{align*}
+    \fbox{$g(x,y)=\frac{2\pi\sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}e^{\frac{-(x^2+y^2)}{2(\sigma_1^2+\sigma_2^2)}}$}
+\end{align*}
+
+\section*{Part 2}
+First, we will start with the definition for $g[m,n]$ and sub in $m+M$ and $n+N$.
+\begin{align*}
+    g[m+M,n+N]=\frac{1}{MN}\sum_{p=0}^{M-1}\sum_{q=0}^{N-1}e^{j\pi(m+M)p/M}e^{j\pi(n+N)q/N}G[p,q]H[p,q] \\
+    g[m+M,n+N]=\frac{1}{MN}\sum_{p=0}^{M-1}\sum_{q=0}^{N-1}e^{j\pi mp/M}e^{j\pi p}e^{j\pi nq/N}e^{j\pi q}G[p,q]H[p,q]
+\end{align*}
+We know that $p$ and $q$ are integers, which means the two terms $e^{j\pi p}$ and $e^{j\pi q}$ will always be integer
+multiple of $e^{j\pi}=-1$. We can subsitute in $-1$ for both of those terms, giving:
+\begin{align*}
+    g[m+M,n+N]=\frac{1}{MN}\sum_{p=0}^{M-1}\sum_{q=0}^{N-1}e^{j\pi mp/M}(-1)e^{j\pi nq/N}(-1)G[p,q]H[p,q]
+\end{align*}
+We can see that this simplifies to $1$, and therefore $g[m+M, n+N]$ has the same expression as our original definition
+for $g[m, n]$.
+\begin{align*}
+    g[m+M,n+N]=\frac{1}{MN}\sum_{p=0}^{M-1}\sum_{q=0}^{N-1}e^{j\pi mp/M}e^{j\pi nq/N}G[p,q]H[p,q]=g[m, n]
+\end{align*}
+
+\section*{Part 3}
+The power spectrum is simply the F.T. of the autocorrelation function. We will use the integral definition of the F.T.:
+\begin{align*}
+    \mathcal{F}[r_{gg}(\tau)]=\int_{-\infty}^{\infty}e^{-j2\pi f\tau}(1-|\tau|)d\tau
+\end{align*}
+We know that the integral is only defined for $\tau=-1\rightarrow1$, but since it is the absolute value of $\tau$, we
+can say the integral is:
+\begin{align*}
+    \mathcal{F}[r_{gg}(\tau)]=2\int_{0}^{1}e^{-j2\pi f\tau}(1-\tau)d\tau \\
+\end{align*}
+We know that $e^{-j2\pi f\tau}$ will only have real numbers:
+\begin{align*}
+    \mathcal{F}[r_{gg}(\tau)]=2\int_{0}^{1}\cos{(2\pi f\tau)}(1-\tau)d\tau=
+    2\int_{0}^{1}\cos{(2\pi f\tau)}d\tau-2\int_{0}^{1}\tau\cos{(2\pi f\tau)}d\tau \\
+    =2\left[\frac{\sin{(2\pi f\tau)}}{2\pi f}\right]_0^1-2\left[\frac{\tau\sin{(2\pi f\tau)}}{2\pi f}|_0^1
+    -\frac{1}{2\pi f}\int_{0}^{1}\sin{(2\pi f\tau)}d\tau\right] \\
+    =2\left(\frac{\sin{(2\pi f)}}{2\pi f}\right)-2\left[\frac{\sin{(2\pi f)}}{2\pi f}
+    -\frac{1}{2\pi f}\frac{-\cos{(2\pi f\tau)}}{2\pi f}|_0^1\right] \\
+    =2\left(\frac{\sin{(2\pi f)}}{2\pi f}\right)-2\left[\frac{\sin{(2\pi f)}}{2\pi f}-
+    \left(\frac{-\cos{(2\pi f)}}{(2\pi f)^2}-\frac{-1}{(2\pi f)^2}\right)\right] \\
+    =-2\left(\frac{\cos{(2\pi f)}-1}{(2\pi f)^2}\right)
+\end{align*}
+We can use the trig half-angle identities to get a sinc function:
+\begin{align*}
+    \sin^2{(\pi f)}=\frac{1-\cos{2\pi f}}{2} \\
+    s_{gg}(f)=4\left(\frac{1-\cos{(2\pi f)}}{2(2\pi f)^2}\right)=4\frac{\sin^2{(\pi f)}}{(2\pi f)^2}
+    =\frac{4\sin^2{(\pi f)}}{4(\pi f)^2} \\
+    s_{gg}(f)=\left(\frac{\sin{(\pi f)}}{\pi f}\right)^2
+\end{align*}
+We can see the result is a sinc function squared. Gaussian
+white noise has a flat power spectra, and its autocorrelation function is a sinc. This signal has a power
+spectrum that is a sinc squared. Gaussian white noise is an incredibly random signal with lots of high frequency content
+since it has power content across all frequencies evenly. However, the signal we measured should be much smoother. Since
+the power spectrum is a sinc and not a flat line, it is essentially like a low-passed version of the gaussian white
+noise. It should be a random signal in the time-domain, but appear much smoother since the high-frequency is attenuated.
+
+\end{document}
