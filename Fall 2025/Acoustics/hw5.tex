@@ -1,0 +1,218 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+\usepackage{pdfpages}
+
+\title{MECH6066 HW\#5}
+\date{11.17.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1}
+\subsection*{(a)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig1.png}
+\end{figure}
+
+\subsection*{(b)}
+From the plot, it appears the critical angle is 60$^{\circ}$. We can verify this analytically from:
+$\sin{\theta_c}=\frac{c_1}{c_2}$. We will do this in matlab to determine the critical angle and we get that
+\fbox{$\theta_c=61.12^{\circ}$}.
+
+\subsection*{(c)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig2.png}
+\end{figure}
+
+\subsection*{(d)}
+At normal incidence ($\theta_i=0^{\circ})$, \fbox{$\bar{R}=0.398$ and $\bar{T}=1.398$}.
+
+\subsection*{(e)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig3.png}
+\end{figure}
+
+\subsection*{(f)}
+We can determine the Brewster angle based on the plot in part e. The brewster angle will be at 100\% transmission, so
+our reflected intensity coefficient would be 0. We can see that since this does not happen, there is no brewster angle
+for this combination of materials.
+
+\section*{Problem 2}
+\subsection*{(a)}
+See attached model.
+
+\subsection*{(b)}
+Yes, there are downwards moving waves and a standing wave in the water. The transmitted wave is roughly 1.4~Pa, so it
+matches very closely to previous calculations.
+
+\subsection*{(c)}
+When plotting just ps, we can see that the reflected wave is rougly 0.4~Pa in amplitude which is exactly what we
+calculated previously.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig4.png}
+\end{figure}
+
+\subsection*{(d)}
+We can see that the amplitude does not vary since there is just a wave transmitted into the sand and no standing wave to
+change the amplitude.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig5.png}
+\end{figure}
+
+\subsection*{(e)}
+We can see that the reflected pressure does match what is expected (roughly 0.5~Pa).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig6.png}
+\end{figure}
+We can see that the amplitude still does not vary vertically, and shouldn't because it is still just transmitted
+pressure into the quartz sand not a standing wave.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig7.png}
+\end{figure}
+
+\subsection*{(f)}
+The waves in the sand move only in the x direction. I believe these would be transverse waves. The amplitude does vary
+in the vertical direction but I believe this is due to artifacts in the simulation, not a physical phenomenon.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/hw5fig8.png}
+\end{figure}
+
+\section*{Problem 3}
+\subsection*{(a)}
+See attached model.
+
+\subsection*{(b)}
+The generated waves can be approximated as spherical. The wavelength of the generated sound will be 0.343~meters and the
+largest dimension of the speaker geometry is only 0.02~meters, which should be small enough compared to the wavelength
+to approximate the generated wave as spherical.
+
+\subsection*{(c)}
+Evaluating at the far right side of the domain gave an amplitude of 0.007~Pa at 1~m, which means
+\fbox{$A=0.007$ Pa$\cdot$m}
+
+\subsection*{(d)}
+\begin{align*}
+    I=re\{0.5\cdot p\cdot u^*\} \\
+    I=re\{\frac{p}{2}\left[\frac{1}{Z_0}\left(1 + \frac{1}{jkr}\right)p\hat{r}\right]^*\}
+\end{align*}
+The exponential terms will now cancel out since one is a conjugate, and because we are taking only the real any
+remaining j terms disappear.
+\begin{align*}
+    I=\frac{|A|}{2r}e^{j(\omega t-kr)}\frac{1}{Z_0}\frac{|A|}{r}e^{-j(\omega t-kr)}\hat{r} \\
+    I=\frac{|A|}{2r}\frac{1}{Z_0}\frac{|A|}{r}\hat{r}
+\end{align*}
+\begin{align*}
+    \fbox{$I=\frac{|A|^2}{2Z_0r^2}\hat{r}$}
+\end{align*}
+We can see that the intensity goes down relative to the radius squared as we move farther away.
+
+\subsection*{(e)}
+\begin{align*}
+    I=\frac{|A|^2}{2Z_0r^2}=\frac{0.007^2}{2(343\cdot1.15)}=6.2e-8W/m^2 \\
+    SIL = 10\log_{10}{\left(I/I_{ref}\right)}=10\log_{10}{(6.2e-8/10^{-12})}=\fbox{$SIL=48dB$}
+\end{align*}
+I get an SPL of just under 48~dB from the comsol model, so the approximation is very accurate.
+
+\subsection*{(f)}
+\begin{align*}
+    W = I4\pi a^2=\frac{|A|^2}{2Z_0r^2}4\pi a^2=\frac{2\pi|A|^2}{Z_0}=\fbox{$7.8e-7W$}
+\end{align*}
+The power does not depend on the distance. The intensity depends on the distance, but the power equation simplifies to
+not have any radius term in it, so it depends only on the amplitude of the pressure and the impedance.
+
+\subsection*{(g)}
+The comsol model reports a power of $8.3e-7$~W, whereas I calculated a power of $7.8e-7$~W. These values do differ
+slighlty, but are fairly close. I believe the difference in value comes from the spherical assumption. The spherical
+assumption for the analytical value assumes a spherical source at 0, 0. Our comsol model is slightly offset from that
+and has a linear moving source instead of a single breathing point, so it makes sense that comsol would calculate a
+higher power. At some points, the sound generating surface is closer to the edge of the domain than it would be for the
+spherical approximation, and the pressure wave generated is larger since it has some length to it.
+
+\subsection*{(h)}
+I would not assume the waves are spherical. The wavelength would go down to 0.03~m, which is only slightly bigger than
+the radius of the speaker, so it is probably not a large enough difference to be considered spherical.
+
+\section*{Problem 4}
+My only change for this assignment would be less comsol work. I think this assignment is well-structured and helpful for
+understanding some of the concepts. However, I sometimes have issues where comsol is a little clunky or confusing and I
+waste time troubleshooting comsol instead of getting valuable insights.
+
+\section*{Problem 1 Matlab}
+\begin{verbatim}
+clear variables; close all;
+
+% define properties from appendix
+rhoSW = 1026;
+cSW = 1500;
+ZSW = 1.54e6;
+rhoQS = 2070;
+cQS = 1730;
+ZQS = 3.58e6;
+
+%% Part A
+% set range of angles to check
+thetai = -90:1:90;
+
+% calculate xmission angle for each
+thetat = asind(cQS/cSW.*sind(thetai));
+
+% plot results
+figure
+plot(thetai, thetat)
+xlim([thetai(1) thetai(end)]); xlabel("Incident Angle (deg)")
+ylim([-100 100]); ylabel("Transmission Angle (deg)")
+grid on
+
+%% Part B
+% calc critical angle
+thetac = asind(cSW/cQS);
+
+%% Part C
+% calc reflection coef (magnitude)
+Rbar = abs((ZQS./cosd(thetat) - ZSW./cosd(thetai))./(ZQS./cosd(thetat) + ZSW./cosd(thetai)));
+
+% calc xmission coef (magnitude)
+Tbar = abs(2*(ZQS./cosd(thetat))./(ZQS./cosd(thetat) + ZSW./cosd(thetai)));
+
+% plot results
+figure
+hold on
+plot(thetai, Rbar); plot(thetai, Tbar)
+hold off
+xlim([thetai(1) thetai(end)]); xlabel("Incident Angle (deg)")
+ylim([0 2.5]); ylabel("Pressure Coefficient")
+legend(["Reflected", "Transmitted"])
+grid on
+
+%% Part D
+% calculate reflection intensity coeff
+RI = Rbar.^2;
+
+% plot
+figure
+plot(thetai, RI)
+xlim([thetai(1) thetai(end)]); xlabel("Incident Angle (deg)")
+ylim([0 1.5]); ylabel("Reflected Intensity Coefficient")
+grid on
+\end{verbatim}
+
+\includepdf[pages=-]{HW5.2comsol.pdf}
+\includepdf[pages=-]{HW5.3comsol.pdf}
+
+\end{document}
