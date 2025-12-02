@@ -1,0 +1,532 @@
+\documentclass[12 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\usepackage{float}
+\usepackage[left=1in, right=1in]{geometry}
+
+\title{BME6013C Lab\#11}
+\date{12.02.25}
+\author{Slade Brooks \\ M13801712}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+As generative AI grows in popularity and capability, there are many opportunities for it to become a useful tool across
+many different disciplines. One possible application is medical imaging and data processing. Generative AI has the
+ability to generate convincing recreations of many types of images. It may even be capable of generating anatomically
+correct medical imagery that contains the relevant biological features for analyzing medical scans or developing tools
+for processing medical imagery. Furthermore, language models have shown significant use in generating code. This skill
+may prove useful for assisting engineers in developing programs and methodology for effectively processing images. \par
+This lab sought to explore the limitations of generative AI for medical imagery applications. The lab process employed a
+generative AI model, Microsoft Copilot, to generate some type of medical image. Multiple image processing and analysis
+techniques were then employed in an attempt to make the AI-generated image resemble a real medical image of the same
+region more closely. Attempting this process helps to better understand the current capability of a state-of-the-art
+generative AI to create accurate medical imagery and make changes to the images based on multiple sequential prompts, as
+well as to use AI as a coding assistant to help generate sample code for processing and analysis of the images. \par
+
+\pagebreak
+\section{Methods}
+\subsection{AI Image Generation}
+The first major technique employed for this lab was employing Microsoft Copilot generative AI and its image generation
+capabilities. It
+was decided to use a side-view x-ray of a human skull as the medical image to compare to. Figure~\ref{fig:real image}
+shows the real image that was selected to attempt to generate with AI.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/lab11real.jpg}
+    \caption{Real medical image of a side-view x-ray of a human skull.}
+    \label{fig:real image}
+\end{figure}
+First, a very simple prompt was used, giving no additional information or instruction past ``generate an image of human
+skull x-ray side view''. Since the resulting image was fairly similar to the real image, focus was shifted to making
+small adjustments to better match the real image. The generated image appeared to be largely anatomically correct with
+some minor errors. The firt important change was to attempt to match the head tilt angle so the images could be a better
+1:1 comparison. As seen in Appendix~\ref{sec:ai}, multiple prompts were used trying to make small adjustments to the
+chin tilt angle, but the AI would overcorrect and oscillate between a chin position too high and too low. These attempts
+were abandoned after a few tries. However, during this process, the AI decided to add labels to various features,
+totally unprompted. The labels were also incorrect. The next prompt removed the labels. Lastly, an attempt was made to
+match the cropping of the real image. All of the AI-generated images contained the shoulders and upper chest, whereas
+the real image only covered four vertebra. However, the AI was unable to crop the image. It appeared to want to generate
+an image in the same aspect ratio every time, and would have been unable to crop to the desired size without changing
+this. This attempt was also abandoned after one try, as it was clear the AI would be unable to achieve this.
+Figure~\ref{fig:ai image} shows the final AI image to be used for the analysis and processing.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{jpeg.jpg}
+    \caption{AI-generated image of a side-view x-ray of a human skull.}
+    \label{fig:ai image}
+\end{figure}
+
+\subsection{Image Analysis Techniques}
+The first main image analysis technique employed was histogram analysis. Histogram analysis allows for a visualization
+of the color distribution of the image. This can show important features of the images and the differences between them.
+Histogram analysis can make it clear where major differences are occuring by understanding the distribution and amount
+of each color in an image. Furthermore, histograms are valuable for image segmentation. While segmenting an image can be
+done with guess-and-check methods, a histogram can help inform the guesses so less time is required to determine how to
+segment the image. Matlab makes histogram analysis of an image incredibly simple. Matlab's \verb|histogram| function
+accepts an image input and multiple options to generate a histogram of an image. For analysis in this lab, a
+normalized probability distribution histogram with 256 levels was used. This setting matches the 256-level grayscale
+colormap used for both images and allows for them to be directly compared since both are normalized. The resulting
+histogram plots were analyzed to understand the color content of both images, but primarily informed segmentation
+values. The histogram provided information about what values to select as background, tissue, or other features and what
+value to set them to during the processing steps. \par
+The other analysis technique employed was Fourier analysis. Taking a 2-D digital Fourier transform (DFT) or a 1-D DFT on
+a slice of the image provides valuable information about the differences between them. For example, if a DFT shows more
+high-frequency content in one image compared to the other, it becomes clear that a low-pass filter will make the images
+more similar. In order to compare two different-sized images, a size-normalization technique was used. The generative AI
+was queried about methods for comparing two images with vastly different resolution. The most promising technique was to
+normalize the dimensions to a known feature and take separate DFTs on each image based on the resulting spatial
+frequencies. Appendix~\ref{sec:ai} shows sample code that was generated by AI, then modified and implemented in the
+Matlab processing script to compute 1- and 2-D DFTs of the images that could be directly compared. This method
+normalizes the pixel size of both images to an average skull width, and scales by the size step for plotting so all DFTs
+are displayed along the same range of normalized spatial frequencies. The 1-D DFTs used were computed on slices of the
+image. This was used in conjunction with the 2-D DFTs to provide additional information. While the 2-D DFT shows more
+information, it can be unintuitive to analyze to make processing decisions. Thus, 1-D DFT ``slices'' were used at some
+points to better visualize the differences between the images and make filter selections. \par
+
+\subsection{Image Processing Techniques}
+The first image processing technique used was image segmentation. As discussed previously, the histogram analysis
+provided incredibly useful for segmenting the AI image. By analyzing the histogram and the image visually, it was
+possible to determine what values correspond to which anatomical parts of the image. First, the tissue was removed and
+set to be equal to the background color since there was no tissue visible in the real image. Then, a spot correction was
+applied to a section where a nonexistent bone was seen on the AI image. This section of pixels was also set to the
+background color. All segmentation was done with Matlab boolean matrices and operations (mainly and, not, and or). \par
+The other processing technique used was a simple Gaussian filter. As seen in Appendix~\ref{sec:ai}, Copilot was
+referenced for advice on implementing a Gaussian filter. The sample code provided was not used, but it did lead to a
+documentation exploration that uncovered a convenient implementation. Matlab has a built-in Gaussian filter function for
+images, \verb|imgaussfilt|, that accepts a filter strength input. This strength was manually tuned to make a 1-D DFT
+slice match as close as possible between the AI image and original image. The filtering was applied to the image after
+segmentation. Some more complex filtering operations were attempted, but the best results came from just a simple
+Gaussian low-pass filter applied to the whole image, not from applying different filters to different segmented image
+parts. \par
+
+\pagebreak
+\section{Results}
+\subsection{Histogram Analysis}
+The first major analysis completed was a histogram analysis of both images. Figure~\ref{fig:hist} shows the normalized
+probability histogram of the real medical image and the original AI image.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/hist.png}
+    \caption{Normalized probability histogram of the real and AI-generated images.}
+    \label{fig:hist}
+\end{figure}
+It was clear from visual inspection that there was significant difference between the two images in terms of the color
+distribution. The AI image seemed to be much brighter and have a much more gradual change in its colors. This was
+confirmed in the histogram. Firstly, it can be seen that there is a much higher level of mid-low dark (0.05--0.3) in the
+AI image versus the real image. The AI image also appears to have slightly more content in the brighter color range.
+Overall, the AI image appears to have a relatively flat color content across the majority of the spectrum. This is not
+surprising as visual inspection of the image shows a large amount of noise, and perfect white noise should have equal
+content at all colors.
+Furthermore, a large difference in the background can be observed. The real image has a very concentrated background
+color of almost 0, making up over 40\% of the histogram and all concentrated at one color. The AI image, conversely, has
+a broad range of background values that spans a significant portion of the dark colors. This is not surprising as the AI
+image contains tissue that is close to the background color and fades into the background smoothly, whereas the real
+image has no tissue and a sharp change between the actual content of the x-ray and the background.
+
+\subsection{Fourier Analysis}
+Both 1-D and 2-D DFT analysis was performed on the real and AI image. First, Fig.~\ref{fig:1ddft} shows the 1-D DFT in
+the x-direction across the skull just barely above the eyes.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figs/1ddft.png}
+    \caption{1-D DFT in the x-direction above the eye socket in the real image and AI image.}
+    \label{fig:1ddft}
+\end{figure}
+It can be seen that the AI image has a Fourier transform similar to that of Gaussian white noise. This makes sense as
+visual inspection of the image shows that it clearly has very high noise levels across every feature. This is in stark
+contrast to the real image, which has no visible noise and shows a power spectrum that is a fairly constant decrease
+across the spatial frequency range. Further analysis was completed via a 2-D DFT, shown in Fig.~\ref{fig:2ddft}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/2ddft.png}
+    \caption{2-D DFT of the (left) real image and (right) AI image.}
+    \label{fig:2ddft}
+\end{figure}
+There are several clear differences between the two images. Firstly, the total frequency content. It is clear that the
+real image has very little frequency content above a normalized spatial frequency of 0.4. The AI image, however, has
+frequency content all the way to the edge of the normalized spatial frequency range. Again, this follows with the
+visible noise in the image. The central frequency content is fairly similar. Both images have some interesting lobes
+with similar magnitude and shape at the center. However, the real image has much large lobes in a slightly different
+pattern that cover a larger portion of the spatial frequency spectrum. The AI image has some lobes, but they are much
+smaller and it does not have all the visible lobes that the real image does. This will partially be due to the
+oritentation of the skull in the image, so it is not surprising that there is some difference in the lobe directions.
+However, significant differences are caused by differences in the anatomical structure in each image. Finally, the AI
+image has a large blank ring at the mid-frequencies. While the real image has very high frequency content in the center
+that somewhat linearly falls off as you move further out, the AI image has very high content in the center, then very
+low content at mid-frequencies, then very high content at high-frequencies.
+
+\subsection{Image Processing}
+The first major processing technique was image segmentation. First, the histogram was used to determine the background
+and tissue. These were combined and set to the same value as the background had in the real image. The edges were also
+selected, but were not processed separately. During this process, a spot correction was also applied as described in the
+Image Processing Techniques. Figure~\ref{fig:segment} shows the real image, the original AI image after manual cropping,
+and the segmented AI image.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/segmenting.png}
+    \caption{2-D DFT of the (left) real image, (middle) cropped AI image, and (right) segmented AI image.}
+    \label{fig:segment}
+\end{figure}
+The edges were set to the maximum value to be as bright as possible. \par
+Next, a Gaussian low-pass filter was applied to the segmented image using the Matlab \verb|imgaussfilt|. The value of
+$\sigma$ was manually tuned to have the 1-D DFT of the AI image match the 1-D DFT of the real image as closely as
+possible. Figure~\ref{fig:f1ddft} shows the result of the best $\sigma$ value determined, $\sigma=0.85$ for the same
+slice previously analyzed with Fourier analysis. \par
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figs/f1ddft.png}
+    \caption{1-D DFT in the x-direction above the eye socket in the real image, original AI image, and the filtered AI image.}
+    \label{fig:f1ddft}
+\end{figure}
+It can be seen that the low-pass filter had a significant impact on the similarity of the spectra. The filtered AI image
+now has a much more similar rolloff at higher spatial frequency, and appears less similar to Gaussian white noise. This
+is a significant improvement. Further analysis can be done with the 2D DFTs shown in Fig.~\ref{fig:f2ddft}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/f2ddft.png}
+    \caption{2-D DFT of the (left) real image, (middle) original AI image, and (right) filtered AI image.}
+    \label{fig:f2ddft}
+\end{figure}
+It is clear that the Gaussian low-pass filter significantly improved the overall similarity between the DFTs of the real
+image and the AI image. The original AI image had lots of high-frequency content and a gap in the mid-frequencies. The
+filtered image has this high-frequency content removed and its overall magnitude matches the real image 2-D DFT much
+closer. However, this did not fix the differences in the lobes. The lobes are still somewhat visible, but have become
+mostly blurred into the surrounding frequency content. Overall, the low-pass filter has made a significant improvement
+in the similarity of the images. Figure~\ref{fig:final} shows the real medical image, the original AI image after being
+cropped, and the final AI image with segmenting and filtering. \par
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/filtering.png}
+    \caption{The (left) real image, (middle) original AI image, and (right) final AI image.}
+    \label{fig:final}
+\end{figure}
+Figure~\ref{fig:fhist} shows the final histogram for each of the images. Clearly, the changes had a major impact on the
+histogram similarity between the real image and the final AI image.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/fhist.png}
+    \caption{Normalized probability histogram of the real, AI-generated, and filtered AI images.}
+    \label{fig:fhist}
+\end{figure}
+The segmenting successfully fixed the spread-out background values that the original AI image had by fixing the
+background values and removing the tissue. It appears that the filtering helped adjust the total color content to better
+match the real image as well. The shape of the color content throughout the majority of the histogram matches closely
+between the final image and the real image, and no longer resembles the expected white noise histogram. The final
+histogram comparison and 2-D DFT shows that while some differences in anatomical structure are present, the filtering
+and segmenting largely corrected the differences between the AI image and the real image. \par
+The final AI-generated image is fairly similar to the real medical image. Firstly, the bulk of the skull is missing
+detail that is present in the real image, but appears to be a good approximation of the general content and shape there.
+Most of the large features are preserved. The mess near the ear, the thickness and shape of the edge of the skull, the
+tooth and jaw shape, and vertebra shape all appear to match very closely, specially after the processing. The largest
+anatomical difference is behind the eyes. The real image shows much information in that region, but it became mostly
+empty after the filtering on the AI image. This may be because the AI is trying to represent a different section of the
+head, but is likely just incorrect anatomical generation. This was unable to be remedied with the filtering. Overall,
+the final AI image appears to be a very good anatomical approximation of the real medical image, showing almost all of
+the same features with very similar shape, color magnitude, and proportions. \par
+
+\pagebreak
+\section{Discussion/Conclusion}
+Both image analysis techniques used provided incredibly useful. The histogram analysis provided helpful information for
+informing the segmenting process, leading to much less guess-and-check. Matlab's implementation was incredibly easy to
+use. The Fourier analysis was also an invaluable tool. Understanding the frequency content of both images and how they
+differed allowed for specifically targeting problem areas and making effective decisions to adjust the image. Taking a
+1-D slice instead of a full 2-D transform also allowed for some ease of analysis when tuning the filter, and proved to
+be accurate enough for the entire 2-D spectra. \par
+Image segmentation was a very useful technique. It can be seen that the segmenting to remove the tissue, fix the
+background color, and spot-correct an artifact were all imperative to making the image match more closely. We can see in
+the original histogram that there was significant difference between the AI and real image, but largely due to the
+segmenting changes, these were remedied in the final version of the image. The comination of the histogram analysis and
+the image segmenting was a valuable piece in the processing technique. The low-pass filter was also vital. The AI image
+clearly has extremely high noise levels. While doing a median filter may address the problems, it was clear that a
+tunable low-pass filter would be able to be tuned to match the spectrum more accurately. Matlab's built-in functionality
+made this process easy, and manually tuning the filter while using the Fourier analysis to examine the DFT of a slice of
+the image allowed for quickly determining a good filter strength. It was clear from the final 2-D DFT of the image that
+the low-pass filter, after being applied to the segmented image, significantly improved the similarity of the images.
+\par
+Some clear limitations are found in employing these techniques. Firstly, since the AI image has so much noise,
+segmenting it can be difficult. While clear segments do exist, it is nearly impossible to segment the original image
+perfectly. This may be fixed by applying the low-pass filter first, then segmenting, then applying more filters, but
+that does lose some detail and may remove features or make segmenting harder in some cases. Furthermore, while the
+Fourier analysis can provide useful information, it is not possible to exactly match the DFT of the real image through
+only processing. As seen in the results, there are many lobes in the real image DFT that likely represent various
+anatomical features in the image. These lobes are not all present in the AI image. Without employing the AI to generate
+new information into the image, there is little that can be done through filtering to add in features where they should
+be. Some erosion or filling may be useful to help replace some missing information, but it is not possible to add
+anatomically-correct features with the processing, only approximations of them. \par
+Generative AI clearly has some capabilities and limitations in biomedical image processing. Firstly, it is quite capable
+of generating reasonably accurare medical images. While some prompts of more difficult images do not function well,
+basic x-ray images can be generated fairly accurately with minimally-descriptive prompts. One major limitation of the
+generation fo the images is the stubbornness of the AI. Once it has generated an image, it is quite difficult to get it
+to make major changes or add real features. It also tends to add features that were not requested, such as the labels it
+added in one of the prompts. This can be seen in Appendix~\ref{sec:ai}, where one of the prompts resulted in a labeled
+image despite containing no instruction to add such features. The AI showed much capability in terms of processing
+images. As expected, it is quite competent at code generation. The sample code it generated was able to be implemented
+almost drag-and-drop from minimally descriptive prompts. The final Matlab code, shown in Appendix~\ref{sec:code},
+contains snippets from the AI that were adapted to work with human-writted code. It also provided valuable brainstorming
+support for methods to compare images. \par
+Overall, generative AI shows much promise in biomedical signal and image processing. While its limitations can make it
+clunky to use and prevent it from generating truly accurate medical imagery, it seems to generate images that are
+``close enough'' to real medical imagery for various applications. Learning signal and image processing could be done
+with AI-generated images. There also may be applications for developing processing tools. While the AI appears capable
+of generating processing code on its own, it also may have an application in using AI-generated medical images to assist
+humans in developing code or processes for processing real medical imagery without needing real imagery to work on such
+codes. AI will likely serve as a valuable support tool for biomedical engineers attempting to process medical imagery in
+the coming years. \par
+
+\pagebreak
+\section{Appendix} \label{sec:appendix}
+\subsection{Copilot Prompts} \label{sec:ai}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142108.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142116.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142126.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142136.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142145.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142154.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142203.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142212.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142221.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142229.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142239.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142249.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{figs/Screenshot 2025-12-02 142300.png}
+\end{figure}
+\subsection{Matlab Code} \label{sec:code}
+\begin{verbatim}
+%%
+% Slade Brooks
+% brooksl@mail.uc.edu
+% 11.19.25
+% BME6013C
+% Lab 11
+
+clear variables
+close all
+
+%% read in both images
+% set image url
+imageURL = "https://media.istockphoto.com/id/465885010/photo/human-skull-x-ray-image.jpg?s=612x612&w=0&k=20&c=ePoyTJ-x1lgr5Gj2xG49HymniOX1ibOm4jX-CA20PPg=";
+
+% read in image, convert to grayscale
+I = im2double(max(webread(imageURL), [], 3));
+AI = im2double(max(imread("jpeg.jpg"), [], 3));
+
+% plot image to verify
+figure();
+subplot(1, 2, 1)
+imshow(I); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+subplot(1, 2, 2); imshow(AI); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+
+% fix cropping of images to be more similar
+I = I(10:500,25:end-25);
+AI = AI(50:1059,:);
+figure();
+subplot(1, 2, 1)
+imshow(I); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+subplot(1, 2, 2); imshow(AI); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+
+%% Part 3
+%%% compute histograms of both images
+figure()
+hold on
+histAI = histogram(AI, 256, "Normalization","probability");
+histI = histogram(I, 256, "Normalization","probability");
+hold off
+legend(["AI Image" "Real Image"])
+xlim([0 1]); grid on; %ylim([0 1]);
+colormap(gray);
+c = colorbar('southoutside'); c.TickLabels = []; c.Ticks = [];
+
+% plot zoomed in version
+figure()
+hold on
+histAI = histogram(AI, 256, "Normalization","probability");
+histI = histogram(I, 256, "Normalization","probability");
+hold off
+legend(["AI Image" "Real Image"])
+xlim([0 1]); grid on; ylim([0 0.05]);
+colormap(gray);
+c = colorbar('southoutside'); c.TickLabels = []; c.Ticks = [];
+
+%%% compute spatial freq content of each image
+% get size of images
+NIx = size(I, 2);
+NIy = size(I, 1);
+NAIx = size(AI, 2);
+NAIy = size(AI, 1);
+
+% set physical dimension and correct
+skW_cm = 18;       % Physical skull width in cm (example)
+skW_px_AI = 914 - 16;     % Skull width in pixels for AI image
+skW_px_I = 458 - 33;
+pixelSize_cm_AI = skW_cm/skW_px_AI;
+pixelSize_cm_I = skW_cm/skW_px_I;
+dxAI = pixelSize_cm_AI;
+dyAI = pixelSize_cm_AI;
+dxI = pixelSize_cm_I;
+dyI = pixelSize_cm_I;
+
+% set up frequency vectors based on spatial
+umaxAI = 1/(2*dxAI);
+vmaxAI = 1/(2*dyAI);
+umaxI = 1/(2*dxI);
+vmaxI = 1/(2*dyI);
+duAI = 1/(NAIx*dxAI);
+dvAI = 1/(NAIy*dyAI);
+duI = 1/(NIx*dxI);
+dvI = 1/(NIy*dyI);
+uAI = -umaxAI:duAI:umaxAI - duAI;
+vAI = -vmaxAI:dvAI:vmaxAI - dvAI;
+uI = -umaxI:duI:umaxI - duI;
+vI = -vmaxI:dvI:vmaxI - dvI;
+
+% now do the dft of a similar slice through the skull and the normalized 2D
+% fft of each image
+F_I = fftshift(abs(fft(I(125,:))))/max(abs(fft(I(125,:))), [], "all");
+F_AI = fftshift(abs(fft(AI(245,:))))/max(abs(fft(AI(245,:))), [], "all");
+F2_I = fftshift(abs(fft2(I)))/max(abs(fft2(I)), [], "all");
+F2_AI = fftshift(abs(fft2(AI)))/max(abs(fft2(AI)), [], "all");
+
+% plot FFTs
+figure()
+hold on
+plot(uI*dxI, 20*log10(F_I));
+plot(uAI*dxAI, 20*log10(F_AI)); grid on;
+hold off
+xlim([-0.5 0.5]); ylim([-80 0]);
+xlabel("Spatial Frequency in x (u, cycles/cm)"); ylabel("Amplitude (dB)");
+legend(["Real Image" "AI Image"]);
+
+% plot 2D ffts
+figure()
+subplot(1, 2, 1); imagesc(uI*dxI, vI*dyI, 20*log10(F2_I)); axis image; colormap gray; clim([-80 0]); c = colorbar; c.Label.String = "Amplitude (dB)";
+xlabel("Spatial Frequency in x * Pixel Size (u*dx)"); ylabel("Spatial Frequency in y * Pixel Size (v*dy)");
+subplot(1, 2, 2); imagesc(uAI*dxAI, vAI*dyAI, 20*log10(F2_AI)); axis image; colormap gray; clim([-80 0]); c = colorbar; c.Label.String = "Amplitude (dB)";
+xlabel("Spatial Frequency in x * Pixel Size (u*dx)"); ylabel("Spatial Frequency in y * Pixel Size (v*dy)");
+
+%% Part 4
+%%% first segment out tissue and remove
+% tune to find tissue and set it as background
+background = AI<20/255;
+tissue = ~background & AI<125/255;
+background = background | tissue;
+edges = ~tissue & ~background & AI>225/255;
+AI1 = AI;
+AI1(background) = (0.997 + 1.994)/2/255;
+AI1(edges) = 255/255;
+rest = ~background & ~edges;
+
+% spot correct weird artifact
+AI1(909:1000,522:583) = 0;
+
+% plot result
+figure();
+subplot(1, 3, 1)
+imshow(I); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+subplot(1, 3, 2)
+imshow(AI); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+subplot(1, 3, 3); imshow(AI1); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+
+%%% gaussian low pass filter
+% use matlab built-in 2d gaussian filter
+sigma = 0.85;
+AIfilt = imgaussfilt(AI1, sigma);
+
+% plot result
+figure();
+subplot(1, 3, 1)
+imshow(I); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+subplot(1, 3, 2)
+imshow(AI); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+subplot(1, 3, 3); imshow(AIfilt); axis image;
+xlabel("x (px)"); ylabel("y (px)"); colorbar;
+
+% plot FFTs
+figure()
+hold on
+F_AIfilt = fftshift(abs(fft(AIfilt(245,:))))/max(abs(fft(AIfilt(245,:))),[],"all");
+plot(uI*dxI, 20.*log10(F_I));
+plot(uAI*dxAI, 20.*log10(F_AIfilt));
+plot(uAI*dxAI, 20.*log10(F_AI));
+grid on;
+hold off
+xlim([-0.5 0.5]); ylim([-80 0]);
+xlabel("Spatial Frequency in x (u, cycles/cm)"); ylabel("Amplitude (dB)");
+legend(["Real Image" "Filtered AI Image" "Original AI Image"]);
+
+% plot 2D ffts
+F2_AIfilt = fftshift(abs(fft2(AIfilt)))/max(abs(fft2(AIfilt)),[],"all");
+figure()
+subplot(1, 3, 1); imagesc(uI*dxI, vI*dyI, 20*log10(F2_I)); axis image; colormap gray; clim([-80 0]); c = colorbar; c.Label.String = "Amplitude (dB)";
+xlabel("Spatial Frequency in x * Pixel Size (u*dx)"); ylabel("Spatial Frequency in y * Pixel Size (v*dy)");
+subplot(1, 3, 2); imagesc(uAI*dxAI, vAI*dyAI, 20*log10(F2_AI)); axis image; colormap gray; clim([-80 0]); c = colorbar; c.Label.String = "Amplitude (dB)";
+xlabel("Spatial Frequency in x * Pixel Size (u*dx)"); ylabel("Spatial Frequency in y * Pixel Size (v*dy)");
+subplot(1, 3, 3); imagesc(uAI*dxAI, vAI*dyAI, 20*log10(F2_AIfilt)); axis image; colormap gray; clim([-80 0]); c = colorbar; c.Label.String = "Amplitude (dB)";
+xlabel("Spatial Frequency in x * Pixel Size (u*dx)"); ylabel("Spatial Frequency in y * Pixel Size (v*dy)");
+
+% plot zoomed in version histogram
+figure()
+hold on
+histAI = histogram(AI, 256, "Normalization","probability");
+histI = histogram(I, 256, "Normalization","probability");
+histAIfilt = histogram(AIfilt, 256, "Normalization","probability");
+hold off
+legend(["AI Image" "Real Image" "Filtered AI Image"])
+xlim([0 1]); grid on; ylim([0 0.05]);
+colormap(gray);
+c = colorbar('southoutside'); c.TickLabels = []; c.Ticks = [];
+\end{verbatim}
+
+\end{document}
