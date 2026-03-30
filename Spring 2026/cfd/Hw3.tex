@@ -1,0 +1,40 @@
+
+$$
+\frac{\partial U}{\partial t}+\frac{\partial F}{\partial x}=0
+$$
+
+$$
+\frac{\partial}{\partial t}\begin{bmatrix}
+    \rho \\ u \\ p
+\end{bmatrix} + \begin{bmatrix}
+    u & \rho & 0 \\ 0 & u & 1/\rho \\ 0 & \gamma p & u
+\end{bmatrix}\frac{\partial}{\partial x}\begin{bmatrix}
+    \rho \\ u \\ p
+\end{bmatrix} = \begin{bmatrix}
+    0 \\ 0 \\ 0
+\end{bmatrix}
+$$
+
+$$
+\frac{U_i^{n+1}-U_i^n}{\Delta t}+\frac{F_i^n-F_{i-1}^n}{\Delta x}=0
+$$
+
+$$
+U_i^{n+1}=-\Delta t\frac{F_i^n-F_{i-1}^n}{\Delta x}+U_i^n
+$$
+
+$$
+\frac{\partial q}{\partial t}+J\frac{\partial q}{\partial x}=0
+$$
+
+$$
+\frac{U_i^{n+1/2}-U_i^n}{\Delta t}+\frac{F_{i+1}^n-F_i^n}{\Delta x}=0
+$$
+
+$$
+\frac{U_i^{n+1}-1/2\left(U_i^n+U_i^{n+1/2}\right)}{\Delta t}+\frac{F_i^{n+1/2}-F_{i-1}^{n+1/2}}{2\Delta x}=0
+$$
+
+$$
+\alpha\left(U_{i+1}^n-2U_i^n+U_{i-1}^n\right)
+$$
